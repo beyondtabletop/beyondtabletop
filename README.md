@@ -1,5 +1,9 @@
 # Beyond Tabletop
 
+Beyond Tabletop is an Angular web app and an online toolkit for RPG and D&D players. It provides character sheets, mapping tools, and campaign tools for free using Firebase. Below are instructions for how to set up and run your own local copy of Beyond Tabletop, which is handy if you're interested in contributing to its development.
+
+You can read more [development details about Beyond Tabletop on the GitHub wiki](https://github.com/beyondtabletop/beyondtabletop/wiki).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
 
 ## Development server
