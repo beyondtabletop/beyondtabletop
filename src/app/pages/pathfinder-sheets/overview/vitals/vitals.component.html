@@ -1,0 +1,40 @@
+<div class="overview-vitals-block">
+  <div class="flex-row-all flex-gutters-5 nav-clickable" (click)="self.methods.switchTab('combat')">
+    <div class="flex-col-3">HP:</div>
+    <div class="flex-col-9">
+      <strong>{{ self.methods.getHPRemaining() }}</strong>/<strong>{{ self.methods.getHPTotal() }}</strong>
+    </div>
+  </div>
+  <div class="flex-row-all flex-gutters-5 nav-clickable" (click)="self.methods.switchTab('combat')">
+    <div class="flex-col-3">AC:</div>
+    <div class="flex-col-9">
+      <strong>{{ self.methods.getTotalAC() }}</strong> (Touch: <strong>{{ self.methods.getTouchAC(self.model.combat.ac) }}</strong>, Flat: <strong>{{ self.methods.getFlatAC(self.model.combat.ac) }}</strong>)
+    </div>
+  </div>
+  <div class="flex-row-all flex-config-align-center flex-gutters-5">
+    <div class="flex-col">
+      <button class="inc-button g-neutral h36" (click)="self.methods.increment(self.model.combat.hp, 'damage', 1)"><i class="material-icons">remove</i></button>
+    </div>
+    <div class="flex-col">
+      <div class="hp-ring">
+        <div class="intrinsic">
+          <div class="hp-ring-box flex-row-all flex-config-centered">
+            <div class="text-center tp-5">
+              <div class="hp-current">{{ self.methods.getHPRemaining() }}</div>
+              <div class="hp-total">{{ self.methods.getHPTotal() }}</div>
+            </div>
+            <div class="hp-ring-circle">
+              <svg viewBox="-15 -15 230 230">
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z"></path>
+                <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" [attr.stroke-dashoffset]="self.methods.getHPRingValue()" [attr.stroke]="self.methods.HPRingColor()"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col">
+      <button class="inc-button g-neutral h36" (click)="self.methods.increment(self.model.combat.hp, 'damage', -1)"><i class="material-icons">add</i></button>
+    </div>
+  </div>
+</div>

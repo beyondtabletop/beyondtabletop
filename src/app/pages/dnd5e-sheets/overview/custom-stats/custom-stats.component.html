@@ -1,0 +1,9 @@
+<div class="overview-custom-stats-block">
+  <div class="nav-clickable" (click)="self.methods.switchTab('lists')">
+    <h3>{{ block.name }}</h3>
+    <div class="flex-row-all flex-gutters-10" *ngFor="let stat of self.methods.listCustomStats()">
+      <div class="flex-col-6"><span>{{ stat.name }}</span>:</div>
+      <div class="flex-col-6"><strong>{{ stat.value }}</strong></div>
+    </div>
+  </div>
+</div>

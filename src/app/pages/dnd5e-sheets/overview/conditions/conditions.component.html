@@ -1,0 +1,19 @@
+<div class="overview-conditions-block">
+  <div class="overview-block">
+    <h3 class="nav-clickable" (click)="self.methods.switchTab('conditions')">{{ block.name }}</h3>
+    <div class="flex-row-all flex-gutters-5" *ngFor="let condition of self.methods.listConditions()">
+      <div class="flex-col-4">
+        <label class="checkbox-inline">
+          <input type="checkbox" title="Toggle {{ condition.name }}" [disabled]="!self.methods.isConditionValid(condition)" (ngModelChange)="self.methods.toggleCondition(condition)" [(ngModel)]="condition.active" class="hide-for-read-only">
+          <span class="show-for-read-only">
+            <fa-icon [icon]="['fa', 'check']" *ngIf="condition.active"></fa-icon>
+          </span>
+          <span>{{ condition.name }}</span>
+        </label>
+      </div>
+      <div class="flex-col-8">
+        <span *ngIf="condition.active">{{ condition.description }}</span>
+      </div>
+    </div>
+  </div>
+</div>

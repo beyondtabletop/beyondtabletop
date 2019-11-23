@@ -1,0 +1,8 @@
+<div class="stat-number-row flex-gutters-5">
+  <div class="flex-col-4">
+    <label class="control-label">{{ entity.name }}</label>
+  </div>
+  <div class="flex-col-8">
+    <input type="text" [placeholder]="entity.name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="entity.value">
+  </div>
+</div>

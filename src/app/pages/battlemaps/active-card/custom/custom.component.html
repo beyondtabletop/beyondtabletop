@@ -1,0 +1,156 @@
+<div class="flex-row-all flex-config-align-center flex-gutters-5" *ngIf="viewing else editing">
+  <button class="unstyled-button base-color corner-button h24" (click)="toggleEditing()">
+    <i class="material-icons">edit</i>
+  </button>
+  <div class="flex-col profile-image-col" *ngIf="token.image">
+    <div class="profile-image">
+      <div class="img" [ngStyle]="{ 'background-image': 'url(' + token.image + ')' }"></div>
+    </div>
+  </div>
+  <div class="flex-col flex-static min-120">
+    <h2 class="h18 bm-5 style-nowrap">{{ token.label }}</h2>
+    <div>AC: <strong>{{ combatant.stats.ac }}</strong></div>
+    <div>Speed: <strong>{{ combatant.stats.speed }}</strong></div>
+    <div class="tm-5">
+      <button class="mini-button" (click)="rollInitiative()">Initiative</button>
+    </div>
+  </div>
+  <div class="flex-col ability-scores">
+    <div class="flex-row-all flex-gutters-5 flex-config-align-center score" *ngFor="let abl of abilities">
+      <div class="flex-col flex-static min-50"><span>{{ abl }}</span>:</div>
+      <div class="flex-col flex-dynamic">
+        <strong>{{ combatant.stats[abl] }}</strong>/<strong>{{ getAbilityMod(combatant.stats[abl]) }}</strong>
+      </div>
+      <div class="flex-col flex-static">
+        <button class="micro-button" (click)="rollOneDice(20, getAbilityMod(combatant.stats[abl]), abl, 'a # save')">{{ abl }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col hp-ring-column">
+    <div class="hp-ring">
+      <div class="intrinsic">
+        <div class="hp-ring-box flex-row-all flex-config-centered">
+          <div class="text-center tp-5">
+            <div class="hp-current">{{ currentHP(combatant.stats.hp, combatant.stats.damage) }}</div>
+            <div class="hp-total">{{ combatant.stats.hp }}</div>
+          </div>
+          <div class="hp-ring-circle">
+            <svg viewBox="-15 -15 230 230">
+              <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z"></path>
+              <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" [attr.stroke-dashoffset]="getHPRingValue(combatant.stats.hp, combatant.stats.damage)" [attr.stroke]="HPRingColor(combatant.stats.hp, combatant.stats.damage)"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-centered flex-gutters-5 tm-10">
+      <div class="flex-col">
+        <button class="inc-button g-neutral h36" (click)="incrementDamage(combatant, 1)"><i class="material-icons">remove</i></button>
+      </div>
+      <div class="flex-col">
+        <button class="inc-button g-neutral h36" (click)="incrementDamage(combatant, -1)"><i class="material-icons">add</i></button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col monster-info-column align-start">
+    <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let attack of self.methods.listCombatantAttacks(combatant)">
+      <div class="flex-col min-50">
+        {{ attack.name }}
+      </div>
+      <div class="flex-col" [class.bt-hide]="attack.$attackError">
+        <button class="micro-button" (click)="rollFormula(attack.attack, attack.name + ' (attack)')">Attack</button>
+      </div>
+      <div class="flex-col" [class.bt-hide]="attack.$damageError">
+        <button class="micro-button" (click)="rollFormula(attack.damage, attack.name + ' (damage)')">Dmg</button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col monster-info-column combatant-details align-start">
+    <div class="bm-5 p12" *ngFor="let detail of self.methods.listCombatantDetails(combatant)" [innerHTML]="detail.text | markdown"></div>
+  </div>
+</div>
+
+<ng-template #editing>
+  <button class="unstyled-button green-color corner-button h24" (click)="toggleEditing()">
+    <i class="material-icons">check</i>
+  </button>
+  <div class="flex-row-all flex-gutters-5">
+    <div class="flex-col">
+      <div class="flex-row-all bm-5">
+        <div class="flex-col min-50 flex-static weight-bold">
+          AC: 
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="number" class="form-control micro-field" (ngModelChange)="self.touch()" [(ngModel)]="combatant.stats.ac">
+        </div>
+      </div>
+      <div class="flex-row-all bm-5">
+        <div class="flex-col min-50 flex-static weight-bold">
+          HP: 
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="number" class="form-control micro-field" (ngModelChange)="self.touch()" [(ngModel)]="combatant.stats.hp">
+        </div>
+      </div>
+      <div class="flex-row-all bm-5">
+        <div class="flex-col min-50 flex-static weight-bold">
+          Speed: 
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="number" class="form-control micro-field" (ngModelChange)="self.touch()" [(ngModel)]="combatant.stats.speed">
+        </div>
+      </div>
+      <div *ngIf="false">
+        <button class="mini-button" (click)="self.methods.openMonsterModal()">Set Monster</button>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="flex-row-all" *ngFor="let abl of abilities">
+        <div class="flex-col min-50 flex-static weight-bold">
+          {{ abl }}:
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="number" class="form-control micro-field" (ngModelChange)="self.touch()" [(ngModel)]="combatant.stats[abl]">
+        </div>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="weight-bold">Attacks</div>
+      <div class="flex-row-all flex-gutters-5" *ngFor="let attack of self.methods.listCombatantAttacks(combatant)">
+        <div class="flex-col-4">
+          <input type="text" class="form-control micro-field" (ngModelChange)="self.touch()" [(ngModel)]="attack.name">
+        </div>
+        <div class="flex-col-4">
+          <input type="text" class="form-control micro-field" [class.error]="attack.$attackError" (ngModelChange)="validateRoll(attack, 'attack')" [(ngModel)]="attack.attack">
+        </div>
+        <div class="flex-col-4">
+          <input type="text" class="form-control micro-field" [class.error]="attack.$damageError" (ngModelChange)="validateRoll(attack, 'damage')" [(ngModel)]="attack.damage">
+        </div>
+        <div class="flex-col flex-static">
+          <button class="unstyled-button base-color h18" (click)="self.methods.removeByObject(combatant.stats.attacks, attack)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </div>
+      <button class="unstyled-button primary-color h18" (click)="self.methods.addCombatantAttack(combatant)">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
+    <div class="flex-col">
+      <div class="weight-bold">Details</div>
+      <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listCombatantDetails(combatant)">
+        <div class="flex-col-12">
+          <textarea class="form-control mini-textarea" (ngModelChange)="self.touch()" [(ngModel)]="detail.text"></textarea>
+        </div>
+        <div class="flex-col flex-static">
+          <button class="unstyled-button base-color h18" (click)="self.methods.removeByObject(combatant.stats.details, detail)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+      </div>
+      <button class="unstyled-button primary-color h18" (click)="self.methods.addCombatantDetail(combatant)">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
+  </div>
+</ng-template>

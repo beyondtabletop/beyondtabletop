@@ -1,0 +1,18 @@
+<div>
+  <div class="bm-20">
+    <label class="weight-bold">Kit Type</label>
+    <div class="select-wrap">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.methods.selectionReverseLookup(self.locals.selection.toolTypes, self.locals.temp_tool_type) }}</label>
+      <select
+        class="form-control"
+        (ngModelChange)="self.touch()"
+        [(ngModel)]="self.locals.temp_tool_type"
+      >
+        <option [value]="option.value" *ngFor="let option of self.locals.selection.toolTypes">{{ option.label }}</option>
+      </select>
+    </div>
+  </div>
+  <p>Once the kit type is set, it cannot be changed. Click the button when you're ready to confirm your choice</p>
+  <button (click)="self.methods.chooseKitType(self.locals.temp_tool_type)" class="button button-cyan">Ready!</button>
+</div>

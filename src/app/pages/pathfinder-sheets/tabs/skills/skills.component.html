@@ -1,0 +1,140 @@
+<div class="sheet-tab">
+  <h2 class="group-header">Skills</h2>
+  <p class="help-text" *ngIf="self.model.prefs.help">The checkboxes indicate if the skill is a class skill. When you change your class on the General tab, these checkboxes are automatically set. You can check or uncheck to add custom class skills, but when you change classes, it will reset to the class default. The class skill bonus of +3 is calculated automatically.</p>
+  <p class="help-text" *ngIf="self.model.prefs.help">If you need to add custom skills, you can click on the "+ Skill" button at the bottom of this tab.</p>
+  <div class="calculated-wrap" *ngIf="self.methods.getCalculatedCoreConditions('skill')">
+    <div class="calculated-header">Conditions affecting skills:</div>
+    <div class="calculated-notice">{{ self.methods.getCalculatedCoreConditions('skill') }}</div>
+  </div>
+
+  <div class="group">
+    <div class="flex-row-all flex-gutters-5 bm-5">
+      <div class="flex-col flex-dynamic">
+        <label>Name</label>
+      </div>
+      <div class="flex-col flex-static num-field-column">
+        <label>Ranks</label>
+      </div>
+      <div class="flex-col flex-static num-field-column hide-below-380">
+        <label>Misc</label>
+      </div>
+      <div class="flex-col flex-static abl-select-column hide-below-380">
+        <label>Ability</label>
+      </div>
+      <div class="flex-col flex-static num-print-column hide-below-mobile">
+        <label>Mod</label>
+      </div>
+      <div class="flex-col flex-static num-print-column">
+        <label>Total</label>
+      </div>
+    </div><!--/label row-->
+    <div class="bm-10" *ngFor="let skill of self.methods.listSkills()">
+      <div class="flex-row-all flex-gutters-5">
+        <div class="flex-col flex-dynamic">
+          <input type="checkbox" title="{{ skill.name }} Class Skill" (ngModelChange)="self.touch()" [(ngModel)]="skill.class_skill">
+          <label class="control-label">
+            <span class="hide-below-600">{{ skill.name }}</span>
+            <span class="hide-above-600">{{ self.methods.getShortSkillName(skill.name) }}</span>
+          </label>
+        </div>
+        <div class="flex-col flex-static num-field-column">
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.ranks">
+        </div>
+        <div class="flex-col flex-static num-field-column hide-below-380">
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.misc">
+        </div>
+        <div class="flex-col flex-static abl-select-column hide-below-380">
+          <div class="select-wrap">
+            <i class="material-icons">arrow_drop_down</i>
+            <label>{{ skill.ability }}</label>
+            <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.ability">
+              <option [value]="option" *ngFor="let option of self.locals.selection.abilities">{{ option }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-col flex-static num-print-column hide-below-mobile">
+          <label class="control-label">{{ self.methods.getAbilityMod(self.model.abilities[skill.ability]) }}</label>
+        </div>
+        <div class="flex-col flex-static num-print-column">
+          <label class="control-label">{{ self.methods.getSkillTotal(skill) }}</label>
+        </div>
+      </div>
+      <div class="calculated-notice" *ngIf="skill.ability === 'STR' || skill.ability === 'DEX'">{{ self.methods.getCalculatedAlterations('skill') }}</div>
+      <div class="calculated-notice">{{ self.methods.getCalculatedConditions(skill.name, 'skill') }}</div>
+    </div>
+  </div><!--/group-->
+  <div cdkDropList [cdkDropListData]="self.model.custom_skills" (cdkDropListDropped)="self.methods.onSortableDrop($event)" class="group bm-40">
+    <div class="bm-10 js-custom-skill" *ngFor="let skill of self.methods.listCustomSkills()" cdkDrag [cdkDragData]="skill">
+      <div class="flex-row-all flex-config-align-center bm-5 flex-gutters-5">
+        <div class="flex-col">
+          <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+        </div>
+        <div class="flex-col">
+          <input type="checkbox" title="{{ skill.name }} Class Skill" (ngModelChange)="self.touch()" [(ngModel)]="skill.class_skill">
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.name">
+        </div>
+        <div class="flex-col flex-static num-field-column">
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.ranks">
+        </div>
+        <div class="flex-col flex-static num-field-column hide-below-380">
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.misc">
+        </div>
+        <div class="flex-col flex-static abl-select-column">
+          <div class="select-wrap">
+            <i class="material-icons">arrow_drop_down</i>
+            <label>{{ skill.ability }}</label>
+            <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.ability">
+              <option [value]="option" *ngFor="let option of self.locals.selection.abilities">{{ option }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-col flex-static num-print-column hide-below-380">
+          <label class="control-label">{{ self.methods.getAbilityMod(self.model.abilities[skill.ability]) }}</label>
+        </div>
+        <div class="flex-col flex-static num-print-column">
+          <label class="control-label">{{ self.methods.getSkillTotal(skill) }}</label>
+        </div>
+        <div class="flex-col flex-static">
+          <button class="g-remove" (click)="self.methods.removeByObject(self.model.custom_skills, skill)"><i class="material-icons">delete</i></button>
+        </div>
+      </div>
+      <div class="calculated-notice" *ngIf="skill.ability === 'STR' || skill.ability === 'DEX'">{{ self.methods.getCalculatedAlterations('skill') }}</div>
+      <div class="calculated-notice">{{ self.methods.getCalculatedConditions(skill.name, 'skill') }}</div>
+    </div>
+    <div class="button-wrap">
+      <button class="g-add" (click)="self.methods.addCustomSkill()"><i class="material-icons">add</i></button>
+    </div>
+  </div><!--/group-->
+
+  <h3 class="gh3">Total Ranks</h3>
+  <p class="help-text" *ngIf="self.model.prefs.help">As a <span>{{ self.methods.getAllKlasses() }}</span> with an INT mod of <span>{{ self.methods.getAbilityMod(self.model.abilities.INT) }}</span> you get <span>{{ self.methods.getSkillRanksPerLevel() }}</span> skill ranks every level. Your total is below, and a misc field to adjust your skill ranks per level.</p>
+
+  <div class="flex-row-mobile flex-gutters-10">
+    <div class="flex-col-3">
+      <div class="bm-10">
+        <label class="control-label">Misc Ranks per level</label>
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.skill_ranks.misc">
+      </div>
+    </div>
+    <div class="flex-col-3">
+      <div class="bm-10">
+        <label class="control-label">Ranks per level</label>
+        <label class="block-label">{{ self.methods.getSkillRanksPerLevel() }}</label>
+      </div>
+    </div>
+    <div class="flex-col-3">
+      <div class="bm-10">
+        <label class="control-label">Total Ranks</label>
+        <label class="block-label">{{ self.methods.getTotalSkillRanks() }}</label>
+      </div>
+    </div>
+    <div class="flex-col-3">
+      <div class="bm-10">
+        <label class="control-label">Remaining Ranks</label>
+        <label class="block-label">{{ self.methods.getRemainingSkillRanks() }}</label>
+      </div>
+    </div>
+  </div>
+</div>

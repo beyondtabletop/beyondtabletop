@@ -1,0 +1,38 @@
+<div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">Wild Shape</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.wild_shape.value">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.wild_shape.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Druid.wild_shape) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.wild_shape.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item" *ngIf="klass.level >= 2">
+    <h5 class="h5">Druid Circle</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6">
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Druid.circle }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.circle">
+            <option [value]="option" *ngFor="let option of self.locals.selection.druid_circles">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.circle" *ngIf="self.model.prefs.homebrew">
+      </div>
+    </div>
+  </div>
+</div>

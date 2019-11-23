@@ -1,0 +1,47 @@
+<div class="combat-panel"
+  *ngIf="scene"
+  [class.bt-hide]="!self.locals.nav.combat"
+  [ngStyle]="self.locals.combatPanel"
+  cdkDrag
+>
+  <h3 class="combat-panel-title flex-row-all flex-config-align-center" cdkDragHandle>
+    <div class="flex-col flex-dynamic">
+      {{ self.methods.combatPanelTitle() }}
+    </div>
+    <div class="flex-col flex-static">
+      <button class="g-remove"
+        (click)="self.methods.hideCombatPanel()"
+      ><i class="material-icons">close</i></button>
+    </div>
+  </h3>
+
+  <div class="combat-order">
+    <bt-battlemap-combatant [self]="self" [scene]="scene" [combatant]="combatant" [token]="self.methods.tokenForCombatant(combatant)" *ngFor="let combatant of self.methods.listCombatants(scene)"></bt-battlemap-combatant>
+  </div>
+
+  <div class="flex-row-all flex-config-spaced">
+    <div class="flex-col">
+      <button class="button button-cyan" (click)="self.methods.addCombatant()">Add</button>
+    </div>
+    <div class="flex-col" *ngIf="scene.combat.status === 'preparing'">
+      <button class="button button-cyan" (click)="setCombatStatus('active')">Begin Combat</button>
+    </div>
+    <div class="flex-col" *ngIf="scene.combat.status === 'complete'">
+      <button class="button button-cyan" (click)="setCombatStatus('preparing')">Reset Combat</button>
+    </div>
+  </div>
+
+  <div class="tp-10 form-group" *ngIf="self.methods.canAdvanceCombat()">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-5">
+        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(-1)"><fa-icon [icon]="['fa', 'backward']"></fa-icon> Prev</button>
+      </div>
+      <div class="flex-col-2">
+        <button class="button button-gray turn-button" (click)="self.methods.endCombat()">End</button>
+      </div>
+      <div class="flex-col-5">
+        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(1)">Next <fa-icon [icon]="['fa', 'forward']"></fa-icon></button>
+      </div>
+    </div>
+  </div>
+</div>

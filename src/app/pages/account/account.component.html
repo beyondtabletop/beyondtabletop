@@ -1,0 +1,28 @@
+<div class="container display-sheet">
+  <bt-static-tabs></bt-static-tabs>
+  <div class="content" *ngIf="user">
+    <h2 class="bm-20">Account</h2>
+    <div class="max-500">
+      <div class="bm-20">
+        <label class="block-label">Name</label>
+        <input class="form-control" type="text" [(ngModel)]="user.name">
+      </div>
+
+      <div class="bm-20">
+        <label class="block-label">Unique ID</label>
+        <input class="form-control bm-10" disabled type="text" [(ngModel)]="facingId">
+        <p>Use this when reporting bugs or issues.</p>
+      </div>
+
+      <label class="block-label">Show Alpha Tools</label>
+      <div class="checkbox bm-20">
+        <label>
+          <input type="checkbox" [(ngModel)]="user.alpha_tester">
+          Enable alpha tools still in development
+        </label>
+      </div>
+      <button class="button button-cyan" (click)="save()">Save</button>
+    </div>
+  </div>
+  <bt-interface></bt-interface>
+</div>

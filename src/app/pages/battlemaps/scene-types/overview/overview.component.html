@@ -1,0 +1,16 @@
+<!-- this feature is still in dev, before it lauches it needs to be fixed -->
+<div class="map square-map"
+  cdkDrag
+  position="self.locals.map.pos"
+  keydown="self.methods.onKeydown"
+  keyup="self.methods.onKeyup"
+  [ngStyle]="self.methods.getMapStyle(scene)"
+  [ngClass]="self.locals.map.classes"
+  (mousedown)="self.methods.onMapMouseDown($event)"
+  (mouseup)="self.methods.onMapMouseUp($event)"
+  ng-mousemove="self.methods.onMouseMove($event)"
+>
+  <div class="tiles">
+    <div class="tile" [ngClass]="self.methods.getTileClasses(tile)" *ngFor="let tile of self.methods.listSceneTiles(scene) " (click)="self.methods.onTileClick(tile)" [ngStyle]="self.methods.getTileStyle(tile)"></div>
+  </div>
+</div>

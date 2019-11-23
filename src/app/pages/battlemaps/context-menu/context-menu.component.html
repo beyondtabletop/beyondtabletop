@@ -1,0 +1,38 @@
+<div (keydown)="$event.stopPropagation()" (keyup)="$event.stopPropagation()">
+  <div class="map-context-menu-bg"
+    *ngIf="self.locals.map.context_menu.active"
+    (mousedown)="self.methods.closeContextMenu()"
+    (touchstart)="self.methods.closeContextMenu()"
+    oncontextmenu="return false"
+  ></div>
+  <div class="map-context-menu" [ngStyle]="self.methods.getContextMenuStyle()" *ngIf="self.locals.map.context_menu.active">
+    <div *ngFor="let item of self.locals.map.context_menu.item">
+      <div class="fp-15">
+        <div class="detail bm-5" [ngSwitch]="detail" *ngFor="let detail of self.methods.getDetailsForActiveItem(item, scene)">
+          <bt-battlemap-detail-color     [self]="self" [item]="item" *ngSwitchCase="'color'"></bt-battlemap-detail-color>
+          <bt-battlemap-detail-combat     [self]="self" [item]="item" *ngSwitchCase="'combat'"></bt-battlemap-detail-combat>
+          <bt-battlemap-detail-damage    [self]="self" [item]="item" *ngSwitchCase="'damage'"></bt-battlemap-detail-damage>
+          <bt-battlemap-detail-drawable  [self]="self" [item]="item" *ngSwitchCase="'drawable'"></bt-battlemap-detail-drawable>
+          <bt-battlemap-detail-fog       [self]="self" [item]="item" *ngSwitchCase="'fog'"></bt-battlemap-detail-fog>
+          <bt-battlemap-detail-height    [self]="self" [item]="item" *ngSwitchCase="'height'"></bt-battlemap-detail-height>
+          <bt-battlemap-detail-image     [self]="self" [item]="item" *ngSwitchCase="'image'"></bt-battlemap-detail-image>
+          <bt-battlemap-detail-label     [self]="self" [item]="item" *ngSwitchCase="'label'"></bt-battlemap-detail-label>
+          <bt-battlemap-detail-layering  [self]="self" [item]="item" *ngSwitchCase="'layering'"></bt-battlemap-detail-layering>
+          <bt-battlemap-detail-obscure   [self]="self" [item]="item" *ngSwitchCase="'obscure'"></bt-battlemap-detail-obscure>
+          <bt-battlemap-detail-pinned    [self]="self" [item]="item" *ngSwitchCase="'pinned'"></bt-battlemap-detail-pinned>
+          <bt-battlemap-detail-round     [self]="self" [item]="item" *ngSwitchCase="'round'"></bt-battlemap-detail-round>
+          <bt-battlemap-detail-size      [self]="self" [item]="item" *ngSwitchCase="'size'"></bt-battlemap-detail-size>
+          <bt-battlemap-detail-snapped   [self]="self" [item]="item" *ngSwitchCase="'snapped'"></bt-battlemap-detail-snapped>
+          <bt-battlemap-detail-status    [self]="self" [item]="item" *ngSwitchCase="'status'"></bt-battlemap-detail-status>
+          <bt-battlemap-detail-tile      [self]="self" [item]="item" *ngSwitchCase="'tile'"></bt-battlemap-detail-tile>
+          <bt-battlemap-detail-width     [self]="self" [item]="item" *ngSwitchCase="'width'"></bt-battlemap-detail-width>
+        </div>
+      </div>
+      <ul class="list-unstyled tm-10 border-top">
+        <li title="Copy" (click)="self.methods.copyItem(item)">Copy</li>
+        <li title="Rotate" (click)="self.methods.rotateItem(item)">Rotate</li>
+        <li title="Delete" (click)="self.methods.deleteItem(item)">Delete</li>
+      </ul>
+    </div>
+  </div>
+</div>

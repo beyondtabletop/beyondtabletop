@@ -1,0 +1,72 @@
+<div class="overview-companions-block">
+  <p class="nav-clickable" (click)="self.methods.switchTab('companions')" *ngIf="self.model.companions.length === 0">You have no companions. Click here to add one.</p>
+  <div class="space-below" *ngFor="let companion of self.methods.listCompanions()">
+    <h3 class="nav-clickable" (click)="self.methods.switchTab('companions')">{{ companion.name }}</h3>
+    <div class="overview-block bm-5">
+      <div class="flex-row-all flex-gutters-10" *ngFor="let attack of self.methods.listCompanionAttacks(companion) ">
+        <strong class="flex-col">{{ attack.name }}</strong>
+        <div class="flex-col">
+          d20 + <span>{{ self.methods.getCompanionAttackBonus(attack, companion) }}</span>
+        </div>
+        <div class="flex-col">
+          <span>{{ attack.damage_die }}</span> + <span>{{ attack.damage_bonus + self.methods.companionAttackAbilityMod(attack, companion) }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-gutters-10 bm-5">
+      <div class="flex-col-6">
+        <div class="flex-row-all flex-gutters-5" *ngFor="let ability of self.locals.selection.abilities">
+          <div class="flex-col-6"><span>{{ ability }}</span>:</div>
+          <div class="flex-col-6">
+            <strong>{{ self.methods.getAbilityTotal(companion.abilities[ability], false) }}</strong>
+            /
+            <strong>{{ self.methods.getAbilityMod(companion.abilities[ability], false) }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6">
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">HP:</div>
+          <div class="flex-col-6">
+            <strong>{{ self.methods.getHPRemaining(companion) }}</strong>/<strong>{{ self.methods.getHPTotal(companion) }}</strong>
+          </div>
+        </div>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">AC:</div>
+          <div class="flex-col-6">
+            <strong>{{ self.methods.getTotalAC(companion) }}</strong>
+          </div>
+        </div>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">Initiative:</div>
+          <div class="flex-col-6">
+            <strong>{{ self.methods.getTotalInit(companion) }}</strong>
+          </div>
+        </div>
+        <div class="flex-row-all flex-gutters-5 nav-clickable">
+          <div class="flex-col-6">Speed:</div>
+          <div class="flex-col-6">
+            <strong>{{ companion.combat.speed.base }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="companion-wounds bm-5">
+      <div class="flex-row-all">
+        <div class="flex-col-6">
+          <div class="bm-5">Wounds</div>
+          <input type="number" class="form-control hide-for-read-only" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.hp.damage">
+          <strong class="show-for-read-only">{{ companion.combat.hp.damage }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="overview-block">
+      <div class="flex-row-all flex-gutters-10" *ngFor="let skill of self.methods.listCompanionSkills(companion)">
+        <div class="flex-col-7"><span>{{ skill.name }}</span>:</div>
+        <div class="flex-col-5">
+          <strong>{{ self.methods.getSkillTotal(skill, companion) }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

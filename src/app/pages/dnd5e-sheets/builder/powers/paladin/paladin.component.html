@@ -1,0 +1,16 @@
+<div class="max-500 auto-margin">
+  <h4 class="gh3">Take a Sacred Oath</h4>
+  <div class="bm-20" *ngFor="let oath of self.locals.selection.paladin_sacred_oaths">
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col">
+        <button class="button button-checkbox" (click)="self.model.powers.Paladin.sacred_oath = oath" [ngClass]="self.model.powers.Paladin.sacred_oath === oath ? 'checked' : 'unchecked'">
+          <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+        </button>
+      </div>
+      <div class="flex-col">
+        <h5 class="gh4">{{ oath }}</h5>
+        <p>{{ self.locals.data.builder.create_powers.Paladin.oaths[oath] }}</p>
+      </div>
+    </div>
+  </div>
+</div>

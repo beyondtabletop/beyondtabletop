@@ -1,0 +1,116 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-10">
+    <div class="flex-col-6">
+      <h2 class="group-header">Abilities</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">These are your basic abilities. You can edit the main value or add a misc value for temporary modifiers. Click the checkbox on the right to indicate you are proficient in this ability's save.</p>
+      <div class="group group-abilities bmr-60">
+        <div class="flex-row-all flex-gutters-5 bm-5 label-row">
+          <div class="flex-col name-col">
+            <label class="control-label">Name</label>
+          </div>
+          <div class="flex-col num-field-column">
+            <label class="control-label">Value</label>
+          </div>
+          <div class="flex-col num-field-column">
+            <label class="control-label">Misc</label>
+          </div>
+          <div class="flex-col total-col">
+            <label class="control-label">Total</label>
+          </div>
+          <div class="flex-col mod-col">
+            <label class="control-label">Mod</label>
+          </div>
+          <div class="flex-col save-col">
+            <label class="control-label">Save</label>
+          </div>
+        </div>
+        <div class="stat-row" *ngFor="let ability of self.methods.listAbilities()">
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="flex-col name-col">
+              <div class="form-group">
+                <label class="control-label">{{ ability.name }}</label>
+              </div>
+            </div>
+            <div class="flex-col num-field-column">
+              <div class="form-group">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="ability.value">
+              </div>
+            </div>
+            <div class="flex-col num-field-column">
+              <div class="form-group">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="ability.misc">
+              </div>
+            </div>
+            <div class="flex-col total-col">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getAbilityTotal(ability) }}</label>
+              </div>
+            </div>
+            <div class="flex-col mod-col">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getAbilityMod(ability) }}</label>
+              </div>
+            </div>
+            <div class="flex-col save-col">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getSaveTotal(ability) }}</label>
+                <input type="checkbox" title="{{ ability }} Save Proficiency" (ngModelChange)="self.touch()" [(ngModel)]="ability.save_prof">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6">
+      <h2 class="group-header">Skills</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">The checkboxes indicate if your character has a proficiency in the given skill.</p>
+      <div class="group">
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-5 label-row">
+          <div class="flex-col flex-dynamic">
+            <label class="control-label">Name</label>
+          </div>
+          <div class="flex-col flex-static num-print-column-wide">
+            <label class="control-label">Exp.</label>
+          </div>
+          <div class="flex-col flex-static num-field-column">
+            <label class="control-label">Misc</label>
+          </div>
+          <div class="flex-col flex-static num-print-column-wide">
+            <label class="control-label">Mod</label>
+          </div>
+          <div class="flex-col flex-static num-print-column-wide">
+            <label class="control-label">Total</label>
+          </div>
+          <div class="flex-col flex-static num-print-column-wide">
+            <label class="control-label">Score</label>
+          </div>
+        </div>
+        <div class="bm-10" *ngFor="let skill of self.methods.listSkills()">
+          <div class="flex-row-all flex-gutters-5">
+            <div class="flex-col flex-dynamic">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="{{ skill.name }} Proficiency" (ngModelChange)="self.touch()" [(ngModel)]="skill.proficient">
+                {{ skill.name }}
+              </label>
+            </div>
+            <div class="flex-col flex-static num-print-column-wide" *ngIf="skill.proficient">
+              <input type="checkbox" title="{{ skill.name }} Proficiency" (ngModelChange)="self.touch()" [(ngModel)]="skill.expert">
+            </div>
+            <div class="flex-col flex-static num-field-column">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.misc">
+            </div>
+            <div class="flex-col flex-static num-print-column-wide">
+              <label class="control-label">{{ self.methods.getAbilityMod(self.model.abilities[skill.ability]) }}</label>
+            </div>
+            <div class="flex-col flex-static num-print-column-wide">
+              <label class="control-label">{{ self.methods.getSkillTotal(skill) }}</label>
+            </div>
+            <div class="flex-col flex-static num-print-column-wide">
+              <label class="control-label">{{ self.methods.getSkillTotal(skill) + 10 }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

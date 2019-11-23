@@ -1,0 +1,66 @@
+<div class="sheet-tab">
+  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
+  <div class="flex-row-tablet flex-gutters-15 sources" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div class="flex-col-6 source source-player">
+      <h2 class="group-header">Feats</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">This is a list of your feats. Keep in mind that feats ARE NOT calculated nor do they influence any other part of the sheet. If the feat allows your to make changes to your stats, you must make them yourself. You can add a new feat yourself and fill out all the fields, or you can find feats from the database on the right.</p>
+      <div class="bmr-60" cdkDropList [cdkDropListData]="self.model.feats" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-feat bmr-40" *ngFor="let feat of self.methods.listFeats()" cdkDrag [cdkDragData]="feat">
+          <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+            <div class="flex-col">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col-6 name-col">
+              <label class="block-label">Name</label>
+              <input type="text" placeholder="Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="feat.name">
+            </div>
+            <div class="flex-col-6">
+              <div class="prereq-col">
+                <label class="block-label">Prerequisites</label>
+                <input type="text" placeholder="Prerequisites" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="feat.prereq">
+              </div>
+            </div>
+            <div class="flex-col flex-static">
+              <button title="Remove Feat" class="g-remove" (click)="self.methods.removeByObject(self.model.feats, feat)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+
+          <div class="bm-5">
+            <label class="block-label">Summary</label>
+            <input type="text" placeholder="Summary" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="feat.summary">
+          </div>
+
+          <div class="flex-row-all flex-config-wrap flex-gutters-5">
+            <div class="flex-col-6" *ngFor="let info of self.methods.listFeatTexts(feat)">
+              <label class="block-label">{{ info.name }}</label>
+              <textarea ng-placeholder="info.name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="info.text"></textarea>
+            </div>
+          </div>
+        </div>
+        <button class="g-add" (click)="self.methods.addFeat()"><i class="material-icons">add</i></button>
+      </div><!--/group-->
+    </div><!--/source-->
+    <div class="flex-col-6 source source-srd">
+      <h2 class="group-header">Find Feats</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">This is a list of feats from the D20PFSRD. Click the plus button to add it to your feats list on the left. You can also enter text in the field below to filter the results and find feats faster.</p>
+      <p class="help-text" *ngIf="self.model.prefs.help"><strong>Note</strong>: This database of feats is incomplete and occasionally wrong! Let us know if you find something incorrect, or if there's a feat you'd like us to add.</p>
+      <input type="text" class="form-control filter-field" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.search.feats" placeholder="Filter Feats">
+      <div class="bmr-40" *ngFor="let feat of self.methods.listFilteredSRDFeats()">
+        <div class="flex-row-all flex-config-spaced flex-config-align-center">
+          <h3 class="data-header">{{ feat.name }}</h3>
+          <div class="flex-col flex-static add-or-remove-group" [ngClass]="self.methods.featAppearsInFeatList(feat) ? 'show-remove' : 'show-add'">
+            <button class="g-add action add-button" (click)="self.methods.addFeat(feat)">
+              <i class="material-icons">add</i>
+            </button>
+            <button class="g-add action remove-button" (click)="self.methods.removeFeat(feat)">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+        <p><strong>Summary:</strong> {{ feat.summary }}</p>
+        <p *ngIf="feat.prereq"><strong>Prerequisites:</strong> {{ feat.prereq }}</p>
+        <p *ngFor="let info of self.methods.listOverviewFeatTexts(feat)"><strong>{{ info.name }}</strong>: {{ info.text }}</p>
+      </div>
+    </div>
+  </div><!--/sources-->
+</div>

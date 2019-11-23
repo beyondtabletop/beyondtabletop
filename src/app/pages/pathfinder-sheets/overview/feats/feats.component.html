@@ -1,0 +1,27 @@
+<div class="overview-feats-block">
+  <div class="overview-feats expandable-items">
+    <h3 (click)="self.methods.switchTab('feats')">{{ block.name }}</h3>
+    <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let feat of self.methods.listFeats()" [class.active]="feat.$active" (click)="feat.$active = !feat.$active">
+      <div class="flex-col-4 hide-on-active">
+        <strong>{{ feat.name }}</strong>:
+      </div>
+      <div class="item-info flex-col-8">
+        <span class="hide-on-active">{{ feat.summary }}</span>
+        <div class="details">
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="flex-col-4"><strong>{{ feat.name }}</strong></div>
+            <div class="flex-col-8"><span>{{ feat.summary }}</span></div>
+          </div>
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="flex-col-4"><strong>Prerequisites: </strong></div>
+            <div class="flex-col-8"><span>{{ feat.prereq }}</span></div>
+          </div>
+          <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let info of self.methods.listOverviewFeatTexts(feat)">
+            <div class="flex-col-4"><strong><span>{{ info.name }}</span>: </strong></div>
+            <div class="flex-col-8"><span [innerHTML]="info.text | markdown"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

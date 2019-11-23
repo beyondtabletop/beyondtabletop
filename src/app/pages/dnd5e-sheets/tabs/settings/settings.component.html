@@ -1,0 +1,68 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bmr-60">
+      <h2 class="group-header">Settings</h2>
+      <div class="form-group bmr-40">
+        <h4>Help text</h4>
+        <p>Choose if you want to have the help text above many areas of the sheet shown or hidden.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.help" name="help_text" [value]="true"> Turn on
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.help" name="help_text" [value]="false"> Turn off
+        </label>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Homebrew mode</h4>
+        <p>Homebrew mode allows you to customize data that would otherwise only be available via selection.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.homebrew" name="homebrew" [value]="true"> On
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.homebrew" name="homebrew" [value]="false"> Off
+        </label>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Homebrew Kits</h4>
+        <p>Homebrew kits add your own content to the exist vanilla lists of content for things like spells, classes, equipment, etc.</p>
+        <div class="flex-row-all flex-config-spaced" *ngFor="let kit of self.locals.available_kits$ | async">
+          <div class="flex-col">{{ kit.title }}</div>
+          <div class="flex-col">
+            <button (click)="self.methods.addKit(kit.id)" [class.bt-hide]="self.methods.kitAdded(kit)" class="g-add" title="Add Kit"><i class="material-icons">add</i></button>
+            <button (click)="self.methods.removeKit(kit.id)" *ngIf="self.methods.kitAdded(kit)" class="g-remove" title="Remove Kit"><i class="material-icons">delete</i></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Print mode</h4>
+        <p>Switch to print mode to see your data in a more traditional paper character sheet format or to print your Beyond Tabletop sheet onto PDF or paper sheet. <span *ngIf="!self.locals.full_access">You must upgrade your sheets before you can switch to print mode.</span></p>
+        <a routerLink="/donate" class="button button-orange" *ngIf="!self.locals.full_access">Upgrade Now</a>
+        <button class="button button-orange" (click)="self.methods.switchTab('print')" *ngIf="self.locals.full_access">Print Sheet</button>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Warn before exiting</h4>
+        <p>If turned on, a confirmation will appear before you navigate away from your sheet.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.show_confirmation" name="show_confirm" [value]="true" (click)="self.methods.turnOnConfirmation()"> Show Warning
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.show_confirmation" name="show_confirm" [value]="false" (click)="self.methods.turnOffConfirmation()"> No Warning
+        </label>
+      </div>
+      <div class="form-group settings-group" *ngIf="self.methods.isAdmin()">
+        <div class="flex-row-all flex-gutters-10 bm-5">
+          <div class="flex-col">
+            <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.migration_version">
+          </div>
+
+          <div class="flex-col">
+            <button class="button button-orange" (click)="self.methods.rerunMigration(self.locals.migration_version)">Rerun last migration (v<span>{{ self.model.version }}</span>)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6">
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="combatant flex-row-all flex-config-align-center"
+  *ngIf="token else empty"
+  (click)="self.methods.selectItem(token)"
+  [class.active]="self.methods.combatantIsActive(combatant)"
+>
+  <div class="flex-col flex-static rp-5 base-color">
+    <input [(ngModel)]="combatant.init" (blur)="self.methods.setCombatantInit(combatant)" *ngIf="self.methods.canEditItem(token) else displayInit" type="text" class="form-control initiative">
+  </div>
+
+  <div class="flex-col flex-dynamic">
+    <h4>{{ token.label }}</h4>
+  </div>
+  
+  <div class="flex-col flex-static">
+    <button class="unstyled-button base-color corner-button h18" title="Remove from Combat" (click)="removeCombatant()">
+      <i class="material-icons">delete</i>
+    </button>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="hp-15">
+    <div class="select-wrap" *ngIf="self.locals.ready">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>Connect to Token</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="combatant.token_id">
+        <option [value]="token.id" *ngFor="let token of self.methods.listSceneTokens(scene)">{{ token.label }}</option>
+      </select>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #displayInit>
+  <h4>{{ combatant.init }}</h4>
+</ng-template>

@@ -1,0 +1,24 @@
+@import '../../../../../app/abstracts/variables.scss';
+@import '../../../../../app/abstracts/mixins.scss';
+
+.table-audio {
+  @include flex-wrap(wrap);
+
+  @for $i from 1 through 9 {
+    .order-#{$i} {
+      @include flex-order($i);
+    }
+  }
+
+  .order-8, .order-9 {
+    width: 50%;
+  }
+
+  @include above-tablet {
+    @include flex-wrap(nowrap);
+    .order-8, .order-9 {
+      @include flex-order(4);
+      width: inherit;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<div class="flex-row-tablet flex-gutters-10">
+  <div class="flex-col-7">
+    <h4 class="gh3">Choose your Archetype</h4>
+    <div class="bm-20" *ngFor="let archetype of self.locals.selection.ranger_archetypes">
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col">
+          <button class="button button-checkbox" (click)="self.model.powers.Ranger.archetype = archetype" [ngClass]="self.model.powers.Ranger.archetype === archetype ? 'checked' : 'unchecked'">
+            <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+          </button>
+        </div>
+        <div class="flex-col">
+          <h5 class="gh4">{{ archetype }}</h5>
+          <p>{{ self.locals.data.builder.create_powers.Ranger.archetypes[archetype] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col-5">
+    <h4 class="gh3">Choose a Favored Enemy</h4>
+    <p>You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy.</p>
+    <div class="select-wrap bm-20">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.methods.getOrCreateFavoredEnemy().text }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.methods.getOrCreateFavoredEnemy().text">
+      </select>
+    </div>
+    <h4 class="gh3">Choose a Favored Terrain</h4>
+    <p>You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions.</p>
+    <div class="select-wrap">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.methods.getOrCreateFavoredTerrain().text }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.methods.getOrCreateFavoredTerrain().text">
+        <option [value]="option" *ngFor="let option of self.locals.selection.ranger_favored_terrains">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+</div>

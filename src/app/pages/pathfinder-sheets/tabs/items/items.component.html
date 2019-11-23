@@ -1,0 +1,85 @@
+<div class="sheet-tab">
+  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
+  <div class="flex-row-tablet flex-gutters-15" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div class="flex-col-6">
+      <div class="bmr-60">
+        <h2 class="group-header">Treasure</h2>
+        <p class="help-text" *ngIf="self.model.prefs.help">Enter platinum, gold, silver and copper pieces below. This system assumes the standard base 10 system for money.</p>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-3" *ngFor="let currency of self.locals.selection.currency">
+            <label class="control-label">{{ currency.name }}</label>
+            <input type="number" class="form-control" [placeholder]="currency.label" (ngModelChange)="self.touch()" [(ngModel)]="self.model.treasure[currency.id]">
+          </div>
+        </div>
+        <h4 class="h5 total-treasure">{{ self.methods.getTreasureWealth() }}</h4>
+      </div>
+
+      <h2 class="group-header">Loot</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">Loot is like a list, but for items that have value or weight. You can use this to keep track of extra weapons, gear, and obviously, loot.</p>
+      <h4 class="h5 total-treasure bmr-30">{{ self.methods.getValuablesWealth() }}</h4>
+      <div class="bmr-60" cdkDropList [cdkDropListData]="self.model.valuables" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="bmr-40 js-valuable" *ngFor="let valuable of self.methods.listValuables()" cdkDrag [cdkDragData]="valuable">
+          <div class="flex-row-all flex-gutters-5 flex-config-align-center">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col-3">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.amount">
+            </div>
+            <div class="flex-col-9">
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.name" placeholder="Name">
+            </div>
+            <div class="flex-col flex-static">
+              <button title="Remove Valuable" class="g-remove" (click)="self.methods.removeByObject(self.model.valuables, valuable)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+          <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-10">
+            <div class="flex-col-5">
+              <label class="control-label">Value</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.value" placeholder="Value">
+            </div>
+            <div class="flex-col-2">
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.locals.selection.reverse_currency[valuable.currency].unit }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.currency">
+                  <option [value]="option.id" *ngFor="let option of self.locals.selection.currency">{{ option.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-5">
+              <label class="control-label">Weight</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.weight" placeholder="Weight">
+            </div>
+          </div>
+          <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="valuable.text" placeholder="Description"></textarea>
+        </div>
+        <button class="g-add" (click)="self.methods.addValuable()"><i class="material-icons">add</i></button>
+      </div>
+    </div>
+    <div class="flex-col-6">
+      <h2 class="group-header">Consumables</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">Consumables is like a list, but you can also increment how many of each item you have. You can use this to keep track of potions, or mundane items with no considerable value or weight.</p>
+      <div cdkDropList [cdkDropListData]="self.model.consumables" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="bmr-40 js-consumable" *ngFor="let consumable of self.methods.listConsumables()" cdkDrag [cdkDragData]="consumable">
+          <div class="flex-row-all flex-gutters-5 bm-10">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col-3">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="consumable.amount">
+            </div>
+            <div class="flex-col-9">
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="consumable.name" placeholder="Name">
+            </div>
+            <div class="flex-col flex-static">
+              <button title="Remove Consumable" class="g-remove" (click)="self.methods.removeByObject(self.model.consumables, consumable)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+          <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="consumable.text" placeholder="Description"></textarea>
+        </div>
+        <button class="g-add" (click)="self.methods.addConsumable()"><i class="material-icons">add</i></button>
+      </div>
+    </div>
+  </div>
+</div>

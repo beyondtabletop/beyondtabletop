@@ -1,0 +1,50 @@
+<div>
+  <div class="power-item space-bottom">
+    <h5 class="gh4">Sorcerous Origin</h5>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Sorcerer.origin }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.origin">
+        <option [value]="option" *ngFor="let option of self.locals.selection.sorcerous_origins">{{ option }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.origin" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngIf="klass.level >= 2">
+        <h5 class="gh4">Sorcery Points</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="gl1">Total</label>
+            <label class="block-label">{{ self.model.powers.Sorcerer.sorcery_points.value }}</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="gl1">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.sorcery_points.remaining">
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6" *ngIf="self.model.powers.Sorcerer.origin === 'Wild Magic'">
+        <h5 class="gh4">Tides of Chaos</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="gl1">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="gl1">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.tides_of_chaos.remaining">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="power-item space-bottom">
+    <div *ngIf="self.model.powers.Sorcerer.origin === 'Wild Magic'" class="bm-5">
+      <button class="white-button" (click)="self.methods.onWildSurge()">Wild Magic Surge</button>
+    </div>
+    <div class="space-bottom">{{ self.locals.data.last_magic_surge }}</div>
+  </div>
+</div>

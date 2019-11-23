@@ -1,0 +1,54 @@
+<div class="fp-15">
+  <h2 class="rh24 bmr-30">Audio Clips</h2>
+  <p class="help-text">Add some music or audio to your campaign here. When you click the play button, the music will play for everyone currently viewing the table (except those who have audio turned off on the Settings tab). Also, a message will be sent to the campaign chat with the name you have listed for the audio cue.</p>
+  <p class="help-text">If you have a music file uploaded somewhere, choose MP3 URL or OGG URL and paste the URL into the "Audio URL" field. If you want to play a YouTube video (audio only), select YouTube ID and paste the YouTube ID into its field. The YouTube ID for a video is the set of 11 characters that follow <code>https://www.youtube.com/watch?v=</code> in a YouTube video URL.</p>
+  <p class="help-text">You can also set the start time for your audio cue, which defaults to 0.</p>
+  <div cdkDropList [cdkDropListData]="self.model.audio_cues" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+    <div class="table-audio js-audio-cue flex-row-all flex-gutters-5 flex-config-align-center bm-20" *ngFor="let cue of self.methods.listAudioCues()" cdkDrag [cdkDragData]="cue">
+
+      <div class="flex-col flex-static bm-10 order-1">
+        <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+      </div>
+      <div class="flex-col flex-dynamic bm-10 order-2">
+        <input type="text" placeholder="Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="cue.name">
+      </div>
+      <div class="flex-col w-120 bm-10 order-3">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.methods.selectionReverseLookup(self.locals.selection.audio_types, cue.audio_type) }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="cue.audio_type">
+            <option [value]="option.value" *ngFor="let option of self.locals.selection.audio_types">{{ option.label }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-col bm-10 order-5">
+        <button title="Toggle Repeat" class="g-icon" (click)="self.methods.toggleRepeat(cue)">
+          <i class="material-icons" [class.base-color]="!cue.loop">repeat</i>
+        </button>
+      </div>
+      <div class="flex-col bm-10 order-5">
+        <button title="Toggle Volume" class="g-icon" (click)="self.methods.toggleVolume(cue)">
+          <i class="material-icons">{{ self.methods.volumeIcon(cue) }}</i>
+        </button>
+      </div>
+      <div class="flex-col bm-10 order-6">
+        <button title="{{ cue.loaded ? 'Stop' : 'Start' }} Audio Cue" class="g-icon" (click)="self.methods.toggleCue(cue)">
+          <i class="material-icons" *ngIf="!cue.loaded">play_arrow</i>
+          <i class="material-icons" *ngIf="cue.loaded">stop</i>
+        </button>
+      </div>
+      <div class="flex-col bm-10 flex-static order-7">
+        <button title="Remove Audio Cue" class="g-remove" (click)="self.methods.removeByObject(self.model.audio_cues, cue)"><i class="material-icons">delete</i></button>
+      </div>
+
+      <div class="flex-col bm-10 flex-dynamic order-8">
+        <input type="text" placeholder="YouTube ID" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="cue.src" maxlength="11" *ngIf="cue.audio_type === 'youtube'">
+        <input type="text" placeholder="Audio URL" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="cue.src" *ngIf="cue.audio_type !== 'youtube'">
+      </div>
+      <div class="flex-col bm-10 num-field-column-3 order-9">
+        <input type="number" placeholder="Start time" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="cue.start_at">
+      </div>
+    </div>
+  </div>
+  <button class="g-add" (click)="self.methods.addAudioCue()"><i class="material-icons">add</i></button>
+</div>

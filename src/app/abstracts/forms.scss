@@ -1,0 +1,193 @@
+//// BOOOOOOT strap leftovers
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.form-control:-moz-placeholder {
+  color: #999;
+}
+.form-control::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #999;
+}
+.form-control::-webkit-input-placeholder {
+  color: #999;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #eee;
+  opacity: 1;
+}
+textarea.form-control {
+  height: auto;
+}
+
+form {
+  margin: 0;
+}
+
+.form-control {
+  height: 28px;
+  @include font-size(12, 1.4);
+  padding: 8px 5px;
+  @include above-mobile {
+    height: 36px;
+    padding: 11px 12px;
+    @include font-size(14, 1.4);
+  }
+  -moz-appearance: textfield;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &.error {
+    border-color: $red;
+  }
+}
+.form-control[disabled] {
+  color: #999;
+}
+.select-wrap {
+  position: relative;
+  height: 28px;
+  cursor: pointer;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background: white;
+  @include above-mobile {
+    height: 34px;
+  }
+  &[disabled], &.disabled {
+    cursor: not-allowed;
+    background-color: #eee;
+    label {
+      color: #999;
+    }
+  }
+  .view-mode & {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    label {
+      padding: 10px 0;
+    }
+    i, fa-icon {
+      display: none;
+    }
+  }
+  select {
+    background: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    color: #000;
+    cursor: pointer;
+    &[disabled] {
+      cursor: normal;
+      background-color: transparent;
+      opacity: 0;
+    }
+  }
+  label {
+    cursor: pointer;
+    font-weight: normal;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 10px 0 5px;
+    @include font-size(12, 2.3);
+    @include above-mobile {
+      padding: 0 20px 0 10px;
+      @include font-size(14, 2.3);
+    }
+  }
+  i, fa-icon {
+    color: #AAA;
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    @include font-size(13, 1);
+    height: 13px;
+    @include above-mobile {
+      top: 9px;
+      @include font-size(16, 1);
+      right: 10px;
+      height: 16px;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.control-label {
+  padding: 8px 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 500;
+  @include above-tablet {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .edit-mode & {
+    padding: 8px 7px;
+  }
+}
+.block-label {
+  font-weight: 500;
+  padding: 7px 0;
+  margin: 0 0 0;
+  display: block;
+}
+.g-label {
+  font-family: $rubik;
+  font-weight: 500;
+  padding: 5px 0;
+  margin: 0;
+  @include header-size(14, 14, 12, 12);
+}
+
+.drag-handle {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #333;
+}

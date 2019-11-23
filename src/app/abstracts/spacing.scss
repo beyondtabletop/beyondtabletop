@@ -1,0 +1,147 @@
+// ******************************************************
+// SPACING
+// ******************************************************
+
+.auto-margin {
+  margin: 0 auto;
+}
+.auto-margin-left {
+  margin-left: auto;
+}
+
+@each $schar, $space in (p: padding, m: margin) {
+  @each $number in (3, 5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 120) {
+    @each $dchar, $dir in (t: top, r: right, l: left, b: bottom) {
+      .#{$dchar}#{$schar}-#{$number} {
+        #{$space}-#{$dir}: $number * 1px;
+      }
+    }
+    .v#{$schar}-#{$number} {
+      #{$space}-top: $number * 1px;
+      #{$space}-bottom: $number * 1px;
+    }
+    .h#{$schar}-#{$number} {
+      #{$space}-left: $number * 1px;
+      #{$space}-right: $number * 1px;
+    }
+    .f#{$schar}-#{$number} {
+      #{$space}: $number * 1px;
+    }
+  }
+
+  @each $number in (10, 20, 30, 40, 50, 60, 80) {
+    @each $dchar, $dir in (t: top, r: right, l: left, b: bottom) {
+      .#{$dchar}#{$schar}r-#{$number} {
+        #{$space}-#{$dir}: ($number / 2) * 1px;
+        @include above-width($tablet) {
+          #{$space}-#{$dir}: $number * 1px;
+        }
+      }
+    }
+    .v#{$schar}r-#{$number} {
+      #{$space}-top: ($number / 2) * 1px;
+      #{$space}-bottom: ($number / 2) * 1px;
+      @include above-width($tablet) {
+        #{$space}-top: $number * 1px;
+        #{$space}-bottom: $number * 1px;
+      }
+    }
+    .h#{$schar}r-#{$number} {
+      #{$space}-left: ($number / 2) * 1px;
+      #{$space}-right: ($number / 2) * 1px;
+      @include above-width($tablet) {
+        #{$space}-left: $number * 1px;
+        #{$space}-right: $number * 1px;
+      }
+    }
+    .f#{$schar}r-#{$number} {
+      #{$space}: ($number / 2) * 1px;
+      @include above-width($tablet) {
+        #{$space}: $number * 1px;
+      }
+    }
+  }
+}
+
+.no-space {
+  margin: 0;
+}
+
+.max-50 {
+  max-width: 50px;
+}
+.max-60 {
+  max-width: 60px;
+}
+.max-75 {
+  max-width: 75px;
+}
+
+.max-100 {
+  max-width: 100px;
+}
+.max-300 {
+  max-width: 300px;
+}
+.max-400 {
+  max-width: 400px;
+}
+.max-500 {
+  max-width: 500px;
+}
+.max-600 {
+  max-width: 600px;
+}
+.max-700 {
+  max-width: 700px;
+}
+.max-800 {
+  max-width: 800px;
+}
+.max-1000 {
+  max-width: 1000px;
+}
+
+.min-150 {
+  min-width: 150px;
+}
+.min-120 {
+  min-width: 120px;
+}
+.min-100 {
+  min-width: 100px;
+}
+.min-75 {
+  min-width: 75px;
+}
+.min-50 {
+  min-width: 50px;
+}
+.min-40 {
+  min-width: 40px;
+}
+.min-26 {
+  min-width: 26px;
+}
+
+.w-40 {
+  width: 40px;
+}
+.w-60 {
+  width: 60px;
+}
+.w-75 {
+  width: 75px;
+}
+.w-85 {
+  width: 85px;
+}
+.w-100 {
+  width: 100px;
+}
+.w-120 {
+  width: 120px;
+}
+.w-150 {
+  width: 150px;
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "bt",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "bt",
+      "kebab-case"
+    ],
+    "variable-name": {
+      "options": [
+        "check-format",
+        "allow-pascal-case",
+        "allow-snake-case",
+        "ban-keywords"
+      ]
+    },
+    "radix": false
+  }
+}

@@ -1,0 +1,56 @@
+<div class="sheet-card" *ngIf="combatant">
+  <div *ngIf="self.methods.combatantConnected(combatant) else disconnected">
+    <div [ngSwitch]="combatant.type">
+      <bt-battlemap-active-card-dnd5e      [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'dnd5e'"></bt-battlemap-active-card-dnd5e>
+      <bt-battlemap-active-card-pathfinder [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'pathfinder'"></bt-battlemap-active-card-pathfinder>
+      <bt-battlemap-active-card-custom     [self]="self" [token]="token" [combatant]="combatant" *ngSwitchDefault></bt-battlemap-active-card-custom>
+    </div>
+  </div>
+</div>
+
+<ng-template #disconnected>
+  <div class="flex-row-all flex-config-align-center flex-gutters-5">
+    <div class="flex-col profile-image-col" *ngIf="token.image">
+      <div class="profile-image">
+        <div class="img" [ngStyle]="{ 'background-image': 'url(' + token.image + ')' }"></div>
+      </div>
+    </div>
+    <div class="flex-col flex-dynamic">
+      <h2 class="h18 bm-10">Setup {{ token.label }}</h2>
+      <div *ngIf="combatant.type else no_type">
+        <div *ngIf="combatant.sheet_id else no_sheet">
+          <button *ngIf="combatant.sheet_id" class="button button-cyan" (click)="self.methods.connectCombatantToSheet(combatant)">Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #no_type>
+  <div class="flex-row-all flex-gutters-5">
+    <div class="flex-col-4">
+      <button class="button button-cyan button-block" (click)="setCombatantType('dnd5e')">Connect to D&D 5e Sheet</button>
+    </div>
+    <div class="flex-col-4">
+      <button class="button button-cyan button-block" (click)="setCombatantType('pathfinder')">Connect to Pathfinder Sheet</button>
+    </div>
+    <div class="flex-col-4">
+      <button class="button button-cyan button-block" (click)="setCombatantType('custom')">Custom Stats</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #no_sheet>
+  <div class="select-wrap bm-5" *ngIf="self.locals.ready">
+    <i class="material-icons">arrow_drop_down</i>
+    <label>{{ combatant.sheet_id ? token.label : 'Connect to Sheet' }}</label>
+    <select
+      class="form-control"
+      (ngModelChange)="self.methods.setConnectedTokenDetails(combatant, token)"
+      [(ngModel)]="combatant.sheet_id"
+    >
+      <option [value]="tool.id" *ngFor="let tool of self.methods.avaialbleSheetsByType(combatant.type)">{{ tool.title }}</option>
+    </select>
+  </div>
+  <button class="button button-cyan" (click)="setCombatantType(null)">Back</button>
+</ng-template>

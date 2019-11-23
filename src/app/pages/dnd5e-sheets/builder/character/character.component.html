@@ -1,0 +1,60 @@
+<div class="step" [ngClass]="self.methods.getStepClass('create-character')">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Creating a Character</h1>
+    <h2 class="gsh3">Creating a character can seem daunting at first, so let's break it down into its pieces and get started. Click on any of the items below to start a section or just click "Start Builder"</h2>
+    <div class="flex-row-all flex-gutters-10 flex-config-justify-center" *ngIf="!self.model.builder.creation.race">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-race')" class="button button-cyan button-block">Start Builder</button>
+      </div>
+    </div>
+    <ul class="list-unstyled builder-todo">
+      <li (click)="self.methods.switchStep('create-race')">
+        <h3 class="gh3">Choose a Race</h3>
+        <button *ngIf="!self.model.builder.creation.race" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.race" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-klass')">
+        <h3 class="gh3">Choose a Class</h3>
+        <button *ngIf="!self.model.builder.creation.klass" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.klass" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-abilities')">
+        <h3 class="gh3">Determine Abilities</h3>
+        <button *ngIf="!self.model.builder.creation.abilities" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.abilities" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-profile')">
+        <h3 class="gh3">Describe your Character</h3>
+        <button *ngIf="!self.model.builder.creation.profile" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.profile" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-equipment')">
+        <h3 class="gh3">Choose Equipment</h3>
+        <button *ngIf="!self.model.builder.creation.equipment" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.equipment" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-skills')">
+        <h3 class="gh3">Choose Skills</h3>
+        <button *ngIf="!self.model.builder.creation.skills" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.skills" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-powers')">
+        <h3 class="gh3">Choose Powers</h3>
+        <button *ngIf="!self.model.builder.creation.powers" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.powers" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-spells')" *ngIf="self.methods.isSpellCaster()">
+        <h3 class="gh3">Choose Spells</h3>
+        <button *ngIf="!self.model.builder.creation.spells" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.spells" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+      <li (click)="self.methods.switchStep('create-lists')">
+        <h3 class="gh3">Review Lists</h3>
+        <button *ngIf="!self.model.builder.creation.lists" class="button button-cyan button-small style-uppercase">View</button>
+        <button *ngIf="self.model.builder.creation.lists" class="button button-gray button-small style-uppercase">Edit</button>
+      </li>
+
+      <!-- skills, spells, powers, languages, tools, etc -->
+    </ul>
+  </div>
+</div>

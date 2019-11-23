@@ -1,0 +1,51 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Choose Spells</h1>
+    <h2 class="gsh3" *ngIf="!self.methods.isSpellCaster()">Your character cannot cast spells. You can ignore this section and continue to the next one.</h2>
+    <h2 class="gsh3" *ngIf="self.methods.isSpellCaster()">Spells can be versatile tools, weapons, or protective wards. They can deal damage or undo it, impose or remove conditions, drain life energy away, and restore life to the dead.</h2>
+    <h2 class="gsh4 gmuted" *ngIf="self.methods.isSpellCaster()">Below is a list of spells you can choose based on your class. As you level up you will gain access to higher level spells. Use the field to filter the list of spells, or you can toggle each level to quickly scan through the lists. Click on any spell to get more details about it. Click the plus next to the spell to add it to your spellbook.</h2>
+
+    <p class="help-text" *ngIf="self.methods.isSpellCaster()">Choose <strong>{{ self.locals.data.level_data[0].cantrips }}</strong> Level 0 spells, <strong>{{ self.methods.getMiscValueAutoTotal(self.model.spell_slots[0]) }}</strong> Level 1 spells.</p>
+
+    <input type="text" class="form-control filter-field" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.search.spells" placeholder="Filter Spells">
+
+    <div class="builder-spells-wrap spell-level" *ngFor="let level of self.locals.selection.spell_levels" [ngClass]="self.methods.getSpellListLevelClass(level)">
+      <h3 class="gh3 clickable" (click)="self.methods.toggleSpellListLevel(level)">
+        <span class="spell-level-toggle">
+          <fa-icon class="show-spell-level" [icon]="['fa', 'chevron-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fa', 'chevron-down']"></fa-icon>
+        </span>
+        Level <span>{{ level }}</span> Spells
+      </h3>
+      <div class="builder-spells spells-list">
+        <div class="spell-row" *ngFor="let spell of self.methods.filterAvailableSpellsForLevel(level)" [ngClass]="{'bt-hide': !self.methods.shouldShowBuilderSpell(spell), active: spell.$active }" (click)="spell.$active = !spell.$active">
+          <div class="add-or-remove-group" [ngClass]="self.methods.spellAppearsInSpellbook(spell) ? 'show-remove' : 'show-add'">
+            <button class="action add-button g-add" (click)="self.methods.addSpell(spell); $event.stopPropagation();">
+              <fa-icon  [icon]="['fa', 'plus']"></fa-icon>
+            </button>
+            <button class="action remove-button g-add" class="action" (click)="self.methods.removeFromSpellbook(spell); $event.stopPropagation();">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+
+          <div class="text flex-dynamic">
+            <p class="short"><strong>{{ spell.name }}</strong>: <span>Level</span> <span>{{ spell.level }}</span> <span>{{ spell.school }}</span>, <span>{{ spell.casting }}</span>, <span>{{ spell.duration }}</span>, <span>{{ spell.range }}</span></p>
+            <div class="details">
+              <div class="btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.finishStep('creation', 'spells', 'create-lists')" class="button button-cyan button-block">Confirm Spells</button>
+      </div>
+    </div>
+  </div>
+</div>

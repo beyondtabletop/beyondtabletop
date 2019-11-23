@@ -1,0 +1,10 @@
+.DS_STORE
+node_modules
+
+# Ignore npm/yarn debug log
+npm-debug.log
+yarn-error.log
+dist
+.firebase
+firebase-debug.log
+*.cache

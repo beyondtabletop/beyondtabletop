@@ -1,0 +1,85 @@
+<bt-static-container>
+  <div class="announcement flex-row-all flex-gutters-5 flex-config-align-center">
+    <div class="announcement-icon flex-static flex-col">
+      <div class="announcement-icon"><fa-icon [icon]="['fa', 'fire']"></fa-icon></div>
+    </div>
+    <div class="flex-col flex-dynamic">{{ announcementText }}</div>
+  </div>
+  <div class="loading-block" *ngIf="!ready">
+    <h4 class="hx-21"><fa-icon class="bt-icon-spin" [icon]="['fa', 'cog']"></fa-icon> Loading your BTT files, please wait ...</h4>
+  </div>
+  <div class="ready-block content-base" *ngIf="ready">
+    <div class="flex-row-tablet flex-gutters-15">
+      <div class="flex-col-6" *ngFor="let col of [1,2]">
+        <div class="btt-file-type" *ngFor="let type of filterDocumentTypes(col)">
+          <h5 class="h5">
+            <span>
+              {{ type.plural }}
+              <span class="new" *ngIf="type.status">({{ type.status }})</span>
+            </span>
+            <a [routerLink]="'/' + type.path"><i class="material-icons">add</i> Create</a>
+          </h5>
+          <div class="{{ type.path }}-listing dashboard-listing" *ngIf="anyDocumentsForType(type.slug)">
+            <ul class="list-unstyled">
+              <li *ngFor="let doc of documentsForType(type.slug)" class="flex-row-all flex-config-spaced">
+                <a [routerLink]="'/' + type.path + '/' + doc.id">
+                  <fa-icon class="permission-icon" [icon]="['fa', permissionIconForRole(doc)]"></fa-icon>
+                  {{ doc.title }}
+                </a>
+                <div class="dashboard-file-admin-group flex-row-all">
+                  <div class="flex-col">
+                    <button class="icon-button" title="Share this document" (click)="sharer.openSharingModal(doc, type.slug)" *ngIf="doc.role === 'owner'">
+                      <fa-icon [icon]="['fa', 'share']"></fa-icon>
+                    </button>
+                  </div>
+
+                  <div class="flex-col">
+                    <button class="icon-button" title="Copy this document" (click)="copyDocument(doc, type.slug)">
+                      <fa-icon [icon]="['fa', 'copy']"></fa-icon>
+                    </button>
+                  </div>
+
+                  <div class="flex-col">
+                    <bt-hold-delete title="Delete this document" (holdComplete)="deleteDocument(doc, type.slug)"></bt-hold-delete>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="dashboard-new-group" *ngIf="!anyDocumentsForType(type.slug)">
+            <p>You have no {{ type.plural }}</p>
+            <a [routerLink]="'/' + type.path" class="button button-orange"><i class="material-icons">add</i> Create new {{ type.title }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+    <bt-interface></bt-interface>
+    <div class="beta-disclaimer">
+      <div>
+        <fa-icon [icon]="['fa', 'exclamation-triangle']"></fa-icon>
+        Disclaimer: Some of these products are in Beta! Beta tools are free, but they're still under constant development. <br>v{{ APP_VERSION }}
+      </div>
+    </div>
+    <div class="help-link-wrapper">
+      <a href="https://www.reddit.com/r/beyondtabletop" class="button button-cyan" target="_blank">Questions? Something break? Get Help</a>
+    </div>
+
+    <footer>
+      <div class="padded-container">
+        <div class="inner flex-row-mobile flex-config-spaced flex-config-align-center">
+          <div class="flex-dynamic">
+            <span>© 2019 Beyond Tabletop LLC &bull;</span>
+            <ul class="footer-nav list-unstyled">
+              <li><a href="/">Home</a></li>
+            </ul>
+          </div>
+          <bt-social-footer></bt-social-footer>
+        </div>
+      </div>
+    </footer>
+  </div>
+</bt-static-container>

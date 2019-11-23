@@ -1,0 +1,141 @@
+<div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 3">
+    <h5 class="h5">Sacred Oath</h5>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Paladin.sacred_oath }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.sacred_oath">
+        <option [value]="option" *ngFor="let option of self.locals.selection.paladin_sacred_oaths">{{ option }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.sacred_oath" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">Fighting Style</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngFor="let style of self.model.powers.Paladin.style || []">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ style.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="style.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.paladin_fighting_styles">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 3">
+    <h5 class="h5">Channel Divinity</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divinity.value">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divinity.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Paladin.divinity) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divinity.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Lay on Hands HP Pool</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.model.powers.Paladin.lay_on_hands.value }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.lay_on_hands.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Paladin.lay_on_hands) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.lay_on_hands.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Divine Sense</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.methods.getAbilityMod(self.model.abilities.CHA) + 1 }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divine_sense.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Paladin.divine_sense) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divine_sense.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 14">
+    <h5 class="h5">Cleansing Touch</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.model.powers.Paladin.cleansing_touch.value }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.cleansing_touch.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Paladin.cleansing_touch) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.cleansing_touch.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-6" *ngIf="self.model.powers.Paladin.sacred_oath === 'Oath of the Ancients' && klass.level >= 15">
+        <h5 class="h5">Undying Sentinel</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.undying_sentinel.remaining">
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6" *ngIf="klass.level >= 20">
+        <h5 class="h5">{{ self.locals.data.paladin_oath_supers[self.model.powers.Paladin.sacred_oath] }}</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.oath_super.remaining">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

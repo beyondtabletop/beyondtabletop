@@ -1,0 +1,17 @@
+<div class="overview-skills-block">
+  <div class="nav-clickable" (click)="self.methods.switchTab('skills')">
+    <h3>{{ block.name }}</h3>
+    <div class="flex-row-all flex-gutters-10" *ngFor="let skill of self.methods.listSkillsForOverview()">
+      <div class="flex-col num-print-column">
+        <strong>{{ self.methods.getSkillTotal(skill) }}</strong>
+      </div>
+      <div class="flex-col"><span>{{ skill.name }}</span></div>
+    </div>
+    <div class="flex-row-all flex-gutters-10" *ngFor="let skill of self.methods.listCustomSkillsForOverview()">
+      <div class="flex-col num-print-column">
+        <strong>{{ self.methods.getSkillTotal(skill) }}</strong>
+      </div>
+      <div class="flex-col"><span>{{ skill.name }}</span></div>
+    </div>
+  </div>
+</div>

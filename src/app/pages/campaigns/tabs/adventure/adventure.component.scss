@@ -1,0 +1,11 @@
+@import '../../../../../app/abstracts/variables.scss';
+@import '../../../../../app/abstracts/mixins.scss';
+
+.adventure-log {
+  textarea {
+    height: 150px;
+    @include above-mobile {
+      height: 200px;
+    }
+  }
+}

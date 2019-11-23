@@ -1,0 +1,22 @@
+<div>
+  <bt-battlemap-draw-layer class="drawable" [class.drawing]="self.locals.drawing.active" *ngIf="shape.drawable"></bt-battlemap-draw-layer>
+  <div class="drawing-actions" *ngIf="shape.drawable && self.methods.isActiveItem(shape)">
+    <button class="drawing-action"
+      title="Toggle draw mode"
+      (click)="self.locals.drawing.active = !self.locals.drawing.active"
+      [ngClass]="self.locals.drawing.active ? 'paint-active' : 'paint-inactive'"
+    >
+      <i class="material-icons">brush</i>
+    </button>
+    <div class="palette drawing-action" [ngStyle]="{ 'background': self.locals.drawing.color }" title="Choose line color">
+      <i class="material-icons">palette</i>
+      <input [(colorPicker)]="self.locals.drawing.color" type="text" (colorPickerClose)="self.touch()" [(ngModel)]="self.locals.drawing.color">
+    </div>
+    <button class="clear-drawing drawing-action"
+      (click)="self.methods.clearShapeLines(shape)"
+      title="Clear drawings"
+    >
+      <i class="material-icons">block</i>
+    </button>
+  </div>
+</div>

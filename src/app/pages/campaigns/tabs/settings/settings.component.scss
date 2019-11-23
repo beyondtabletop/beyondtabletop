@@ -1,0 +1,16 @@
+.saved-tools {
+  padding: 0 20px;
+  max-width: 500px;
+  margin: auto;
+  .reader-warning {
+    display: none;
+  }
+  .role-reader {
+    .reader-warning {
+      display: block;
+    }
+    .writer-access {
+      display: block;
+    }
+  }
+}

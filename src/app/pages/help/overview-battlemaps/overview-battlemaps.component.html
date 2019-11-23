@@ -1,0 +1,104 @@
+<bt-static-container class="help-base">
+  <h1 class="hh1">Overview of Battlemaps</h1>
+  <p>In this guide we'll step through how to create a battlemap and use it for your RPG encounters.</p>
+
+  <h2 class="hh3 tmr-60">Create a battlemap</h2>
+
+  <p>After logging in or signing up, you'll be automatically directed to your Dashboard. From here you can create any kind of tool. Once you click to create a Battlemap and wait for the map to load, you'll see a (mostly) empty map.</p>
+
+  <div class="info-box">
+    <h4 class="hh5">Beta Note</h4>
+    <p>The battlemap tool is currently in beta. Tools in beta are free to use for everyone, but may change drastically. While we really try not to compromise data, sometimes data loss (due to version changes and upgrades) is unavoidable. To stay up to date on development changes, <%= link_to "follow our blog", SiteConfig[:social][:gplus] %> where we post changelogs and announcements.</p>
+  </div>
+
+  <h2 class="hh3 tmr-60">Navigation Bar</h2>
+
+  <p>When you open a battlemap you should see the left-side navigation bar. From here you can administrate the map itself or any of the entities you create. To the right of the site logo there's a small arrow icon. Clicking this will collapse the navigation bar showing you only a few icons and options.</p>
+
+  <p>Below the logo is a line of text that says "Beyond Tabletop Map." You can click on this text to edit the title of your battlemap. This title will show up on your dashboard and will help you distinguish your maps from one another.</p>
+
+  <p>Below the title are a series of icons. The circle adds a new token, the square adds a new shape, the gear opens up the map settings, the crosshairs moves your viewport to the center of the map, and the two magnifying glasses zoom in and out.</p>
+
+  <h3 class="hh5">Map Settings</h3>
+
+  <p>You can customize the background tile image for your map. Upload your image to a 3rd party site, such as <a href="http://imgur.com/" target="_blank">imgur</a> or <a href="https://www.getcloudapp.com/" target="_blank">cloudapp</a>, and get the direct URL. Paste the direct URL into this field to have it replace the white and gray checkered pattern.</p>
+
+  <p>While an 80 pixel by 80 pixel image works best for setting a uniform grid, you can also use a large detailed map image instead. Just keep in mind the tiles will still lock into a 40 pixel by 40 pixel grid, so you may need to test the size of your background image a few times to get it right. You can also use shapes to serve as a background, for more information about this see the Shapes section below.</p>
+
+  <p>Here in the settings area, can also toggle whether you'd like to enable hotkeys while using this map.</p>
+
+  <h3 class="hh5">Map Scenes</h3>
+
+  <p>Lastly in the settings, map owners can create and switch scenes. Each scene has individual tokens and shapes, allowing you as a Game Master to customize and set up several encounters before a game session, and hide them from your players until you're ready.</p>
+
+  <h3 class="hh5">Active Item</h3>
+
+  <p>When you click on an entity (a shape or a token), the navigation bar will show you information about that entity below the icons described above. You can also delete or copy the active item. Active entities will be displayed with a blue glow around them so you can tell which entity you last selected.</p>
+
+  <h3 class="hh5">Initiative Tracker</h3>
+
+  <p>Every token that gets created is placed in a list below the Active Item information. In this list you can set each token's intiative for determining battle order. Once there are two tokens, new Prev and Next buttons will appear for setting the current turn. As you cycle through the tokens, the round number will increment so you can keep track of how many times everyone has acted.</p>
+
+  <h3 class="hh5">Share button</h3>
+
+  <p>Lastly in the navigation bar, there is a share button for inviting your friends to come play with you!</p>
+
+  <h3 class="hh5">Context Menu</h3>
+
+  <p>Right click on any token or shape on your map to bring up a context menu with many of the same options that are available in left navigation bar</p>
+
+  <h2 class="hh3 tmr-60">Tokens</h2>
+
+  <p>A token represents a creature, either a player character, or an enemy. Every token that gets created is put into the initiative tracker, so for the most part you won't want to create tokens for NPCs or anyone not participating in a battle.</p>
+
+  <p>After you create a token, click on it to select it as the active item. In the navigation bar you should see the token's details. New tokens have "A" as their default name. You can change this to a full name, but the token will just show the first letter of the name.</p>
+
+  <p>If you have an image for your character, you can put the URL into the Image URL field, and that image will replace the token's default look. Follow the same steps for uploading an image to a third party site that is listed above. If you don't have an image prepared, you can still customize the color of each token with the background color field below.</p>
+
+  <p>Below that is the size field. Medium is currently the smallest token size available, but small characters take up the same space as medium ones, so if you need to create a token for a small character, just use Medium for its size.</p>
+
+  <p>Next is damage taken. This is the easiest way for DMs to keep track of how much damage enemies take. You can use this to keep track of player character damage as well, however most people find it's easier to keep track of that data on their actual character sheets instead.</p>
+
+  <p>The status field can be used to mark combatants that have a status or condition, so you remember when it comes to their turn if they should behave differently.</p>
+
+  <p>Clicking on the "Token Owner" text will reveal a dropdown select menu listing everyone the sheet has been shared with. You can use this to identify token owners. In the future, this may be used to alert players when it is their turn.</p>
+
+  <p>If you are the creator of the battlemap, then you will also see a checkbox that says "Hide for Players." This checkbox will make the token invisible to everyone except you. This is helpful if you want to set up traps or suprises in your battle, so you can keep track of tokens without anyone else seeing them.</p>
+
+  <h2 class="hh3 tmr-60">Shapes</h2>
+
+  <p>A shape is much more abstract than a token. A shape can be used as a large background area, or it can represent a wall, or other structure on the battlefield. You can even use shapes as NPCs.</p>
+
+  <p>Shapes share many settings with tokens, including name, Image URL, background color, and Hide for Players. Shapes have an additional option when setting a background. Checking the "Tile BG?" checkbox will set the background at it's natural size and tile it throughout the shape. Without this checked the background will shrink to fit inside the shape.</p>
+
+  <p>Shapes share many settings with tokens, including name, Image URL, background color, and Hide for Players. Shapes have an additional option when setting a background. Checking the "Tile BG?" checkbox will set the background at it's natural size and tile it throughout the shape. Without this checked the background will shrink to fit inside the shape.</p>
+
+  <p>The "Round" checkbox will round the corners of your shape creating a circle or oval. The "Pinned" checkbox will prevent the shape from being moved, and is useful when using a shape as large background, or for set pieces that will not move during battle.</p>
+
+  <p>Finally you will see a series of four arrows. These arrows change the layering of shapes. From left to right the icons send a shape to the bottom of the stack, move a shape down one layer, move a shape up one layer, and send a shape to the top of the stack.</p>
+
+  <h2 class="hh3 tmr-60">Shortcuts</h2>
+
+  <p>There are also a number of shortcuts you can use to speed up your usage of the Battlemap.</p>
+  <ul>
+    <li>Holding the <code>shift</code> key while selecting entities of the same type, will select multiple entities at the same time.</li>
+    <li>While shapes or tokens are selected, you can press the <code>delete</code> key to delete the selected entity or entities.</li>
+    <li>Pressing the <code>d</code> key will duplicate any single item you have selected.</li>
+    <li>Pressing the <code>c</code> key will move your map to the center</li>
+    <li>Pressing <code>shift</code> + <code>c</code> will move a single selected entity to your current viewable area of the map (aka viewport).</li>
+    <li>Press the <code>z</code> key to undo your last action.</li>
+    <li>Press the <code>shift</code> + <code>z</code> keys to redo your last undo.</li>
+    <li>Press the <code>t</code> key to add a new token.</li>
+    <li>Press the <code>s</code> key to add a new shape.</li>
+    <li>Press the <code>=</code> key to zoom in.</li>
+    <li>Press the <code>-</code> key to zoom out.</li>
+    <li>As the owner of a map you can press the <code>i</code> key to when an entity is selected to toggle its visibility for other players.</li>
+    <li>With a single shape selected, press the <code>p</code> key to pin or unpin the shape.</li>
+    <li>Using the arrow keys, you can move a single selected entity up, down, left, or right one square. If you hold shift, the entity will move 5 squares.</li>
+    <li>Press the <code>r</code> key to rotate a single selected entity clockwise 90 degrees.</li>
+  </ul>
+
+  <h2 class="hh3 tmr-60">The End!</h2>
+
+  <p>Thanks for reading, happy gaming! If you have any more questions, <a href="https://www.reddit.com/r/beyondtabletop" target="_blank">don't hesistate to visit our subreddit and ask us</a>. Beyond Tabletop's dev (me) answers every question as best he can.</p>
+</bt-static-container>

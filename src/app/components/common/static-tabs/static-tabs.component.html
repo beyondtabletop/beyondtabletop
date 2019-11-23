@@ -1,0 +1,20 @@
+<header class="left-tabs" [ngClass]="{ 'showing-nav': showingNav }">
+  <div class="visible-bar" (click)="toggleNav()">
+    <span class="logo"></span>
+    <div class="toggle-nav">
+      <i class="material-icons">menu</i>
+    </div>
+  </div>
+  <div class="logo-wrap">
+    <a class="logo" routerLink="/dashboard"></a>
+  </div>
+  <div class="tabs-nav">
+    <a routerLink="/dashboard" class="tab-nav-item" *ngIf="loggedIn">Dashboard</a>
+    <button (click)="signIn()" class="tab-nav-item" *ngIf="!loggedIn">Login</button>
+    <a routerLink="/account" class="tab-nav-item">Account</a>
+    <a routerLink="/help" class="tab-nav-item">Help</a>
+    <a routerLink="/blog" class="tab-nav-item">Blog</a>
+    <a routerLink="/donate" class="tab-nav-item">Donate</a>
+    <button (click)="auth.signOut()" class="tab-nav-item" *ngIf="loggedIn">Log Out</button>
+  </div>
+</header>

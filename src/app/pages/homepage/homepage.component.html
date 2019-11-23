@@ -1,0 +1,75 @@
+<div class="pixel-img"></div>
+<header class="page-header flex-row-all flex-config-align-center">
+  <div class="flex-col">
+    <h1 class="branding"><a routerLink="/">Beyond Tabletop</a></h1>
+  </div>
+  <nav class="flex-col flex-dynamic">
+    <ul class="flex-row-all">
+      <li class="flex-col"><a routerLink="/help">Help</a></li>
+      <li class="flex-col"><a routerLink="/blog">Blog</a></li>
+      <li class="flex-col"><a routerLink="/donate">Donate</a></li>
+    </ul>
+  </nav>
+  <div class="flex-col flex-static">
+    <button class="button button-cyan" (click)="dashboardOrLogin()">{{ loggedIn ? 'Dashboard' : 'Login' }}</button>
+  </div>
+</header>
+
+<div class="scroll-spacer-big"></div>
+
+<section class="left-section scroll-section">
+  <h2>D&amp;D and RPG Tools Without the Baggage</h2>
+  <h3>Replace your role-playing maps and character sheets with Beyond Tabletop - a free realtime web application for RPG players.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="right-section scroll-section">
+  <h2>Utilizing Google's Firebase</h2>
+  <h3>Your character sheets, maps, and other Beyond Tabletop files are stored in a realtime-accessible database. You can easily share any of your files with other users by simply sending them a link.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="left-section scroll-section">
+  <h2>Completely Free</h2>
+  <h3>Server costs are supported by generous donations.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="right-section scroll-section">
+  <h2>RPG Character Sheets</h2>
+  <h3>Beyond Tabletop provides D&amp;D 5e and Pathfinder character sheets designed to remove the tedium of making and leveling a character. With integrated classes (core, base, alternative, NPC, and CRB prestige), feats, spells, conditions, customizable fields and more, Beyond Tabletop’s character sheets let you stop looking stuff up and start playing instead.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="left-section scroll-section">
+  <h2>Simple Maps</h2>
+  <h3>Beyond Tabletop maps are easy to use, packed with features, and fun to customize. Create a map for your players using tokens, shapes, and background images, then just share it with a link.</h3>
+  <h3>All players can access it simultaneously in realtime, move and customize their character token, and track the party’s initiative order, health and conditions.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="right-section scroll-section">
+  <h2>Play on any Device</h2>
+  <h3>All of our tools work on any device that can load a web page!</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<section class="left-section scroll-section">
+  <h2>Bring everyone to the table</h2>
+  <h3>Online tools aren't a replacement for real life gaming. Our product is designed to enhance the in-person experience of playing at a table with your friends. Because our tools are built off of Firebase realtime technology, collaboration has never been easier.</h3>
+  <h3>Most online gaming applications are actually harder for players to use, and harder for game masters to set up, than papers and pencils. When we set out to create Beyond Tabletop, our top priority was simplicity. Tabletop encounters can be created in less than a minute, and our character sheets let you focus on making your character unique and start playing.</h3>
+  <button class="button button-white button-large" (click)="dashboardOrLogin()">Start Playing</button>
+</section>
+
+<footer class="flex-row-mobile flex-config-spaced flex-config-align-center">
+  <div class="flex-dynamic">
+    <span>© {{ year }} Beyond Tabletop LLC &bull;</span>
+    <ul class="footer-nav list-unstyled">
+      <li><a routerLink="/help">Help</a></li>
+      <li><a routerLink="/blog">Blog</a></li>
+      <li><a routerLink="/donate">Donate</a></li>
+    </ul>
+    <span>&bull; Art by <a href="https://www.artstation.com/atsuzaki">Katherine Philip</a></span>
+  </div>
+  <bt-social-footer></bt-social-footer>
+</footer>

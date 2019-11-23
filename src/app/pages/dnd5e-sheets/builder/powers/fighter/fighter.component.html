@@ -1,0 +1,34 @@
+<div class="flex-row-tablet flex-gutters-10">
+  <div class="flex-col-7">
+    <h4 class="gh3">Choose your Archetype</h4>
+    <div class="bm-20" *ngFor="let archetype of self.locals.selection.martial_archetypes">
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col">
+          <button class="button button-checkbox" (click)="self.model.powers.Fighter.archetype = archetype" [ngClass]="self.model.powers.Fighter.archetype === archetype ? 'checked' : 'unchecked'">
+            <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+          </button>
+        </div>
+        <div class="flex-col">
+          <h5 class="gh4">{{ archetype }}</h5>
+          <p>{{ self.locals.data.builder.create_powers.Fighter.archetypes[archetype] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col-5">
+    <h4 class="gh3">Choose your Fighting Style</h4>
+    <div class="bm-20" *ngFor="let style of self.locals.selection.fighting_styles">
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col">
+          <button class="button button-checkbox" (click)="self.model.powers.Fighter.style[0].text = style" [ngClass]="self.model.powers.Fighter.style[0].text === style ? 'checked' : 'unchecked'">
+            <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+          </button>
+        </div>
+        <div class="flex-col">
+          <h5 class="gh4">{{ style }}</h5>
+          <p>{{ self.locals.data.builder.create_powers.Fighter.styles[style] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

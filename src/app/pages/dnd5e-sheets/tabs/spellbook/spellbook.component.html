@@ -1,0 +1,281 @@
+<div class="sheet-tab">
+  <div class="group group-spellcasting bmr-40">
+    <h2 class="group-header">Spellcasting</h2>
+    <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-30" *ngFor="let klass of self.methods.listSpellCasters()">
+      <div class="flex-col" *ngIf="klass.spells_known || self.model.prefs.homebrew">
+        <label class="control-label">Spells Known</label>
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.spells_known">
+      </div>
+      <div class="flex-col" *ngIf="klass.cantrips || self.model.prefs.homebrew">
+        <label class="control-label">Cantrips</label>
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.cantrips">
+      </div>
+      <div class="flex-col" *ngIf="klass.slot_level || self.model.prefs.homebrew">
+        <label class="control-label">Slot Level</label>
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.slot_level">
+      </div>
+    </div>
+    <!--   *ngIf="self.methods.characterHasSpellSlots()"  -->
+    <div class="bmr-30">
+      <div class="flex-row-all flex-config-spaced">
+        <div class="flex-col">
+          <h4>Spell {{ self.model.casting.points ? 'Points' : 'Slots' }}</h4>
+        </div>
+        <div class="flex-col">
+          <button class="button button-link button-small" (click)="self.methods.toggleSpellPoints()">Switch to Spell {{ self.model.casting.points ? 'Slots' : 'Points' }}</button>
+        </div>
+      </div>
+
+      <div class="flex-row-tablet flex-gutters-10">
+        <div class="flex-col-6">
+          <div class="flex-row-all flex-gutters-5 bm-5 label-row">
+            <div class="flex-col w-60">
+              <label class="control-label">Level</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <label class="control-label">Base</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <label class="control-label">Misc</label>
+            </div>
+            <div class="flex-col num-print-column">
+              <label class="control-label">Total</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <label class="control-label">Remaining</label>
+            </div>
+          </div>
+          <div class="stat-row" *ngFor="let slot of self.methods.listSpellSlots(); index as i" [ngClass]="{'bt-hide': i >= self.locals.character_spell_slots.length }">
+            <div class="flex-row-all flex-gutters-5 bm-5">
+              <div class="flex-col w-60">
+                <label class="control-label" *ngIf="self.locals.character_spell_slots.length > 1">{{ self.methods.levelize(i + 1) }}</label>
+                <label class="control-label" *ngIf="self.model.casting.points">{{ self.methods.levelize(slot.pos) }}</label>
+              </div>
+              <div class="flex-col num-field-column">
+                <label class="control-label" *ngIf="!self.model.prefs.homebrew">{{ slot.value }}</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.value" *ngIf="self.model.prefs.homebrew">
+              </div>
+              <div class="flex-col num-field-column">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.misc">
+              </div>
+              <div class="flex-col num-print-column">
+                <label class="control-label">{{ self.methods.getMiscValueAutoTotal(slot) }}</label>
+              </div>
+              <div class="flex-col num-field-column">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.remaining">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-row-tablet">
+      <div class="flex-col-6">
+        <div class="bmr-30" *ngIf="self.model.prefs.homebrew">
+          <h4>Spell Ability</h4>
+          <div class="flex-row-all flex-config-align-center flex-gutters-5 bm-5" *ngFor="let klass of self.methods.listKlasses()">
+            <div class="flex-col-6">
+              <label class="g-label">{{ klass.name }}</label>
+            </div>
+            <div class="flex-col-6">
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ klass.spell_ability }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.spell_ability">
+                  <option [value]="option" *ngFor="let option of self.locals.selection.abilities">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bmr-60">
+      <label class="checkbox-inline checkbox-wrap">
+        <input type="checkbox" title="Only show prepared spells on Overview tab?" (ngModelChange)="self.touch()" [(ngModel)]="self.model.casting.prepared"> Show only prepared on Overview?
+      </label>
+    </div>
+  </div>
+
+  <div class="spells-cards bmr-40" ng-swipe-left="self.methods.swipeCards(-1, self.locals.selection.cards.spells)" ng-swipe-right="self.methods.swipeCards(1, self.locals.selection.cards.spells)" *ngIf="false">
+    <div class="cards-viewport">
+      <div class="flex-row-all flex-gutters-10 cards-row" *ngFor="let level of self.locals.selection.spell_levels" [ngStyle]="self.locals.selection.cards.spells">
+        <div class="flex-col" *ngFor="let spell of self.methods.listSpellsForLevel(level)">
+          <div class="card">
+            <span>{{ spell.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spellbook spell-squares">
+    <!-- Spell Detail Modals -->
+    <div *ngFor="let spell of self.methods.listSpells()" [ngClass]="spell.$state">
+      <div class="detail" (click)="spell.$state = ''">
+        <div class="inner" (click)="$event.stopPropagation()">
+          <div [ngClass]="{'bt-hide': !spell.$state || !spell.$state.includes('editing') }">
+            <div class="bm-5">
+              <input type="text" class="form-control" placeholder="Name" (ngModelChange)="self.touch()" [(ngModel)]="spell.name">
+            </div>
+            <div class="bm-5">
+              <input type="text" class="form-control" placeholder="Summary" (ngModelChange)="self.touch()" [(ngModel)]="spell.summary">
+            </div>
+            <div class="bm-5">
+              <textarea class="form-control" placeholder="Description" (ngModelChange)="self.touch()" [(ngModel)]="spell.text"></textarea>
+            </div>
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+              <div class="flex-col-6 bm-5">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Concentration?" (ngModelChange)="self.touch()" [(ngModel)]="spell.concentration"> Concentration?
+                </label>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Ritual?" (ngModelChange)="self.touch()" [(ngModel)]="spell.ritual"> Ritual?
+                </label>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ spell.level }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.level" title="Level">
+                    <option [ngValue]="option" *ngFor="let option of self.locals.selection.spell_levels">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ spell.school }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.school" title="School">
+                    <option [value]="school" *ngFor="let school of self.locals.selection.wizard_traditions">{{ school }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Casting Time" (ngModelChange)="self.touch()" [(ngModel)]="spell.casting">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Components" (ngModelChange)="self.touch()" [(ngModel)]="spell.components">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Duration" (ngModelChange)="self.touch()" [(ngModel)]="spell.duration">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Range" (ngModelChange)="self.touch()" [(ngModel)]="spell.range">
+              </div>
+            </div>
+            <label class="block-label">Classes</label>
+
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Bard" ng-checked="self.methods.isSpellForClass(spell, 'Bard')" (click)="self.methods.toggleSpellClass(spell, 'Bard')"> Bard
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Cleric" ng-checked="self.methods.isSpellForClass(spell, 'Cleric')" (click)="self.methods.toggleSpellClass(spell, 'Cleric')"> Cleric
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Druid" ng-checked="self.methods.isSpellForClass(spell, 'Druid')" (click)="self.methods.toggleSpellClass(spell, 'Druid')"> Druid
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Paladin" ng-checked="self.methods.isSpellForClass(spell, 'Paladin')" (click)="self.methods.toggleSpellClass(spell, 'Paladin')"> Paladin
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Ranger" ng-checked="self.methods.isSpellForClass(spell, 'Ranger')" (click)="self.methods.toggleSpellClass(spell, 'Ranger')"> Ranger
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Sorcerer" ng-checked="self.methods.isSpellForClass(spell, 'Sorcerer')" (click)="self.methods.toggleSpellClass(spell, 'Sorcerer')"> Sorcerer
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Warlock" ng-checked="self.methods.isSpellForClass(spell, 'Warlock')" (click)="self.methods.toggleSpellClass(spell, 'Warlock')"> Warlock
+                </label>
+              </div>
+              <div class="flex-col-6">
+                <label class="checkbox-inline checkbox-wrap">
+                  <input type="checkbox" title="Wizard" ng-checked="self.methods.isSpellForClass(spell, 'Wizard')" (click)="self.methods.toggleSpellClass(spell, 'Wizard')"> Wizard
+                </label>
+              </div>
+            </div>
+
+            <button class="button button-cyan" (click)="self.methods.saveEditedSpell(spell)">Save</button>
+          </div>
+
+          <div [class.bt-hide]="spell.$state && spell.$state.includes('editing')">
+            <h2 class="h24 bm-10 weight-bold">{{ spell.name }}</h2>
+            <div class="bm-10">{{ self.methods.levelSchool(spell) }}</div>
+            <div class="bm-10">
+              Range: <span title="Range">{{ spell.range }}</span> /
+              Casting: <span title="Casting">{{ spell.casting }}</span> /
+              Duration: <span title="Duration">{{ spell.duration }}</span>
+              <span *ngIf="spell.ritual"> / Ritual</span>
+              <span *ngIf="spell.concentration"> / Concentration</span>
+            </div>
+            <div class="bm-10">
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" title="Prepared?" (ngModelChange)="self.touch()" [(ngModel)]="spell.prepared"> Prepared?
+              </label>
+            </div>
+            <div class="btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></div>
+            <button class="button button-cyan" *ngIf="false">Cast</button>
+            <button class="button button-green" (click)="spell.$state = 'showing-detail editing'">Edit</button>
+            <button class="button button-red" (click)="self.methods.removeFromSpellbook(spell)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spell Squares -->
+    <div
+      class="level bm-40"
+      *ngFor="let level of self.locals.selection.spell_levels"
+      [class.bt-hide]="!self.methods.anySpellsForLevel(level)"
+    >
+      <div class="col" *ngFor="let spell of self.methods.listSpellsForLevel(level)" [ngClass]="spell.$state">
+        <div class="intrinsic">
+          <div class="spell" title="{{ spell.name }}, Level {{ level }}, {{ spell.school }}" [ngClass]="self.methods.spellSquareSchoolClass(spell)" (click)="spell.$state = 'showing-detail'">
+            <div class="spell-name bm-5">{{ spell.name }}</div>
+            <div class="bm-5 spell-info">
+              <span title="Range">{{ spell.range }}</span> /
+              <span title="Casting">{{ spell.casting }}</span> /
+              <span title="Duration">{{ spell.duration }}</span>
+            </div>
+            <div>{{ spell.summary }}</div>
+            <div [title]="spell.school" class="bg-school"></div>
+            <div title="Level" class="bg-level">
+              <span>{{ level }}</span>
+              <sup>{{ self.methods.levelizeWithoutNum(level) }}</sup>
+            </div>
+            <div class="spell-booleans flex-row-all flex-config-spaced">
+              <div class="flex-col bool" title="Ritual" *ngIf="spell.ritual">
+                <i class="material-icons">check</i> Ritual
+              </div>
+              <div class="flex-col bool" title="Concentration" *ngIf="spell.concentration">
+                <i class="material-icons">check</i> Conc.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button class="button button-cyan" (click)="self.methods.switchTab('spell_list')">Add Spells</button>
+  </div>
+</div>

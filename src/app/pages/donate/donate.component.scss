@@ -1,0 +1,46 @@
+@import '../../../app/abstracts/variables.scss';
+@import '../../../app/abstracts/mixins.scss';
+
+.main {
+  background: $secondary-color;
+  color: #a4a6b2;
+  @include header-size(48, 40, 36, 30, 1.3);
+  padding: 0 20px;
+  min-height: 100vh;
+  @include above-width($tablet) {
+    padding: 0 40px;
+  }
+}
+
+.inner {
+  margin: auto;
+  max-width: 640px;
+  @include above-width($tablet) {
+    max-width: 680px;
+  }
+}
+
+header {
+  padding: 20px 0;
+  @include above-width($tablet) {
+    padding: 40px 0;
+  }
+}
+
+.page-button {
+  @include header-size(48, 40, 36, 30, 1.5);
+  padding: 25px 40px;
+}
+
+.img-link-wrap {
+  display: block;
+}
+
+.logo {
+  display: block;
+  background: transparent url("/assets/img/logo.png") 0 0 no-repeat;
+  background-image: url("/assets/img/logo.svg"), none;
+  background-size: contain;
+  height: 45px;
+  position: relative;
+}

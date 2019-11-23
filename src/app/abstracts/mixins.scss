@@ -1,0 +1,514 @@
+//***************************************************
+// MIXINS
+//***************************************************
+
+@mixin gradient($top, $bottom, $topPercent: 0%, $bottomPercent: 100%, $fallback: "fallback.png") {
+  background-color: $bottom;
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  @if not $fallback == "fallback.png" {
+    background-image: url($fallback);
+  }
+  background: -webkit-gradient(linear, left top, left bottom, color-stop($topPercent, $top), color-stop($bottomPercent, $bottom));
+  background: -webkit-linear-gradient(top, $top $topPercent, $bottom $bottomPercent);
+  background:    -moz-linear-gradient(top, $top $topPercent, $bottom $bottomPercent);
+  background:      -o-linear-gradient(top, $top $topPercent, $bottom $bottomPercent);
+  background:     -ms-linear-gradient(top, $top $topPercent, $bottom $bottomPercent);
+  background:   linear-gradient(to bottom, $top $topPercent, $bottom $bottomPercent);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$top', endColorstr='$bottom',GradientType=0 );
+}
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+@mixin unstyled-button {
+  border: 0;
+  padding: 0;
+  background: none;
+  width: auto;
+  display: inline-block;
+}
+@mixin max-width($width) {
+  max-width: $width;
+  .oldie & {
+    width: $width;
+  }
+}
+@mixin rotate($deg) {
+  -webkit-transform: rotate($deg);
+     -moz-transform: rotate($deg);
+      -ms-transform: rotate($deg);
+       -o-transform: rotate($deg);
+          transform: rotate($deg);
+}
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@mixin box-shadow($args...) {
+  -webkit-box-shadow: $args;
+  box-shadow: $args;
+}
+
+$viewport-width: false !default;
+
+@mixin above-width($width: $mobile) {
+  @media screen and (min-width: $width + 1) {
+    @content;
+  }
+}
+
+@mixin below-width($width: $tablet) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+
+// helpers
+@mixin above-desktop {
+  @media screen and (min-width: $desktop + 1) {
+    @content;
+  }
+}
+@mixin above-tablet {
+  @media screen and (min-width: $tablet + 1) {
+    @content;
+  }
+}
+@mixin above-mobile {
+  @media screen and (min-width: $mobile + 1) {
+    @content;
+  }
+}
+
+@mixin placeholder($color) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $color;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: $color;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
+@mixin position ($position: relative, $coordinates: 0 0 0 0) {
+
+  @if type-of($position) == list {
+    $coordinates: $position;
+    $position: relative;
+  }
+
+  $top: nth($coordinates, 1);
+  $right: nth($coordinates, 2);
+  $bottom: nth($coordinates, 3);
+  $left: nth($coordinates, 4);
+
+  position: $position;
+
+  @if $top == auto {
+    top: $top;
+  }
+  @else if not(unitless($top)) {
+    top: $top;
+  }
+
+  @if $right == auto {
+    right: $right;
+  }
+  @else if not(unitless($right)) {
+    right: $right;
+  }
+
+  @if $bottom == auto {
+    bottom: $bottom;
+  }
+  @else if not(unitless($bottom)) {
+    bottom: $bottom;
+  }
+
+  @if $left == auto {
+    left: $left;
+  }
+  @else if not(unitless($left)) {
+    left: $left;
+  }
+}
+@mixin inline-block($alignment: none) {
+  display: inline-block;
+  @if $alignment and $alignment != none {
+      vertical-align: $alignment;
+  }
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline
+}
+// Find ratio with (height / width * 100)%
+@mixin intrinsic-ratio($selector: '.scalable', $ratio: 56.25%) {
+  position: relative;
+  padding-bottom: $ratio;
+  height: 0px;
+  #{$selector} {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+}
+@mixin alt-column-padding($padding: 2px) {
+  padding: 0 $padding;
+  &:nth-child(odd) {
+    padding-left: 0;
+  }
+  &:nth-child(even) {
+    padding-right: 0;
+  }
+}
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+@mixin no-border-box {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+@mixin fa {
+  display:inline-block;
+  font-family:FontAwesome;
+  font-style:normal;
+  font-weight:normal;
+  line-height:1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+@mixin sort-icon($content) {
+  position: relative;
+  &:before {
+    @include fa;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    content: $content;
+  }
+}
+@mixin font-size($sizeValue: $default-font-size, $line-h: $default-line-height ) {
+  font-size: ($sizeValue * 1) + px;
+  // font-size: ($sizeValue / 10) + rem;
+  line-height: $line-h;
+}
+@mixin font-based-height($sizeValue: $default-font-size, $line-h: $default-line-height ) {
+  $line: $sizeValue * $line-h;
+  height: ($line * 1) + px;
+}
+@mixin header-size($desktop-size, $tablet-size, $mobile-size, $default-size, $line-h: $default-line-height) {
+  @if $default-size {
+    @include font-size($default-size, $line-h);
+  }
+  @if $mobile-size {
+    @include above-mobile {
+      @include font-size($mobile-size, $line-h);
+    }
+  }
+  @if $tablet-size {
+    @include above-tablet {
+      @include font-size($tablet-size, $line-h);
+    }
+  }
+  @if $desktop-size {
+    @include above-desktop {
+      @include font-size($desktop-size, $line-h);
+    }
+  }
+}
+
+// General Flex
+
+@mixin quick-flex($justify: space-between, $align: flex-start, $wrap: nowrap) {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+
+  -ms-flex-wrap: $wrap;
+  -webkit-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+
+  -ms-justify-content: $justify;
+  -webkit-justify-content: $justify;
+  justify-content: $justify;
+
+  -ms-align-items: $align;
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+@mixin v-flex() {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+@mixin flex-wrap($wrap: wrap) {
+  -ms-flex-wrap: $wrap;
+  -webkit-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+@mixin flex-justify($justify: flex-start) {
+  -ms-justify-content: $justify;
+  -webkit-justify-content: $justify;
+  justify-content: $justify;
+}
+@mixin flex-align($align: flex-start) {
+  -ms-align-items: $align;
+  -webkit-align-items: $align;
+  align-items: $align;
+}
+@mixin flex-align-self($align: flex-start) {
+  -ms-align-self: $align;
+  -webkit-align-self: $align;
+  align-self: $align;
+}
+
+
+
+// Extensible Flex
+
+@mixin flex-row() {
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+
+  -ms-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+
+  -ms-align-items: flex-start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+@mixin flex-row-at($width: 0) {
+  @if $width == 0 {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    & > .flex-col-1 {
+      width: 8.33333333333%;
+    }
+    & > .flex-col-2 {
+      width: 16.6666666667%;
+    }
+    & > .flex-col-3 {
+      width: 25%;
+    }
+    & > .flex-col-4 {
+      width: 33.3333333333%;
+    }
+    & > .flex-col-5 {
+      width: 41.6666666667%;
+    }
+    & > .flex-col-6 {
+      width: 50%;
+    }
+    & > .flex-col-7 {
+      width: 58.3333333333%;
+    }
+    & > .flex-col-8 {
+      width: 66.6666666667%;
+    }
+    & > .flex-col-9 {
+      width: 75%;
+    }
+    & > .flex-col-10 {
+      width: 83.3333333333%;
+    }
+    & > .flex-col-11 {
+      width: 91.6666666667%;
+    }
+    & > .flex-col-12 {
+      width: 100%;
+    }
+    & > .flex-percent-10 {
+      width: 10%;
+    }
+  } @else {
+    @include above-width($width) {
+      display: -ms-flex;
+      display: -webkit-flex;
+      display: flex;
+      & > .flex-col-1 {
+        width: 8.33333333333%;
+      }
+      & > .flex-col-2 {
+        width: 16.6666666667%;
+      }
+      & > .flex-col-3 {
+        width: 25%;
+      }
+      & > .flex-col-4 {
+        width: 33.3333333333%;
+      }
+      & > .flex-col-5 {
+        width: 41.6666666667%;
+      }
+      & > .flex-col-6 {
+        width: 50%;
+      }
+      & > .flex-col-7 {
+        width: 58.3333333333%;
+      }
+      & > .flex-col-8 {
+        width: 66.6666666667%;
+      }
+      & > .flex-col-9 {
+        width: 75%;
+      }
+      & > .flex-col-10 {
+        width: 83.3333333333%;
+      }
+      & > .flex-col-11 {
+        width: 91.6666666667%;
+      }
+      & > .flex-col-12 {
+        width: 100%;
+      }
+      & > .flex-percent-10 {
+        width: 10%;
+      }
+    }
+  }
+}
+@mixin flex-column ($size, $width: 0) {
+  @if $width == 0 {
+    @if $size == auto {
+      width: auto;
+    }
+    @if $size == 1 {
+      width: 8.33333333333%;
+    }
+    @if $size == 2 {
+      width: 16.6666666667%;
+    }
+    @if $size == 3 {
+      width: 25%;
+    }
+    @if $size == 4 {
+      width: 33.3333333333%;
+    }
+    @if $size == 5 {
+      width: 41.6666666667%;
+    }
+    @if $size == 6 {
+      width: 50%;
+    }
+    @if $size == 7 {
+      width: 58.3333333333%;
+    }
+    @if $size == 8 {
+      width: 66.6666666667%;
+    }
+    @if $size == 9 {
+      width: 75%;
+    }
+    @if $size == 10 {
+      width: 83.3333333333%;
+    }
+    @if $size == 11 {
+      width: 91.6666666667%;
+    }
+    @if $size == 12 {
+      width: 100%;
+    }
+  } @else {
+    @include above-width($width) {
+      @if $size == auto {
+        width: auto;
+      }
+      @if $size == 1 {
+        width: 8.33333333333%;
+      }
+      @if $size == 2 {
+        width: 16.6666666667%;
+      }
+      @if $size == 3 {
+        width: 25%;
+      }
+      @if $size == 4 {
+        width: 33.3333333333%;
+      }
+      @if $size == 5 {
+        width: 41.6666666667%;
+      }
+      @if $size == 6 {
+        width: 50%;
+      }
+      @if $size == 7 {
+        width: 58.3333333333%;
+      }
+      @if $size == 8 {
+        width: 66.6666666667%;
+      }
+      @if $size == 9 {
+        width: 75%;
+      }
+      @if $size == 10 {
+        width: 83.3333333333%;
+      }
+      @if $size == 11 {
+        width: 91.6666666667%;
+      }
+      @if $size == 12 {
+        width: 100%;
+      }
+    }
+  }
+}
+@mixin flex-column-percent ($percent, $width) {
+  @if $width == 0 {
+    width: $percent;
+  } @else {
+    @include above-width($width) {
+      width: $percent;
+    }
+  }
+}
+@mixin flex-gutters ($width: 15, $selector: 'flex-col') {
+  margin-left: -$width + px;
+  margin-right: -$width + px;
+  & > [class*="#{$selector}"] {
+    padding-left: $width + px;
+    padding-right: $width + px;
+  }
+}
+
+@mixin flex-order ($order: 1) {
+  -ms-order: $order;
+  -webkit-order: $order;
+  order: $order;
+}
+@mixin flex-static {
+  -ms-flex-grow: 0;
+  -ms-flex-shrink: 0;
+  -webkit-flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+@mixin flex-dynamic {
+  width: 100%;
+  -ms-flex-grow: 1;
+  -ms-flex-shrink: 1;
+  -webkit-flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+}

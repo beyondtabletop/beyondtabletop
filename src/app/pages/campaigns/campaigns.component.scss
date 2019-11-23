@@ -1,0 +1,44 @@
+@import '../../../app/abstracts/variables.scss';
+@import '../../../app/abstracts/mixins.scss';
+
+.table-mobile-nav {
+  padding: 0 15px;
+  border-top: 1px solid $border-color;
+  height: 40px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  background: #FFF;
+  @include above-tablet {
+    display: none;
+  }
+  li {
+    width: 100%;
+  }
+  button, a {
+    border: 0;
+    height: 39px;
+    margin: 0;
+    display: block;
+    width: 100%;
+    background: transparent;
+    padding: 2px 6px 3px;
+    span {
+      @include font-size(10, 1);
+      display: block;
+      color: #555;
+    }
+    i {
+      @include font-size(19, 1);
+      display: block;
+      color: #222;
+      margin: 0 0 2px;
+    }
+    &.active i {
+      color: $cyan-color;
+    }
+  }
+}

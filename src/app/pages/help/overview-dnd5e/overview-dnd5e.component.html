@@ -1,0 +1,142 @@
+<bt-static-container class="help-base">
+  <h1 class="hh1">Overview of D&amp;D 5E Sheets</h1>
+  <p>In this guide we'll step through how to create a sheet, and bring a character to life. Once we have our character, we'll go into some more advanced options available on the D&amp;D 5E sheets.</p>
+
+  <h2 class="hh3 tmr-60">Create a sheet</h2>
+
+  <p>After logging in or signing up, you'll be automatically directed to your Dashboard. From here you can create any kind of tool. Once you click to create a D&amp;D 5E sheet and wait for the sheet to load, you'll see the General tab.</p>
+
+  <p><span class="help-premium">Premium</span> If you're new to D&amp;D, we recommend using the Character Builder, which will step you through character creation and explain how creating a character works in detail. Even if you already know what you're doing, you may find the builder to be a more streamlined way to set up your new character.</p>
+
+  <div class="info-box">
+    <h4 class="hh5">Premium Note</h4>
+    <p>This guide includes instructions for premium-only features. If you're interested in upgrading <%= link_to "you can find more about that here", public_pricing_path %>. Premium features will be indicated throughout the guide, and alternatives for free users will be provided when applicable.</p>
+  </div>
+
+  <h2 class="hh3 tmr-60">General tab</h2>
+
+  <p>If you decide not to use the builder, you can start here on the General tab. The fields on the left in the Basic section dictate the core decisions about your character. These inputs are dropdowns which means your selection is limited. If you want to select something not in one of these lists, check out Homebrew mode on the Settings tab. We'll explain more about that later.</p>
+
+  <h3 class="hh5">Inspiration</h3>
+
+  <p>Inspiration field lets you keep track of inspiration points your DM grants you during play sessions. See the Player's Handbook for more information about inspiration points.</p>
+
+  <h3 class="hh5">Proficiency</h3>
+
+  <p>Proficiency score is an editable field, but keep in mind the system will automatically set this value on every class change and every level change. If you need to keep a custom proficiency score, remember to change it whenever you level up.</p>
+
+  <h3 class="hh5">XP</h3>
+
+  <p>You can use Misc XP to track your character's experience points, but you should check out the Journal tab first, where you can create logs that add to your character's total XP.</p>
+
+  <h3 class="hh5">Profile</h3>
+
+  <p>Profile image will display on the Overview tab and if you import your character into a Battlemap. Upload your image to a 3rd party site, such as <a href="http://imgur.com/" target="_blank">imgur</a> or <a href="https://www.getcloudapp.com/" target="_blank">cloudapp</a>, and get the direct URL. Paste the direct URL into the Profile Image field to set your character's picture.</p>
+
+  <p>The other profile fields are not factored into any calculations, and are just for fleshing out the personality and physical details of your character.</p>
+
+  <h3 class="hh5">Backgroud</h3>
+
+  <p>You can select your background from the dropdown list provided, or if you want to set your own background, you can click the pencil icon next to the field, and edit it directly.</p>
+
+  <p>The same goes for background attributes like trais, ideals, bonds, and flaws.</p>
+
+  <h2 class="hh3 tmr-60">Abilities tab</h2>
+
+  <p>Abilities should be familiar to anyone who plays tabletop RPGs. In D&amp;D 5E, each ability has an associated save, which is calculated by adding the ability mod and your proficiency score if you are proficient in that save. You can toggle save proficiency using the checkbox in the rightmost column.</p>
+
+  <h3 class="hh5">Skills</h3>
+
+  <p>Skill proficiency may be automatically set if you chose a listed background on the previous tab, otherwise you can check the boxes to toggle proficiency with each skill. You can use the misc column to adjust your skills' totals if necessary. Skill score is shown on the right. Skill score is an automatic value you can take on a skill check in most cases.</p>
+
+  <h2 class="hh3 tmr-60">Combat tab</h2>
+
+  <h3 class="hh5">HP</h3>
+
+  <p>HP is made up of a few pieces. Rolled HP is what you get on every level up when you either roll your hit die or you take half of your hit die as HP. You should continue to add to this field as you level up. Temporary HP is for keeping track of HP granted by spells, temporary buffs, or other sources. Misc HP can be used for whatever you'd like. The value in wounds will subtract from your total calculated HP. Negative and positive values in the woulds field will both work as damage.</p>
+
+  <p>HP from CON is an uneditable number calculated from your character's CON score. This is added to your total HP (current HP), which is displayed on the right.</p>
+
+  <h3 class="hh5">Hit Dice</h3>
+
+  <p>Each level your character earns another available hit die. The die is set by your class: for example a Wizard's hit die is d6 while a Barbarian's is d12. You use hit dice by performing heals and gain them back by resting. If you are multiclassing you will have multiple rows of hit dice fields.</p>
+
+  <h3 class="hh5">AC</h3>
+
+  <p>AC total comes from a number of different places including Armor in the Equipment tab. Checking Ability Bonus will add the ability mod to your AC total of whichever ability you select. This can be handy for things like Unarmored Defense. Keep in mind, DEX bonus is already applied to your AC total.</p>
+
+  <h3 class="hh5">Attack &amp; Damage Bonuses</h3>
+
+  <p>These fields grant you bonuses (or penalties) to categories of attack and damage scores. The Dueling categoy modifies attacks made while dual-weilding.</p>
+
+  <h3 class="hh5">Attacks</h3>
+  <p>This is a list of attacks, physical or magical, that you can use when you are in combat. Damage/Attack bonsues here apply only to this attck. Spell attacks require a damage die such as "d8".</p>
+
+  <h2 class="hh3 tmr-60">Equipment tab</h2>
+
+  <h3 class="hh5">Weapons</h3>
+
+  <p>You can add new weapons from templates using the dropdown select box to the left of the Add Weapon button. By default this dropdown creates a blank weapon, but if you choose a different item it will create that weapon with all the appropriate defaults.</p>
+
+  <p>Make sure to check the Proficiency box if your character is proficient with this weapon your attack bonuses are calculated correctly.</p>
+
+  <h3 class="hh5">Armor</h3>
+
+  <p>Just like weapons, armor can be created with a blank or pre-selected template. You can toggle the Equipped checkbox to indicate your character is wearing the piece of armor. Equipped armor is included in weight and AC calculations.</p>
+
+  <h3 class="hh5">Weight</h3>
+
+  <p>Weight total and ecumbrance status is collected here. Sources of weight include armor, weapons, valuables, and the misc field seen in this section.</p>
+
+  <h2 class="hh3 tmr-60">Powers tab</h2>
+
+  <p><span class="help-premium">Premium</span> Powers is a premium-only tab which makes it easier to keep track of class-specific abilities and features. The fields displayed vary depending on which class(es) you choose.</p>
+
+  <h2 class="hh3 tmr-60">Items tab</h2>
+
+  <p><span class="help-premium">Premium</span> Items is a premium-only tab which makes it easier to keep track of your character's inventory. You can keep track of treasure, loot and consumables. Loot has a value which adds to your total wealth, and a weight which adds to your total weight. Consumables show up on the Overview tab with a number field you can quickly adjust, which is perfect for keeping track of potions or scrolls.</p>
+
+  <h2 class="hh3 tmr-60">Lists tab</h2>
+
+  <p>Lists can be used for keeping track of just about anything. If you haven't upgraded your sheets, lists is a great alternative for Powers and Items. Custom stats can also be used in place of Powers, as each stat has a name and a number.</p>
+
+  <h2 class="hh3 tmr-60">Journal tab</h2>
+
+  <p>The Journal tab includes Notes, which you can use to keep track of plot elements, story, descriptions or role-playing details. XP Log is a more detailed way to keep track of your character's experience points. Logs come with descriptions, which is a great way to look back at all the adventures your character had.</p>
+
+  <h2 class="hh3 tmr-60">Spells tab</h2>
+
+  <p>The left column is your spellbook, where you keep spells you have learned, or frequently prepare. The right column contains all the spells in the core Player's Handbook, organzed by level. You can filter these spells by typing in the name to the field, or by opening up the advanced filtering menu. You can specify any spell school or class to narrow your spell search. To add a spell, just click the plus button next to the spell name. If you can't find the spell you want in the right column, you can add a blank spell and fill out the details yourself.</p>
+
+  <h2 class="hh3 tmr-60">Conditions tab</h2>
+
+  <p><span class="help-premium">Premium</span> Conditions can be used to alter the stats of your character. You can use conditions to apply effects of a buff like Haste, or a penalty like Fatigue. After creating a condition, give it a name and a description, then click the green plus button to add an effect. An effect targets on stat or attribute of your character, and applies a formula when the condition is active.</p>
+
+  <p>Formulas can include <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>%</code> and use <code>n</code> in place of the stat being affected. You can also use <code>l</code> to represent your character's level/total hit dice.</p>
+
+  <p>For example, if you wanted to create a condition that increased your STR by 2, you would select STR on the left side and enter <code>n + 2</code> in the formula field on the right.</p>
+
+  <p>Some effects only accept a numerical value, rather than a formula. These are typically for adjusting combat stats like "Ranged Attack" or "Melee Damage."</p>
+
+  <p>When you are finished editing your custom condition, you can click the checkbox to enable the effects. If the formula field turns red, it means you have an error in your formula and you need to edit it before you can try to enable the condition again.</p>
+
+  <h2 class="hh3 tmr-60">Companions tab</h2>
+
+  <p><span class="help-premium">Premium</span> Companions are mini character sheets you can use for familiars, summoned creatures, or animal companions.</p>
+
+  <h2 class="hh3 tmr-60">Dice tab</h2>
+
+  <p>The Dice tab contains a number of frequently rolled stats. You can also add custom rolls using a formula. The syntax for the formula should include a dice expression, i.e. <code>d20</code> or <code>2d6</code>. You can also use <code>+</code> and <code>-</code> to modify the result of the roll, i.e. <code>d20 + 4</code>.</p>
+
+  <h2 class="hh3 tmr-60">Settings tab</h2>
+
+  <p>Here you can toggle a number of helpful things. If you know how to use Beyond Tabletop already and want a more streamlined experience, you can turn off help text. If you want to explore outside core classes and races, activate Homebrew mode. Homebrew mode also allows you to customize your hit die.</p>
+
+  <h3 class="hh5">Data Import/Export</h3>
+
+  <p>Data import/export can be helpful for players who want to duplicate their sheet for a friend, test out an experimental build, or save a backup of their data. Keep in mind that data exported may not be able to be imported several versions in the future. When importing data, note that all the existing data on the sheet will be erased and replaced with your import.</p>
+
+  <h2 class="hh3 tmr-60">The End!</h2>
+
+  <p>Thanks for reading, happy gaming! If you have any more questions, <a href="https://www.reddit.com/r/beyondtabletop" target="_blank">don't hesistate to visit our subreddit and ask us</a>. Beyond Tabletop's dev (me) answers every question as best he can.</p>
+</bt-static-container>

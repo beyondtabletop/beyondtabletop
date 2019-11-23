@@ -1,0 +1,69 @@
+<div class="bm-20">
+  <label class="weight-bold">Name</label>
+  <input (ngModelChange)="self.touch()" [(ngModel)]="spell.name" type="text" class="form-control" placeholder="Name">
+</div>
+<div class="bm-20">
+  <label class="weight-bold">Summary</label>
+  <input (ngModelChange)="self.touch()" [(ngModel)]="spell.summary" type="text" class="form-control" placeholder="Summary">
+</div>
+<div class="bm-20">
+  <label class="weight-bold">Description</label>
+  <textarea (ngModelChange)="self.touch()" [(ngModel)]="spell.text" class="form-control" placeholder="Description"></textarea>
+</div>
+<div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+  <div class="flex-col-6 bm-5">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" title="Concentration?" (ngModelChange)="self.touch()" [(ngModel)]="spell.concentration"> Concentration?
+    </label>
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" title="Ritual?" (ngModelChange)="self.touch()" [(ngModel)]="spell.ritual"> Ritual?
+    </label>
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">Level</label>
+    <div class="select-wrap">
+      <i class="fa fa-sort"></i>
+      <label>{{ spell.level }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.level" title="Level">
+        <option [ngValue]="option" *ngFor="let option of self.locals.selection.spellLevels">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">School</label>
+    <div class="select-wrap">
+      <i class="fa fa-sort"></i>
+      <label>{{ spell.school }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.school" title="School">
+        <option [value]="option" *ngFor="let option of self.locals.selection.schools">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">Casting Time</label>
+    <input type="text" class="form-control" placeholder="Casting Time" (ngModelChange)="self.touch()" [(ngModel)]="spell.casting">
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">Components</label>
+    <input type="text" class="form-control" placeholder="Components" (ngModelChange)="self.touch()" [(ngModel)]="spell.components">
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">Duration</label>
+    <input type="text" class="form-control" placeholder="Duration" (ngModelChange)="self.touch()" [(ngModel)]="spell.duration">
+  </div>
+  <div class="flex-col-6 bm-5">
+    <label class="weight-bold">Range</label>
+    <input type="text" class="form-control" placeholder="Range" (ngModelChange)="self.touch()" [(ngModel)]="spell.range">
+  </div>
+</div>
+
+<label class="weight-bold">Classes</label>
+<div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+  <div class="flex-col-6" *ngFor="let name of self.locals.selection.casters">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" [title]="name" [checked]="self.methods.doesArrayIncludeValue(spell.classes, name)" (click)="self.methods.toggleValueInArray(spell, 'classes', name)"> {{ name }}
+    </label>
+  </div>
+</div>

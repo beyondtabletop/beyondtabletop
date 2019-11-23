@@ -1,0 +1,119 @@
+<div class="container battlemap-page">
+  <!-- ng-keyup="self.methods.onKeyup($event)" ng-keydown="self.methods.onKeydown($event)" tabindex="0" -->
+  <div class="content">
+    <bt-loading [self]="self"></bt-loading>
+    <div class="viewport">
+      <div [ngSwitch]="scene.scene_type" *ngFor="let scene of self.methods.currentSceneInArray()">
+        <bt-battlemap-scene-type-battle     [self]="self" [scene]="scene" *ngSwitchCase="'battle'"></bt-battlemap-scene-type-battle>
+        <bt-battlemap-scene-type-hexagon    [self]="self" [scene]="scene" *ngSwitchCase="'hexagon'"></bt-battlemap-scene-type-hexagon>
+        <bt-battlemap-scene-type-isometric  [self]="self" [scene]="scene" *ngSwitchCase="'isometric'"></bt-battlemap-scene-type-isometric>
+        <bt-battlemap-scene-type-overview   [self]="self" [scene]="scene" *ngSwitchCase="'overview'"></bt-battlemap-scene-type-overview>
+      </div>
+    </div>
+
+    <nav class="map-nav-toggle" (click)="self.methods.toggleMapNav()"></nav>
+    <nav class="map-main-nav" *ngIf="self.locals.nav.main">
+      <ul class="list-unstyled">
+        <li>
+          <button (click)="self.methods.showManagementPanel()">
+            <span [class.bt-hide]="self.locals.nav.management">Show</span><span *ngIf="self.locals.nav.management">Hide</span> Management Panel
+          </button>
+        </li>
+        <li>
+          <button (click)="self.methods.showCombatPanel()">
+            <span [class.bt-hide]="self.locals.nav.combat">Show</span><span *ngIf="self.locals.nav.combat">Hide</span> Turn Order
+          </button>
+        </li>
+        <li>
+          <button (click)="self.methods.goToCenter()" title="Go to Center">Move to Center</button>
+        </li>
+        <li>
+          <button (click)="self.methods.toggleFullScreen()" title="Full screen">Full Screen</button>
+        </li>
+        <li *ngIf="self.locals.map.map_owner">
+          <button (click)="self.methods.openSettingsModal()" title="Edit Map Settings">Settings</button>
+        </li>
+        <li>
+          <a routerLink="/dashboard" title="Go to Dashboard">Back to Dashboard</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="management-panel"
+      [class.bt-hide]="!self.locals.nav.management"
+      *ngFor="let scene of self.methods.currentSceneInArray()"
+      [ngStyle]="self.locals.managementPanel"
+      cdkDrag
+    >
+      <div class="title-bar flex-row-all flex-config-align-center bp-10 tp-15" cdkDragHandle>
+        <div class="flex-col flex-dynamic base-color">Management Panel</div>
+        <div class="flex-col flex-static">
+          <button class="g-remove"
+            (click)="self.methods.hideManagementPanel()"
+          ><i class="material-icons">close</i></button>
+        </div>
+      </div>
+      <div class="primary-actions">
+        <button (click)="self.methods.addToken()" title="New Token"><i class="material-icons">add_circle</i></button>
+        <button (click)="self.methods.addShape()" title="New Shape"><i class="material-icons">add_box</i></button>
+        <button (click)="self.methods.zoom(.5)" title="Zoom Out"><i class="material-icons">zoom_out</i></button>
+        <button (click)="self.methods.zoom(2)" title="Zoom In"><i class="material-icons">zoom_in</i></button>
+      </div>
+
+      <div class="p16 base-color tm-15" [class.bt-hide]="self.locals.toolbar.activeItem">Select a shape or token to see its details here.</div>
+
+      <div class="details tm-10" *ngFor="let item of self.methods.activeItemInArray()">
+        <div class="detail form-group" [ngSwitch]="detail" *ngFor="let detail of self.methods.getDetailsForActiveItem(item, scene)">
+          <bt-battlemap-detail-color     [self]="self" [item]="item" *ngSwitchCase="'color'"></bt-battlemap-detail-color>
+          <bt-battlemap-detail-combat     [self]="self" [item]="item" *ngSwitchCase="'combat'"></bt-battlemap-detail-combat>
+          <bt-battlemap-detail-damage    [self]="self" [item]="item" *ngSwitchCase="'damage'"></bt-battlemap-detail-damage>
+          <bt-battlemap-detail-drawable  [self]="self" [item]="item" *ngSwitchCase="'drawable'"></bt-battlemap-detail-drawable>
+          <bt-battlemap-detail-fog       [self]="self" [item]="item" *ngSwitchCase="'fog'"></bt-battlemap-detail-fog>
+          <bt-battlemap-detail-height    [self]="self" [item]="item" *ngSwitchCase="'height'"></bt-battlemap-detail-height>
+          <bt-battlemap-detail-image     [self]="self" [item]="item" *ngSwitchCase="'image'"></bt-battlemap-detail-image>
+          <bt-battlemap-detail-label     [self]="self" [item]="item" *ngSwitchCase="'label'"></bt-battlemap-detail-label>
+          <bt-battlemap-detail-layer     [self]="self" [item]="item" *ngSwitchCase="'layer'"></bt-battlemap-detail-layer>
+          <bt-battlemap-detail-layering  [self]="self" [item]="item" *ngSwitchCase="'layering'"></bt-battlemap-detail-layering>
+          <bt-battlemap-detail-obscure   [self]="self" [item]="item" *ngSwitchCase="'obscure'"></bt-battlemap-detail-obscure>
+          <bt-battlemap-detail-pinned    [self]="self" [item]="item" *ngSwitchCase="'pinned'"></bt-battlemap-detail-pinned>
+          <bt-battlemap-detail-round     [self]="self" [item]="item" *ngSwitchCase="'round'"></bt-battlemap-detail-round>
+          <bt-battlemap-detail-size      [self]="self" [item]="item" *ngSwitchCase="'size'"></bt-battlemap-detail-size>
+          <bt-battlemap-detail-snapped   [self]="self" [item]="item" *ngSwitchCase="'snapped'"></bt-battlemap-detail-snapped>
+          <bt-battlemap-detail-status    [self]="self" [item]="item" *ngSwitchCase="'status'"></bt-battlemap-detail-status>
+          <bt-battlemap-detail-tile      [self]="self" [item]="item" *ngSwitchCase="'tile'"></bt-battlemap-detail-tile>
+          <bt-battlemap-detail-width     [self]="self" [item]="item" *ngSwitchCase="'width'"></bt-battlemap-detail-width>
+        </div>
+
+        <div class="flex-row-all flex-gutters-5 tm-10">
+          <div class="flex-col-6">
+            <button class="button button-block button-red" *ngIf="!item.pinned" (click)="self.methods.deleteItem(item)" title="Delete selected">Delete</button>
+          </div>
+          <div class="flex-col-6">
+            <button class="button button-block button-gray" (click)="self.methods.copyItem(item)" title="Copy selected">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <bt-battlemap-combat-panel [self]="self" [scene]="self.methods.getCurrentScene()"></bt-battlemap-combat-panel>
+
+    <div class="map-nav" [ngClass]="self.locals.nav_status" *ngIf="false">
+      <div class="logo-wrap">
+        <a class="logo" routerLink="/dashboard">
+          <span class="dashboard">Back to Dashboard</span>
+        </a>
+      </div>
+      <button class="clear toggle-button" (click)="self.methods.toggleNavStatus()">
+        <fa-icon class="bt-caret-right" [icon]="['fa', 'caret-right']"></fa-icon>
+        <fa-icon class="bt-caret-left" [icon]="['fa', 'caret-left']"></fa-icon>
+      </button>
+
+      <div class="help-link-wrapper hide-on-collapsed">
+        <a href="https://www.reddit.com/r/beyondtabletop" class="help-link" target="_blank">Questions? Something break? Get Help</a>
+      </div>
+    </div>
+
+    <bt-battlemap-active-card [self]="self" [combatant]="self.methods.activeCombatant()" [token]="self.methods.activeToken()"></bt-battlemap-active-card>
+    <bt-battlemap-modals [self]="self"></bt-battlemap-modals>
+  </div>
+</div>

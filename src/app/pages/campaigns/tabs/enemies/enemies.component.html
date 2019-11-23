@@ -1,0 +1,177 @@
+<div class="fp-15">
+  <h2 class="rh24 bmr-40">Enemies</h2>
+  <p class="help-text">Like NPCs, enemies have a lot of properties, divided up by groups. You can fill out as many or as few details per enemy as you'd like, and you can toggle each "Known?" checkbox when the party learns more about each piece of information. The "Known?" checkbox under the name toggles whether the enemy shows up on the Summary screen (visible by players).</p>
+  <p class="help-text">You can also add new attacks in the Attacks section and custom attributes in the last section. Attacks each have a dice formula field for attack roll and damage roll. Once this formula has been entered, you can click the Roll button to send the result of the roll to the chat.</p>
+
+  <div class="flex-row-all flex-config-wrap flex-gutters-10 bm-20">
+    <div class="flex-col" *ngFor="let foe of self.methods.listFoes()">
+      <button class="button button-ghost" (click)="self.methods.toggleActiveNPC(foe)">{{ foe.name }}</button>
+    </div>
+  </div>
+
+  <div class="bmr-40" cdkDropList [cdkDropListData]="self.model.foes" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+    <div class="js-npc table-npc bm-20" *ngFor="let foe of self.methods.listFoes()" cdkDrag [cdkDragData]="foe" [ngClass]="self.methods.getNPCClass(foe)">
+      <div class="hide-on-active flex-row-all flex-dynamic flex-config-align-center flex-gutters-5 summary-row">
+        <div class="flex-col flex-static">
+          <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="foe.name" placeholder="Name">
+        </div>
+        <div class="flex-col flex-static">
+          <button title="Edit Enemy" class="g-icon" (click)="self.methods.toggleActiveNPC(foe)"><fa-icon [icon]="['fa', 'edit']"></fa-icon></button>
+        </div>
+        <div class="flex-col flex-static">
+          <button title="Remove Enemy" class="g-remove" (click)="self.methods.removeByObject(self.model.foes, foe)"><i class="material-icons">delete</i></button>
+        </div>
+      </div>
+
+      <div class="hide-on-inactive">
+        <div class="bmr-40">
+          <h2 class="rh18 bm-10">Name</h2>
+          <input type="text" class="form-control bm-10" (ngModelChange)="self.touch()" [(ngModel)]="foe.name" placeholder="Name">
+          <div class="flex-row-all flex-config-spaced flex-gutters-5">
+            <div class="flex-col">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="foe.known"> Known?
+              </label>
+            </div>
+            <div class="flex-col">
+              <button class="button button-cyan" (click)="self.methods.randomName(foe)">Randomize Name</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bmr-40">
+          <h2 class="rh18 bm-10">Image</h2>
+          <input type="text" class="form-control bm-10" (ngModelChange)="self.touch()" [(ngModel)]="foe.image" placeholder="Image URL">
+        </div>
+
+        <h2 class="rh18 bm-10">Abilities</h2>
+        <div class="details bmr-40" cdkDropList [cdkDropListData]="foe.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let detail of self.methods.listNPCDetailsByGroup(foe, 'abilities')">
+            <div class="flex-col w-40">
+              <label class="control-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+            </div>
+            <div class="flex-col num-print-column">
+              <label class="block-label">{{ self.methods.getAbilityMod(detail) }}</label>
+            </div>
+            <div class="flex-col flex-static">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="rh18 bm-10">Combat</h2>
+        <div class="details bmr-40" cdkDropList [cdkDropListData]="foe.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let detail of self.methods.listNPCDetailsByGroup(foe, 'combat_num')">
+            <div class="flex-col w-85">
+              <label class="control-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col flex-dynamic">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+            </div>
+            <div class="flex-col flex-static">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+              </label>
+            </div>
+          </div>
+
+          <div class="js-npc-detail bm-10 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let detail of self.methods.listNPCDetailsByGroup(foe, 'combat_text')">
+            <div class="flex-col w-85">
+              <label class="control-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col flex-dynamic">
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+            </div>
+            <div class="flex-col flex-static">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="rh18 bm-10">Attack</h2>
+        <div class="details flex-row-tablet flex-gutters-10 flex-config-wrap" cdkDropList [cdkDropListData]="foe.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-40 flex-col-6" *ngFor="let detail of self.methods.listNPCDetailsByGroup(foe, 'attack')" cdkDrag [cdkDragData]="detail">
+            <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-10">
+              <div class="flex-col flex-static">
+                <span class="sub-drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col flex-dynamic">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.name" placeholder="Name">
+              </div>
+              <div class="flex-col flex-static">
+                <button title="Remove Enemy Detail" class="g-remove" (click)="self.methods.removeByObject(foe.details, detail)"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+
+            <label class="g-label">Attack</label>
+            <div class="flex-row-all flex-gutters-5 bm-5">
+              <div class="flex-col flex-dynamic">
+                <input type="text" title="{{ detail.name]] Attack Roll" class="form-control bm-5" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" placeholder="{{ detail.name }} Attack Roll">
+              </div>
+              <div class="flex-col flex-static">
+                <button class="dice-button" (click)="self.methods.rollFoeDice(foe, detail, 'value')"><i class="dice-icon dice-icon-d20"></i> Roll</button>
+              </div>
+            </div>
+
+            <label class="g-label">Damage</label>
+            <div class="flex-row-all flex-gutters-5 bm-5">
+              <div class="flex-col flex-dynamic">
+                <input type="text" title="{{ detail.name]] Damage Roll" class="form-control bm-5" (ngModelChange)="self.touch()" [(ngModel)]="detail.misc" placeholder="{{ detail.name }} Damage Roll">
+              </div>
+              <div class="flex-col flex-static">
+                <button class="dice-button" (click)="self.methods.rollFoeDice(foe, detail, 'misc')"><i class="dice-icon dice-icon-d20"></i> Roll</button>
+              </div>
+            </div>
+
+            <label class="checkbox-inline">
+              <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+            </label>
+          </div>
+        </div>
+        <div class="bmr-40">
+          <button title="Add Enemy Attack" class="g-add" (click)="self.methods.addNPCDetail(foe, 'attack')"><i class="material-icons">add</i></button>
+        </div>
+
+        <h2 class="rh18 bm-10">Custom</h2>
+        <div class="details" cdkDropList [cdkDropListData]="foe.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-col-6" *ngFor="let detail of self.methods.listNPCDetailsByGroup(foe, 'custom')" cdkDrag [cdkDragData]="detail">
+            <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5">
+              <div class="flex-col flex-static">
+                <span class="sub-drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col-6">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.name" placeholder="Name">
+              </div>
+              <div class="flex-col-6">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+              </div>
+              <div class="flex-col flex-static">
+                <label class="checkbox-inline">
+                  <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known">
+                </label>
+              </div>
+              <div class="flex-col flex-static">
+                <button title="Remove Enemy Detail" class="g-remove" (click)="self.methods.removeByObject(foe.details, detail)"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button title="Add Enemy Detail" class="g-add" (click)="self.methods.addNPCDetail(foe, 'custom')"><i class="material-icons">add</i></button>
+        <div class="tm-20"><button title="Move to NPCs" class="button button-cyan" (click)="self.methods.moveNPC(foe, 'npcs')">Move <span>{{ foe.name }}</span> to NPCs</button></div>
+      </div>
+
+    </div>
+  </div>
+  <button title="Add Enemy" class="button button-orange" (click)="self.methods.addFoe()"><i class="material-icons">add</i> Enemy</button>
+
+</div>

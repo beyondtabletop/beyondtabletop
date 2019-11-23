@@ -1,0 +1,112 @@
+<div class="site-modals" [ngClass]="self.methods.getSiteModalClasses()">
+  <div class="bt-modal-bg" (click)="self.methods.closeAllModals()">
+    <div class="bt-modal-container" (click)="$event.stopPropagation()">
+      <div class="bt-modal-body">
+        <div class="bt-modal-close" (click)="self.methods.closeAllModals()">
+          <i class="material-icons">close</i>
+        </div>
+        <div class="bt-modal-content">
+          <div class="settings-modal" *ngIf="self.methods.showingModal('settings')">
+            <h3 class="gh3 bmr-30">Map Settings</h3>
+            <div class="bmr-30">
+              <h4 class="gh4 bm-10">Map Name</h4>
+              <input type="text" class="form-control" placeholder="Battlemap name" (ngModelChange)="self.methods.updateTitle()" [(ngModel)]="self.model.name">
+            </div>
+
+            <h4 class="gh4 bm-10">Hotkeys</h4>
+            <div class="form-group checkbox-group bmr-30">
+              <input type="checkbox" title="Use Hotkeys?" (ngModelChange)="self.touch()" [(ngModel)]="self.model.details.hotkeys">
+              <label>Use Hotkeys?</label>
+            </div>
+
+            <div *ngIf="self.locals.map.map_owner">
+              <h4 class="gh4 bm-10">Scenes</h4>
+              <div class="map-scene bm-10" *ngFor="let scene of self.methods.listScenes()" [ngClass]="self.methods.getSceneClasses(scene)">
+                <div *ngIf="scene.$deleting">Are you sure you want to delete this scene?</div>
+                <div class="flex-row-all flex-gutters-5 flex-config-spaced flex-config-align-center">
+                  <div class="flex-col-7 flex-dynamic">
+                    <div [class.bt-hide]="self.methods.shouldShowFieldsForScene(scene)">{{ scene.name }}</div>
+                    <input type="text" class="form-control no-space" placeholder="Scene name" (ngModelChange)="self.touch()" [(ngModel)]="scene.name" *ngIf="self.methods.shouldShowFieldsForScene(scene)">
+                  </div>
+                  <div class="flex-col-5 flex-dynamic">
+                    <div [class.bt-hide]="self.methods.shouldShowFieldsForScene(scene)">{{ self.methods.selectionReverseLookup(self.locals.selection.scene_types, scene.scene_type) }}</div>
+                    <div class="select-wrap" *ngIf="self.methods.shouldShowFieldsForScene(scene)">
+                      <i class="material-icons">arrow_drop_down</i>
+                      <label>{{ self.methods.selectionReverseLookup(self.locals.selection.scene_types, scene.scene_type) }}</label>
+                      <select class="form-control" (ngModelChange)="self.methods.onSceneChange(scene)" [(ngModel)]="scene.scene_type">
+                        <option [value]="option.value" *ngFor="let option of self.locals.selection.scene_types">{{ option.label }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="flex-col flex-static">
+                    <button class="g-check" (click)="self.methods.setCurrentScene(scene)"><i class="material-icons" *ngIf="!self.methods.isCurrentScene(scene.id)">check</i></button>
+
+                    <button class="g-remove" (click)="scene.$deleting = !scene.$deleting" *ngIf="self.methods.isCurrentScene(scene.id) && self.model.scenes.length > 1">
+                      <i class="material-icons" *ngIf="!scene.$deleting">delete</i>
+                      <i class="material-icons" *ngIf="scene.$deleting">close</i>
+                    </button>
+
+                    <button class="g-remove" (click)="self.methods.removeScene(scene)" *ngIf="scene.$deleting"><i class="material-icons">delete</i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="bmr-30">
+                <button class="g-add" (click)="self.methods.addScene()"><i class="material-icons">add</i></button>
+              </div>
+
+              <div *ngFor="let scene of self.methods.currentSceneInArray()">
+                <h4 class="gh4 bm-10">Scene Background Tile</h4>
+                <p>
+                  Swap the background image of the map.
+                  <span *ngIf="scene.scene_type === 'battle'">To line up custom images with the map's grid, the image should be 80x80 and contain four 40x40 squares.</span>
+                  <span *ngIf="scene.scene_type === 'hexagon'">To line up properly with the stock hex grid, use a 172px by 100px image with the hexagon centered in the middle.</span>
+                </p>
+                <div class="map-background-preview bm-10" [ngStyle]="{ 'background-image': self.methods.getMapBackground(scene) }"></div>
+                <div class="bm-30">
+                  <input type="text" class="form-control" placeholder="Image URL" (ngModelChange)="self.touch()" [(ngModel)]="scene.background_image">
+                </div>
+                <h4 class="gh4 bm-10">Disable Grid</h4>
+                <p>Prevents tokens and shapes from snapping to a grid.</p>
+                <div class="form-group checkbox-group bm-20">
+                  <input type="checkbox" title="Disable Grid" (ngModelChange)="self.methods.onSceneChange(scene)" [(ngModel)]="scene.disable_grid">
+                  <label>Disable Grid?</label>
+                </div>
+
+                <h4 class="gh4 bm-10">Set Center</h4>
+                <p>Set the current coordinates as this scene's center.</p>
+                <div class="bm-20">
+                  <button class="button button-cyan" (click)="self.methods.setCenter()">Set Center</button>
+                </div>
+
+                <h4 class="gh4 bm-10">All Tokens</h4>
+                <p>List of all created tokens in this scene.</p>
+                <div class="bm-20">
+                  <div class="flex-row-all flex-config-align-center flex-config-spaced border-bottom bm-10 bp-5" *ngFor="let token of self.methods.listSceneTokens(scene); index as i">
+                    <div class="flex-col"><span>{{ $i }}</span>: <span>{{ token.label }}</span> / <span>{{ token.size.width }}</span>x<span>{{ token.size.height }}</span> / X: <span>{{ token.position.left }}</span>, Y: <span>{{ token.position.top }}</span></div>
+                    <div class="flex-col"><button (click)="self.methods.deleteItem(token)" class="g-remove"><i class="material-icons">delete</i></button></div>
+                  </div>
+                </div>
+
+                <h4 class="gh4 bm-10">All Shapes</h4>
+                <p>List of all created shapes in this scene.</p>
+                <div cdkDropList [cdkDropListData]="scene.shapes" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+                  <div class="flex-row-all flex-config-align-center border-bottom bm-10 bp-5 js-scene-shape" *ngFor="let shape of self.methods.listSceneShapes(scene); index as i" cdkDrag [cdkDragData]="shape">
+                    <div class="flex-col flex-static">
+                      <span class="drag-handle g-neutral"><i class="material-icons">menu</i></span>
+                    </div>
+                    <div class="flex-col flex-dynamic">
+                      <span>{{ i }}</span>: <span>{{ shape.label }}</span> / <span>{{ shape.size.width }}</span>x<span>{{ shape.size.height }}</span> / X: <span>{{ shape.position.left }}</span>, Y: <span>{{ shape.position.top }}</span>
+                    </div>
+                    <div class="flex-col flex-static">
+                      <button (click)="self.methods.deleteItem(shape)" class="g-remove"><i class="material-icons">delete</i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

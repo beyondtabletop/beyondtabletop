@@ -1,0 +1,2 @@
+<label class="control-label">{{ entity.name }}</label>
+<textarea [placeholder]="entity.name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="entity.value"></textarea>

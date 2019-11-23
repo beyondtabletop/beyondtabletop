@@ -1,0 +1,61 @@
+<div class="sheet-tab">
+  <div class="sheet-builder" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div class="builder-track" *ngIf="self.methods.shouldShowTrack()">
+      <div class="track-item track-placeholder" *ngIf="self.model.builder.step === 'create-race'" (click)="self.methods.switchStep('create-character')">
+        <div class="node"></div>
+        <div class="text">Start</div>
+      </div>
+      <div class="track-item" [ngClass]="self.methods.getTrackClass(name)" *ngFor="let name of self.methods.showingTrackNodes()" (click)="self.methods.switchStep(name)">
+        <div class="node">
+          <div class="inner" *ngIf="name === self.model.builder.step">
+            <fa-icon [icon]="['fa', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
+          </div>
+          <fa-icon [icon]="['fa', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
+        </div>
+        <div class="text">{{ self.locals.selection.track_names[name] }}</div>
+      </div>
+      <div class="track-item track-placeholder" *ngIf="self.model.builder.step === 'create-lists'" (click)="self.methods.switchStep('create-character')">
+        <div class="node"></div>
+        <div class="text">Back</div>
+      </div>
+    </div>
+    <div class="steps-unauthorized" *ngIf="!self.locals.full_access">
+      <div class="max-500 auto-margin">
+        <h1 class="gh1">Character Builder</h1>
+        <h2 class="gsh3">Welcome to the Beyond Tabletop D&amp;D 5E Character builder. This view will guide you through character creation and leveling up. The builder is beneficial for all players, but is especially helpful for players new to D&amp;D.</h2>
+
+        <h2 class="gsh3">The builder is is a premium feature, which is available if you upgrade. Upgrading is <strong>only 10 ONCE</strong> and it really helps us deliver more updates, more features, and a better product. Plus upgraded users can make an unlimited amount of sheets! Please consider upgrading.</h2>
+
+        <div class="text-center">
+          <div class="bm-20">
+            <a routerLink="/donate" class="button button-cyan button-large text-center"><fa-icon [icon]="['fa', 'star']"></fa-icon> Upgrade Now for 10</a>
+          </div>
+
+          <a routerLink="/donate">
+            <img src="/assets/img/rogue-upgrade.jpg" alt="Upgrade to get unlimited access!">
+          </a>
+        </div>
+
+      </div>
+    </div>
+    <div class="steps-wrapper" *ngIf="self.locals.full_access">
+      <div [ngSwitch]="self.locals.steps.active_step">
+        <bt-dnd5e-builder-intro      [self]="self" *ngSwitchCase="'intro'"></bt-dnd5e-builder-intro>
+        <bt-dnd5e-builder-character  [self]="self" *ngSwitchCase="'create-character'"></bt-dnd5e-builder-character>
+        <bt-dnd5e-builder-race       [self]="self" *ngSwitchCase="'create-race'"></bt-dnd5e-builder-race>
+        <bt-dnd5e-builder-klass      [self]="self" *ngSwitchCase="'create-klass'"></bt-dnd5e-builder-klass>
+        <bt-dnd5e-builder-abilities  [self]="self" *ngSwitchCase="'create-abilities'"></bt-dnd5e-builder-abilities>
+        <bt-dnd5e-builder-profile    [self]="self" *ngSwitchCase="'create-profile'"></bt-dnd5e-builder-profile>
+        <bt-dnd5e-builder-equipment  [self]="self" *ngSwitchCase="'create-equipment'"></bt-dnd5e-builder-equipment>
+        <bt-dnd5e-builder-skills     [self]="self" *ngSwitchCase="'create-skills'"></bt-dnd5e-builder-skills>
+        <bt-dnd5e-builder-powers     [self]="self" *ngSwitchCase="'create-powers'"></bt-dnd5e-builder-powers>
+        <bt-dnd5e-builder-spells     [self]="self" *ngSwitchCase="'create-spells'"></bt-dnd5e-builder-spells>
+        <bt-dnd5e-builder-lists      [self]="self" *ngSwitchCase="'create-lists'"></bt-dnd5e-builder-lists>
+        <bt-dnd5e-builder-finished   [self]="self" *ngSwitchCase="'create-finished'"></bt-dnd5e-builder-finished>
+      </div>
+    </div>
+    <div class="builder-footer">
+      <button class="button button-link button-muted" (click)="self.methods.switchStep('intro')">Builder Home</button>
+    </div>
+  </div>
+</div>

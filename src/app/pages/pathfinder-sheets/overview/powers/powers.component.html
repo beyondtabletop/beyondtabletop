@@ -1,0 +1,13 @@
+<div class="overview-skills-block">
+  <div class="nav-clickable">
+    <h3>{{ block.name }}</h3>
+    <div class="flex-row-all flex-config-align-center flex-gutters-5 flex-config-wrap bm-10" *ngFor="let power of self.methods.listPowers()">
+      <div class="flex-col-8">
+        <div class="power-label">{{ power.name }}</div>
+      </div>
+      <div class="flex-col-4">
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.remaining">
+      </div>
+    </div>
+  </div>
+</div>

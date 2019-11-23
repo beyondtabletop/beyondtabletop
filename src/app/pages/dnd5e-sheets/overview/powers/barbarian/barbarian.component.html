@@ -1,0 +1,21 @@
+<div>
+  <div class="flex-row-all flex-gutters-15 flex-config-bottom space-bottom">
+    <div class="flex-col">
+      <button class="white-button rage-button" [ngClass]="self.model.powers.Barbarian.rage_rounds > 0 ? 'raging': ''" [disabled]="self.model.powers.Barbarian.rage_rounds > 0" (click)="self.methods.onRage()">{{ self.model.powers.Barbarian.rage_rounds > 0 ? 'Raging!': 'Rage!' }}</button>
+    </div>
+    <div class="flex-col" *ngIf="self.model.powers.Barbarian.rage_rounds > 0">
+      <label class="control-label">Rounds Left</label>
+      <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rage_rounds">
+    </div>
+  </div>
+  <div class="flex-row-all flex-gutters-5">
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Rage Damage</div>
+      <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Barbarian.rage_damage) }}</label>
+    </div>
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Remaining Rages</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rages.remaining">
+    </div>
+  </div>
+</div>

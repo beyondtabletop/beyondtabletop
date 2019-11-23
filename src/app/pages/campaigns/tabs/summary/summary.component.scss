@@ -1,0 +1,15 @@
+.summary-npc {
+  &.inactive {
+    .hide-on-inactive {
+      display: none;
+    }
+  }
+  &.active {
+    .hide-on-active {
+      display: none;
+    }
+  }
+  .npc-image {
+    width: 100px;
+  }
+}

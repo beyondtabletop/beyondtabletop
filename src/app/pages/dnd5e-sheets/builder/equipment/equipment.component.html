@@ -1,0 +1,120 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Choose Equipment</h1>
+    <h2 class="gsh3">Your class and background determine your character's starting equipment, including weapons, armor, and other adventuring gear.</h2>
+    <h2 class="gsh4 gmuted">You already some some gear given to you by your class and background, but you can also purchase other starting equipment. You have a number of gold pieces to spend based on your class. If you want to customize, work with your Dungeon Master (DM) to figure out what kind of equipment would be reasonable to start with.</h2>
+
+    <p>Consider this list as you add weapons and armor. As a <span>{{ self.model.klasses[0].name }}</span>, you should start with:</p>
+    <ul>
+      <li *ngFor="let item of self.methods.getFirstKlassData().equipment_list">{{ item }}</li>
+    </ul>
+  </div>
+
+  <div class="max-1000 auto-margin bm-40">
+    <div class="flex-row-tablet flex-gutters-15">
+      <div class="flex-col-6 bm-20">
+        <h3 class="gh2">Weapons</h3>
+        <h2 class="gsh4 gmuted">Add weapons based on the above recommendations from your class. While not all classes use weapons as their primary form of damage, most characters have some sort of weapon anyway. Talk to your DM if you think your character should start with something outside this list.</h2>
+        <div *ngIf="self.methods.getFirstKlassData().proficiencies.weapons">
+          <p>You're proficient with the following weapons:</p>
+          <ul>
+            <li *ngFor="let item of self.methods.getFirstKlassData().proficiencies.weapons">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex-col-6 bm-20">
+        <h3 class="gh2">Armor</h3>
+        <h2 class="gsh4 gmuted">Add armor based on the above recommendations from your class. Keep in mind that some classes do not wear armor. Talk to your DM if you think your character should start with something outside this list.</h2>
+        <div *ngIf="self.methods.getFirstKlassData().proficiencies.armor">
+          <p>You're proficient with the following armor:</p>
+          <ul>
+            <li *ngFor="let item of self.methods.getFirstKlassData().proficiencies.armor">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-tablet flex-gutters-15">
+      <div class="flex-col-6 bm-20">
+        <div class="bm-20">
+          <div class="flex-row-all flex-config-spaced flex-config-align-center bm-10" *ngFor="let weapon of self.methods.listWeapons()">
+            <div class="flex-col">
+              <div class="flex-row-all flex-config-align-center flex-gutters-5">
+                <div class="flex-col">
+                  <h4 class="gh3 no-space">{{ weapon.name }}</h4>
+                </div>
+                <div class="flex-col">
+                  <span>{{ weapon.damage_die }}</span> <span>{{ weapon.type }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex-col">
+              <button class="g-remove" (click)="self.methods.removeByObject(self.model.weapons, weapon)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-row-all flex-config-align-center flex-config-spaced">
+          <div class="flex-static min-150 bm-5">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ self.locals.data.new_weapon }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.new_weapon">
+                <option [value]="weapon.name" *ngFor="let weapon of self.locals.data.weapons">{{ weapon.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-static">
+            <button class="g-add" (click)="self.methods.addWeapon(self.locals.data.new_weapon)"><i class="material-icons">add</i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-col-6 bm-20">
+        <div class="bm-20">
+          <div class="flex-row-all flex-config-spaced flex-config-align-center bm-10" *ngFor="let armor of self.methods.listArmors()">
+            <div class="flex-col">
+              <div class="flex-row-all flex-config-align-center flex-gutters-5">
+                <div class="flex-col">
+                  <h4 class="gh3 no-space">{{ armor.name }}</h4>
+                </div>
+                <div class="flex-col">
+                  Base <span>{{ armor.bonus }}</span> AC
+                </div>
+              </div>
+            </div>
+            <div class="flex-col">
+              <button class="g-remove" (click)="self.methods.removeByObject(self.model.armors, armor)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-row-all flex-config-align-center flex-config-spaced">
+          <div class="flex-static min-150 bm-5">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ self.locals.data.new_armor }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.new_armor">
+                <option [value]="armor.name" *ngFor="let armor of self.locals.data.armors">{{ armor.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-static">
+            <button class="g-add" (click)="self.methods.addArmor(self.locals.data.new_armor)"><i class="material-icons">add</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-500 auto-margin">
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.finishStep('creation', 'equipment', 'create-skills')" class="button button-cyan button-block">Confirm Equipment</button>
+      </div>
+    </div>
+  </div>
+</div>

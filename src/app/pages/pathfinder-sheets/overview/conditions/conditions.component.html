@@ -1,0 +1,22 @@
+<div class="overview-conditions-block">
+  <div class="nav-clickable overview-block">
+    <h3>Custom Conditions</h3>
+    <div class="flex-row-all flex-gutters-5" *ngFor="let condition of self.methods.listConditions()">
+      <div class="flex-col-4">
+        <input type="checkbox" title="Toggle {{ condition.name }}" [disabled]="!self.methods.isConditionValid(condition)" (ngModelChange)="self.methods.toggleCondition(condition)" [(ngModel)]="condition.active" class="hide-for-read-only">
+        <span class="show-for-read-only">
+          <i class="material-icons" *ngIf="condition.active">check</i>
+        </span>
+        <span>{{ condition.name }}</span>
+      </div>
+      <div class="flex-col-8">
+        <span *ngIf="condition.active">{{ condition.description }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overview-conditions cap-conditions overview-block nav-clickable" (click)="self.methods.switchTab('conditions')">
+    <h3>Active Conditions</h3>
+    <div>{{ self.methods.getActiveConditions() }}</div>
+  </div>
+</div>

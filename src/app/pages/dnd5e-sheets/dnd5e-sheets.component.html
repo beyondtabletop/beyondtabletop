@@ -1,0 +1,35 @@
+<div class="container display-sheet sheet-5e use-tabs" [ngClass]="self.methods.getBodyClasses()">
+  <bt-tabs [self]="self"></bt-tabs>
+  <div class="content">
+    <bt-loading [self]="self"></bt-loading>
+    <bt-interface></bt-interface>
+
+    <div class="tabs-wrapper">
+      <div [ngSwitch]="self.locals.tabs.active">
+        <bt-dnd5e-tab-abilities     [self]="self" *ngSwitchCase="'abilities'"></bt-dnd5e-tab-abilities>
+        <bt-dnd5e-tab-builder       [self]="self" *ngSwitchCase="'builder'"></bt-dnd5e-tab-builder>
+        <bt-dnd5e-tab-combat        [self]="self" *ngSwitchCase="'combat'"></bt-dnd5e-tab-combat>
+        <bt-dnd5e-tab-companions    [self]="self" *ngSwitchCase="'companions'"></bt-dnd5e-tab-companions>
+        <bt-dnd5e-tab-conditions    [self]="self" *ngSwitchCase="'conditions'"></bt-dnd5e-tab-conditions>
+        <bt-dnd5e-tab-dice          [self]="self" *ngSwitchCase="'dice'"></bt-dnd5e-tab-dice>
+        <bt-dnd5e-tab-equipment     [self]="self" *ngSwitchCase="'equipment'"></bt-dnd5e-tab-equipment>
+        <bt-dnd5e-tab-general       [self]="self" *ngSwitchCase="'general'"></bt-dnd5e-tab-general>
+        <bt-dnd5e-tab-items         [self]="self" *ngSwitchCase="'items'"></bt-dnd5e-tab-items>
+        <bt-dnd5e-tab-journal       [self]="self" *ngSwitchCase="'journal'"></bt-dnd5e-tab-journal>
+        <bt-dnd5e-tab-lists         [self]="self" *ngSwitchCase="'lists'"></bt-dnd5e-tab-lists>
+        <bt-dnd5e-tab-overview      [self]="self" *ngSwitchCase="'overview'"></bt-dnd5e-tab-overview>
+        <bt-dnd5e-tab-powers        [self]="self" *ngSwitchCase="'powers'"></bt-dnd5e-tab-powers>
+        <bt-dnd5e-tab-print         [self]="self" *ngSwitchCase="'print'"></bt-dnd5e-tab-print>
+        <bt-dnd5e-tab-settings      [self]="self" *ngSwitchCase="'settings'"></bt-dnd5e-tab-settings>
+        <bt-dnd5e-tab-spell-picker  [self]="self" *ngSwitchCase="'spell_list'"></bt-dnd5e-tab-spell-picker>
+        <bt-dnd5e-tab-spellbook     [self]="self" *ngSwitchCase="'spells'"></bt-dnd5e-tab-spellbook>
+      </div>
+    </div>
+
+    <footer>
+      <div class="help-link-wrapper">
+        <a href="https://www.reddit.com/r/beyondtabletop" class="help-link" target="_blank">Questions? Something break? Get Help</a>
+      </div>
+    </footer>
+  </div>
+</div>

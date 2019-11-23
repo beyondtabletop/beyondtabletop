@@ -1,0 +1,35 @@
+<div class="overview-attacks-block">
+  <div class="nav-clickable" (click)="self.methods.switchTab('combat')">
+    <h3>{{ block.name }}</h3>
+
+    <!-- Full Attack -->
+    <h4>Full Attack:</h4>
+    <div class="bm-20">
+      <div class="flex-row-all flex-gutters-5 bm-5 attack-row" *ngFor="let attack of self.methods.listAttacks()">
+        <div class="flex-col-6 attack-col">
+          <div>{{ self.methods.printAttackRoll(attack) }}</div>
+          <div class="calculated-notice">{{ self.methods.getCalculatedNotice(self.methods.getNoticeTypeForFull(attack, 'Attack')) }}</div>
+        </div>
+        <div class="flex-col-6 damage-col">
+          <div>{{ self.methods.printDamageRoll(attack) }}</div>
+          <div class="calculated-notice">{{ self.methods.getCalculatedNotice(self.methods.getNoticeTypeForFull(attack, 'Damage')) }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Attacks -->
+  <div class="nav-clickable" (click)="self.methods.switchTab('equipment')" *ngFor="let weapon of self.methods.listWeapons()">
+    <h4>Single Attack with <span>{{ weapon.name }}</span>:</h4>
+    <div class="flex-row-all flex-gutters-5 bm-5 attack-row">
+      <div class="flex-col-6 attack-col">
+        <div>{{ self.methods.printSingleAttackRoll(weapon) }}</div>
+        <div class="calculated-notice">{{ self.methods.getCalculatedNotice(self.methods.getNoticeTypeForStandard(weapon, 'Attack')) }}</div>
+      </div>
+      <div class="flex-col-6 damage-col">
+        <div>{{ self.methods.printSingleDamageRoll(weapon) }}</div>
+        <div class="calculated-notice">{{ self.methods.getCalculatedNotice(self.methods.getNoticeTypeForStandard(weapon, 'Damage')) }}</div>
+      </div>
+    </div>
+  </div>
+</div>

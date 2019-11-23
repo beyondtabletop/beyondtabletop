@@ -1,0 +1,29 @@
+.resizer-corner {
+  width: 20px;
+  height: 20px;
+  bottom: -8px;
+  right: -8px;
+  position: absolute;
+  cursor: se-resize;
+  z-index: 4;
+}
+
+.resizer-bottom {
+  width: 100%;
+  height: 7px;
+  bottom: -7px;
+  left: 0;
+  position: absolute;
+  cursor: s-resize;
+  z-index: 2;
+}
+
+.resizer-side {
+  width: 7px;
+  height: 100%;
+  top: 0;
+  right: -7px;
+  position: absolute;
+  cursor: e-resize;
+  z-index: 2;
+}

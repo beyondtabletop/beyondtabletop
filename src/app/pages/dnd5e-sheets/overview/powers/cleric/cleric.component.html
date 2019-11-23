@@ -1,0 +1,16 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 2">
+      <div class="power-label">Remaining Divinity</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Cleric.divinity.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="self.locals.data.cleric_wisdom_points[self.model.powers.Cleric.domain]">
+      <div class="power-label">{{ self.locals.data.cleric_wisdom_points[self.model.powers.Cleric.domain] }}</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Cleric.wisdom_points.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 8">
+      <div class="power-label">Divine Strike</div>
+      <label class="block-label">{{ self.model.powers.Cleric.divine_strike }}</label>
+    </div>
+  </div>
+</div>

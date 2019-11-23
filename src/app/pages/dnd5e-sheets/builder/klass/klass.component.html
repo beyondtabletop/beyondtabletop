@@ -1,0 +1,29 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Choose a Class</h1>
+    <h2 class="gsh3">Every adventurer is a member of a class. Class broadly describes a character's vocation, what special talents he or she possesses, and the tactics he or she is most likely to employ when when exploring a dungeon, fighting monsters, or engaging in a tense negotiation.</h2>
+    <h2 class="gsh4 gmuted">Your character receives a number of benefits from your choice of class. Many of these benefits are class features--capabilities (including spellcasting) that set your character apart from members of other classes. You also gain a number of proficiencies: armor, weapons, skills, saving throws, and sometimes tools. Your proficiencies define many of the things your character can do particularly well, from using certain weapons to telling a convincing lie.</h2>
+
+    <div class="bm-20">
+      <label class="gl1">Class</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ self.model.klasses[0].name }}</label>
+        <select class="form-control" (ngModelChange)="self.methods.onClassChange(false)" [(ngModel)]="self.model.klasses[0].name">
+          <option [value]="name" *ngFor="let name of self.locals.selection.klass">{{ name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="bm-20"><em>{{ self.methods.getFirstKlassData().description }}</em></div>
+
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.saveBuilderClass()" class="button button-cyan button-block">Confirm Class</button>
+      </div>
+    </div>
+  </div>
+</div>

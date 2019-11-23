@@ -1,0 +1,12 @@
+<div class="flex-row-all flex-gutters-5">
+  <div class="flex-col-6">
+    <label class="control-label">Damage</label>
+    <input type="number" class="form-control" placeholder="Damage" (ngModelChange)="self.touch()" [(ngModel)]="item.damage" [class.bt-hide]="self.methods.combatantSheetConnected(item)">
+    <input type="number" class="form-control" placeholder="Damage" (ngModelChange)="self.touch()" [(ngModel)]="sheet.model.combat.hp.damage" *ngFor="let sheet of self.methods.connectedCombatantSheetAsArray(item)">
+  </div>
+  <div class="flex-col-6" *ngIf="self.methods.canSeeHP(item)">
+    <label class="control-label">HP</label>
+    <input type="number" class="form-control" placeholder="HP" (ngModelChange)="self.touch()" [(ngModel)]="item.hp" [class.bt-hide]="self.methods.combatantSheetConnected(item)">
+    <label class="block-label" *ngFor="let sheet of self.methods.connectedCombatantSheetAsArray(item)">{{ sheet.methods.getHPTotal() }}</label>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<bt-static-container class="help-base">
+  <h1 class="hh1">Overview of RPG Sheets</h1>
+  <p>In this guide we'll step through how to create a sheet that you can use for any system. RPG sheets are very powerful but require a lot of configuration to get just right. In the future there will be pre-made templates you can select from to get started but for now here's how it all works.</p>
+  
+  <h2 class="hh3 tmr-60">Create a sheet</h2>
+
+  <p>After logging in or signing up, you'll be automatically directed to your Dashboard. From here you can create any kind of tool. Once you click to create an RPG sheet and wait for the sheet to load, you'll see the Content tab.</p>
+  
+  <h2 class="hh3 tmr-60">Content tab</h2>
+
+  <p>There's a lot to explain, but the best place to start is the content tab. Here you can create different kinds of content for your character. At the moment there are 5 types of content: Stats, Calculations, Conditions, Collections, and Collectables.</p>
+
+  <h3 class="hh5">Stats</h3>
+
+  <p>Each stat has a name and a type. Stats are used to keep track of one-off pieces of information like character name, race, class, level, etc. The various types correspond with what kind of data you want to store in the stat. Numbers are useful for anything that you may want to later use in a calculation, like Proficiency Score for example. For something like class, you'd want to use Text. For something like Background, you may want to use Long Text. Finally, Yes/No is a checkbox that you can use for boolean data.</p>
+
+  <h3 class="hh5">Calculations</h3>
+
+  <p>Calculations work similarly to the formulas for custom conditions found in D&amp;D and Pathfinder sheets. Calculations display a numerical result wherever they appear on your sheet. Each calculation has a name and a formula.</p>
+
+  <p>Formulas can include <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>%</code>. You can also include the names of your numerical stats and other calculations in curly brackets <code>{{ '{}' }}</code>.</p>
+
+  <p>For example, if you have a stat called HP, and another stat called Wounds, you could create a calculation called Total HP with a formula of <code>{{ '{HP}' }} - {{ '{Wounds}' }}</code>.</p>
+
+  <p>If the syntax for the formula is invalid the formula will light up in red to let you know you have something incorrect. Otherwise your calculation result will show up wherever it's placed (we'll get to that later).</p>
+  
+  <h3 class="hh5">Conditions</h3>
+
+  <p>Conditions have a name and a list of effects. Each effect targets one numerical stat, and will change its result when the condition is active, based on the given formula. The effect formulas use the same syntax as calculations, explained above.</p>
+
+  <h3 class="hh5">Collections</h3>
+
+  <p>A collections is a list of items known as collectables. Each collection has a name and a collectable type it will use. Think of collections as containers for your collectables.</p>
+
+  <h3 class="hh5">Collectables</h3>
+
+  <p>A collectable is a set of fields, which can be stats, calculations, or references to other pieces of data. Since that last sentence was nearly meaningless, here's an example.</p>
+
+  <p>Let's say you wanted to add ability values to your character. You could create 6 seperate stats in the Stats area, but then you'd just have single values for each one. It's a lot more convenient if each ability has an ability value, ability mod, temporary modifier, and ability total. So let's add a new collectable and name it "Ability".</p>
+
+  <p>Don't worry about the label type for now, you can leave it on No Labels. Each collectable starts with a required field called Name, which is a text stat. Let's add a new field and call it Value. This field will be where players enter each ability value (i.e. 10 or 16) so under Type it should be a Number. You can ignore the rest of the settings for now.</p>
+
+  <p>Now add the other three fields starting with a Number type called Temp. Then add a field of type Calculation and name it Total. You'll see for this field, a new input appears called Formula. In that input you can enter <code>{{ '{Value} + {Temp}' }}</code>. Those variables pull from the names we just created for the other fields of this collectable.</p>
+
+  <p>Lastly create a field of type Calculation and name it Mod. We'll use the D&amp;D rules for ability mod for this formula, so in the Forumla input enter <code>({{ '{Total}' }} - 10) / 2</code>.</p>
+
+  <p>Now you have your first collectable. You can make a new collection and assign it the Ability collectable to make your list of abilities. You can even add more fields if you decide you want abilities to track additional data (like a misc field). We'll cover actually adding items to your collection further in the guide.</p>
+  
+  <h2 class="hh3 tmr-60">Structure tab</h2>
+
+  <p>Now that you have a few pieces of content, stats, calculations, and at least one collection, let's arrange those pieces of content where we want them in our sheet. Up to this point we have been defining what kind of content we want to be able to keep track of for our character, but now we will organize where that content will appear. We'll start at the top of the structure with tabs.</p>
+
+  <h3 class="hh5">Tabs</h3>
+
+  <p>Creating a new tab will add a folder here and in the navigation on the left. Clicking the new tab will allow you to name it and show you representations of the tab's sections. Add a tab, name it "Abilities" and click on it.</p>
+
+  <h3 class="hh5">Section</h3>
+
+  <p>You can choose how wide each section should be and whether the section should show up on the Overview tab. Clicking on a section and scrolling down will reveal that section's fields.</p>
+
+  <h3 class="hh5">Fields</h3>
+
+  <p>On the left side you'll see a list of fields for our selected section in our selected tab. If the section has no fields yet (it shouldn't) it will say so. You can now drag any of the fields from the right side Into this section and they will appear on the corresponding tab.</p> 
+
+  <p>Drag in our Abilities collection from before into this section, then click on the Abilities tab in the left side navigation. You should see a section title and an add button. Now you can add your 6 ability scores: STR, DEX, CON, INT, WIS, and CHA. For each ability you can enter different Name, Value, and Temp data, and you'll see the Mod and Total columns calculate accordingly.</p>
+
+  <h3 class="hh3 tmr-60">Advanced Calculations</h3>
+
+  <p>If you're feeling comfortable with all of the above, you can take your calculations to the next level! Here are a couple of advanced tricks for calculations.</p>
+
+  <h3 class="hh5">Using Collection Items</h3>
+  <p>You can refer to a single item in a collection from outside that collection by using dot notation. For example, let's create a collectable called "Abilities" and give it an field called "Mod". Then we can create a collection using this collectable, and add a new collection item called "STR". Now in any formula, you can reference this value like this: <code>{{ '{Abilities.STR.Mod}' }}</code>. This will work for number input values and also calculations within collections.</p>
+
+  <h3 class="hh5">Using Booleans (Yes/No)</h3>
+  <p>Sometimes it can be useful to apply booleans to a calculation's formula. You can use booleans in your formulas by adding a question mark at the end <code>{{ '{Proficient?}' }}</code>. The formula will evaluate that variable as <code>1</code> if Proficient is checked, and <code>0</code> otherwise. For example, let's say we add a boolean field called "Expert" and a new formula called "Climbing". If say want the formula for Climbing to be double our STR Mod when Expert is true, we could write <code>{{ '{Abilities.STR.Mod} * {Expert?2:1}' }}</code>. By adding what's called a ternary operator after the variable name, you can return different values when the boolean is true or false. Lastly, you can add an exclamation point before the variable name if you want to reverse the result: <code>{{ '{Abilities.STR.Total} * {!Expert?1:2}' }}</code></p>
+
+  <h3 class="hh5">Sums and Reduce</h3>
+  <p>You can use a sum of all of one field in a collection using the following syntax: <code>{{ '{=SUM:Equipment.Weight}' }}</code>. Use dot notation to reference the name of the collection and the name of the field. You can also use this to reduce a list of booleans with <code>ANY</code> and <code>EVERY</code>. <code>{{ '{=ANY:Skills.Proficient?}' }}</code> will be true and return <code>1</code> if any of your skills are checked as Proficient. <code>{{ '{=EVERY:Skills.Proficient?}' }}</code> will be true and return <code>1</code> only if all of your skills are checked as Proficient. Bang syntax looks like this: <code>{{ '{!=EVERY:Skills.Proficient?}' }}</code></p>
+
+  <h2 class="hh3 tmr-60">To be continued...</h2>
+  <!-- <h2 class="hh3 tmr-60">The End!</h2> -->
+
+  <p>Thanks for reading, happy gaming! If you have any more questions, <a href="https://www.reddit.com/r/beyondtabletop" target="_blank">don't hesistate to visit our subreddit and ask us</a>. Beyond Tabletop's dev (me) answers every question as best he can.</p>
+</bt-static-container>

@@ -1,0 +1,17 @@
+<div class="btt-interface">
+  <div class="btt-notice" [ngClass]="interfaceSvc.noticeClasses()">
+    <div class="notice-inner">
+      <div class="notice-message">{{ interfaceSvc.notice.message }}</div>
+    </div>
+  </div>
+
+  <div class="btt-alert" [ngClass]="interfaceSvc.alertClasses()">
+    <div class="alert-bg" (click)="interfaceSvc.closeAlert()"></div>
+    <div class="alert-container">
+      <button class="alert-close" (click)="interfaceSvc.closeAlert()"><fa-icon [icon]="['fa', 'times']"></fa-icon></button>
+      <div class="alert-content">
+        <div class="alert-message" [innerHTML]="interfaceSvc.alertMessage()"></div>
+      </div>
+    </div>
+  </div>
+</div>

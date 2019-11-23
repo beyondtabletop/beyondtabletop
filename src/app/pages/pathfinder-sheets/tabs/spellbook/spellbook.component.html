@@ -1,0 +1,237 @@
+<div class="sheet-tab">
+  <div class="group group-spellcasting">
+    <h2 class="group-header">Spellcasting</h2>
+    <div class="group group-spell-slots">
+      <div class="flex-row-tablet flex-gutters-10">
+        <div class="flex-col-6 bm-20" *ngFor="let klass of self.methods.listCasterKlasses()">
+          <h3 class="gh3">{{ klass.name }}</h3>
+          <div class="bm-10" *ngIf="self.model.prefs.homebrew">
+            <div class="flex-row-all">
+              <div class="flex-col-6">
+                <label class="control-label">Spell Ability</label>
+              </div>
+              <div class="flex-col-6">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ klass.spell_ability }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.spell_ability">
+                    <option [value]="option" *ngFor="let option of self.locals.selection.abilities">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="self.methods.isSpontaneousCaster(klass)">
+            <table class="table bm-20" *ngIf="self.methods.isListedCaster(klass)">
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th *ngFor="let slot of self.methods.listSpellsKnown(klass); index as i" [class.bt-hide]="slot.value === null"><span>{{ i }}</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Spells Known</th>
+                  <td *ngFor="let slot of self.methods.listSpellsKnown(klass)" [class.bt-hide]="slot.value === null">{{ slot.value }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!self.methods.isListedCaster(klass)">
+
+              <h4 class="gh4">Spells Known</h4>
+              <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let slot of self.methods.listSpellsKnown(klass); index as i">
+                <div class="flex-col-2">
+                  <label class="control-label">{{ self.methods.levelize(i) }}</label>
+                </div>
+                <div class="flex-col-3">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.value">
+                </div>
+              </div>
+            </div>
+            <h4 class="gh4">Spells Per Day</h4>
+            <div class="flex-row-all flex-gutters-5 bm-5 label-row">
+              <div class="flex-col name-col">
+                <label class="control-label">Level</label>
+              </div>
+              <div class="flex-col base-col">
+                <label class="control-label">Base</label>
+              </div>
+              <div class="flex-col misc-col">
+                <label class="control-label">Misc</label>
+              </div>
+              <div class="flex-col total-col">
+                <label class="control-label">Total</label>
+              </div>
+              <div class="flex-col remaining-col">
+                <label class="control-label">Remaining</label>
+              </div>
+            </div><!--/label row-->
+            <div class="bm-20" *ngFor="let slot of self.methods.listSpellsPerDay(klass); index as i">
+              <div class="flex-row-all flex-gutters-5 bm-5">
+                <div class="flex-col name-col">
+                  <label class="control-label">{{ self.methods.levelize(i) }}</label>
+                </div>
+                <div class="flex-col base-col">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.value" *ngIf="self.model.prefs.homebrew">
+                  <label class="control-label" *ngIf="!self.model.prefs.homebrew">{{ slot.value }}</label>
+                </div>
+                <div class="flex-col misc-col">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.misc">
+                </div>
+                <div class="flex-col total-col">
+                  <label class="control-label">{{ self.methods.getMiscValueAutoTotal(slot) }}</label>
+                </div>
+                <div class="flex-col remaining-col">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.remaining">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div *ngIf="!self.methods.isSpontaneousCaster(klass)">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th *ngFor="let slot of self.methods.nonNullSpellsPerDay(klass); index as i"><span>{{ i }}</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Spells Per Day</th>
+                  <td *ngFor="let slot of self.methods.nonNullSpellsPerDay(klass)">{{ slot.value }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bmr-40">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" title="Only show prepared spells on Overview tab?" (ngModelChange)="self.touch()" [(ngModel)]="self.model.casting.prepared"> Show only prepared on Overview?
+    </label>
+  </div>
+
+  <div class="spellbook spell-squares">
+    <!-- Spell Detail Modals -->
+    <div *ngFor="let spell of self.methods.listSpells()" [ngClass]="spell.$state">
+      <div class="detail" (click)="spell.$state = ''">
+        <div class="inner" (click)="$event.stopPropagation()">
+          <div [class.bt-hide]="!spell.$state || !spell.$state.includes('editing')">
+            <div class="bm-5">
+              <input type="text" class="form-control" placeholder="Name" (ngModelChange)="self.touch()" [(ngModel)]="spell.name">
+            </div>
+            <div class="bm-5">
+              <input type="text" class="form-control" placeholder="Summary" (ngModelChange)="self.touch()" [(ngModel)]="spell.summary">
+            </div>
+            <div class="bm-5">
+              <textarea class="form-control" placeholder="Description" (ngModelChange)="self.touch()" [(ngModel)]="spell.text"></textarea>
+            </div>
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Effect" (ngModelChange)="self.touch()" [(ngModel)]="spell.effect">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Casting Time" (ngModelChange)="self.touch()" [(ngModel)]="spell.casting_time">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Components" (ngModelChange)="self.touch()" [(ngModel)]="spell.components">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Duration" (ngModelChange)="self.touch()" [(ngModel)]="spell.duration">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Range" (ngModelChange)="self.touch()" [(ngModel)]="spell.range">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Saving Throw" (ngModelChange)="self.touch()" [(ngModel)]="spell.saving_throw">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Spell Resistance" (ngModelChange)="self.touch()" [(ngModel)]="spell.spell_resistance">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <input type="text" class="form-control" placeholder="Targets" (ngModelChange)="self.touch()" [(ngModel)]="spell.targets">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ spell.level }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.level" title="Level">
+                    <option [ngValue]="option" *ngFor="let option of self.locals.selection.spell_levels">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ spell.school }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="spell.school" title="School">
+                    <option [value]="option" *ngFor="let option of self.locals.selection.spell_schools">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="button button-cyan" (click)="self.methods.saveEditedSpell(spell)">Save</button>
+          </div>
+
+          <div [class.bt-hide]="spell.$state && spell.$state.includes('editing')">
+            <h2 class="h24 bm-10 weight-bold">{{ spell.name }}</h2>
+            <div class="bm-10">{{ self.methods.levelSchool(spell) }}</div>
+            <div class="bm-10">{{ self.methods.spellAtAGlance(spell) }}</div>
+            <div class="bm-20 btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></div>
+            <div class="flex-row-all flex-gutters-5 bm-20">
+              <div class="flex-col-6 bm-5">
+                <label class="weight-bold">Prepared</label>
+                <input type="number" class="form-control" placeholder="Prepared" (ngModelChange)="self.touch()" [(ngModel)]="spell.prepared">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="weight-bold">Remaining</label>
+                <input type="number" class="form-control" placeholder="Remaining" (ngModelChange)="self.touch()" [(ngModel)]="spell.remaining">
+              </div>
+            </div>
+            <button class="button button-cyan" *ngIf="false">Cast</button>
+            <button class="button button-green" (click)="spell.$state = 'showing-detail editing'">Edit</button>
+            <button class="button button-red" (click)="self.methods.removeFromSpellbook(spell)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spell Squares -->
+    <div
+      class="level bm-40"
+      *ngFor="let level of self.methods.filteredSpellLevels()"
+    >
+      <div class="col" *ngFor="let spell of self.methods.listSpellsForLevel(level)" [ngClass]="spell.$state">
+
+        <div class="intrinsic">
+          <div class="spell" title="{{ spell.name }}, Level {{ level }}, {{ spell.school }}" [ngClass]="self.methods.spellSquareSchoolClass(spell)" (click)="spell.$state = 'showing-detail'">
+            <div class="spell-name bm-5">{{ spell.name }}</div>
+            <div class="bm-5 spell-info">
+              <span title="Range">{{ spell.range }}</span> /
+              <span title="Casting">{{ spell.casting_time }}</span> /
+              <span title="Duration">{{ spell.duration }}</span>
+            </div>
+            <div>{{ spell.summary }}</div>
+            <div [title]="spell.school" class="bg-school"></div>
+            <div title="Level" class="bg-level">
+              <span>{{ level }}</span>
+              <sup>{{ self.methods.levelizeWithoutNum(level) }}</sup>
+            </div>
+            <div class="spell-booleans flex-row-all flex-config-spaced">
+              <div class="flex-col bool" title="Prepared" *ngIf="spell.prepared > 0">
+                <span>{{ spell.remaining }}</span> / <span>{{ spell.prepared }}</span> Prepared
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button class="button button-cyan" (click)="self.methods.switchTab('spell_list')">Add Spells</button>
+  </div>
+</div>

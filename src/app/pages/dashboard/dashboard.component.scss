@@ -1,0 +1,151 @@
+@import '../../abstracts/variables';
+@import '../../abstracts/mixins';
+
+/* Dashboard page */
+.content-base {
+  padding-bottom: 30px;
+  ul {
+    @include header-size(18, 18, 16, 14);
+    line-height: 1.3
+  }
+  li {
+    margin-bottom: 10px;
+  }
+}
+.h2 {
+  font-family: $title;
+  margin: 0 0 10px;
+  @include above-tablet {
+    margin: 0 0 15px;
+  }
+}
+.h3 {
+  margin: 0;
+  @include font-size(20);
+}
+.announcement {
+  @include header-size(20, 20, 18, 16, 1.5);
+  padding: 20px;
+  border-radius: 4px 4px 0 0;
+  color: #222;
+  background: rgba($cyan-color, .15);
+  border-bottom: 2px solid $cyan-color;
+  margin: -15px -15px 20px;
+  @include above-tablet {
+    padding: 20px 40px;
+    margin: -20px -20px 20px;
+  }
+  a {
+    color: darken($cyan-color, 25%);
+  }
+  span {
+    color: $cyan-color;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+  }
+  & + .narrow-content {
+    @include above-tablet {
+      border-radius: 0 0 4px 4px;
+    }
+  }
+  .announcement-icon {
+    @include header-size(72, 72, 60, 50, 1);
+    color: rgba($cyan-color, .35);
+  }
+}
+.intro {
+  p {
+    @include header-size(18, 16, 14, 14);
+    line-height: 1.5;
+    margin-bottom: 25px;
+  }
+  .space-bottom {
+    margin-bottom: 20px;
+  }
+}
+.beta-disclaimer {
+  color: #999;
+  padding: 40px 0 20px;
+}
+
+.narrow {
+  max-width: 700px;
+  margin: auto;
+}
+
+
+.h5 {
+  font-weight: 700;
+  @include header-size(18, 18, 16, 14);
+  text-transform: uppercase;
+  color: #777;
+  margin: 0 0 15px;
+  @include flex-row-at(0);
+  @include flex-justify(space-between);
+  a {
+    text-transform: none;
+    font-weight: normal;
+    @include header-size(16, 16, 14, 12);
+  }
+}
+.dashboard-listing {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f2f2f2;
+  a {
+    color: #000;
+    font-weight: 500;
+    @include flex-dynamic;
+  }
+}
+.delete-warn {
+  background: $red;
+  padding: 4px 8px;
+  border-radius: 4px;
+  a, i, .permission-icon, .icon-button {
+    color: white;
+  }
+}
+.dashboard-new-group {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f2f2f2;
+  p {
+    color: #999;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+}
+.dashboard-file-admin-group {
+  @include flex-static;
+  height: 27px;
+  button {
+    margin-left: 5px;
+  }
+}
+.delete-tool {
+  &:hover {
+    color: red;
+  }
+}
+.permission-icon {
+  color: #AAA;
+  margin-right: 4px;
+}
+.new {
+  color: $primary-color;
+  @include font-size(14);
+  text-transform: none;
+  font-weight: normal;
+}
+
+bt-hold-delete {
+  display: block;
+  position: relative;
+  top: -2px;
+}
+

@@ -1,0 +1,101 @@
+<div class="sheet-tab">
+  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
+  <div class="flex-row-tablet flex-gutters-10" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div class="flex-col-6">
+      <h2 class="group-header">Core Conditions</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">These are conditions that affect your character from the Core Rule Book. Click on them to enable and view the description.</p>
+      <div class="bmr-60">
+        <div class="condition-row" *ngFor="let condition of self.locals.data.core_conditions">
+          <div class="form-group">
+            <label class="block-label">
+              <input type="checkbox" title="Toggle {{ condition.name }}" (ngModelChange)="self.touch()" [(ngModel)]="self.model.core_conditions[condition.name]">
+              <span class="cap-conditions">{{ condition.name }}</span>
+            </label>
+          </div>
+          <div [innerHTML]="condition.text" *ngIf="self.model.core_conditions[condition.name]"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6">
+      <h2 class="group-header">Custom Conditions</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">You can also add custom conditions that affect almost any stat in the character sheet. To create a custom effect, add a new custom condition, give it a name and add an effect with the green plus button. You can then select which stat to affect on the left and what formula to use on the right. Formulas can include <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>%</code> and use <code>n</code> in place of the stat being affected. You can also use <code>l</code> to represent your character's level.</p>
+      <p class="help-text" *ngIf="self.model.prefs.help">For example, if you wanted to create a condition that increased your STR by 2, you would select STR on the left side and enter <code>n + 2</code> in the formula field on the right.</p>
+      <p class="help-text" *ngIf="self.model.prefs.help">Some effects only accept a numerical value. These are typically for adjusting combat stats like "Ranged Attack" or "Melee Damage."</p>
+      <p class="help-text" *ngIf="self.model.prefs.help">When you are finished editing your custom condition, you can click the checkbox to enable the effects. If the formula field turns red, it means you have an error in your formula and you need to edit it before you can try to enable the condition again.</p>
+      <h3 class="h4" [class.bt-hide]="self.model.conditions.length === 0">Toggle Conditions</h3>
+      <div class="group group-conditions-toggle">
+        <div class="condition-row" *ngFor="let condition of self.methods.listConditions()">
+          <div class="form-group">
+            <label class="block-label">
+              <input type="checkbox" title="Toggle {{ condition.name }}" [disabled]="!self.methods.isConditionValid(condition)" (ngModelChange)="self.methods.toggleCondition(condition)" [(ngModel)]="condition.active">
+              <span>{{ condition.name }}</span>
+            </label>
+          </div>
+          <p *ngIf="condition.active">{{ condition.description }}</p>
+        </div>
+      </div>
+      <h3 class="h4" [class.bt-hide]="self.model.conditions.length === 0">Edit Conditions</h3>
+      <div class="group group-conditions-edit" cdkDropList [cdkDropListData]="self.model.conditions" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="condition-row js-condition" *ngFor="let condition of self.methods.listUserConditions()" cdkDrag [cdkDragData]="condition" [class.condition-disabled]="condition.active">
+          <div class="flex-row-all flex-gutters-5">
+            <div class="flex-static flex-col">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col flex-dynamic flex-col-6">
+              <div class="name-col">
+                <input type="text" class="form-control" placeholder="Name" [disabled]="condition.active" (ngModelChange)="self.touch()" [(ngModel)]="condition.name">
+              </div>
+            </div>
+            <div class="flex-col flex-dynamic flex-col-6">
+              <div class="description-col">
+                <input type="text" class="form-control" placeholder="Description" [disabled]="condition.active" (ngModelChange)="self.touch()" [(ngModel)]="condition.description">
+              </div>
+            </div>
+            <div class="flex-static flex-col">
+              <button title="Delete Condition" [class.bt-hide]="condition.active" class="g-remove" (click)="self.methods.removeByObject(self.model.conditions, condition)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+          <div class="effect-col" cdkDropList [cdkDropListData]="condition.effects" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+            <div class="effect js-condition-effect" *ngFor="let effect of self.methods.listConditionEffects(condition)" cdkDrag [cdkDragData]="effect">
+              <div class="flex-row-all flex-gutters-5 flex-config-bottom">
+                <div class="flex-static flex-col">
+                  <span class="sub-drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+                </div>
+                <div class="flex-col flex-col-6 flex-dynamic">
+                  <label class="block-label">Effect Stat</label>
+                  <div class="form-group" [ngClass]="effect.valid ? 'valid-field' : 'invalid-field'">
+                    <div class="select-wrap" [class.disabled]="condition.active">
+                      <i class="material-icons">arrow_drop_down</i>
+                      <label>{{ effect.name }}</label>
+                      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="effect.name" [disabled]="condition.active">
+                        <option [value]="option" *ngFor="let option of self.locals.selection.conditionStats">{{ option }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-col flex-col-6 flex-dynamic">
+                  <div class="form-group formula-field">
+                    <label class="block-label">Effect Value</label>
+                    <input type="number" class="form-control" [disabled]="condition.active" (ngModelChange)="self.touch()" [(ngModel)]="effect.value">
+                  </div>
+                </div>
+                <div class="flex-col flex-static">
+                  <button title="Delete Effect" [class.bt-hide]="condition.active" class="g-remove" (click)="self.methods.removeByObject(condition.effects, effect)"><i class="material-icons">delete</i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="action-col">
+            <button [class.bt-hide]="condition.active" class="g-add" (click)="self.methods.addConditionEffect(condition)"><i class="material-icons">add</i></button>
+          </div>
+        </div>
+      </div>
+      <div class="add-condition bm-40">
+        <button class="button button-orange" (click)="self.methods.addCondition()"><i class="material-icons">add</i> Condition</button>
+      </div>
+      <p class="help-text" *ngIf="self.model.prefs.help">If for some reason you've found a condition equation caused an error in one of your stats that you can't fix, you can purge all changes made by conditions with this button.</p>
+
+      <button class="button button-orange" (click)="self.methods.resetAutoValues()">Reset ALL Conditions</button>
+    </div>
+  </div>
+</div>

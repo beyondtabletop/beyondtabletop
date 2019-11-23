@@ -1,0 +1,118 @@
+<div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-6">
+        <h5 class="h5">Otherworldly Patron</h5>
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Warlock.patron }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.patron">
+            <option [value]="option" *ngFor="let option of self.locals.selection.warlock_patrons">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.patron" *ngIf="self.model.prefs.homebrew">
+      </div>
+      <div class="flex-col-6" *ngIf="klass.level >= 3">
+        <h5 class="h5">Pact Boon</h5>
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Warlock.pact_boon }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.pact_boon">
+            <option [value]="option" *ngFor="let option of self.locals.selection.warlock_pact_boons">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.pact_boon" *ngIf="self.model.prefs.homebrew">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-tablet flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6" *ngIf="klass.level >= 20">
+        <h5 class="h5">Eldritch Master</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.eldritch_master.remaining">
+          </div>
+        </div>
+      </div>
+      <!-- TODO: make these better for homebrew -->
+      <div class="flex-col-6">
+        <h5 class="h5">{{ self.locals.data.warlock_patron_features[self.model.powers.Warlock.patron + ' 1'] }}</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.patron_feature_1.remaining">
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6" *ngIf="self.model.powers.Warlock.patron !== 'Great Old One'">
+        <h5 class="h5">{{ self.locals.data.warlock_patron_features[self.model.powers.Warlock.patron + ' 2'] }}</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.patron_feature_2.remaining">
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6" *ngIf="self.model.powers.Warlock.patron === 'Archfey'">
+        <h5 class="h5">{{ self.locals.data.warlock_patron_features[self.model.powers.Warlock.patron + ' 3'] }}</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Warlock.patron_feature_3.remaining">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">Your Invocations</h5>
+    <p class="help-text" *ngIf="self.methods.listInvocations().length === 0">You have no invocations right now. Add invocations by browsing the list below and clicking the green plus buttons. Keep in mind some invocations have prerequisites, indicated by gray text under the invocation's name.</p>
+    <div class="user-invocation bm-20" *ngFor="let invocation of self.methods.listInvocations()">
+      <div class="flex-row-all flex-gutters-5 flex-config-align-center">
+        <div class="flex-col">
+          <div class="g-remove" (click)="self.methods.removeByObject(self.model.powers.Warlock.invocations, invocation)"><i class="material-icons">delete</i></div>
+        </div>
+        <div class="flex-col">
+          <strong class="bm-10">{{ invocation.name }}</strong>
+          <div>{{ invocation.text }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">All Invocations</h5>
+    <div class="flex-row-mobile flex-gutters-5 flex-config-wrap invocations">
+      <div class="flex-col-6" *ngFor="let invocation of self.methods.listAvailableInvocations() | orderBy : 'name'">
+        <div class="invocation flex-row-all flex-gutters-5">
+          <div class="left flex-static flex-col">
+            <button class="action add-item" (click)="self.methods.addInvocation(invocation)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="right flex-dynamic flex-col">
+            <h5>{{ invocation.name }}</h5>
+            <p *ngIf="invocation.prereq">Req: <span>{{ invocation.prereq }}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

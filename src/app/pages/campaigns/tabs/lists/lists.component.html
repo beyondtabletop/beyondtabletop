@@ -1,0 +1,69 @@
+<div class="fp-15">
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bm-20">
+      <h2 class="rh24 bm-20">Lists</h2>
+      <p class="help-text">Lists are good for keeping track of various groups of data. These are not visible to anyone else.</p>
+      <div cdkDropList [cdkDropListData]="self.model.lists" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-list bmr-40" *ngFor="let list of self.methods.listListsBySpecial(false)" cdkDrag [cdkDragData]="list">
+          <div class="flex-row-all flex-config-align-center flex-gutters-5">
+            <div class="flex-col">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col flex-dynamic list-title">
+              <input type="text" class="form-control h5" placeholder="List Name" (ngModelChange)="self.touch()" [(ngModel)]="list.name">
+            </div>
+            <div class="flex-col flex-static">
+              <bt-hold-delete title="Remove List" (holdComplete)="self.methods.removeByObject(self.model.lists, list)"></bt-hold-delete>
+            </div>
+          </div>
+          <div cdkDropList [cdkDropListData]="list.items" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+            <div class="flex-row-all flex-config-align-center flex-gutters-5 bm-5 js-list-item" *ngFor="let item of self.methods.listListItems(list)" cdkDrag [cdkDragData]="item">
+              <div class="flex-col">
+                <span class="sub-drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col flex-dynamic">
+                <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text" placeholder="Item Description"></textarea>
+              </div>
+              <div class="flex-col flex-static">
+                <button title="Remove List Item" class="g-remove" (click)="self.methods.removeByObject(list.items, item)"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+          </div>
+          <button title="Add List Item" class="g-add" (click)="self.methods.addListItem(list)"><i class="material-icons">add</i></button>
+        </div>
+        <div class="button-wrap">
+          <button title="Add List" class="button button-orange" (click)="self.methods.addList()"><i class="material-icons">add</i> List</button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6" *ngFor="let list of self.methods.getNotesInArray()">
+      <div class="flex-row-all flex-config-spaced flex-config-align-center bm-20">
+        <h2 class="rh24 no-space">Notes</h2>
+        <button title="Add Note" class="gb-add" (click)="self.methods.addNote(list)"><i class="material-icons">add</i></button>
+      </div>
+      <p class="help-text">Notes are for longer form pieces of information about your party, the campaign, story details, whatever you want. Notes are not visible to players.</p>
+      <div class="bm-20" *ngFor="let note of self.methods.getActiveNote()">
+        <input type="text" placeholder="Title" class="form-control bm-5" (ngModelChange)="self.touch()" [(ngModel)]="note.name">
+        <textarea placeholder="Enter notes" class="form-control note-textarea" (ngModelChange)="self.touch()" [(ngModel)]="note.text"></textarea>
+      </div>
+      <div cdkDropList [cdkDropListData]="list.items" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="flex-row-all flex-gutters-5 flex-config-align-center js-list-item" *ngFor="let item of self.methods.listListItems(list)" cdkDrag [cdkDragData]="item">
+          <div class="flex-col flex-static">
+            <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+          </div>
+          <div class="flex-col flex-dynamic">
+            <a (click)="self.methods.setActiveNote(item)" class="gl1 clickable note-link flex-" [class.active]="self.locals.active_note === item.id">{{ item.name || 'Untitled Note' }}</a>
+          </div>
+          <div class="flex-col flex-static" *ngIf="list.items.length > 1">
+            <bt-hold-delete title="Delete Note" (holdComplete)="self.methods.removeByObject(list.items, item)"></bt-hold-delete>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6" *ngIf="self.methods.getNotesInArray().length === 0">
+      <h2 class="rh24 bm-20">Notes</h2>
+      <p class="help-text">Notes are a lot like lists but for writing down a lot at once.</p>
+      <button class="button button-cyan" (click)="self.methods.createNotes()">Add Note</button>
+    </div>
+  </div>
+</div>

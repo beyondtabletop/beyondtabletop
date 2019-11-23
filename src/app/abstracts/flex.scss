@@ -1,0 +1,109 @@
+.flex-gutters-20 {
+  @include flex-gutters(20);
+}
+.flex-gutters-15 {
+  @include flex-gutters(15);
+}
+.flex-gutters-10 {
+  @include flex-gutters(10);
+}
+.flex-gutters-5 {
+  @include flex-gutters(5);
+}
+.flex-gutters-8 {
+  @include flex-gutters(8);
+}
+.flex-gutters-3 {
+  @include flex-gutters(3);
+}
+.flex-gutters-2 {
+  @include flex-gutters(2);
+}
+
+.flex-row-defaults {
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+
+  -ms-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+
+  -ms-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.flex-row-all {
+  @include flex-row-at(0);
+}
+.flex-row-mobile {
+  @include flex-row-at($mobile);
+}
+.flex-row-tablet {
+  @include flex-row-at($tablet);
+}
+.flex-reverse-row {
+  -ms-flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+.flex-order-1 {
+  @include flex-order(1);
+}
+.flex-order-2 {
+  @include flex-order(2);
+}
+.v-flex-row {
+  @include quick-flex($align: stretch);
+  @include v-flex;
+}
+.flex-static {
+  @include flex-static;
+}
+.flex-dynamic {
+  @include flex-dynamic;
+  width: auto;
+}
+.flex-dynamic-percent {
+  @include flex-dynamic;
+}
+.flex-config-wrap {
+  @include flex-wrap;
+}
+.flex-config-left {
+  @include flex-justify;
+}
+.flex-config-right {
+  @include flex-justify(flex-end);
+}
+.flex-config-justify-center {
+  @include flex-justify(center);
+}
+.flex-config-spaced {
+  @include flex-justify(space-between);
+}
+.flex-config-align-center {
+  @include flex-align(center);
+}
+.flex-config-top {
+  @include flex-align;
+}
+.flex-config-stretch {
+  @include flex-align(stretch);
+}
+.flex-config-bottom {
+  @include flex-align(flex-end);
+}
+.flex-config-centered {
+  @include flex-justify(center);
+  @include flex-align(center);
+}
+.flex-self-align-center {
+  -ms-align-self: center;
+  -webkit-align-self: center;
+  align-self: center;
+}
+
+.align-start {
+  align-self: flex-start;
+}

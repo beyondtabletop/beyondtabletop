@@ -1,0 +1,12 @@
+<div class="bm-30">
+  <h2 class="group-header">{{ self.methods.getActiveNavItem() }}</h2>
+  <div class="flex-row-mobile flex-gutters-10 flex-config-spaced">
+    <div class="flex-col flex-static">
+      <a routerLink="/donate"><img src="/assets/img/rogue-upgrade.jpg" alt="Upgrade to get unlimited access!"></a>
+    </div>
+    <div class="flex-col flex-dynamic">
+      <h3 class="upgrade-subhead"><span>{{ self.methods.getActiveNavItem() }}</span> is a premium feature, which is available if you upgrade. Upgrading is only $10 ONCE and it really helps us deliver more updates, more features, and a better product. Plus upgraded users can make an unlimited amount of sheets! Please consider upgrading.</h3>
+      <a routerLink="/donate" class="button button-cyan button-large text-center"><fa-icon [icon]="['fa', 'star']"></fa-icon> Upgrade Now for $10</a>
+    </div>
+  </div>
+</div>

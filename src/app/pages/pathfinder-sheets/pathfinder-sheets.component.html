@@ -1,0 +1,34 @@
+<div class="container display-sheet sheet-pathfinder" [ngClass]="self.methods.getBodyClasses()">
+  <bt-tabs [self]="self"></bt-tabs>
+  <div class="content">
+    <bt-loading [self]="self"></bt-loading>
+    <bt-interface></bt-interface>
+
+    <div class="tabs-wrapper">
+      <div [ngSwitch]="self.locals.tabs.active">
+        <bt-pathfinder-tab-abilities     [self]="self" *ngSwitchCase="'abilities'"></bt-pathfinder-tab-abilities>
+        <bt-pathfinder-tab-combat        [self]="self" *ngSwitchCase="'combat'"></bt-pathfinder-tab-combat>
+        <bt-pathfinder-tab-companions    [self]="self" *ngSwitchCase="'companions'"></bt-pathfinder-tab-companions>
+        <bt-pathfinder-tab-conditions    [self]="self" *ngSwitchCase="'conditions'"></bt-pathfinder-tab-conditions>
+        <bt-pathfinder-tab-dice          [self]="self" *ngSwitchCase="'dice'"></bt-pathfinder-tab-dice>
+        <bt-pathfinder-tab-equipment     [self]="self" *ngSwitchCase="'equipment'"></bt-pathfinder-tab-equipment>
+        <bt-pathfinder-tab-feats         [self]="self" *ngSwitchCase="'feats'"></bt-pathfinder-tab-feats>
+        <bt-pathfinder-tab-general       [self]="self" *ngSwitchCase="'general'"></bt-pathfinder-tab-general>
+        <bt-pathfinder-tab-items         [self]="self" *ngSwitchCase="'items'"></bt-pathfinder-tab-items>
+        <bt-pathfinder-tab-journal       [self]="self" *ngSwitchCase="'journal'"></bt-pathfinder-tab-journal>
+        <bt-pathfinder-tab-lists         [self]="self" *ngSwitchCase="'lists'"></bt-pathfinder-tab-lists>
+        <bt-pathfinder-tab-overview      [self]="self" *ngSwitchCase="'overview'"></bt-pathfinder-tab-overview>
+        <bt-pathfinder-tab-settings      [self]="self" *ngSwitchCase="'settings'"></bt-pathfinder-tab-settings>
+        <bt-pathfinder-tab-skills        [self]="self" *ngSwitchCase="'skills'"></bt-pathfinder-tab-skills>
+        <bt-pathfinder-tab-spell-picker  [self]="self" *ngSwitchCase="'spell_list'"></bt-pathfinder-tab-spell-picker>
+        <bt-pathfinder-tab-spellbook     [self]="self" *ngSwitchCase="'spells'"></bt-pathfinder-tab-spellbook>
+      </div>
+    </div>
+
+    <footer>
+      <div class="help-link-wrapper">
+        <a href="https://www.reddit.com/r/beyondtabletop" class="help-link" target="_blank">Questions? Something break? Get Help</a>
+      </div>
+    </footer>
+  </div>
+</div>

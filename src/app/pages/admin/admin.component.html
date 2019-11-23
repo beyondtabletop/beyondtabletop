@@ -1,0 +1,22 @@
+<div class="fp-20">
+  <section class="max-300 bm-20">
+    <h2 class="h19">Find User By Email</h2>
+    <input type="email" placeholder="Email" class="form-control bm-10" [(ngModel)]="email">
+    <button class="button button-cyan bm-10" (click)="findUserByEmail()">Find By Email</button>
+    <div *ngIf="user">
+      <div class="bm-5">Name: {{ user.name }}</div>
+      <div>Firebase ID: {{ user.firebase_id }}</div>
+    </div>
+  </section>
+
+  <section class="max-300 bm-20">
+    <h2 class="h19">Destroy User</h2>
+    <input type="text" placeholder="Firebase ID" class="form-control bm-10" [(ngModel)]="uid">
+    <button class="button button-cyan bm-10" (click)="destroyUser()">Destroy User</button>
+  </section>
+
+  <section class="max-300 bm-20">
+    <h2 class="h19">Permissions</h2>
+    <button class="button button-cyan bm-10" (click)="repairPermissions()">Repair Permissions</button>
+  </section>
+</div>

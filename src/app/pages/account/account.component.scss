@@ -1,0 +1,12 @@
+@import '../../../app/abstracts/variables.scss';
+@import '../../../app/abstracts/mixins.scss';
+
+h2 {
+  @include header-size(28, 26, 24, 20, 1)
+}
+
+.page-container {
+  max-width: 1000px;
+  padding: 20px;
+  margin: 40px auto;
+}

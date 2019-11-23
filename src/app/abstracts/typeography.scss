@@ -1,0 +1,276 @@
+h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5, .h6, .h7 {
+  font-weight: 400;
+  font-family: $sans;
+  line-height: 1.3;
+}
+.h0 {
+  @include font-size($h3-size...);
+  @include above-mobile {
+    @include font-size($h2-size...);
+  }
+  @include above-tablet {
+    @include font-size($h0-size...);
+  }
+}
+.h1, .base h1 {
+  @include font-size($h3-size...);
+  @include above-mobile {
+    @include font-size($h2-size...);
+  }
+  @include above-tablet {
+    @include font-size($h1-size...);
+  }
+}
+.h2, .base h2 {
+  font-family: $title;
+  @include font-size($h3-size...);
+  @include above-tablet {
+    @include font-size($h2-size...);
+  }
+}
+.h3, .base h3 {
+  @include font-size($h4-size...);
+  @include above-tablet {
+    @include font-size($h3-size...);
+  }
+}
+.h4, .base h4 {
+  @include font-size($h4-size...);
+}
+.h5, .base h5 {
+  @include font-size($h5-size...);
+}
+.h6, .base h6 {
+  @include font-size($h6-size...);
+}
+.h7 {
+  @include font-size($h7-size...);
+}
+.gh1 {
+  @include header-size(30, 30, 28, 24, 1.3);
+  font-family: $title;
+  font-weight: 900;
+  margin: 0 0 20px;
+  @include above-mobile {
+    margin: 0 0 30px;
+  }
+}
+.gh2 {
+  @include header-size(24, 22, 20, 18, 1.3);
+  font-family: $title;
+  font-weight: 800;
+  margin: 0 0 20px;
+}
+.gha2 {
+  @include header-size(24, 22, 20, 18, 1.3);
+  margin: 0 0 20px;
+  font-weight: 200;
+}
+.gsh3 {
+  @include header-size(18, 18, 16, 16, 1.5);
+  font-family: $sans;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+.gsh3b {
+  @include header-size(18, 18, 16, 16, 1.5);
+  font-family: $sans;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+.gsh4 {
+  @include header-size(16, 16, 14, 14, 1.5);
+  font-family: $sans;
+  font-weight: 400;
+  margin: 0 0 20px;
+}
+.gh3 {
+  @include header-size(18, 18, 16, 16, 1.5);
+  font-family: $title;
+  font-weight: 800;
+  margin: 0 0 20px;
+}
+.gha3 {
+  @include header-size(20, 18, 17, 16, 1.3);
+  margin: 0 0 20px;
+  font-weight: 200;
+}
+.gh4 {
+  @include header-size(16, 16, 14, 14, 1.5);
+  font-family: $title;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+.gh5 {
+  @include header-size(14, 14, 14, 12, 1);
+  font-family: $sans;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+.gl1 {
+  @include header-size(14, 14, 14, 12, 1);
+  font-family: $title;
+  padding: 8px 0;
+  font-weight: 800;
+}
+.gl2 {
+  @include header-size(13, 13, 12, 11, 1);
+  padding: 8px 0 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.gl3 {
+  @include header-size(16, 16, 14, 14, 1);
+  margin: 0;
+  padding: 8px 0;
+  font-weight: 200;
+}
+
+.rh36 {
+  @include header-size(36, 36, 30, 24, 1.3);
+  font-weight: 300;
+  font-family: $rubik;
+  margin: 0;
+}
+
+.rh24 {
+  @include header-size(24, 24, 20, 18, 1);
+  font-weight: 500;
+  font-family: $rubik;
+  margin: 0;
+}
+
+.rh18 {
+  @include header-size(18, 18, 16, 15, 1);
+  font-weight: 700;
+  font-family: $rubik;
+  margin: 0;
+}
+
+.rh16 {
+  @include header-size(16, 16, 14, 13);
+  font-weight: 400;
+  font-family: $rubik;
+  margin: 0;
+}
+
+.p3 {
+  @include header-size(14, 14, 13, 12, 1.5);
+  color: #555;
+  margin: 0;
+}
+.gmuted {
+  color: #666;
+}
+
+.hh1 {
+  @include header-size(30, 30, 28, 24, 1.3);
+  font-weight: 200;
+  margin: 0 0 20px;
+  @include above-mobile {
+    margin: 0 0 40px;
+  }
+}
+
+.hh3 {
+  @include header-size(22, 22, 20, 18, 1.3);
+  font-weight: 400;
+  margin: 0 0 10px;
+  @include above-mobile {
+    margin: 0 0 20px;
+  }
+}
+
+.hh4 {
+  @include header-size(18, 18, 16, 16, 1.3);
+  font-weight: 600;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  @include above-mobile {
+    margin: 0 0 20px;
+  }
+}
+
+.hh5 {
+  @include header-size(16, 16, 15, 14, 1.3);
+  font-weight: 600;
+  margin: 0 0 10px;
+  @include above-mobile {
+    margin: 0 0 20px;
+  }
+}
+
+.h16 {
+  margin: 0;
+  @include header-size(16, 16, 14, 14, 1);
+}
+
+.h18 {
+  margin: 0;
+  @include header-size(18, 18, 15, 15, 1);
+}
+
+.h20 {
+  margin: 0;
+  @include header-size(20, 20, 17, 17, 1);
+}
+
+.h24 {
+  margin: 0;
+  @include header-size(24, 24, 20, 20, 1);
+}
+
+.h36 {
+  @include font-size(36);
+}
+
+.f10 {
+  @include font-size(10, 1);
+}
+
+.hx-21 {
+  @include header-size(21, 21, 17, 17, 1);
+}
+
+// ******************************************************
+// FONT STYLES
+// ******************************************************
+
+$all-headers: (
+  140: 110,
+  62: 48,
+  48: 37,
+  32: 27,
+  24: 20,
+  21: 18,
+  19: 16,
+  17: 15,
+  16: 14,
+  15: 13,
+  14: 14,
+  13: 11,
+  12: 10
+);
+
+// h24 - responsive header starting at 24px on desktop with 1 line-height
+// f24 - unresponsive header at 24px with 1 line-height
+// s24 - static text at 24px with default line height
+// p24 - responsive text starting at 24px with default line height
+@each $large, $small in ($all-headers) {
+  .h#{$large}, .i#{$large} {
+    @include header-size($large, $large, $small, $small, 1);
+  }
+  .f#{$large} {
+    @include font-size($large, 1);
+  }
+  .s#{$large} {
+    @include font-size($large);
+  }
+  .p#{$large} {
+    @include header-size($large, $large, $small, $small);
+  }
+}
+
+.style-uppercase {
+  text-transform: uppercase;
+}

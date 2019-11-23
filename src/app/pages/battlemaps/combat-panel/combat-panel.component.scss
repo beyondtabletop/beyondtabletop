@@ -1,0 +1,33 @@
+@import '../../../abstracts/variables.scss';
+@import '../../../abstracts/mixins.scss';
+
+.combat-panel {
+  position: absolute;
+  width: 300px;
+  background: white;
+  padding: 0 15px 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 0 rgba($black, 0.1), 0 2px 10px 0 rgba($black, 0.07);
+  @include no-select;
+  .turn-button {
+    padding: 5px 0;
+    width: 100%;
+    display: block;
+    color: #FFF;
+    margin-bottom: 5px;
+    @include font-size(12, 1);
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .combat-panel-title {
+    @include font-size(16, 1);
+    margin: 0 0 10px;
+    padding: 15px 0 10px;
+    font-weight: 700;
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+.combat-order {
+  margin: 0 -15px 10px;
+}

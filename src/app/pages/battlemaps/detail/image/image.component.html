@@ -1,0 +1,3 @@
+<div class="hide-on-collapsed" [class.bt-hide]="self.methods.combatantSheetConnected(item) || !!item.monster_id">
+  <input type="text" class="form-control" placeholder="Image URL" (ngModelChange)="self.touch()" [(ngModel)]="item.image">
+</div>

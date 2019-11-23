@@ -1,0 +1,940 @@
+{
+  "Kineticist": {
+    "id":"48"
+    , "name":"Kineticist"
+    , "skills":[
+      "Acrobatics"
+      , "Craft"
+      , "Heal"
+      , "Intimidate"
+      , "Perception"
+      , "Profession"
+      , "Stealth"
+      , "Use Magic Device"
+    ]
+    , "skill_ranks":"4"
+    , "hit_die":"d8"
+    , "alignment":"Any"
+    , "spell_source":""
+    , "spell_ability":""
+    , "spell_type":""
+    , "starting_gold":"1d6 × 10 gp (average 35 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"medium"
+    , "fort":"strong"
+    , "ref":"strong"
+    , "will":"weak"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Burn, elemental focus, gather power, infusion, kinetic blast",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"2nd",
+        "special":"Elemental defense, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"3rd",
+        "special":"Elemental overflow +1, infusion",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"4th",
+        "special":"Utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"5th",
+        "special":"Infusion, infusion specialization 1, metakinesis (empower)",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"6th",
+        "special":"Elemental overflow +2, internal buffer 1, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"7th",
+        "special":"Expanded element",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"8th",
+        "special":"Infusion specialization 2, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"9th",
+        "special":"Elemental overflow +3, infusion, metakinesis (maximize)",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"10th",
+        "special":"Utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"11th",
+        "special":"Infusion, infusion specialization 3, internal buffer 2, supercharge",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"12th",
+        "special":"Elemental overflow +4, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"13th",
+        "special":"Infusion, metakinesis (quicken)",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"14th",
+        "special":"Infusion specialization 4, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"15th",
+        "special":"Expanded element, elemental overflow +5",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"16th",
+        "special":"Composite specialization, internal buffer 3, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"17th",
+        "special":"Infusion, infusion specialization 5, metakinesis (twice)",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"18th",
+        "special":"Elemental overflow +6, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"19th",
+        "special":"Infusion, metakinetic master",
+        "spells_known":[],
+        "spells_per_day":[]
+      },
+      {
+        "level":"20th",
+        "special":"Infusion specialization 6, omnikinesis, utility wild talent",
+        "spells_known":[],
+        "spells_per_day":[]
+      }
+    ]
+  }
+  , "Medium": {
+    "id":"49"
+    , "name":"Medium"
+    , "skills":[
+      "Bluff"
+      , "Craft"
+      , "Diplomacy"
+      , "Fly"
+      , "Heal"
+      , "Intimidate"
+      , "Knowledge Arcana"
+      , "Knowledge Planes"
+      , "Knowledge Religion"
+      , "Linguistics"
+      , "Perception"
+      , "Perform"
+      , "Profession"
+      , "Sense Motive"
+      , "Spellcraft"
+      , "Use Magic Device"
+    ]
+    , "skill_ranks":"4"
+    , "hit_die":"d8"
+    , "alignment":"Any"
+    , "spell_source":"sor"
+    , "spell_ability":"CHA"
+    , "spell_type":"arcane"
+    , "starting_gold":"4d6 × 10 gp (average 140 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"medium"
+    , "fort":"weak"
+    , "ref":"strong"
+    , "will":"strong"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Knacks, spirit, spirit bonus +1, spirit power (lesser), spirit surge 1d6",
+        "spells_known":["2","-","-","-","-"],
+        "spells_per_day":["x","-","-","-","-"]
+      },
+      {
+        "level":"2nd",
+        "special":"Shared seance, taboo",
+        "spells_known":["3","-","-","-","-"],
+        "spells_per_day":["x","-","-","-","-"]
+      },
+      {
+        "level":"3rd",
+        "special":"Haunt channeler",
+        "spells_known":["4","-","-","-","-"],
+        "spells_per_day":["x","-","-","-","-"]
+      },
+      {
+        "level":"4th",
+        "special":"Spirit bonus +2",
+        "spells_known":["4","2","-","-","-"],
+        "spells_per_day":["x","1","-","-","-"]
+      },
+      {
+        "level":"5th",
+        "special":"Location channel",
+        "spells_known":["5","2","-","-","-"],
+        "spells_per_day":["x","1","-","-","-"]
+      },
+      {
+        "level":"6th",
+        "special":"Spirit power (intermediate)",
+        "spells_known":["5","4","-","-","-"],
+        "spells_per_day":["x","1","-","-","-"]
+      },
+      {
+        "level":"7th",
+        "special":"Connection channel",
+        "spells_known":["6","4","2","-","-"],
+        "spells_per_day":["x","1","1","-","-"]
+      },
+      {
+        "level":"8th",
+        "special":"Spirit bonus +3",
+        "spells_known":["6","4","3","-","-"],
+        "spells_per_day":["x","1","1","-","-"]
+      },
+      {
+        "level":"9th",
+        "special":"Propitiation",
+        "spells_known":["6","5","4","-","-"],
+        "spells_per_day":["x","2","1","-","-"]
+      },
+      {
+        "level":"10th",
+        "special":"Spirit surge 1d8",
+        "spells_known":["6","5","4","2","-"],
+        "spells_per_day":["x","2","1","1","-"]
+      },
+      {
+        "level":"11th",
+        "special":"Spirit power (greater)",
+        "spells_known":["6","5","4","3","-"],
+        "spells_per_day":["x","2","1","1","-"]
+      },
+      {
+        "level":"12th",
+        "special":"Spirit bonus +4",
+        "spells_known":["6","6","5","4","-"],
+        "spells_per_day":["x","2","2","1","-"]
+      },
+      {
+        "level":"13th",
+        "special":"Ask the spirits",
+        "spells_known":["6","6","5","4","2"],
+        "spells_per_day":["x","-","-","-","-"]
+      },
+      {
+        "level":"14th",
+        "special":"Astral journey",
+        "spells_known":["6","6","5","4","3"],
+        "spells_per_day":["x","3","2","1","1"]
+      },
+      {
+        "level":"15th",
+        "special":"Trance of three",
+        "spells_known":["6","6","6","5","4"],
+        "spells_per_day":["x","3","2","1","1"]
+      },
+      {
+        "level":"16th",
+        "special":"Spirit bonus +5",
+        "spells_known":["6","6","6","5","4"],
+        "spells_per_day":["x","3","3","2","1"]
+      },
+      {
+        "level":"17th",
+        "special":"Spirit power (supreme)",
+        "spells_known":["6","6","6","5","4"],
+        "spells_per_day":["x","4","3","2","1"]
+      },
+      {
+        "level":"18th",
+        "special":"Spacious soul",
+        "spells_known":["6","6","6","6","5"],
+        "spells_per_day":["x","4","3","2","2"]
+      },
+      {
+        "level":"19th",
+        "special":"Spirit mastery",
+        "spells_known":["6","6","6","6","5"],
+        "spells_per_day":["x","4","3","3","2"]
+      },
+      {
+        "level":"20th",
+        "special":"Astral beacon, spirit bonus +6, spirit surge 1d10",
+        "spells_known":["6","6","6","6","5"],
+        "spells_per_day":["x","4","4","3","2"]
+      }
+    ]
+  }
+  , "Mesmerist": {
+    "id":"50"
+    , "name":"Mesmerist"
+    , "skills":[
+      "Appraise"
+      , "Bluff"
+      , "Craft"
+      , "Diplomacy"
+      , "Disguise"
+      , "Escape Artist"
+      , "Intimidate"
+      , "Knowledge Arcana"
+      , "Knowledge Dungeoneering"
+      , "Knowledge History"
+      , "Knowledge Local"
+      , "Knowledge Nobility"
+      , "Knowledge Religion"
+      , "Linguistics"
+      , "Perception"
+      , "Perform"
+      , "Profession"
+      , "Sense Motive"
+      , "Sleight of Hand"
+      , "Spellcraft"
+      , "Stealth"
+      , "Use Magic Device"
+    ]
+    , "skill_ranks":"6"
+    , "hit_die":"d8"
+    , "alignment":"Any"
+    , "spell_source":"sor"
+    , "spell_ability":"CHA"
+    , "spell_type":"arcane"
+    , "starting_gold":"3d6 × 10 gp (average 105 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"medium"
+    , "fort":"weak"
+    , "ref":"strong"
+    , "will":"strong"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Consummate liar, hypnotic stare, knacks, mesmerist trick, painful stare",
+        "spells_known":["4","2","-","-","-","-","-"],
+        "spells_per_day":["x","1","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"2nd",
+        "special":"Mesmerist trick, towering ego",
+        "spells_known":["5","3","-","-","-","-","-"],
+        "spells_per_day":["x","2","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"3rd",
+        "special":"Bold stare, touch treatment (minor)",
+        "spells_known":["6","4","-","-","-","-","-"],
+        "spells_per_day":["x","3","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"4th",
+        "special":"Mesmerist trick",
+        "spells_known":["6","4","2","-","-","-","-"],
+        "spells_per_day":["x","3","1","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"5th",
+        "special":"Manifold tricks (2), mental potency",
+        "spells_known":["6","4","3","-","-","-","-"],
+        "spells_per_day":["x","4","2","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"6th",
+        "special":"Mesmerist trick, touch treatment (moderate)",
+        "spells_known":["6","4","4","-","-","-","-"],
+        "spells_per_day":["x","4","3","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"7th",
+        "special":"Bold stare",
+        "spells_known":["6","5","4","2","-","-","-"],
+        "spells_per_day":["x","4","3","1","-","-","-","x","x","x"]
+      },
+      {
+        "level":"8th",
+        "special":"Hypnotic stare (–3), mesmerist trick",
+        "spells_known":["6","5","4","3","-","-","-"],
+        "spells_per_day":["x","4","4","2","-","-","-","x","x","x"]
+      },
+      {
+        "level":"9th",
+        "special":"Manifold tricks (3)",
+        "spells_known":["6","5","4","4","-","-","-"],
+        "spells_per_day":["x","5","4","3","-","-","-","x","x","x"]
+      },
+      {
+        "level":"10th",
+        "special":"Mesmerist trick, touch treatment (greater)",
+        "spells_known":["6","5","5","4","2","-","-"],
+        "spells_per_day":["x","5","4","3","1","-","-","x","x","x"]
+      },
+      {
+        "level":"11th",
+        "special":"Bold stare, glib lie",
+        "spells_known":["6","6","5","4","3","-","-"],
+        "spells_per_day":["x","5","4","4","2","-","-","x","x","x"]
+      },
+      {
+        "level":"12th",
+        "special":"Masterful tricks, mesmerist trick",
+        "spells_known":["6","6","5","4","4","-","-"],
+        "spells_per_day":["x","5","5","4","3","-","-","x","x","x"]
+      },
+      {
+        "level":"13th",
+        "special":"Manifold tricks (4)",
+        "spells_known":["6","6","5","5","4","2","-"],
+        "spells_per_day":["x","5","5","4","3","1","-","x","x","x"]
+      },
+      {
+        "level":"14th",
+        "special":"Mesmerist trick, touch treatment (break enchantment)",
+        "spells_known":["6","6","6","5","4","3","-"],
+        "spells_per_day":["x","5","5","4","4","2","-","x","x","x"]
+      },
+      {
+        "level":"15th",
+        "special":"Bold stare",
+        "spells_known":["6","6","6","5","4","4","-"],
+        "spells_per_day":["x","5","5","5","4","3","-","x","x","x"]
+      },
+      {
+        "level":"16th",
+        "special":"Mesmerist trick",
+        "spells_known":["6","6","6","5","5","4","2"],
+        "spells_per_day":["x","5","5","5","4","3","1","x","x","x"]
+      },
+      {
+        "level":"17th",
+        "special":"Manifold tricks (5)",
+        "spells_known":["6","6","6","6","5","4","3"],
+        "spells_per_day":["x","5","5","5","4","4","2","x","x","x"]
+      },
+      {
+        "level":"18th",
+        "special":"Mesmerist trick",
+        "spells_known":["6","6","6","6","5","4","4"],
+        "spells_per_day":["x","5","5","5","5","4","3","x","x","x"]
+      },
+      {
+        "level":"19th",
+        "special":"Bold stare",
+        "spells_known":["6","6","6","6","5","5","4"],
+        "spells_per_day":["x","5","5","5","5","5","4","x","x","x"]
+      },
+      {
+        "level":"20th",
+        "special":"Mesmerist trick, rule minds",
+        "spells_known":["6","6","6","6","6","5","5"],
+        "spells_per_day":["x","5","5","5","5","5","5","x","x","x"]
+      }
+    ]
+  }
+  , "Occultist": {
+    "id":"51"
+    , "name":"Occultist"
+    , "skills":[
+      "Appraise"
+      , "Craft"
+      , "Diplomacy"
+      , "Disable Device"
+      , "Disguise"
+      , "Fly"
+      , "Knowledge Arcana"
+      , "Knowledge Engineering"
+      , "Knowledge History"
+      , "Knowledge Planes"
+      , "Knowledge Religion"
+      , "Linguistics"
+      , "Perception"
+      , "Profession"
+      , "Sense Motive"
+      , "Sleight of Hand"
+      , "Spellcraft"
+      , "Use Magic Device"
+    ]
+    , "skill_ranks":"4"
+    , "hit_die":"d8"
+    , "alignment":"Any"
+    , "spell_source":"sor"
+    , "spell_ability":"INT"
+    , "spell_type":"arcane"
+    , "starting_gold":"4d6 × 10 gp (average 140 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"medium"
+    , "fort":"strong"
+    , "ref":"weak"
+    , "will":"strong"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Focus powers, implements 2, knacks, mental focus",
+        "spells_known":[],
+        "spells_per_day":["x","1","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"2nd",
+        "special":"Implements 3, magic item skill, object reading",
+        "spells_known":[],
+        "spells_per_day":["x","2","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"3rd",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","3","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"4th",
+        "special":"Shift focus",
+        "spells_known":[],
+        "spells_per_day":["x","3","1","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"5th",
+        "special":"Aura sight, focus power",
+        "spells_known":[],
+        "spells_per_day":["x","4","2","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"6th",
+        "special":"Implements 4",
+        "spells_known":[],
+        "spells_per_day":["x","4","3","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"7th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","4","3","1","-","-","-","x","x","x"]
+      },
+      {
+        "level":"8th",
+        "special":"Magic circles, outside contact 1",
+        "spells_known":[],
+        "spells_per_day":["x","4","4","2","-","-","-","x","x","x"]
+      },
+      {
+        "level":"9th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","4","3","-","-","-","x","x","x"]
+      },
+      {
+        "level":"10th",
+        "special":"Implements 5",
+        "spells_known":[],
+        "spells_per_day":["x","5","4","3","1","-","-","x","x","x"]
+      },
+      {
+        "level":"11th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","4","4","2","-","-","x","x","x"]
+      },
+      {
+        "level":"12th",
+        "special":"Binding circles, outside contact 2",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","4","3","-","-","x","x","x"]
+      },
+      {
+        "level":"13th",
+        "special":" Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","4","3","1","-","x","x","x"]
+      },
+      {
+        "level":"14th",
+        "special":"Implements 6",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","4","4","2","-","x","x","x"]
+      },
+      {
+        "level":"15th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","4","3","-","x","x","x"]
+      },
+      {
+        "level":"16th",
+        "special":"Fast circles, outside contact 3",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","4","3","1","x","x","x"]
+      },
+      {
+        "level":"17th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","4","4","2","x","x","x"]
+      },
+      {
+        "level":"18th",
+        "special":"Implements 7",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","5","4","3","x","x","x"]
+      },
+      {
+        "level":"19th",
+        "special":"Focus power",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","5","5","4","x","x","x"]
+      },
+      {
+        "level":"20th",
+        "special":"Implement mastery, outside contact 4",
+        "spells_known":[],
+        "spells_per_day":["x","5","5","5","5","5","5","x","x","x"]
+      }
+    ]
+  }
+  , "Psychic": {
+    "id":"52"
+    , "name":"Psychic"
+    , "skills":[
+      "Bluff"
+      , "Craft"
+      , "Diplomacy"
+      , "Fly"
+      , "Intimidate"
+      , "Knowledge Arcana"
+      , "Knowledge Dungeoneering"
+      , "Knowledge Engineering"
+      , "Knowledge Geography"
+      , "Knowledge History"
+      , "Knowledge Local"
+      , "Knowledge Nature"
+      , "Knowledge Nobility"
+      , "Knowledge Planes"
+      , "Knowledge Religion"
+      , "Linguistics"
+      , "Perception"
+      , "Profession"
+      , "Sense Motive"
+      , "Spellcraft"
+    ]
+    , "skill_ranks":"2"
+    , "hit_die":"d6"
+    , "alignment":"Any"
+    , "spell_source":"sor"
+    , "spell_ability":"INT"
+    , "spell_type":"arcane"
+    , "starting_gold":"2d6 × 10 gp (average 70 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"weak"
+    , "fort":"weak"
+    , "ref":"weak"
+    , "will":"strong"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Discipline power, discipline spell, knacks, phrenic amplification, phrenic pool, psychic discipline",
+        "spells_known":["4","2","-","-","-","-","-","-","-","-"],
+        "spells_per_day":["x","3","-","-","-","-","-","-","-","-"]
+      },
+      {
+        "level":"2nd",
+        "special":"Detect thoughts",
+        "spells_known":["5","2","-","-","-","-","-","-","-","-"],
+        "spells_per_day":["x","4","-","-","-","-","-","-","-","-"]
+      },
+      {
+        "level":"3rd",
+        "special":"Phrenic amplification",
+        "spells_known":["5","3","-","-","-","-","-","-","-","-"],
+        "spells_per_day":["x","5","-","-","-","-","-","-","-","-"]
+      },
+      {
+        "level":"4th",
+        "special":"Discipline spell",
+        "spells_known":["6","3","1","-","-","-","-","-","-","-"],
+        "spells_per_day":["x","6","3","-","-","-","-","-","-","-"]
+      },
+      {
+        "level":"5th",
+        "special":"Discipline power",
+        "spells_known":["6","4","2","-","-","-","-","-","-","-"],
+        "spells_per_day":["x","6","4","-","-","-","-","-","-","-"]
+      },
+      {
+        "level":"6th",
+        "special":"Discipline spell",
+        "spells_known":["7","4","2","1","-","-","-","-","-","-"],
+        "spells_per_day":["x","6","5","3","-","-","-","-","-","-"]
+      },
+      {
+        "level":"7th",
+        "special":"Phrenic amplification",
+        "spells_known":["7","5","3","2","-","-","-","-","-","-"],
+        "spells_per_day":["x","6","6","4","-","-","-","-","-","-"]
+      },
+      {
+        "level":"8th",
+        "special":"Discipline spell",
+        "spells_known":["8","5","3","2","1","-","-","-","-","-"],
+        "spells_per_day":["x","6","6","5","3","-","-","-","-","-"]
+      },
+      {
+        "level":"9th",
+        "special":"Telepathic bond",
+        "spells_known":["8","5","4","3","2","-","-","-","-","-"],
+        "spells_per_day":["x","6","6","6","4","-","-","-","-","-"]
+      },
+      {
+        "level":"10th",
+        "special":"Discipline spell",
+        "spells_known":["9","5","4","3","2","1","-","-","-","-"],
+        "spells_per_day":["x","6","6","6","5","3","-","-","-","-"]
+      },
+      {
+        "level":"11th",
+        "special":"Major amplifications, phrenic amplification",
+        "spells_known":["9","5","5","4","3","2","-","-","-","-"],
+        "spells_per_day":["x","6","6","6","6","4","-","-","-","-"]
+      },
+      {
+        "level":"12th",
+        "special":"Discipline spell",
+        "spells_known":["9","5","5","4","3","2","1","-","-","-"],
+        "spells_per_day":["x","6","6","6","6","5","3","-","-","-"]
+      },
+      {
+        "level":"13th",
+        "special":"Discipline power",
+        "spells_known":["9","5","5","4","4","3","2","-","-","-"],
+        "spells_per_day":["x","6","6","6","6","6","4","-","-","-"]
+      },
+      {
+        "level":"14th",
+        "special":" Discipline spell",
+        "spells_known":["9","5","5","4","4","3","2","1","-","-"],
+        "spells_per_day":["x","6","6","6","6","6","5","3","-","-"]
+      },
+      {
+        "level":"15th",
+        "special":"Phrenic amplification",
+        "spells_known":["9","5","5","4","4","4","3","2","-","-"],
+        "spells_per_day":["x","6","6","6","6","6","6","4","-","-"]
+      },
+      {
+        "level":"16th",
+        "special":"Discipline spell",
+        "spells_known":["9","5","5","4","4","4","3","2","1","-"],
+        "spells_per_day":["x","6","6","6","6","6","6","5","3","-"]
+      },
+      {
+        "level":"17th",
+        "special":"Telepathy",
+        "spells_known":["9","5","5","4","4","4","3","3","2","-"],
+        "spells_per_day":["x","6","6","6","6","6","6","6","4","-"]
+      },
+      {
+        "level":"18th",
+        "special":"Discipline spell",
+        "spells_known":["9","5","5","4","4","4","3","3","2","1"],
+        "spells_per_day":["x","6","6","6","6","6","6","6","5","3"]
+      },
+      {
+        "level":"19th",
+        "special":"Phrenic amplification",
+        "spells_known":["9","5","5","4","4","4","3","3","3","2"],
+        "spells_per_day":["x","6","6","6","6","6","6","6","6","4"]
+      },
+      {
+        "level":"20th",
+        "special":"Remade self",
+        "spells_known":["9","5","5","4","4","4","3","3","3","3"],
+        "spells_per_day":["x","6","6","6","6","6","6","6","6","6"]
+      }
+    ]
+  }
+  , "Spiritualist": {
+    "id":"53"
+    , "name":"Spiritualist"
+    , "skills":[
+      "Bluff"
+      , "Craft"
+      , "Fly"
+      , "Heal"
+      , "Intimidate"
+      , "Knowledge Arcana"
+      , "Knowledge Dungeoneering"
+      , "Knowledge Engineering"
+      , "Knowledge Geography"
+      , "Knowledge History"
+      , "Knowledge Local"
+      , "Knowledge Nature"
+      , "Knowledge Nobility"
+      , "Knowledge Planes"
+      , "Knowledge Religion"
+      , "Linguistics"
+      , "Profession"
+      , "Sense Motive"
+      , "Spellcraft"
+      , "Use Magic Device"
+    ]
+    , "skill_ranks":"4"
+    , "hit_die":"d8"
+    , "alignment":"Any"
+    , "spell_source":"sor"
+    , "spell_ability":"WIS"
+    , "spell_type":"arcane"
+    , "starting_gold":"2d6 × 10 gp (average 70 gp.) In addition, each character begins play with an outfit worth 10 gp or less."
+    , "bab":"medium"
+    , "fort":"strong"
+    , "ref":"weak"
+    , "will":"strong"
+    , "levels":[
+      {
+        "level":"1st",
+        "special":"Etheric tether, knacks, phantom, shared consciousness",
+        "spells_known":["4","2","-","-","-","-","-"],
+        "spells_per_day":["x","1","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"2nd",
+        "special":"Bonded senses",
+        "spells_known":["5","3","-","-","-","-","-"],
+        "spells_per_day":["x","2","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"3rd",
+        "special":"Bonded manifestation",
+        "spells_known":["6","4","-","-","-","-","-"],
+        "spells_per_day":["x","3","-","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"4th",
+        "special":"Spiritual interference",
+        "spells_known":["6","4","2","-","-","-","-"],
+        "spells_per_day":["x","3","1","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"5th",
+        "special":"Detect undead",
+        "spells_known":["6","4","3","-","-","-","-"],
+        "spells_per_day":["x","4","2","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"6th",
+        "special":"Phantom recall 1/day",
+        "spells_known":["6","4","4","-","-","-","-"],
+        "spells_per_day":["x","4","3","-","-","-","-","x","x","x"]
+      },
+      {
+        "level":"7th",
+        "special":"Calm spirit 1/day",
+        "spells_known":["6","5","4","2","-","-","-"],
+        "spells_per_day":["x","4","3","1","-","-","-","x","x","x"]
+      },
+      {
+        "level":"8th",
+        "special":"Bonded manifestation increase",
+        "spells_known":["6","5","4","3","-","-","-"],
+        "spells_per_day":["x","4","4","2","-","-","-","x","x","x"]
+      },
+      {
+        "level":"9th",
+        "special":"See invisibility",
+        "spells_known":["6","5","4","4","-","-","-"],
+        "spells_per_day":["x","5","4","3","-","-","-","x","x","x"]
+      },
+      {
+        "level":"10th",
+        "special":"Fused consciousness, phantom recall 2/day",
+        "spells_known":["6","5","5","4","2","-","-"],
+        "spells_per_day":["x","5","4","3","1","-","-","x","x","x"]
+      },
+      {
+        "level":"11th",
+        "special":"Calm spirit 2/day",
+        "spells_known":["6","6","5","4","3","-","-"],
+        "spells_per_day":["x","5","4","4","2","-","-","x","x","x"]
+      },
+      {
+        "level":"12th",
+        "special":"Greater spiritual interference",
+        "spells_known":["6","6","5","4","4","-","-"],
+        "spells_per_day":["x","5","5","4","3","-","-","x","x","x"]
+      },
+      {
+        "level":"13th",
+        "special":"Bonded manifestation increase",
+        "spells_known":["6","6","5","5","4","2","-"],
+        "spells_per_day":["x","5","5","4","3","1","-","x","x","x"]
+      },
+      {
+        "level":"14th",
+        "special":"Phantom recall 3/day, spiritual bond",
+        "spells_known":["6","6","6","5","4","3","-"],
+        "spells_per_day":["x","5","5","4","4","2","-","x","x","x"]
+      },
+      {
+        "level":"15th",
+        "special":"Calm spirit 3/day",
+        "spells_known":["6","6","6","5","4","4","-"],
+        "spells_per_day":["x","5","5","5","4","3","-","x","x","x"]
+      },
+      {
+        "level":"16th",
+        "special":"Call spirit",
+        "spells_known":["6","6","6","5","5","4","2"],
+        "spells_per_day":["x","5","5","5","4","3","1","x","x","x"]
+      },
+      {
+        "level":"17th",
+        "special":"Dual bond",
+        "spells_known":["6","6","6","6","5","4","3"],
+        "spells_per_day":["x","5","5","5","4","4","2","x","x","x"]
+      },
+      {
+        "level":"18th",
+        "special":"Bonded manifestation increase, phantom recall 4/day",
+        "spells_known":["6","6","6","6","5","4","4"],
+        "spells_per_day":["x","5","5","5","5","4","3","x","x","x"]
+      },
+      {
+        "level":"19th",
+        "special":"Calm spirit 4/day",
+        "spells_known":["6","6","6","6","5","5","4"],
+        "spells_per_day":["x","5","5","5","5","5","4","x","x","x"]
+      },
+      {
+        "level":"20th",
+        "special":"Empowered consciousness",
+        "spells_known":["6","6","6","6","6","5","5"],
+        "spells_per_day":["x","5","5","5","5","5","5","x","x","x"]
+      }
+    ]
+  }
+}

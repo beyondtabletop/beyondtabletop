@@ -1,0 +1,12 @@
+<div class="bm-20">
+  <label class="weight-bold">Name</label>
+  <input (ngModelChange)="self.touch()" [(ngModel)]="invocation.name" type="text" class="form-control" placeholder="Name">
+</div>
+<div class="bm-20">
+  <label class="weight-bold">Prerequisites</label>
+  <input  (ngModelChange)="self.touch()" [(ngModel)]="invocation.prereq" type="text" class="form-control" placeholder="Prerequisites">
+</div>
+<div class="bm-20">
+  <label class="weight-bold">Text</label>
+  <textarea (ngModelChange)="self.touch()" [(ngModel)]="invocation.text" class="form-control" placeholder="Text"></textarea>
+</div>

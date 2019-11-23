@@ -1,0 +1,34 @@
+<div class="overview-powers-block" *ngIf="block.type === 'powers_block'">
+  <h3 class="nav-clickable" (click)="self.methods.switchTab('powers')">{{ block.name }}</h3>
+  <div class="overview-powers">
+    <div class="class-power" *ngFor="let klass of self.methods.listKlasses()">
+      <div *ngIf="self.methods.isClassListed(klass.name)">
+        <h4 class="class-header">{{ klass.name }}</h4>
+
+        <div [ngSwitch]="klass.name">
+          <bt-dnd5e-overview-power-barbarian  [self]="self" [klass]="klass" *ngSwitchCase="'Barbarian'"></bt-dnd5e-overview-power-barbarian>
+          <bt-dnd5e-overview-power-bard       [self]="self" [klass]="klass" *ngSwitchCase="'Bard'"></bt-dnd5e-overview-power-bard>
+          <bt-dnd5e-overview-power-cleric     [self]="self" [klass]="klass" *ngSwitchCase="'Cleric'"></bt-dnd5e-overview-power-cleric>
+          <bt-dnd5e-overview-power-druid      [self]="self" [klass]="klass" *ngSwitchCase="'Druid'"></bt-dnd5e-overview-power-druid>
+          <bt-dnd5e-overview-power-fighter    [self]="self" [klass]="klass" *ngSwitchCase="'Fighter'"></bt-dnd5e-overview-power-fighter>
+          <bt-dnd5e-overview-power-monk       [self]="self" [klass]="klass" *ngSwitchCase="'Monk'"></bt-dnd5e-overview-power-monk>
+          <bt-dnd5e-overview-power-paladin    [self]="self" [klass]="klass" *ngSwitchCase="'Paladin'"></bt-dnd5e-overview-power-paladin>
+          <bt-dnd5e-overview-power-ranger     [self]="self" [klass]="klass" *ngSwitchCase="'Ranger'"></bt-dnd5e-overview-power-ranger>
+          <bt-dnd5e-overview-power-rogue      [self]="self" [klass]="klass" *ngSwitchCase="'Rogue'"></bt-dnd5e-overview-power-rogue>
+          <bt-dnd5e-overview-power-sorcerer   [self]="self" [klass]="klass" *ngSwitchCase="'Sorcerer'"></bt-dnd5e-overview-power-sorcerer>
+          <bt-dnd5e-overview-power-warlock    [self]="self" [klass]="klass" *ngSwitchCase="'Warlock'"></bt-dnd5e-overview-power-warlock>
+          <bt-dnd5e-overview-power-wizard     [self]="self" [klass]="klass" *ngSwitchCase="'Wizard'"></bt-dnd5e-overview-power-wizard>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="self.model.prefs.homebrew">
+      <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+        <div class="flex-col-4 bm-10" *ngFor="let power of self.methods.listCustomPowerSpendables()">
+          <div class="power-label">{{ power.name }}</div>
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.remaining">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

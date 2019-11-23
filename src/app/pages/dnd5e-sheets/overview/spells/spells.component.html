@@ -1,0 +1,113 @@
+<div class="overview-spells-block">
+  <div class="overview-spells expandable-items">
+    <h3 class="nav-clickable" (click)="self.methods.switchTab('spells')">{{ block.name }}</h3>
+    <div class="bm-10">
+      <div *ngFor="let klass of self.methods.listKlasses()">
+        <div>{{ klass.name }} Spell Save DC: <strong>{{ self.methods.getSpellSaveDC(klass.spell_ability) }}</strong></div>
+        <div>{{ klass.name }} Spell Attack: <strong>d20 + {{ self.methods.getSpellAttackBonus(klass.spell_ability) }}</strong></div>
+      </div>
+    </div>
+    <div class="overview-spell-slots" *ngIf="self.methods.characterHasSpellSlots()">
+      <h4>Spell {{ self.model.casting.points ? 'Points' : 'Slots' }} Remaining</h4>
+      <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-10">
+        <div class="spell-slot-row flex-row-all flex-gutters-5 bm-5 flex-static flex-col" *ngFor="let slot of self.methods.listOverviewSpellSlots(); index as i">
+          <div class="flex-col level-col flex-static">
+            <div class="form-group">
+              <label class="control-label" *ngIf="self.locals.character_spell_slots.length > 1">{{ self.methods.levelize(i + 1) }}</label>
+              <label class="control-label" *ngIf="self.model.casting.points">{{ self.methods.levelize(slot.pos) }}</label>
+            </div>
+          </div>
+          <div class="flex-col remaining-col flex-static">
+            <div class="form-group">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.remaining">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bm-10" *ngFor="let slot of self.methods.listOverviewSpellPoints()">
+        <div class="flex-row-all flex-config-align-center flex-gutters-5 bm-5" *ngFor="let level of self.methods.sizedArray(slot.pos, 1)">
+          <div class="flex-col flex-dynamic">
+            Cast level {{ level }} spell: {{ self.locals.selection.spell_point_costs[level] }} points
+          </div>
+          <div class="flex-col flex-static">
+            <button class="button button-small button-cyan" (click)="self.methods.spendSpellPoints(slot, level)">Cast</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spell-level bm-20" *ngFor="let level of self.methods.listSpellLevelsWithContent()" [ngClass]="self.methods.getSpellbookLevelClass(level)">
+      <div class="bm-10" (click)="self.methods.toggleSpellbookLevel(level)">
+        <span class="spell-level-toggle">
+          <fa-icon class="show-spell-level" [icon]="['fa', 'chevron-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fa', 'chevron-down']"></fa-icon>
+        </span>
+        Level <span>{{ level }}</span>
+      </div>
+      <div class="spells-list">
+        <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let spell of self.methods.listOverviewSpellsForLevel(level)" [class.active]="spell.$active" (click)="spell.$active = !spell.$active">
+          <div class="flex-col-4 hide-on-active">
+            <strong>{{ spell.name }}</strong>:
+          </div>
+          <div class="item-info flex-col-8">
+            <div class="hide-on-active">{{ spell.summary }}</div>
+            <div class="hide-on-active"><span>{{ spell.prepared ? 'Prepared' : 'Known' }}</span></div>
+            <div class="details">
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>{{ spell.name }}</strong></div>
+                <div class="flex-col-8"><span>{{ spell.summary }}</span></div>
+              </div>
+              <div class="flex-row-all flex-gutters-5 bm-5 hide-for-read-only">
+                <div class="flex-col-4"><strong>Prepared?</strong></div>
+                <div class="flex-col-8">
+                  <div class="flex-row-all flex-gutters-5">
+                    <div class="flex-col-6">
+                      <label class="checkbox-inline checkbox-wrap" (click)="$event.stopPropagation();">
+                        <input type="checkbox" title="Prepared?" (ngModelChange)="self.touch()" [(ngModel)]="spell.prepared">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Level: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.level }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Description: </strong></div>
+                <div class="flex-col-8"><span class="btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>School: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.school }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Casting Time: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.casting }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Components: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.components }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Duration: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.duration }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Range: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.range }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Concentration? </strong></div>
+                <div class="flex-col-8"><span>{{ spell.concentration ? 'Yes' : 'No' }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Ritual? </strong></div>
+                <div class="flex-col-8"><span>{{ spell.ritual ? 'Yes' : 'No' }}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

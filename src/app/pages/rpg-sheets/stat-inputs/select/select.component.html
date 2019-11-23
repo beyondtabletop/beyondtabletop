@@ -1,0 +1,8 @@
+<label class="control-label">{{ entity.name }}</label>
+<div class="select-wrap min-75">
+  <i class="material-icons">arrow_drop_down</i>
+  <label>{{ entity.value }}</label>
+  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="entity.value">
+    <option [value]="option" *ngFor="let option of entity.source">{{ option }}</option>
+  </select>
+</div>

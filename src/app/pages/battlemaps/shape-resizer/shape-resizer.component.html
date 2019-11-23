@@ -1,0 +1,26 @@
+<div class="resizer-corner"
+  *ngIf="!shape.pinned"
+  cdkDrag
+  cdkDragBoundary=".map"
+  (cdkDragStarted)="self.methods.resizeStart(shape, $event)"
+  (cdkDragMoved)="self.methods.resizeMove(shape, $event)"
+  (cdkDragReleased)="self.methods.resizeStop(shape, $event)"
+></div>
+<div class="resizer-bottom"
+  *ngIf="!shape.pinned"
+  cdkDrag
+  cdkDragLockAxis="y"
+  cdkDragBoundary=".map"
+  (cdkDragStarted)="self.methods.resizeStart(shape, $event)"
+  (cdkDragMoved)="self.methods.resizeMove(shape, $event)"
+  (cdkDragReleased)="self.methods.resizeStop(shape, $event)"
+></div>
+<div class="resizer-side"
+  *ngIf="!shape.pinned"
+  cdkDrag
+  cdkDragLockAxis="x"
+  cdkDragBoundary=".map"
+  (cdkDragStarted)="self.methods.resizeStart(shape, $event)"
+  (cdkDragMoved)="self.methods.resizeMove(shape, $event)"
+  (cdkDragReleased)="self.methods.resizeStop(shape, $event)"
+></div>

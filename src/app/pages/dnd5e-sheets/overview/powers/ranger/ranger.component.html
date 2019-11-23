@@ -1,0 +1,10 @@
+<div>
+  <div class="block-label">Favored Enemies</div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+    <div class="flex-col-6 power-label" *ngFor="let enemy of self.model.powers.Ranger.favored_enemies || []">{{ enemy.text }}</div>
+  </div>
+  <div class="block-label">Favored Terrains</div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+    <div class="flex-col-6 power-label" *ngFor="let terrain of self.model.powers.Ranger.favored_terrains || []">{{ terrain.text }}</div>
+  </div>
+</div>

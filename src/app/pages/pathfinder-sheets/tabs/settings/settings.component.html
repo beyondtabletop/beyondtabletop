@@ -1,0 +1,50 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bmr-60">
+      <h2 class="group-header">Settings</h2>
+      <div class="form-group bmr-40">
+        <h4>Help text</h4>
+        <p>Choose if you want to have the help text above many areas of the sheet shown or hidden.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.help" name="help_text" [value]="true"> Turn on
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.help" name="help_text" [value]="false"> Turn off
+        </label>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Homebrew mode</h4>
+        <p>Homebrew mode allows you to customize data that would otherwise only be available via selection.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.homebrew" name="homebrew" [value]="true"> On
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.homebrew" name="homebrew" [value]="false"> Off
+        </label>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Navigation type</h4>
+        <p>Navigate between parts of your sheet via tabs or scrolling.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.use_tabs" name="use_tabs" [value]="true"> Use Tabs
+        </label>
+        <label class="radio-inline" id="settings-use-tabs">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.use_tabs" name="use_tabs" [value]="false" (click)="self.methods.scrollToSettings()"> One big scrolling page
+        </label>
+      </div>
+      <div class="form-group bmr-40">
+        <h4>Warn before exiting</h4>
+        <p>If turned on, a confirmation will appear before you navigate away from your sheet.</p>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.show_confirmation" name="show_confirmation" [value]="true" (click)="self.methods.turnOnConfirmation()"> Show Warning
+        </label>
+        <label class="radio-inline">
+          <input type="radio" (ngModelChange)="self.touch()" [(ngModel)]="self.model.prefs.show_confirmation" name="show_confirmation" [value]="false" (click)="self.methods.turnOffConfirmation()"> No Warning
+        </label>
+      </div>
+      <div class="form-group settings-group" *ngIf="self.methods.isAdmin()">
+        <button class="button button-orange" (click)="self.methods.rerunMigration()">Rerun last migration (v<span>{{ self.model.version }}</span>)</button>
+      </div>
+    </div>
+  </div>
+</div>

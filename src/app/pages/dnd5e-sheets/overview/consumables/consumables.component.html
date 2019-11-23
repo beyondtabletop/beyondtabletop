@@ -1,0 +1,17 @@
+<div class="overview-consumables-block">
+  <h3>{{ block.name }}</h3>
+  <div class="nav-clickable flex-row-all flex-config-align-center flex-gutters-5 bm-5" *ngFor="let item of self.methods.listConsumables()">
+    <div class="flex-col num-field-column flex-static hide-for-read-only">
+      <input type="number" class="form-control max-60" (ngModelChange)="self.touch()" [(ngModel)]="item.amount">
+    </div>
+    <div class="flex-col show-for-read-only">
+      <span>{{ item.amount }}</span>x
+    </div>
+    <div class="flex-col flex-static">
+      <strong>{{ item.name }}</strong>:
+    </div>
+    <div class="flex-col flex-dynamic" (click)="self.methods.switchTab('items')">
+      <span>{{ item.text }}</span>
+    </div>
+  </div>
+</div>

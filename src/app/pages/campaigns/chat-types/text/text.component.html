@@ -1,0 +1,6 @@
+<div>
+  <span *ngIf="chat.name">
+    <span [ngStyle]="self.methods.getChatStyle(chat)">{{ self.methods.getChatName(chat) }}</span>:
+  </span>
+  {{ chat.text }}
+</div>

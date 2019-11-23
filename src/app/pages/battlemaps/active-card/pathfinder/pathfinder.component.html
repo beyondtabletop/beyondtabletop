@@ -1,0 +1,63 @@
+<div [class.bt-hide]="sheet.locals.ready">
+  <h2 class="h18 bm-10">Loading details, please wait...</h2>
+</div>
+<div class="flex-row-all flex-config-align-center flex-gutters-5" *ngIf="sheet.locals.ready">
+  <div class="flex-col profile-image-col" *ngIf="sheet.model.basic.image">
+    <div class="profile-image">
+      <div class="img" [ngStyle]="{ 'background-image': 'url(' + sheet.model.basic.image + ')' }"></div>
+    </div>
+  </div>
+  <div class="flex-col">
+    <h2 class="h18 bm-5 style-nowrap">{{ sheet.model.name }}</h2>
+    <div>AC: <strong>{{ sheet.methods.getTotalAC() }}</strong></div>
+    <div>Speed: <strong>{{ sheet.methods.getTotalSpeed() }}</strong></div>
+    <div>HP: <strong>{{ sheet.methods.getHPRemaining() }}</strong>/<strong>{{ sheet.methods.getHPTotal() }}</strong></div>
+    <div class="tm-5">
+      <button class="mini-button" (click)="sheet.methods.rollInitiative()">Initiative</button>
+    </div>
+  </div>
+  <div class="flex-col hp-ring-column">
+    <div class="hp-ring">
+      <div class="intrinsic">
+        <div class="hp-ring-box flex-row-all flex-config-centered">
+          <div class="text-center tp-5">
+            <div class="hp-current">{{ sheet.methods.getHPRemaining() }}</div>
+            <div class="hp-total">{{ sheet.methods.getHPTotal() }}</div>
+          </div>
+          <div class="hp-ring-circle">
+            <svg viewBox="-15 -15 230 230">
+              <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z"></path>
+              <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" [attr.stroke-dashoffset]="sheet.methods.getHPRingValue()" [attr.stroke]="sheet.methods.HPRingColor()"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-centered flex-gutters-5 tm-10">
+      <div class="flex-col">
+        <button class="inc-button g-neutral h36" (click)="sheet.methods.increment(sheet.model.combat.hp, 'damage', 1)"><i class="material-icons">remove</i></button>
+      </div>
+      <div class="flex-col">
+        <button class="inc-button g-neutral h36" (click)="sheet.methods.increment(sheet.model.combat.hp, 'damage', -1)"><i class="material-icons">add</i></button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col">
+    <div class="bm-5" *ngFor="let save of sheet.methods.listSaves()">
+      <button class="micro-button" (click)="sheet.methods.rollOneDice(20, sheet.methods.getSaveTotal(save), save.name, 'a # save')">{{ save.name }}</button>
+    </div>
+  </div>
+  <div class="flex-col">
+    <div class="bm-10" *ngFor="let attack of sheet.methods.listFirstTwoAttacks()">
+      <h3 class="h16 bm-5 attack-name">{{ sheet.methods.getAttackName(attack) }}</h3>
+      <div class="flex-row-all flex-gutters-5">
+        <div class="flex-col">
+          <button class="mini-button" (click)="sheet.methods.rollAttackDice(attack)">Attack</button>
+        </div>
+        <div class="flex-col">
+          <button class="mini-button" (click)="sheet.methods.rollDamageDice(attack)">Damage</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

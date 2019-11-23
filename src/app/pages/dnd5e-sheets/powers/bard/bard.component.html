@@ -1,0 +1,54 @@
+<div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Bardic Inspiration</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-4">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getAbilityMod(self.model.abilities.CHA) }}</label>
+      </div>
+      <div class="flex-col-4">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Bard.inspiration.remaining">
+      </div>
+      <div class="flex-col-4">
+        <label class="control-label">Inspiration Die</label>
+        <label class="block-label">{{ self.model.powers.Bard.inspiration_die }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="power-item" *ngIf="klass.level >= 2">
+    <h5 class="h5">Misc</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">JoAT Bonus</label>
+        <label class="block-label">{{ self.methods.halfRoundedDown(self.methods.getProficiencyTotal()) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Song of Rest</label>
+        <label class="block-label">{{ self.model.powers.Bard.song_of_rest }}</label>
+      </div>
+      <div class="flex-col-6" *ngIf="klass.level >= 3">
+        <label class="control-label">College</label>
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Bard.college }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Bard.college">
+            <option [value]="option" *ngFor="let option of self.locals.selection.bard_colleges">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Bard.college" *ngIf="self.model.prefs.homebrew">
+      </div>
+    </div>
+  </div>
+  <div class="power-item" *ngIf="klass.level >= 3">
+    <h5 class="h5">Expertise</h5>
+    <div class="stat-row" *ngFor="let skill of self.methods.listProficientSkills()">
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <input type="checkbox" title="Expertise in {{ skill.name }}" (ngModelChange)="self.touch()" [(ngModel)]="skill.expert">
+          <span>{{ skill.name }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

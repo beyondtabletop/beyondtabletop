@@ -1,0 +1,87 @@
+@import '../../../../../app/abstracts/variables.scss';
+@import '../../../../../app/abstracts/mixins.scss';
+
+.monster-squares {
+  @include flex-row-at(0);
+  @include flex-wrap;
+  @include flex-gutters(5);
+
+  .intrinsic {
+    border: 1px solid $border-color;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    @include intrinsic-ratio('.monster', 100%);
+    @include above-width(400px) {
+      padding-bottom: 200%;
+    }
+  }
+
+  .monster {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: auto 75%;
+    padding: 10px;
+    overflow: hidden;
+    @include above-width(400px) {
+      background-size: contain;
+    }
+  }
+
+  .flex-col {
+    width: 100%;
+    @include above-width(400px) {
+      width: 50%;
+    }
+    @include above-mobile {
+      width: 33.33333%;
+    }
+    @include above-width(650px) {
+      width: 25%;
+    }
+  }
+
+  h2 {
+    margin: 0 0 20px;
+    font-weight: 900;
+    @include header-size(24, 24, 22, 20, 1)
+  }
+
+  h3 {
+    margin: 0 0 10px;
+    font-weight: 900;
+    @include header-size(18, 18, 16, 16, 1)
+  }
+
+  p {
+    margin: 0 0 5px;
+    @include header-size(14, 14, 12, 12, 1.4)
+  }
+
+  .detail {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background: rgba($white, .75);
+    @include above-width($tablet) {
+      padding-left: 150px;
+    }
+    .inner {
+      max-height: 95vh;
+      overflow: scroll;
+      max-width: 600px;
+      border-radius: 4px;
+      background: $white;
+      padding: 32px;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+    }
+  }
+  .showing-detail .detail {
+    @include flex-row-at(0);
+    @include flex-justify(center);
+    @include flex-align(center);
+  }
+}

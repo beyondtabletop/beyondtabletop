@@ -1,0 +1,130 @@
+<div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 3">
+    <h5 class="h5">Martial Archetype</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6">
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Fighter.archetype }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.archetype">
+            <option [value]="option" *ngFor="let option of self.locals.selection.martial_archetypes">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.archetype" *ngIf="self.model.prefs.homebrew">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-col-6">
+      <h5 class="h5">Second Wind</h5>
+      <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+        <div class="flex-col-3">
+          <label class="control-label">Total</label>
+          <label class="block-label">1</label>
+        </div>
+        <div class="flex-col-3">
+          <label class="control-label">Remaining</label>
+          <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.second_wind.remaining">
+        </div>
+        <div class="flex-col-6">
+          <button class="dice-button" [disabled]="self.model.powers.Fighter.second_wind.remaining <= 0" (click)="self.methods.onSecondWind()">
+            <i class="dice-icon dice-icon-d10"></i> <span>{{ self.model.powers.Fighter.second_wind.remaining > 0 ? 'Roll 2nd Wind': 'Out of Uses' }}</span>
+          </button>
+        </div>
+      </div>
+      <div>{{ self.locals.data.second_wind_last_heal }}</div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <div class="flex-col-6">
+      <h5 class="h5">Action Surge</h5>
+      <div class="flex-row-all flex-gutters-5">
+        <div class="flex-col-6">
+          <label class="control-label">Total</label>
+          <label class="block-label">{{ klass.level >= 17 ? '2' : '1' }}</label>
+        </div>
+        <div class="flex-col-6">
+          <label class="control-label">Remaining</label>
+          <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.surge.remaining">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Fighting Style</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngFor="let style of self.methods.listFighterStyles(klass)">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ style.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="style.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.fighting_styles">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Fighter.archetype === 'Champion'">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngIf="klass.level >= 7">
+        <label class="control-label">Remarkable Athlete</label>
+        <label class="block-label">{{ self.methods.halfRoundedUp(self.methods.getProficiencyTotal()) }}</label>
+      </div>
+      <div class="flex-col-6" *ngIf="klass.level >= 18">
+        <label class="control-label">Survivor Bonus</label>
+        <label class="block-label">{{ self.methods.getAbilityMod(self.model.abilities.CON) + 5 }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Fighter.archetype === 'Battle Master' && klass.level >= 3">
+    <h5 class="h5">Superiority Dice</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.superiority_dice.value">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.superiority_dice.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Fighter.superiority_dice) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.superiority_dice.remaining">
+      </div>
+    </div>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6">
+        <label class="control-label">Superiority Die</label>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.superiority_die">
+      </div>
+      <div class="flex-col-6">
+        <label class="control-label">Maneuver Save DC</label>
+        <label class="block-label">{{ self.methods.getManeuverSave() }}</label>
+      </div>
+    </div>
+    <h5 class="h5">Maneuvers</h5>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 bm-5" *ngFor="let maneuver of self.model.powers.Fighter.maneuvers || []">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ maneuver.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="maneuver.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.fighter_maneuvers">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-spaced">
+      <button class="action add-item" (click)="self.methods.addManeuver()">
+        <i class="material-icons">add</i>
+      </button>
+      <button class="action remove-item" (click)="self.methods.remove(self.model.powers.Fighter.maneuvers, self.model.powers.Fighter.maneuvers.length - 1)" *ngIf="self.model.powers.Fighter.maneuvers.length > 0">
+        <i class="material-icons">remove</i>
+      </button>
+    </div>
+  </div>
+</div>

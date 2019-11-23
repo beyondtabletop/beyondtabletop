@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "btt-firestore"
+  },
+  "targets": {
+    "btt-firestore": {
+      "hosting": {
+        "staging": [
+          "btt-ng"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@media print {
+  .left-tabs, .tab, .overview-rest-block, .help-text, .icon-button, footer, input[type=checkbox] {
+    display: none !important;
+  }
+  .flex-row-tablet, .flex-row-mobile {
+    @include flex-row-at(0);
+  }
+  .click-to-edit {
+    padding: 0;
+    border: 0;
+  }
+  .overview-header {
+    margin: 0;
+  }
+  .print-options {
+    display: none;
+  }
+  // .img {
+  //   background: inherit !important;
+  // }
+}

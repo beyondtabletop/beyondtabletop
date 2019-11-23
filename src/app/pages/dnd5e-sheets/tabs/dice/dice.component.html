@@ -1,0 +1,93 @@
+<div class="sheet-tab">
+  <div class="flex-row-all flex-config-spaced">
+    <h2 class="group-header">Dice</h2>
+    <button class="button button-orange" *ngIf="self.methods.anyBattlemapsPresent()" (click)="self.methods.addCharacterAsToken()">Add Token to Battlemap</button>
+  </div>
+
+  <p class="help-text" *ngIf="self.methods.campaignConnected()">
+    All dice rolls going to {{ self.methods.connectedCampaignName() }} campaign chat.
+  </p>
+  <div class="flex-row-all flex-gutters-5 flex-config-align-center" *ngIf="!self.methods.campaignConnected()">
+    <div class="flex-col flex-dynamic">Last Dice roll result: {{ self.locals.data.last_dice_rolled }}</div>
+    <div class="flex-col" *ngIf="self.model.campaign_id">
+      <button class="button button-cyan" (click)="self.methods.connectCampaign()">Connect {{ self.methods.connectedCampaignName() }}</button>
+    </div>
+  </div>
+
+  <h3 class="h4">Saves</h3>
+  <div class="dice-row">
+    <div class="dice-col" *ngFor="let ability of self.locals.selection.abilities">
+      <button class="dice-button" (click)="self.methods.rollOneDice('d20', self.methods.getSaveTotal(self.model.abilities[ability]), ability, 'a # save')"><i class="dice-icon dice-icon-d20"></i> Roll <span>{{ ability }}</span> Save</button>
+    </div>
+  </div>
+  <div *ngFor="let attack of self.methods.listAttacks()">
+    <h3 class="h4">{{ self.methods.getAttackName(attack) }}</h3>
+    <div class="dice-row">
+      <div class="dice-col">
+        <button class="dice-button" (click)="self.methods.rollAttackDice(attack)"><i class="dice-icon dice-icon-d20"></i> Roll attack</button>
+      </div>
+      <div class="dice-col">
+        <button class="dice-button" (click)="self.methods.rollDamageDice(attack)"><i class="dice-icon" [ngClass]="diceSvc.getDiceIconClass(attack.damage_die)"></i> Roll damage</button>
+      </div>
+    </div>
+  </div>
+  <h3 class="h4">Combat</h3>
+  <div class="dice-row">
+    <div class="dice-col">
+      <button class="dice-button" (click)="self.methods.rollInitiative()"><i class="dice-icon dice-icon-d20"></i> Roll Initiative</button>
+    </div>
+  </div>
+  <h3 class="h4">Short Rest</h3>
+  <div class="flex-row-mobile flex-config-align-center flex-gutters-5" *ngFor="let klass of self.methods.listKlasses()">
+    <div class="flex-col flex-static bm-5">
+      <input type="number" placeholder="Number of Dice" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.hit_dice.amount">
+    </div>
+    <div class="flex-col flex-static bm-5">
+      <button class="dice-button" (click)="self.methods.rollHitDice(klass, 0, klass.hit_dice.amount)"><i class="dice-icon" [ngClass]="diceSvc.getDiceIconClass(klass.hit_die)"></i> Roll <span>{{ klass.hit_dice.amount }}</span> Hit Dice</button>
+    </div>
+    <div class="flex-col flex-static bm-5">
+      <span>{{ self.locals.data.hit_dice_last_heal }}</span>
+    </div>
+  </div>
+  <h3 class="h4">Skills</h3>
+  <div class="dice-row">
+    <div class="dice-col" *ngFor="let skill of self.methods.listSkills()">
+      <button class="dice-button" (click)="self.methods.rollOneDice('d20', self.methods.getSkillTotal(skill), skill.name, 'a # check')"><i class="dice-icon dice-icon-d20"></i> Roll <span>{{ skill.name }}</span></button>
+    </div>
+  </div>
+  <p>Last Dice roll result: <span>{{ self.locals.data.last_dice_rolled }}</span></p>
+  <h3 class="h4">Plain Dice</h3>
+  <div class="sw-dice flex-row-all bm-20">
+    <div *ngFor="let die of self.locals.selection.plain_dice">
+      <div class="sw-die" (click)="self.methods.rollOneDice(die)">
+        <div class="intrinsic">
+          <div class="img contain" [ngClass]="self.methods.getDieClass(die)" [title]="die"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 class="h4">Custom</h3>
+  <div cdkDropList [cdkDropListData]="self.model.custom_dice" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+    <div class="flex-row-mobile flex-gutters-5 flex-config-align-center bm-5 js-custom-dice" *ngFor="let dice of self.methods.listCustomDice()" cdkDrag [cdkDragData]="dice">
+      <div class="flex-col flex-static">
+        <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+      </div>
+      <div class="flex-col flex-dynamic">
+        <input type="text" placeholder="Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="dice.name">
+      </div>
+      <div class="flex-col flex-dynamic" [ngClass]="dice.error ? 'invalid-field' : 'valid-field'">
+        <input type="text" placeholder="Formula" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="dice.text">
+      </div>
+      <div class="flex-col flex-static">
+        <button class="dice-button" (click)="self.methods.rollCustomDice(dice)"><i class="dice-icon dice-icon-d20"></i> Roll <span>{{ dice.name }}</span></button>
+      </div>
+      <div class="flex-col flex-static">
+        <button class="g-remove" (click)="self.methods.removeByObject(self.model.custom_dice, dice)"><i class="material-icons">delete</i></button>
+      </div>
+    </div>
+  </div>
+  <div class="bm-20">
+    <button class="g-add" (click)="self.methods.addCustomDice()"><i class="material-icons">add</i></button>
+  </div>
+  <p>Last Dice roll result: <span>{{ self.locals.data.last_dice_rolled }}</span></p>
+</div>

@@ -1,0 +1,14 @@
+@import '../../../../../app/abstracts/variables.scss';
+@import '../../../../../app/abstracts/mixins.scss';
+
+.death-save {
+  background: $secondary-color;
+  color: white;
+  @include header-size(24, 24, 20, 20, 1);
+  padding: 10px 30px;
+  border-radius: 4px;
+  display: block;
+  &:hover {
+    background: $red;
+  }
+}

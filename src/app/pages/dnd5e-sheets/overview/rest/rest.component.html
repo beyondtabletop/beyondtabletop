@@ -1,0 +1,27 @@
+<div class="overview-rest-block hide-for-read-only">
+  <div class="resting-row flex-gutters-5">
+    <div class="flex-col-6">
+      <div class="flex-row-all flex-gutters-5">
+        <div class="flex-col bm-5">
+          <button (click)="self.methods.onShortRest()" class="white-button">Short Rest</button>
+        </div>
+        <div class="flex-col bm-5">
+          <button (click)="self.methods.onLongRest()" class="white-button">Long Rest</button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6">
+      <div class="flex-row-all flex-gutters-5" *ngFor="let klass of self.methods.listKlasses()">
+        <div class="flex-col bm-5">
+          <input type="number" placeholder="Number of Dice" class="form-control single-digit-input" (ngModelChange)="self.touch()" [(ngModel)]="klass.hit_dice.amount">
+        </div>
+        <div class="flex-col bm-5">
+          <button class="dice-button" (click)="self.methods.rollHitDice(klass, 0, klass.hit_dice.amount)"><i class="dice-icon" [ngClass]="diceSvc.getDiceIconClass(klass.hit_die)"></i> Roll <span>{{ klass.hit_dice.amount }}</span> Hit Dice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bm-5">
+    <span>{{ self.locals.data.hit_dice_last_heal }}</span>
+  </div>
+</div>

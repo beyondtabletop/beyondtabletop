@@ -1,0 +1,45 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap bm-5">
+    <div class="flex-col-6" *ngIf="klass.level >= 2">
+      <div class="power-label">Remaining Surges</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.surge.remaining">
+    </div>
+    <div class="flex-col-6">
+      <div class="power-label">Second Wind</div>
+      <button class="dice-button" [disabled]="self.model.powers.Fighter.second_wind.remaining <= 0" (click)="self.methods.onSecondWind()">
+        <i class="dice-icon dice-icon-d10"></i> <span>{{ self.model.powers.Fighter.second_wind.remaining > 0 ? 'Roll 2nd Wind': 'Out of Uses' }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="space-bottom">{{ self.locals.data.second_wind_last_heal }}</div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap" *ngIf="self.model.powers.Fighter.archetype === 'Champion'">
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 7">
+      <div class="power-label">Remarkable Athlete</div>
+      <label class="block-label">{{ self.methods.halfRoundedUp(self.methods.getProficiencyTotal()) }}</label>
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 18">
+      <div class="power-label">Survivor Bonus</div>
+      <label class="block-label">{{ self.methods.getAbilityMod(self.model.abilities.CON) + 5 }}</label>
+    </div>
+  </div>
+  <div *ngIf="self.model.powers.Fighter.archetype === 'Battle Master' && klass.level >= 3">
+    <div class="flex-row-mobile flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-4 space-bottom">
+        <div class="power-label">Maneuver Save DC</div>
+        <label class="block-label">{{ self.methods.getManeuverSave() }}</label>
+      </div>
+      <div class="flex-col-4 space-bottom">
+        <div class="power-label">Superiority Die</div>
+        <label class="block-label">{{ self.model.powers.Fighter.superiority_die }}</label>
+      </div>
+      <div class="flex-col-4 space-bottom">
+        <div class="power-label">Remaining S. Dice</div>
+        <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Fighter.superiority_dice.remaining">
+      </div>
+    </div>
+    <div class="block-label">Maneuvers</div>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 power-label" *ngFor="let maneuver of self.model.powers.Fighter.maneuvers || []">{{ maneuver.text }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div>
+  <div *ngIf="klass.level >= 2">
+    <div class="block-label">Invocations</div>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 power-label" *ngFor="let invocation of self.model.powers.Warlock.invocations || []">{{ invocation.name }}</div>
+    </div>
+  </div>
+</div>

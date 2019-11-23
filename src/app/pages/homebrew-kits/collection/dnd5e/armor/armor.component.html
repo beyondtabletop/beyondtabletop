@@ -1,0 +1,50 @@
+<div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+  <div class="flex-col-6">
+    <label class="control-label">Name</label>
+    <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.name">
+  </div>
+  <div class="flex-col-6">
+    <label class="control-label">Type</label>
+    <div class="select-wrap">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ armor.type }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.type">
+        <option [value]="type" *ngFor="let type of self.locals.selection.armor.type">{{ type }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="flex-row-all flex-config-wrap flex-gutters-5">
+  <div class="flex-col-3">
+    <label class="control-label">AC</label>
+    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.bonus">
+  </div>
+  <div class="flex-col-3">
+    <label class="control-label">Max DEX</label>
+    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.dex">
+  </div>
+  <div class="flex-col-3">
+    <label class="control-label">Min STR</label>
+    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.str">
+  </div>
+  <div class="flex-col-3">
+    <label class="control-label">Weight</label>
+    <input type="number" class="form-control" placeholder="Weight" (ngModelChange)="self.touch()" [(ngModel)]="armor.weight">
+  </div>
+  <div class="flex-col-6">
+    <label class="block-label">Stealth</label>
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" title="Disadvantage?" (ngModelChange)="self.touch()" [(ngModel)]="armor.stealth_disadvantage"> Disadvantage?
+    </label>
+  </div>
+  <div class="flex-col-6">
+    <label class="block-label">Equip Armor</label>
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" title="Equipped?" (ngModelChange)="self.touch()" [(ngModel)]="armor.active"> Equipped?
+    </label>
+  </div>
+  <div class="flex-col-12">
+    <textarea class="form-control" placeholder="Properties" (ngModelChange)="self.touch()" [(ngModel)]="armor.properties"></textarea>
+  </div>
+</div>

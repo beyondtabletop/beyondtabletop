@@ -1,0 +1,109 @@
+<div class="overview-spells-block">
+  <div class="overview-spells expandable-items">
+    <h3 class="nav-clickable" (click)="self.methods.switchTab('spells')">{{ block.name }}</h3>
+    <div class="overview-spell-slots hide-for-read-only bm-20" *ngFor="let klass of self.methods.listSpontaneousCasters()">
+      <h4><span>{{ klass.name }}</span> Spells Per Day</h4>
+      <div class="flex-row-all flex-config-wrap flex-gutters-5">
+        <div class="spell-slot-row flex-row-all flex-gutters-5 bm-5 flex-static flex-col" *ngFor="let slot of self.methods.nonZerothSpellsPerDay(klass); index as i">
+          <div class="flex-col level-col flex-static">
+            <div class="form-group">
+              <label class="control-label">{{ self.methods.levelize(i) }}</label>
+            </div>
+          </div>
+          <div class="flex-col remaining-col flex-static">
+            <div class="form-group">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.remaining">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spells-showing" *ngFor="let level of self.methods.filteredSpellLevels()">
+      <div class="bm-10" [class.bt-hide]="level.length === 0">
+        <span class="spell-level-toggle" [ngClass]="self.methods.getSpellbookLevelClass(level)" (click)="self.methods.toggleSpellbookLevel(level)">
+          <fa-icon class="show-spell-level" [icon]="['fa', 'caret-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fa', 'caret-down']"></fa-icon>
+        </span>
+        Level <span>{{ level }}</span>
+      </div>
+      <div class="spells">
+        <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let spell of self.methods.listOverviewSpellsForLevel(level)" [class.active]="spell.$active" (click)="spell.$active = !spell.$active">
+          <div class="flex-col-4 hide-on-active">
+            <strong>{{ spell.name }}</strong>:
+          </div>
+          <div class="item-info flex-col-8">
+            <div class="hide-on-active">{{ spell.summary }}</div>
+            <div class="hide-on-active"><strong>{{ spell.remaining }}</strong> / <strong>{{ spell.prepared }}</strong></div>
+            <div class="details">
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>{{ spell.name }}</strong></div>
+                <div class="flex-col-8"><span>{{ spell.summary }}</span></div>
+              </div>
+              <div class="flex-row-all flex-gutters-5 bm-5 hide-for-read-only">
+                <div class="flex-col-4"><strong>Remain/Prep: </strong></div>
+                <div class="flex-col-8">
+                  <div class="flex-row-all flex-gutters-5">
+                    <div class="flex-col-6">
+                      <input type="number" class="form-control" placeholder="Remaining" (ngModelChange)="self.touch()" [(ngModel)]="spell.remaining" (click)="$event.stopPropagation();">
+                    </div>
+                    <div class="flex-col-6">
+                      <input type="number" class="form-control" placeholder="Prepared" (ngModelChange)="self.touch()" [(ngModel)]="spell.prepared" (click)="$event.stopPropagation();">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Level: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.level }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Description: </strong></div>
+                <div class="flex-col-8"><span class="btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>School: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.school }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5" [class.bt-hide]="spell.subschool === ''">
+                <div class="flex-col-4"><strong>Subschool: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.subschool }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Casting Time: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.casting_time }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Components: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.components }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Duration: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.duration }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5" [class.bt-hide]="spell.effect === ''">
+                <div class="flex-col-4"><strong>Effect: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.effect }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Range: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.range }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Saving Throw: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.saving_throw }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5">
+                <div class="flex-col-4"><strong>Spell Resistance: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.spell_resistance }}</span></div>
+              </div>
+              <div class="flex-row-tablet flex-gutters-5 bm-5" [class.bt-hide]="spell.targets === ''">
+                <div class="flex-col-4"><strong>Targets: </strong></div>
+                <div class="flex-col-8"><span>{{ spell.targets }}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

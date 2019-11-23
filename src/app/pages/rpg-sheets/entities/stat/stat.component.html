@@ -1,0 +1,9 @@
+<div class="bm-10">
+  <div [ngSwitch]="entity.input_type">
+    <bt-rpg-stat-input-boolean   [self]="self" [entity]="entity" *ngSwitchCase="'boolean'"></bt-rpg-stat-input-boolean>
+    <bt-rpg-stat-input-number    [self]="self" [entity]="entity" *ngSwitchCase="'number'"></bt-rpg-stat-input-number>
+    <bt-rpg-stat-input-select    [self]="self" [entity]="entity" *ngSwitchCase="'select'"></bt-rpg-stat-input-select>
+    <bt-rpg-stat-input-text      [self]="self" [entity]="entity" *ngSwitchCase="'text'"></bt-rpg-stat-input-text>
+    <bt-rpg-stat-input-textarea  [self]="self" [entity]="entity" *ngSwitchCase="'textarea'"></bt-rpg-stat-input-textarea>
+  </div>
+</div>

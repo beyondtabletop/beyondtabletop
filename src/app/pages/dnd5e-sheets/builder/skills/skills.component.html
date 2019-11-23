@@ -1,0 +1,35 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Choose Skills</h1>
+    <h2 class="gsh3">Each ability covers a broad range of capabilities, including skills that a character or a monster can be proficient in.</h2>
+    <h2 class="gsh4 gmuted">A skill represents a specific aspect of an ability score, and an individual's proficiency in a skill demonstrates a focus on that aspect. Your class, background, and sometimes race can influence which skills your character can be proficient in.</h2>
+
+    <div class="bm-20">
+      <h3 class="gh4">You already have these skills:</h3>
+      <ul>
+        <li *ngFor="let skill of self.methods.getAutomaticSkills()">
+          <div>{{ skill }}</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bm-40">
+      <h3 class="gh4">Pick <span>{{ self.methods.getFirstKlassData().skills_number }}</span> more from the following list:</h3>
+      <div *ngFor="let skill of self.methods.listBuilderSkills()">
+        <label class="checkbox-inline">
+          <input type="checkbox" title="Proficient in {{ skill.name }}" (ngModelChange)="self.touch()" [(ngModel)]="skill.proficient">
+          <span>{{ skill.name }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.finishStep('creation', 'skills', 'create-powers')" class="button button-cyan button-block">Confirm Skills</button>
+      </div>
+    </div>
+  </div>
+</div>

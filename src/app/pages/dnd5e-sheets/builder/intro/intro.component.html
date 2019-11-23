@@ -1,0 +1,16 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Character Builder</h1>
+    <h2 class="gsh3">Welcome to the Beyond Tabletop D&amp;D 5E Character builder. This view will guide you through character creation and leveling up. The builder is beneficial for all players, but is especially helpful for players new to D&amp;D.</h2>
+
+    <h2 class="gsh3">Advanced players who want more control over the details of their character can close this builder using the button at the bottom of the screen to see their full character sheet. You can always turn the builder on again in your Settings tab.</h2>
+    <div class="flex-row-all flex-config-justify-center flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.builderCreateCharacter()" class="button button-cyan button-block">Create Character</button>
+      </div>
+      <div class="flex-col-6" [class.bt-hide]="!self.methods.isClassLevelable(klass.name)" *ngFor="let klass of self.methods.getFirstKlassAsArray()">
+        <button (click)="self.methods.switchStep('levelup-intro')" class="button button-cyan button-block">Level Up</button>
+      </div>
+    </div>
+  </div>
+</div>

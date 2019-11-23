@@ -1,0 +1,16 @@
+<div class="max-500 auto-margin">
+  <h4 class="gh3">Choose an Otherworldly Patron</h4>
+  <div class="bm-20" *ngFor="let patron of self.locals.selection.warlock_patrons">
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col">
+        <button class="button button-checkbox" (click)="self.model.powers.Warlock.patron = patron" [ngClass]="self.model.powers.Warlock.patron === patron ? 'checked' : 'unchecked'">
+          <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+        </button>
+      </div>
+      <div class="flex-col">
+        <h5 class="gh4">{{ patron }}</h5>
+        <p>{{ self.locals.data.builder.create_powers.Warlock.patrons[patron] }}</p>
+      </div>
+    </div>
+  </div>
+</div>

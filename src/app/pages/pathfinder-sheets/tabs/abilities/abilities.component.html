@@ -1,0 +1,131 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-10">
+    <div class="flex-col-6">
+      <h2 class="group-header">Abilities</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">These are your basic abilities. You can edit the main value or add a misc value for temporary modifiers.</p>
+      <div class="group group-abilities bmr-60">
+        <div class="flex-row-all flex-gutters-5 bm-5 label-row">
+          <div class="flex-col-2 name-col">
+            <div class="form-group">
+              <label class="control-label">Name</label>
+            </div>
+          </div>
+          <div class="flex-col-3 value-col">
+            <div class="form-group">
+              <label class="control-label">Value</label>
+            </div>
+          </div>
+          <div class="flex-col-3 misc-col">
+            <div class="form-group">
+              <label class="control-label">Misc</label>
+            </div>
+          </div>
+          <div class="flex-col-2 total-col">
+            <div class="form-group">
+              <label class="control-label">Total</label>
+            </div>
+          </div>
+          <div class="flex-col-2 mod-col">
+            <div class="form-group">
+              <label class="control-label">Mod</label>
+            </div>
+          </div>
+        </div><!--/label row-->
+        <div class="stat-row" *ngFor="let ability of self.locals.selection.abilities">
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="flex-col-2 name-col">
+              <div class="form-group">
+                <label class="control-label">{{ ability }}</label>
+              </div>
+            </div>
+            <div class="flex-col-3 value-col">
+              <div class="form-group">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.abilities[ability].value">
+              </div>
+            </div>
+            <div class="flex-col-3 misc-col">
+              <div class="form-group">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.abilities[ability].misc">
+              </div>
+            </div>
+            <div class="flex-col-2 total-col">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getAbilityTotal(self.model.abilities[ability]) }}</label>
+              </div>
+            </div>
+            <div class="flex-col-2 mod-col">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getAbilityMod(self.model.abilities[ability]) }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="calculated-notice">{{ self.methods.getCalculatedNotice(ability) }}</div>
+        </div>
+      </div><!--/group-->
+    </div>
+    <div class="flex-col-6">
+      <h2 class="group-header">Saves</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">Base saves are pulled from your class and level selection. If you have any miscellaneous modifiers, enter them here.</p>
+      <div class="group group-saves">
+        <div class="flex-row-all flex-gutters-5 bm-5 label-row">
+          <div class="name-col flex-col-3">
+            <div class="form-group">
+              <label class="control-label">Name</label>
+            </div>
+          </div>
+          <div class="base-col flex-col-2">
+            <div class="form-group">
+              <label class="control-label">Base</label>
+            </div>
+          </div>
+          <div class="mod-col flex-col-2">
+            <div class="form-group">
+              <label class="control-label">Mod</label>
+            </div>
+          </div>
+          <div class="misc-col flex-col-3">
+            <div class="form-group">
+              <label class="control-label">Misc</label>
+            </div>
+          </div>
+          <div class="total-col flex-col-2">
+            <div class="form-group">
+              <label class="control-label">Total</label>
+            </div>
+          </div>
+        </div>
+        <div class="stat-row" *ngFor="let stat of self.methods.listSaves()">
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="name-col flex-col-3">
+              <div class="form-group">
+                <label class="control-label">{{ stat.name }}</label>
+              </div>
+            </div>
+            <div class="base-col flex-col-2">
+              <div class="form-group">
+                <label class="control-label" *ngIf="!self.model.prefs.homebrew">{{ stat.base }}</label>
+                <input type="number" class="form-control" *ngIf="self.model.prefs.homebrew" (ngModelChange)="self.touch()" [(ngModel)]="stat.base">
+              </div>
+            </div>
+            <div class="base-col flex-col-2">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getAbilityMod(self.model.abilities[stat.ability]) }}</label>
+              </div>
+            </div>
+            <div class="misc-col flex-col-3">
+              <div class="form-group">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="stat.misc">
+              </div>
+            </div>
+            <div class="total-col flex-col-2">
+              <div class="form-group">
+                <label class="control-label">{{ self.methods.getSaveTotal(stat) }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="calculated-notice">{{ self.methods.getCalculatedNotice([stat.name, 'All Saves']) }}</div>
+        </div>
+      </div><!--/group-->
+    </div>
+  </div>
+</div>

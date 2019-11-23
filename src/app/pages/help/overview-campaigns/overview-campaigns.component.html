@@ -1,0 +1,125 @@
+<bt-static-container class="help-base">
+  <h1 class="hh1">Overview of the Campaign tool</h1>
+
+  <p>The campaign tool is used to to oraganize your ideas, stories, other campaign assets, players, character sheets, and battlemaps into one place.</p>
+
+  <h3 class="hh5">What is a campaign?</h3>
+
+  <p>You can think of a campaign as an organizational structure like a chatroom or the lobby of a game. A campaign connects players with all the tools necessary to run a campaign. It has a chat and allows players to push dice rolls and other actions to the chat for everyone to see. Lastly it provides GMs with a space to create and store everything they need to organize and run their campaigns.</p>
+
+  <h2 class="hh3 tmr-60">Create other tools first</h2>
+
+  <p>After logging in or signing up, you'll be automatically directed to your Dashboard. From here you can create any kind of tool. If you haven't already, create a new character sheet of either type, and a new battlemap. Don't worry about filling in content with these tools, and once they're created you can head back to your dashboard.</p>
+
+  <h2 class="hh3 tmr-60">Create a campaign</h2>
+
+  <p>Once you click to create a new campaign and wait for the sheet to load, you'll see the Summary tab.</p>
+
+  <div class="info-box tmr-60">
+    <h4 class="hh5">Beta Note</h4>
+    <p>The campaign tool is currently in beta. Tools in beta are free to use for everyone, but may change drastically. While we really try not to compromise data, sometimes data loss (due to version changes and upgrades) is unavoidable. To stay up to date on development changes, <%= link_to "follow our blog", SiteConfig[:social][:gplus] %> where we post changelogs and announcements.</p>
+  </div>
+
+  <h2 class="hh3 tmr-60">Summary tab</h2>
+
+  <p>The summary tab is similar to the overview tab on the character sheet tools. It shows a quick summary of the campaign, including a list of players who have access, the battlemap associated with the campaign, and many of the other items we'll explore as we continue this guide.</p>
+
+  <h3 class="hh5">Players</h3>
+
+  <p>The first thing you should do when setting up a new campaign is invite all the players who will be participating. Click the "Add Player" button to open up the Google Drive share dialog, and enter the names or email addresses of your players to invite them to the campaign tool.</p>
+
+  <h3 class="hh5">GM vs player permissions</h3>
+
+  <p>The campaign tool gives the creator of the campaign tool the role of "GM", and the rest of the players the role of "player." Players can only access the Summary tab and the Settings tab, whereas GMs can see all the tabs. If you're the GM, keep this in mind when you're giving instructions to your players.</p>
+
+  <p>Many of the features on the campaign tool are GM-specific. They were created to assist GMs with the planning and excution of a smooth campaign, organized all in once place.</p>
+
+  <h3 class="hh5">Campaign map</h3>
+
+  <p>Each campaign can be associated with a battlemap tool. If no map is set, click on the gray box that says "No Map Set" and the window will launch a dialog listing all the available battlemaps. Click the plus icon next to one of the maps to set it as the campaign map.</p>
+
+  <p>Now clicking on the gray box will open the map in a new tab. You can click on the x icon to remove the map from the campaign in order to set a new one.</p>
+
+  <p>If you're a player and you don't have sufficient permissions to open the map that has been set for this campaign, clicking on the gray box will send a permission request to the owner of the map via the campaign chat. Once you are granted access, click the link the chat displays to refresh your permissions and you'll be all set.</p>
+
+  <h3 class="hh5">Player sheets</h3>
+
+  <p>Next to each player you'll see a link to set the sheet for that player. Players can set their own sheet and GMs can set anyone's sheet. Clicking this link will open up the tools dialog with a list of all available sheets. Once the sheet is associated with that player, the link on the right will change to the name of the sheet and clicking it will open up that sheet in a new tab. Click the x to remove the sheet from the player.</p>
+
+  <h2 class="hh3 tmr-60">Campaign chat</h2>
+
+  <p>On the right side of each campaign (on desktop screens) there is a panel for chatting with anyone who has access to the campaign. You can also use the <code>/roll</code> command to roll dice, displaying the result to everyone in chat. Here are some examples of how to use the <code>/roll</code> command:</p>
+
+  <p><code>/roll d20</code></p>
+  <p><code>/roll d8 + 5</code></p>
+  <p><code>/r 4d6 + 10</code></p>
+
+  <p>All of these are valid and the results in chat will show your roll total, along with the natural result of each roll in parentheses on each die rolled.</p>
+
+  <p>You can also use the command <code>/secretroll</code> to hide the result from all players except you and the GM (owner of the Campaign tool).</p>
+
+  <p>Certain actions are also pushed to the chat, like the aforementioned permission request. A permission request is only shown to the owner of the tool you are requesting access to. Similarly, once you are granted access, only you are shown the grant notification and refresh link.</p>
+
+  <h3 class="hh5">Rolling from a sheet</h3>
+
+  <p>You can also push dice rolls from a character sheet to the campaign chat. Once you have a character sheet tool linked to yourself in the Summary tab, open the sheet tool and navigate to the Dice tab within the sheet. Clicking any of the dice buttons here will display the roll in chat.</p>
+
+  <h3 class="hh5">Hiding chat</h3>
+
+  <p>Depending on your screen size, the chat can take up a lot of space. On desktop/wider screens you can hide the chat by clicking the small arrow at the top of the screen next to chat. On mobile devices you can access chat via the navigation area at the bottom of the screen.</p>
+
+  <h2 class="hh3 tmr-60">Adventure tab</h2>
+
+  <h3 class="hh5">Adventure Log</h3>
+
+  <p>The adventure log is used to keep track of what happened on each play session. You can be as thorough as you want, but keep in mind the contents of theese logs are visible to all players. A summary of the latest log will be shown at the top of the Summary tab. If no summary is entered for a log, the Summary tab will show an excerpt of the main text.</p>
+
+  <h3 class="hh5">Quests</h3>
+
+  <p>Quests can help organize goals and missions for the party into one place. The "Known?" checkbox toggles whether the other players can view each quest. Players cannot see the Reward field for each quest. When you click "Start Quest," the system logs a timestamp of when you started it. Similarly, a timestamp is recorded for when you complete the quest.</p>
+
+  <h2 class="hh3 tmr-60">Lists tab</h2>
+
+  <h3 class="hh5">Lists</h3>
+
+  <p>Lists can be used for keeping track of just about anything. They can be helpful if you want to keep a list of character or place names that you haven't used yet, or a quick list of ideas. These are not visible to players.</p>
+
+  <h3 class="hh5">Notes</h3>
+
+  <p>Notes are for longer form pieces of information about your party, the campaign, story details, whatever you want. Notes are not visible to players.</p>
+
+  <h2 class="hh3 tmr-60">NPCs tab</h2>
+
+  <p>NPCs have a lot of properties, divided up by groups. You can fill out as many or as few details per NPC as you'd like, and you can toggle each "Known?" checkbox when the party learns more about each piece of information. The "Known?" checkbox under the name toggles whether the NPC shows up on the Summary screen (visible by players).</p>
+
+  <p>You can also add custom attributes in the last section.</p>
+
+  <h2 class="hh3 tmr-60">Enemies tab</h2>
+
+  <p>Like NPCs, enemies have a lot of properties, divided up by groups. You can fill out as many or as few details per enemy as you'd like, and you can toggle each "Known?" checkbox when the party learns more about each piece of information. The "Known?" checkbox under the name toggles whether the enemy shows up on the Summary screen (visible by players).</p>
+
+  <p>You can also add new attacks in the Attacks section and custom attributes in the last section. Attacks each have a dice formula field for attack roll and damage roll. Once this formula has been entered, you can click the Roll button to send the result of the roll to the campaign chat.</p>
+
+  <h2 class="hh3 tmr-60">Audio Cues tab</h2>
+
+  <p>Set the mood! You can collect audio sources and play them for all your players at the same time. When you click the play button, the music will play for everyone currently viewing the table (except those who have audio turned off on the Settings tab). You can also set the start time for your audio cue, which defaults to 0. Entering your audio source works different depending on the source type.</p>
+
+  <h3 class="hh5">MP3 URL or OGG URL</h3>
+
+  <p>If you have a music file of the correct type uploaded somewhere, choose MP3 URL or OGG URL and paste the URL into the "Audio URL" field. Please note that Beyond Tabletop doesn't host any assets like photos or audio, so you'll have to your audio files somewhere else.</p>
+
+  <h3 class="hh5">YouTube ID</h3>
+
+  <p>If you want to play a YouTube video (audio only), select YouTube ID and paste the YouTube ID into its field. The YouTube ID for a video is the set of 11 characters that follow <code>https://www.youtube.com/watch?v=</code> in a YouTube video URL.</p>
+
+  <h2 class="hh3 tmr-60">Settings tab</h2>
+
+  <p>GMs can change the name of the campaign tool here. Players can change their nickname, which will display instead of your Google user name in chat and in the players list on the summary page. You can also set your name's color in chat and disable audio cues for yourself.</p>
+
+  <h3 class="hh5">All Tools</h3>
+  <p>Some groups may want to add more tools than one sheet per player and one map per campaign. If so, you can add and access them from here!</p>
+
+  <h2 class="hh3 tmr-60">The End!</h2>
+
+  <p>Thanks for reading, happy gaming! If you have any more questions, <a href="https://www.reddit.com/r/beyondtabletop" target="_blank">don't hesistate to visit our subreddit and ask us</a>. Beyond Tabletop's dev (me) answers every question as best he can.</p>
+</bt-static-container>

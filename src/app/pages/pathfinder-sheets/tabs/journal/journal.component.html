@@ -1,0 +1,55 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bm-20">
+      <div class="flex-row-all flex-config-spaced flex-config-align-center bm-20">
+        <h2 class="group-header no-space">Notes</h2>
+        <button title="Add Note" class="gb-add" (click)="self.methods.addNote()"><i class="material-icons">add</i></button>
+      </div>
+      <div class="bm-20" *ngFor="let note of self.methods.getActiveNote()">
+        <input type="text" placeholder="Title" class="form-control bm-5" (ngModelChange)="self.touch()" [(ngModel)]="note.name">
+        <textarea placeholder="Enter notes" class="form-control note-textarea" (ngModelChange)="self.touch()" [(ngModel)]="note.text"></textarea>
+      </div>
+      <div class="bmr-60" cdkDropList [cdkDropListData]="self.model.notes" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="flex-row-all flex-gutters-5 flex-config-align-center js-note" *ngFor="let note of self.methods.listNotes()" cdkDrag [cdkDragData]="note">
+          <div class="flex-col flex-static">
+            <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+          </div>
+          <div class="flex-col flex-dynamic">
+            <a (click)="self.methods.setActiveNote(note)" class="gl1 clickable note-link flex-" [class.active]="self.model.prefs.active_note === note.id">{{ note.name || 'Untitled Note' }}</a>
+          </div>
+          <div class="flex-col flex-static" *ngIf="self.model.notes.length > 1">
+            <bt-hold-delete title="Delete Note" (holdComplete)="self.methods.removeNote(note)"></bt-hold-delete>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-col-6">
+      <div class="flex-row-all flex-config-spaced flex-config-align-center bm-20">
+        <h2 class="group-header no-space">XP Log</h2>
+        <label class="block-label">Total: <span>{{ self.methods.getTotalXP() }}</span>XP</label>
+      </div>
+
+      <div class="bm-20">
+        <label class="block-label">XP</label>
+        <input type="number" placeholder="XP" class="form-control bm-5" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.selection.xp_log.amount">
+
+        <label class="block-label">Description</label>
+        <textarea placeholder="Description" class="form-control bm-10" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.selection.xp_log.text"></textarea>
+
+        <button title="Add XP Log" class="button button-orange" (click)="self.methods.addExperience()"><i class="material-icons">add</i> XP Log</button>
+      </div>
+
+      <div class="experience-item flex-row-all flex-config-align-center flex-config-spaced flex-gutters-5" *ngFor="let log of self.methods.listExperiences() ">
+        <div class="flex-col flex-row-all flex-config-align-center flex-gutters-5">
+          <div class="flex-col amount"><span>{{ log.amount }}</span>XP</div>
+          <div class="flex-col text">{{ log.text }}</div>
+        </div>
+        <div class="flex-col">
+          <button title="Delete Note" class="gb-remove" (click)="self.methods.removeByObject(self.model.experiences, log)"><i class="material-icons">delete</i></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

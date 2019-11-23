@@ -1,0 +1,9 @@
+<div class="overview-valuables-block">
+  <h3>{{ block.name }}</h3>
+  <div>{{ self.methods.getTotalWealth() }}</div>
+  <div class="nav-clickable flex-row-tablet flex-gutters-5 bm-5" (click)="self.methods.switchTab('items')" *ngFor="let item of self.methods.listValuables()">
+    <div class="flex-col flex-static">
+      <span>{{ item.amount }}</span>x <strong>{{ item.name }}</strong>
+    </div>
+  </div>
+</div>

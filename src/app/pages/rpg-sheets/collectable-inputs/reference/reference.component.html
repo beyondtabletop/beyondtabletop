@@ -1,0 +1,7 @@
+<div class="select-wrap min-75">
+  <i class="material-icons">arrow_drop_down</i>
+  <label>{{ self.methods.reverseLookupBy(self.methods.listEntitiesForConditionEffect(), {id: item[field.field_id]}, 'name') }}</label>
+  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item[field.field_id]">
+    <option [value]="option.id" *ngFor="let option of self.methods.listEntitiesForConditionEffect()">{{ option.name }}</option>
+  </select>
+</div>

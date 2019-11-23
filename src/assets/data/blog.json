@@ -1,0 +1,1009 @@
+{
+  "posts": [
+    {
+      "title": "Changelog for 5.2.6",
+      "body": "- Fixes syncing when using combat panel on Battlemaps\n- Fix syncing issue where arrays would reorder incorrectly",
+      "created_at": "October 12, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.5",
+      "body": "- Fixes syncing bug with HP\n- Adds expertise to skills list for D&D 5e sheets\n- Fix syncing issue with reordering arrays",
+      "created_at": "October 5, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.4",
+      "body": "- Fixes incorrect data for some D&D 5e spells.\n- Fixes overview display for spell points vs spell slots on D&D 5e sheets\n- Fixes bug when editing spell on D&D 5e sheet that would hide the spell",
+      "created_at": "September 20, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.3",
+      "body": "- Fixes a typo in the Life Domain\n- Fixes incorrect D&D 5e spell description\n- Null guard against old sheets migrating to new versions incorrectly\n- Adds line breaks to list text on overview",
+      "created_at": "August 27, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.2",
+      "body": "- Add text details to custom combatants on Battlemaps",
+      "created_at": "August 27, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.1",
+      "body": "- Allow manually entering initiative during combat prep phase for Battlemaps",
+      "created_at": "August 26, 2019"
+    },
+    {
+      "title": "Changelog for 5.2.0",
+      "body": "- Completely reworked combat system on the Battlemap. Now you can keep track of basic stats on a per-token basis without connecting to a character sheet\n- Added hold-to-delete to Notes for Campaigns and D&D 5e and Pathfinder sheets\n- Allow consumable amounts to be edited on the overview tab on D&D 5e and Pathfinder sheets",
+      "created_at": "August 23, 2019"
+    },
+    {
+      "title": "Changelog for 5.1.1",
+      "body": "- Fixes issue where custom D&D 5e spells wouldn't show up\n- Fixes an issue where spell slots/points would cause errors for homebrew classes",
+      "created_at": "August 21, 2019"
+    },
+    {
+      "title": "Changelog for 5.1.0",
+      "body": "- Sorts most recently opened notes to the top of the list for Campaigns, Pathfinder sheets and D&D 5e sheets\n- /help command now actually works on Campaign chat\n- Allows you to change the date for existing adventure logs on Campaigns\n- Fixes D&D5e spell descriptions for Thorn Whip and Charm Person\n- Adds quick-select button list of NPCs and Foes on Campaigns\n- Disallow resize on pinned shapes on Battlemap\n- Change display for D&D 5e spell save attacks, showing DC value instead of Attack button",
+      "created_at": "August 10, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.15",
+      "body": "- Fixes edge case syncing bug\n- Fix spell slots/points labeling on D&D 5e sheets",
+      "created_at": "July 14, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.14",
+      "body": "- Fixes feats being broken for Pathfinder sheets\n- Handles null formula for RPG sheets",
+      "created_at": "July 13, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.13",
+      "body": "- Fixes spell data assignment problems on Pathfinder sheets\n- Adds missing Pathfinder feat: Voice of the Sibyl",
+      "created_at": "July 10, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.12",
+      "body": "- Fixes bad migration for old versions of D&D 5e sheets\n- Fixes bug on RPG sheets where some field types wouldn't show up correctly on the overview tab",
+      "created_at": "July 5, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.11",
+      "body": "- Tweaks to random name generation to make them more pronouncable\n- Fixes bug on RPG sheets where you could assign a field to a ghost section\n- Fixes bug on RPG sheets where deleting something wouldn't trigger a DB sync",
+      "created_at": "June 24, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.10",
+      "body": "- Adds Ability chooser for Pathfinder companion attacks\n- Changes level for Pathfinder companions to be labeled as Hit Dice\n- Fixes BAB saving weirdly for Pathfinder sheets\n- Fixes images for monster tokens added from campaigns. Old tokens will need to be deleted and re-added to see the fix.",
+      "created_at": "June 12, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.9",
+      "body": "- More fixes for Pathfinder companions. Mostly fixing calculations that broke during the refactor\n- Pathfinder companion skills now have a Class Skill checkbox\n- Fix reordering tabs and sections on RPG sheets\n- Allow RPG sheets to be added to a campaign\n- Adds new Unassign All Fields button to RPG sheets\n- Fixes bug where RPG Overview tab was displaying things incorrectly",
+      "created_at": "June 10, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.8",
+      "body": "- Adds documentation for RPG Sheets\n- Adds a new syntax for generating totals (aka Array reduce) from collections on RPG Sheets. Example: `{=SUM:Equipment.Weight}` will return a combined weight for every item in the Equipement collection.",
+      "created_at": "June 8, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.7",
+      "body": "- Adds level to Pathfinder animal companions\n- Fixes a huge syncing issue which should resolve a lot of different problems\n- Fixes Campaign quest buttons not triggering DB sync\n- Fixes battlemap D&D 5e active card ability save buttons miscalculating\n- Fixes RPG sheets not displaying custom tab content\n- Fixes Adventure log sorting wonkily on summary page of Campaigns\n- Reimplements a visual color picker for shapes, tokens, and player color",
+      "created_at": "June 6, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.6",
+      "body": "- Added a ridiculous name generator for NPCs and Enemies on the Campaign tool. Post the craziest names you get in [the Discord](https://discord.gg/99xNTE7)!",
+      "created_at": "June 2, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.5",
+      "body": "- Now showing RPG Sheets to all users. [RPG sheets](/help/overview-rpg) can be customized to be used for any RPG system.",
+      "created_at": "May 31, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.4",
+      "body": "- Fixes an error caused by generating lists during character builder on D&D 5e sheets",
+      "created_at": "May 29, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.3",
+      "body": "- Fixes a bug on Pathfinder overview tab where drag and drop was incorrectly enabled\n- Fixes a bug on all sheets that would prevent null data in feats from loading the sheet",
+      "created_at": "May 23, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.2",
+      "body": "- Added buttons to spend spell points on Overview tab of D&D 5e sheets\n- Added death saving throw interface on Vitals overview block for D&D 5e sheets. Interface will show up once you are at or below 0 HP.",
+      "created_at": "May 21, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.1",
+      "body": "- Fixed Initiative button not working on Battlemap\n- Added Cosmopolitan feat to Pathfinder\n- Fixed radio buttons not working correctly on Settings tab of Pathfinder",
+      "created_at": "May 20, 2019"
+    },
+    {
+      "title": "Big News: Beyond Tabletop now 100% free for all users",
+      "body": "Starting today, Beyond Tabletop will offer its previously-Premium products **for free to all users**. If you have made a purchase in the last 30 days and would like a refund, please let me know on reddit PM or discord. Moving forward, instead of charging for products, I will be accepting donations via [PayPal](https://paypal.me/beyondtabletop). This change is for a lot of reasons, but essentially it’s because:\n\n- BTT doesn’t make enough money to be my full-time job, and that was never my goal. I don’t feel right charging for it if I’m not able to support it as much as I want as it grows.\n- The code footprint needed to support purchases is massive. By getting rid of it, I can streamline a lot of the codebase and focus my work hours on making the products better.\n- No payment processing and no emails means much less overhead. That means I can afford to host and run BTT on much smaller monthly earnings (in the neighborhood of 1/10 of the cost)\n- By making this a free product, I can eventually also open up the code base and make it open-source. I’ve been wrestling with the idea of opening up the code to players for a long time, but haven’t really been able to do it until now.\n\nThe new version of Beyond Tabletop is a completely rewritten codebase. For those of you interested, the previous BTT was running on a Rails/Redis/AngularJS/SQL/Firebase stack, which was becoming more and more cumbersome to update. The new site is pure Angular 7 and Firebase, which means code should be less buggy, and easier to find bugs in when they come up.\n\nBecause this is a totally new codebase, a few features didn't make the transfer. Most notably: Battlemap drawing. If this was your favorite feature in the world and you can't live without it, please let me know. It's really difficult to implement, but if there's enough interest I'm sure I could figure it out.\n\nLastly, of course, if you find any bugs or have any issues using the site normally, please let me know in the [discord](https://discord.gg/99xNTE7) or [reddit](https://www.reddit.com/r/beyondtabletop). Thanks to everyone who's been a part of this community for all these years!",
+      "created_at": "May 20, 2019"
+    },
+    {
+      "title": "Changelog for 5.0.0",
+      "body": "- Codebase completely rebuilt from the ground up!\n- All tools are now 100% free for all users. Added donation page instead of purchase page.\n- New homepage design! Art by [Katherine Philip](https://www.artstation.com/atsuzaki)\n- Removed the ability to draw on shapes on the Battlemap. I may add this feature back in the future.\n- Added description field for Loot for Pathfinder and D&D 5e Sheets\n- Added volume control and repeat options for YouTube audio sources on Campaigns\n- Added tab-specific muting for audio sources on Campaigns\n- Added Spell Attacks and Saves to the Attacks section of D&D 5e sheets\n- Added Spell Points as an alternative to Spell Slots for D&D 5e sheets\n- Added new Monsters tab on Campaigns, you can add monsters as tokens if you have an battlemap open in the campaign. DMs can see info about the monster by clicking on the token.",
+      "created_at": "May 20, 2019"
+    },
+    {
+      "title": "Changelog for 4.5.4",
+      "body": "- Fixes a bug on the race step of the D&D 5E builder\n- Tool loadtime check for future versioning",
+      "created_at": "April 30, 2019"
+    },
+    {
+      "title": "Changelog for 4.5.3",
+      "body": "- Fixes companion AC calculation bug on Pathfinder sheets",
+      "created_at": "April 18, 2019"
+    },
+    {
+      "title": "Changelog for 4.5.2",
+      "body": "- Custom rolls on D&D 5e sheets can now use formulas to denote advantage or disadvantage with <code>d20a</code> and <code>d20d</code>\n- Fixes attack damage dice button on Pathfinder sheets",
+      "created_at": "April 11, 2019"
+    },
+    {
+      "title": "Changelog for 4.5.1",
+      "body": "- Battlemap owners can now set a custom position as Center.\n- Fixes a bug with token/shape copying on the Battlemap\n- Fixed hotkeys firing when typing into Battlemap context menu\n- Adds properties field to weapon on Pathfinder sheets\n- Adds offhand penalty checkbox for Attacks on D&D 5E sheets\n- Fixes a bug where some checkboxes would re-check after refresh\n- Fixes the field for shapes' background color not clearing\n- Fixes a bunch of inconsistencies for Pathfinder animal companions, where it was previously using character stats instead of companion stats",
+      "created_at": "March 24, 2019"
+    },
+    {
+      "title": "Changelog for 4.5.0",
+      "body": "- Completely redesigned toolbar and nav experience on the Battlemap! Click on the Beyond Tabletop logo at the top left of the screen to try it out.\n- Slightly improved Battlemap modal experience\n- Fixes hotkeys firing on the Battlemap while holding down a meta key\n- Fixes resizing shapes on Battlemap so it respect axis\n- Fix for another syncing regression bug",
+      "created_at": "March 22, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.7",
+      "body": "- Strips out jQuery UI in the Battlemap and replaces it with good old-fashioned elbow grease. The result is that Battlemap should be usable on touch devices again, and there should be fewer syncing issues.",
+      "created_at": "March 18, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.6",
+      "body": "- Fixes issue on Battlemap where pinned shapes could be rotated\n- Fixes a syncing regression issue with Firebase",
+      "created_at": "March 16, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.5",
+      "body": "- Adds discord link to footer\n- Adds custom Powers on the Combat tab for Pathfinder sheets\n- Fixes bug that prevented players from adding attacks, skills, or special abilities to companions for D&D 5E sheets",
+      "created_at": "March 15, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.4",
+      "body": "- Button to delete lists is now click-and-hold with a fun new UI\n- Players in a campaign can now access Lists tab. Lists cannot be seen by other players\n- You can now choose which lists show up on D&D 5E and Pathfinder overview pages\n- Fixed a bug where new items could get added to the middle of a collection\n- Fixed a bug where Paralysis had no effect on STR or DEX for Pathfinder sheets",
+      "created_at": "March 10, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.3",
+      "body": "- Adds ability to add armor or weapon from template on Pathfinder sheets\n- Fixes bug that would cause rolled HP not to be set correctly after using the Builder on D&D 5E sheets\n- Adds ability to move Enemies and NPCs between lists in Campaigns\n- Fixed bug on D&D 5E sheets where Background content was sometimes not set\n- Overhaul of custom conditions for Pathfinder and D&D 5E sheets which should make things more consistent and less complex and also _slightly_ less powerful. As always, let me know what you think about this change!\n- Treasure and Loot totals are now separated on the Items page of Pathfinder sheets",
+      "created_at": "February 28, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.2",
+      "body": "- Enables token syncing with Pathfinder sheets on the Battlemap\n- Adds HP ring to Pathfinder sheets\n- Better UI for Campaign chat",
+      "created_at": "February 11, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.1",
+      "body": "- Fixes an issue with premium features not showing to premium users correctly.",
+      "created_at": "February 11, 2019"
+    },
+    {
+      "title": "Changelog for 4.4.0",
+      "body": "- You can now connect tokens to D&D 5E Sheets! Click on a token, select a from the left panel, and a new section will appear below which gives you the option to connect. Connected tokens' stats update in realtime!\n- Tons of optimizations under the hood with firebase\n- Better UX for 5E spellcasters",
+      "created_at": "February 11, 2019"
+    },
+    {
+      "title": "Changelog for 4.3.9",
+      "body": "- Fixes bug Pathfinder Touch AC calculations\n- Fixes bug with Pathfinder CMD calculations\n- Changes to freemium model: free users can see premium-only areas for sheets they don't have edit access to",
+      "created_at": "February 8, 2019"
+    },
+    {
+      "title": "Changelog for 4.3.8",
+      "body": "- Fix share button on Battlemaps\n- Fix some issues with Hide for Player checkbox on Batttlemaps\n- Firebase performance optimizations",
+      "created_at": "January 24, 2019"
+    },
+    {
+      "title": "Changelog for 4.3.7",
+      "body": "- Fixes crazy bug where copying a document would turn your life into a hell spiral of confusion and fears of deleted data",
+      "created_at": "January 14, 2019"
+    },
+    {
+      "title": "Changelog for 4.3.6",
+      "body": "- Adds fullscreen button to Battlemaps\n- Fixes hotkeys on Battlemaps",
+      "created_at": "January 14, 2019"
+    },
+    {
+      "title": "Changelog for 4.3.5",
+      "body": "- Fixes a firebase syncing issue with nested array changes\n- Adds images to NPCs on Campaigns",
+      "created_at": "December 26, 2018"
+    },
+    {
+      "title": "Changelog for 4.3.4",
+      "body": "- Updated UI for Pathfinder spells\n- Fixes a number of small bugs in Pathfinder and D&D 5E spells\n- Fixes a bug where players couldn't add some class Powers for D&D 5E sheets",
+      "created_at": "December 17, 2018"
+    },
+    {
+      "title": "Changelog for 4.3.3",
+      "body": "- Limits how often a site alert can pop up\n- Automatically shares campaign map with the same players the campaign is shared with\n- Bugfixes for read-only campaigns",
+      "created_at": "December 6, 2018"
+    },
+    {
+      "title": "Changelog for 4.3.2",
+      "body": "- Fixes audio cues on Campaigns\n- Fixes feats on the overview tabs of D&D 5E and Pathfinder sheets not being able to be expanded",
+      "created_at": "December 2, 2018"
+    },
+    {
+      "title": "Changelog for 4.3.1",
+      "body": "- Adds per-shape snap-to-grid option for square Battlemap scenes\n- Fixes bug in pathfinder where Prepare on Overview checkbox didn't work\n- Fixes a bug where drawings in shapes on Battlemaps wouldn't scale during zoom\n- Fixes a bug where drawing area couldn't be resized without refresh",
+      "created_at": "November 28, 2018"
+    },
+    {
+      "title": "Changelog for 4.3.0",
+      "body": "- Fixes a number of rare issues with authentication\n- Complete overhaul of Firebase syncing and storage logic - this just means things will be less expensive to maintain in the future\n- Refactors initialization logic - for those of you interested in the tech side of things I moved from a JSON initializer to an ES6 class-based one. Should be much more stable and much easier to identify the source of errors when they crop up.\n- Fixes an issue where the Print tab couldn't be accessed on D&D 5E sheets\n- Adds MUCH more detail for big errors\n- Adds a new notice anytime a small error occurs. This should help me track down smaller issues with tools that often go unnoticed",
+      "created_at": "November 27, 2018"
+    },
+    {
+      "title": "Changelog for 4.2.2",
+      "body": "- Fixes an issue where deleting a tool from your dashboard would occasionally cause it to get stuck there forever\n- Adds copyable link to tool in sharing popup\n- Adds list of shapes and tokens to Battlemaps, visible in the settings popup. You sort shapes order and delete both tokens and shapes.\n- Fixes issue where you couldn't change the layer of a shape\n- Fixes a rare issue when migrating tools",
+      "created_at": "November 24, 2018"
+    },
+    {
+      "title": "Changelog for 4.2.1",
+      "body": "- Fixes bug that prevented users from being able to share tools in some cases",
+      "created_at": "November 23, 2018"
+    },
+    {
+      "title": "Firebase Switch is Complete",
+      "body": "Almost a year ago, I thought I'd have to shut down this website when Google announced they were shutting down our free realtime engine. Thankfully, I was able to completely rebuild Beyond Tabletop to use Firebase, and now we take our first step without Google Drive.\n\nI couldn't have done this without this fantastic community. You guys not only convinced me Beyond Tabletop was worth saving, but also patiently helped sort out all the bugs along the way. Thanks to everyone who helped make this possible.\n\nThis update shouldn't change much about your experience. You only have to auth once to log in, and the login process should be much faster now. If anyone has problems or issues with this, please let me know in the subreddit and I'll take care of it.\n\nChangelog for 4.2.0\n\n- Removed Google Drive support, including auth\n- Streamlined authentication process\n- New Spells UI for D&D 5E sheets including hand-written original summaries for at-a-glance decisions\n- Allow modals to be closed by anywhere in the background\n- Fixes an issue where Pathfinder overview blocks couldn’t be reordered\n- Fixes an issue where Campaign chat was not working at all",
+      "created_at": "November 13, 2018"
+    },
+    {
+      "title": "Changelog for 4.1.1",
+      "body": "- Adds option to disable the grid on Battlemaps\n- Adds ability to fine control shape width/height for square scenes",
+      "created_at": "October 10, 2018"
+    },
+    {
+      "title": "Changelog for 4.1.0",
+      "body": "- Adds support for scene types for Battlemaps\n- Adds isometric scene type to Battlemaps\n- Adds hexagonal scene type to Battlemaps\n- Adds support for freehand drawing for shapes on Battlemaps\n- Fixes a bug that prevented spells from displaying properly on the Print page of D&D 5E sheets\n- Fixes scrolling issues in some browsers on Campaigns\n\n",
+      "created_at": "October 9, 2018"
+    },
+    {
+      "title": "Battlemap Update!",
+      "body": "Very excited to bring you guys some good news about the Beyond Tabletop Battlemaps: they're getting a huge upgrade today! 4.1.0 adds support for isometric maps and hexagonal maps! You can change your map type by clicking the gear icon and selecting in the list of Scenes. You can also add new scenes to switch between the different map types to see how they work differently.\n\nLastly, 4.1.0 also adds freehand drawing to shapes! Create a shape, then select it and check \"Drawing\" in the left panel. You should see 3 new icons appear next to the shape. The paintbrush icon toggles draw mode on and off, the second icon lets you choose a color, and the third icon clears all lines from the shape. \n\nWith draw mode on you can scribble freehand drawings of buildings or scenery to give your players a sense of what's going on in a battle without preparing a whole ton beforehand. Then turn off draw mode to move the shape around again like before.\n\nI've also set up a read-only isometric map for everyone to try out and see how things work: [https://www.beyondtabletop.com/app#/battlemaps/0B97uwrWejsZ-VjQwRmg5RVhzelk](https://www.beyondtabletop.com/app#/battlemaps/0B97uwrWejsZ-VjQwRmg5RVhzelk)\n\nAs always, please let me know if you have any suggestions for how to improve these new features, or if you run into any bugs.\n\nChangelog for 4.1.0\n\n- Adds support for scene types for Battlemaps\n- Adds isometric scene type to Battlemaps\n- Adds hexagonal scene type to Battlemaps\n- Adds support for freehand drawing for shapes on Battlemaps\n- Fixes a bug that prevented spells from displaying properly on the Print page of D&D 5E sheets\n- Fixes scrolling issues in some browsers on Campaigns\n\n",
+      "created_at": "October 9, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.16",
+      "body": "- Fixed Dueling damage modifier bug for D&D 5E sheets\n- Fixed an issue where character sheets that didn't exist would sit on loading screen forever instead of showing an error",
+      "created_at": "October 4, 2018"
+    },
+    {
+      "title": "Save Your Characters! 6 Weeks Remaining",
+      "body": "Hey everybody, this is a quick PSA to let you know that in 6 weeks, Beyond Tabletop will officially be discontinuing support for Google Drive files. That means that any character sheets, maps, and campaigns you haven't transferred to Firebase will be lost. But don't worry, because transferring your stuff is super easy!<br /> <br />Just visit the migration page ([https://www.beyondtabletop.com/app#/firebase-conversion](https://www.beyondtabletop.com/app#/firebase-conversion)) and click the button. The process takes up to a few minutes, and once it's done, your experience on Beyond Tabletop will use the new Firebase database exclusively. If for some reason the above link directs you to the dashboard instead of the migration page, then congratulations! Your account has already been migrated.\n\nIf you don’t feel like migrating now, you have 6 more weeks to do it before your Google Drive files will no longer be accessible. If you still haven’t migrated in the week before I flip the big switch, I’ll send you another email to remind you. And of course, if you run into any errors or issues during the migration process, please feel free to let us know on the subreddit. Your feedback during the process has been invaluable and has helped make the migration process better for everyone.\n\nThanks!",
+      "created_at": "October 2, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.15",
+      "body": "- Added level gates for all powers for D&D 5E sheets",
+      "created_at": "October 1, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.14",
+      "body": "- Fixed right-clicking on shapes and tokens on Battlemaps. Right-clicking now brings up a context menu for editing that item\n- Added opacity options for shapes when selecting a color, rather than defaulting to 70% opacity on Battlemaps\n- Fixed a bug where adding a token/shape would rarely cause the map to error out on Battlemaps",
+      "created_at": "October 1, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.13",
+      "body": "- Fix firebase RPG sheets redirecting to D&D 5E sheets",
+      "created_at": "September 12, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.11",
+      "body": "- Fixes an issue where Battlemap names would disappear on the dashboard. In order to restore the battlemap name you’ll have to open the battlemap and edit the name field (or else it will say “New Battlemap”)\n- Fixes Wizard’s Portent rolls in Powers for D&D 5E sheets.\n- Adds system for doing mass-migrations on Firebase tools (more on this in a future update)",
+      "created_at": "August 21, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.10",
+      "body": "- Fixes an issue where Custom Dice couldn't be added to D&D5E sheets\n- Better Firebase save logic so \"Savebacks\" won't happen if two people have the same sheet open.",
+      "created_at": "July 31, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.9",
+      "body": "- Adds log out button. I don't know how long this has been missing!\n- Adds status check for email mismatch between Google Drive and Firebase",
+      "created_at": "July 22, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.8",
+      "body": "- Fixes adding list items on D&D 5E sheets\n- Fixes some weird errors resulting from homebrew races conflicting with the character builder",
+      "created_at": "July 6, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.7",
+      "body": "- Fixes the add a blank spell for Pathfinder sheets\n- Adds new condition stat \"AC (modifier)\" for easier AC condition chaining",
+      "created_at": "July 4, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.6",
+      "body": "- Fixes Warlock Invocations for D&D5E sheets\n- Adds Undead Master feat for Pathfinder sheets\n- Adds Aggressive Thundercloud spell for Pathfinder sheets\n- Fixes some bugs related to class-specific spell levels for Pathfinder Sheets\n- Fixes calculations for conditions affecting both AC and Natural Armor Bonus for Pathfinder Sheets",
+      "created_at": "June 26, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.5",
+      "body": "- Fixes a bug with Pathfinder conditions that use AC\n- Fixes Add Player button on Campaigns",
+      "created_at": "June 22, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.4",
+      "body": "- Fixes being unable to remove spells on D&D 5E sheets\n- Fixes being unable to generate lists in the character builder on D&D 5E sheets\n- Fixes being unable to add condition effects on Pathfinder sheets\n- Adds basic user interface for showing Firebase errors\n\n",
+      "created_at": "June 20, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.3",
+      "body": "- Fixed conditions not calculating correctly on Pathfinder and D&D 5E sheets.",
+      "created_at": "June 19, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.2",
+      "body": "- Fixed a bug where Firebase sharing wouldn't show the tool on the recipient's dashboard",
+      "created_at": "June 15, 2018"
+    },
+    {
+      "title": "Changelog for 4.0.1",
+      "body": "- Fix Firebase tools being unable to save when an undefined value is present",
+      "created_at": "June 15, 2018"
+    },
+    {
+      "title": "Migrate your Beyond Tabletop files to the new database!",
+      "body": "Since its launch, Beyond Tabletop has utilized Google Drive to store your character sheets and tools. As some of you already know, Google recently announced they are discontinuing support for custom Google Drive tools like ours. Because of this, we are transitioning to Firebase, a new realtime database that keeps all your tools in one place.\n\nLong story short, if you would like to retain the tools you've created, you'll need to log into your Beyond Tabletop account to migrate your data into the new database. I would do it for you, but because your tools are stored on YOUR Google Drive, I don't have access to it when you're not logged in. Sorry!\n\nFortunately the process is fairly painless, simply visit the migration page (which is linked from the dashboard announcement) and click the button. The process takes up to a few minutes, and once it's done, your experience on Beyond Tabletop will use the new Firebase database exclusively. If for some reason the above link directs you to the dashboard instead of the migration page, then congratulations! Your account has already been migrated.\n\nYou will have the opportunity to migrate for the next few months. We'll also send another email to everyone who hasn't migrated (and hasn't unsubscribed) when we're getting ready to move the entire system over. But once we close the migration, all your Google Drive Beyond Tabletop files will no longer be accessible.\n\nUnrelated note: it's probably also worth mentioning that we now accept cryptocurrencies via Coinbase on our payment page. So if you've been eyeing that $10 upgrade, but didn't want BIG BROTHER tracking your online role-playing platform spending habits, you're in luck.\n\nNow more than ever we want to hear your feedback. If your migration doesn't work, or Firebase is acting up, or you've discovered some other bug, let us know! We stay active on new threads and address any problem that comes up. We'd also like to hear what you think of the new system, if it behaves similarly to Google Drive, etc. Alright, that's it for now. ",
+      "created_at": "June 13, 2018",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-Qxjig9MNDPQ/WyELLZFR6QI/AAAAAAAAAc4/3OhwYwTifqwpDwtKc6pczEASonmAsBD2QCJoC/w564-h564/newsletter-3-banner-2.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.7.1",
+      "body": "- Fix bug with custom conditions for Pathfinder sheets\n- Fix typo in help text\n- Moved spells data to single array, rather than 10 nested arrays, for both Sheets",
+      "created_at": "April 1, 2018"
+    },
+    {
+      "title": "Additional Authentication for Firebase",
+      "body": "I'm happy to announce more progress on the transition to the new centralized database for all Beyond Tabletop tools, Firebase. With today's update, the system will begin syncing your tools' data and permissions in the background as you use the app. In order to sync properly, users will need to authenticate the new database. \n\nPlease let me know in the subreddit if you experience any issues or hiccups related to the new syncing and authentication processes. Other than the new authentication screen, your play experience should remain unaffected.\n\nChangelog for 3.7.0\n\n- New additional authentication step for Firebase database\n- All tools data and permissions will sync to Firebase in the background\n- Fixes broken links on dashboard",
+      "created_at": "March 31, 2018"
+    },
+    {
+      "title": "Beyond Tabletop Goes for a Full Reroll",
+      "body": "A few months ago I shared the news that Google’s Realtime API, which was core to the functionality of Beyond Tabletop, was being discontinued. The API was a free data service that allowed us to provide RPG tools for very little cost to our players by using the Google Drive of individual users as a distributed database. With the announcement that this service was being discontinued, I didn’t see a realistic way to continue to offer our product to our users, so I posted messages on the subreddit, dashboard, and upgrade pages to warn existing and potential customers.\n\nSince then I have been working to try to find a way to revive Beyond Tabletop utilizing other services. I am happy to announce that I have found a way forward, and that for the time being, nothing will change for the player’s experience using Beyond Tabletop’s tools. I expect Beyond Tabletop to continue to function after the Realtime API is discontinued, and that we will continue to be able to support your characters and games. \n\nI am currently developing Beyond Tabletop integration with another Google realtime database: Firebase. The main difference between the previous database and this one is Firebase does not use Google Drive. So instead of storing sheets on your individual Google Drive accounts, Firebase stores all the data in a centralized database.\n\nI want to make a couple of points here. While I am optimistic about the opportunity presented by Firebase, there is a lot of uncertainty still about what a finished product may look like. Additionally, this may cause me to reassess how I introduce products or operate the business in the future, because Beyond Tabletop will now be assuming the cost of maintaining the database. But for now, the security of Firebase gives Beyond Tabletop a much longer runway than the one-year death-sentence I posted about before. \n\nAs you use Beyond Tabletop in the next few months, I will automatically sync your data from Google Drive to the new Firebase. This will help give me a sense of scale for the database so I can more confidently move forward. This should not affect your play experience.\n\nThat’s about all I know for right now. I will post updates as I continue to develop the new iteration of the tools, but I am hopeful that Beyond Tabletop will continue to provide you with the RPG tools you need into the future. As the updates roll out, please let me know in the subreddit if you experience bugs or interruptions when using the tools. Thanks to everyone who has supported this project over the last few years!",
+      "created_at": "March 12, 2018"
+    },
+    {
+      "title": "Beyond Tabletop will shut down in 1 year (December 2018)",
+      "body": "EDIT: Beyond Tabletop has risen like a Lich King. Read more here: <a href=\"https://plus.google.com/+Beyondtabletop/posts/PD15UZN9Uzz\" class=\"ot-anchor\">https://plus.google.com/+Beyondtabletop/posts/PD15UZN9Uzz</a>\n\nOriginal post below:\n\nIt is with a lot of sadness that I have to share the news that Beyond Tabletop will be forced to shut down in December 2018. On November 28, 2017, Google announced that it had deprecated (stopped supporting) the Google Realtime API. The Realtime API was the core of Beyond Tabletop’s codebase, and without it Beyond Tabletop will not be able to function in its current form. The Realtime API will remain in service for one year, until December 11, 2018. On that date the Beyond Tabletop website will be taken offline.\n\nNot only do our tools rely on the Realtime API, but our business model does as well. The Realtime API was incredibly cheap and cost-effective for what it delivered, allowing us to provide access to tools at an incredibly low, one-time cost. If we switch to a different platform (such as Firestore) the costs would require us to switch to a subscription model. While it’s possible we may find a way to pivot in that direction, it is unlikely, and the product we’d deliver for a subscription would significantly differ from our current tools. Since we’re not comfortable now promising a full re-design and re-build of the site, we have decided to let this project run its course.\n\nBeyond Tabletop has been a passion project for me for a long time. The product has grown as I have grown as a developer. I couldn’t have done it without this amazing community who have been so helpful and patient over the years. Thanks especially to all you who supported me and bought upgrades.\n\nSo that’s it. I’ll work on creating a good way to export or print sheet and campaign data in the coming months. If anything changes between now and December 2018, I’ll be sure to let everyone know. Thanks again!\n\nTrevor<br />Beyond Tabletop Dev<br />",
+      "created_at": "December 1, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.6",
+      "body": "- Fixed some rolls not working\n- Fixed no rolls showing up in Campaign chat\n- Fixed visible attack formula not including proficiency score on D&D 5E sheets. Internal calculations were correct, just the display was wrong\n- Fixed Battlemaps not working correctly in Campaigns on some devices\n- Added a cool visualization of HP on D&D 5E sheets (more of this to come)",
+      "created_at": "November 26, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.5",
+      "body": "- Fixes a major bug with Campaigns which prevented players from opening their tools",
+      "created_at": "November 14, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.4",
+      "body": "- Adds text field for custom powers on D&D 5E sheets\n- Allows archetype fields for powers on D&D 5E sheets to be editable when homebrew mode is on\n- Lots of under the hood improvements, with more coming soon",
+      "created_at": "October 29, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.3",
+      "body": "- Fixes issues related to some PayPal customers not getting credit for upgrades\n- Adds concentration and ritual to spell block on overview tab for D&D 5E sheets\n- Removes Google AdSense from free sheets. In the future this ad space will be replaced with an upgrade banner.",
+      "created_at": "July 17, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.2",
+      "body": "- Improvements for sorting throughout all sheet tools\n- Many fixes for Pathfinder companions including CMD/CMB, text field types, attack calculation and adds 1.5 STR multiplier for companions with only one attack",
+      "created_at": "June 28, 2017"
+    },
+    {
+      "title": "Changelog for 3.6.1",
+      "body": "- Adds hit die to print view for D&D 5E sheets\n- Adds new setting in print view for displaying long amounts of info for D&D 5E sheets\n- Adds descriptions to D&D 5E Warlock Invocations\n- Fixes spell description formatting on spells tab for D&D 5E sheets\n- Adds new plain dice section for Dice tab of D&D 5E sheets",
+      "created_at": "June 20, 2017"
+    },
+    {
+      "title": "New RPG Sheets and Alpha Access",
+      "body": "Today we’re very excited to announce two big updates to Beyond Tabletop. Firstly we are now offering players access to our alpha-development tools. These tools are still in development and are likely to change drastically. By enabling these free tools, you can help guide the development process and give feedback earlier than normal. You can read more about our different types of tools here: <a href=\"https://www.beyondtabletop.com/help/alpha-beta-lite-full\" class=\"ot-anchor\">https://www.beyondtabletop.com/help/alpha-beta-lite-full</a><br /> <br />The first alpha tool available for our players is the RPG Sheets. This is a tool that we’ve been working on for a long time and for good reason. With some configuration, this character sheet will support ANY RPG system. In the future there will be pre-made templates you can select from to get started but for now the early adopters can read about how to use this powerful new tool here: <a href=\"https://www.beyondtabletop.com/help/overview-rpg\" class=\"ot-anchor\">https://www.beyondtabletop.com/help/overview-rpg</a><br /> <br />Changelog for 3.6.0<br /> \n- New Account setting to opt-in to Alpha development tools\n- RPG Sheets now available for players with Alpha access\n- Small bugfixes to the sheets pushed out as hotfixes",
+      "created_at": "June 12, 2017",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-Nae37DHwj_k/WT648HhMVKI/AAAAAAAAAa8/ZsLlQAXy3VsihzPOyKJRu-IwzVLafLgugCJoC/w800-h450/alpha-access-goblin.png"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.5.4",
+      "body": "- Adds the Journal tab to Pathfinder sheets. Add notes and experiences to your character sheet!\n- Fixes bug on D&D 5E sheets where players couldn’t access the print layout\n- Fixes an visual overflow UI bug when viewing a Battlemap from within a Campaign",
+      "created_at": "April 21, 2017"
+    },
+    {
+      "title": "Changelog for 3.5.3",
+      "body": "- Fixes a bug with AC calculation on Pathfinder sheets\n- Improvements to performance on both sheets, particularly when switching tabs\n- Adds spell ability drop down in Spells tab for D&D 5E sheets if homebrew mode is active\n- Adds Spell Save DC on spells overview block for D&D 5E sheets\n- Adds All Tools section to Settings tab of Campaigns if you need to add additional tools to the Campaign\n- Adds new chat command: /secretroll - this command functions just like /roll except it is only visible to you and the GM (owner of the Campaign)",
+      "created_at": "April 20, 2017"
+    },
+    {
+      "title": "Changelog for 3.5.2",
+      "body": "- Adds advanced filtering (including filter by class) to Pathfinder sheets\n- Adds ability to remove players from Campaigns",
+      "created_at": "April 5, 2017"
+    },
+    {
+      "title": "Changelog for 3.5.1",
+      "body": "- Fixes maps not working properly when opened from a campaign",
+      "created_at": "March 31, 2017"
+    },
+    {
+      "title": "Changelog for 3.5.0",
+      "body": "- Tool name change for Tables: now known as Campaigns\n- Campaigns now have a ton of new features including a manageable player list, player-specific chat settings, and a suite of GM-focused features including: adventure log, quests, lists, notes, NPCs, enemies, and audio cues\n- New help page for using campaigns with details about all the new features and how to use them\n- A few style changes to mobile navigation on Campaigns and sheets, including viewing sheet subnav from within a Campaign\n- Moves collapse toggle button for Battlemaps when viewing map from a Campaign\n- Isolates hotkeys when using Battlemap from a Campaign so hotkeys don’t fire when chatting\n- Fixes companion HP calculating incorrectly in some places\n- Fixes Barbarian rage damage not calculating correctly on overview page for D&D sheets\n- Changes the way Pathfinder spells are loaded, so hopefully it’s faster and more flexible in the future",
+      "created_at": "March 30, 2017"
+    },
+    {
+      "title": "DMs/GMs, what's your ideal tool?",
+      "body": "Announcing the Campaign tool (previously known as the Table tool), which will be released soon. Let me know what you think of the features, and if there are any you'd like to see added! \n\n<a href=\"https://www.reddit.com/r/beyondtabletop/comments/60u9l4/dmsgms_whats_your_ideal_tool/\" class=\"ot-anchor\">https://www.reddit.com/r/beyondtabletop/comments/60u9l4/dmsgms_whats_your_ideal_tool/</a>",
+      "created_at": "March 22, 2017",
+      "attachments": [
+        {
+          "url": "https://www.redditstatic.com/icon.png"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.4.3",
+      "body": "- Pinned shapes can no longer be moved with arrow keys\n- Fixes height issues when trying to edit spells on Pathfinder sheets\n- Fixes companion skill total not calculating correctly on both sheets\n- Fixes companion ability save total not calculating correctly on D&D sheets\n- UI improvements to companions sections of both character sheets\n- Adds more speed fields for companions on both sheets\n- Fixes spells per day calculations for multiclassing characters with only one spellcasting class on D&D sheets\n- Moves settings to a modal window on Battlemap tool, improving the UI here in preparation for a big update",
+      "created_at": "March 20, 2017"
+    },
+    {
+      "title": "Changelog for 3.4.2",
+      "body": "- Adds custom powers to overview tab on D&D 5E sheets\n- Adds checkbox toggle on Spells tab to only show prepared spells from your spellbook on overview tab to Pathfinder sheets\n- Fixes a number of areas to respect user list orders (overview particularly)\n- Fixes companion AC, Speed, Initiative, and ability calculations on the overview tab for both sheets\n\nThanks to the subreddit for helping squash bugs! 🙏",
+      "created_at": "March 16, 2017"
+    },
+    {
+      "title": "Changelog for 3.4.1",
+      "body": "- Many lists can now be re-ordered on both Pathfinder and D&D 5E sheets.\n- Splits up wealth totals on the Items tab so you can see your treasure total and your valuables totals separately. Grand total still visible in the overview tab.\n- Adds a checkbox toggle on the Spells tab to only show prepared spells from your spellbook on the overview tab\n- Refreshes UI for a few places in the character sheets, most notably the spells tab\n- Adds new Homebrew Powers section of powers tab, available only when Homebrew Mode is active. Set up custom powers for your homebrewed classes and set when they reset!\n- Fixes a bug where Sorcery Points total were not getting stored correctly\n- Fixes a bug where long rests could cause D&D 5E sheets to stop working correctly\n- Allow for custom spell slots if Homebrew Mode is on\n- Handles leveling up for multiclassing and homebrewed characters better in regards to spell slots\n- As a side note: this update touches a lot of data, if you see any issues or seem to have lost any data, please let me know in our subreddit: /r/beyondtabletop",
+      "created_at": "March 15, 2017"
+    },
+    {
+      "title": "Map Scenes and Context Menu",
+      "body": "Today’s update brings two exciting changes for the Battlemap: map scenes and a context menu. Map scenes are a new way to set up several encounters in advance while only using one map. You can now have multiple sets of tokens and shapes, showing only one set at a time for your players until you’re ready to reveal the scene. You can find the new scene management section in the settings area of any battlemap you created.\n\nThe new context menu is a more convenient way for players to manage tokens and shapes. Now when you right click on either a token or a shape, the context menu will appear with many of the same options that appear in the left side navigation menu.\n\nChangelog for 3.4.0\n\n- Map owners can now set up Scenes in the settings area of the Battlemap. Quickly setup and switch between different encounters!\n- Right click on any token or shape to bring up the quick edit context menu for the Battlemap. Easier to manage things like damage and other properties on desktop devices\n- Fixes some Cleric powers/features showing up on the overview tab when they shouldn’t for D&D 5E sheets\n- Properly resets Warlock spell slots after a short rest for D&D 5E sheets",
+      "created_at": "February 28, 2017"
+    },
+    {
+      "title": "Changelog for 3.3.9",
+      "body": "- Fixes initiative not calculating correctly when it is used in a custom condition on Pathfinder sheets\n- Fixes import not working correctly on Pathfinder sheets",
+      "created_at": "February 10, 2017"
+    },
+    {
+      "title": "Changelog for 3.3.8",
+      "body": "- Changes the delete confirmation method on the dashboard so it no longer uses a browser alert\n- Fixes character portraits so they can now be printed on D&D sheets\n- Adds options to print mode on D&D sheets so you can now customize player name and conditionally hide remaining values",
+      "created_at": "February 6, 2017"
+    },
+    {
+      "title": "Changelog for 3.3.7",
+      "body": "- Fixes a bug where HP would not include HP from CON in Print Mode for D&D sheets\n- Adds title attributes to all checkboxes for better accessibility",
+      "created_at": "January 30, 2017"
+    },
+    {
+      "title": "Changelog for 3.3.6",
+      "body": "- Fixes NaN values showing up on the Overview page on initial load for D&D 5E sheets\n- Lots of little bug fixes that came up because of the optimizations of the last update\n- Adds Print Mode on the Settings tab of D&D 5E sheets. Print Mode is a premium-only feature.\n- Adds field for editing inspiration points on General tab",
+      "created_at": "January 20, 2017"
+    },
+    {
+      "title": "Changelog for 3.3.5",
+      "body": "- Huge optimizations for performance on both Pathfinder and D&D sheets\n- Adds checkbox for adding an ability mod to your total AC, useful for Unarmored Defense\n- Background fixes and optimizations for upcoming additions to the character builder / level up guide\n- Moves Character Builder into a tab\n- Removes up/down arrows on number fields for some browsers\n- Adds Pushing Attack to the list of possible Maneuvers for the Battle Master Fighter archetype in D&D 5E.",
+      "created_at": "January 13, 2017",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-xqUiMgPotZ4/WHmJvkgIrkI/AAAAAAAAAWE/SAVlcL4Waek0kT9S6WWeoID5tLa9Wq6KwCJoC/w800-h450/3.3.5.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Gifting Update",
+      "body": "This update of Beyond Tabletop adds support for buying and giving gift upgrades to your friends or game group! Just in time for the holidays! Exclamation mark!\n\nTo give a gift upgrade, visit the new Account page (accessible from the dashboard) and click to purchase a new upgrade. Once the upgrade has been purchased, you can send the gift to anyone who already has an account with Beyond Tabletop using the email address they use to log in. If you have any questions, feel free to ask them on our subreddit.\n\nChangelog for 3.3.4\n- Adds Account page for viewing your previous purchases and gifting purchases to other players\n- Adds support for gift giving\n- Redesign of the Dashboard page, with more to come in the next few updates\n- Fixes bugs related to spellcasting on the Pathfinder sheet",
+      "created_at": "November 18, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-fEASgAwimh0/WC-JFfLQZKI/AAAAAAAAAU8/ismdp5pysgI16p17XhBavi3prz0VuiO5ACJoC/w800-h450/gifts.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.3.2",
+      "body": "- Overhaul of spellcasting information on Pathfinder sheets\n- Each spellcasting class (when multiclassing) now has separate spellcasting information\n- Tons of fixes and changes for homebrew + spellcasting\n- While homebrew mode is active (Settings tab), you can choose your class’s spell ability\n- Spells known per level is editable for homebrew spellcasters\n- Base spell slots (now known as Spells Per Day) is editable for homebrew spellcasters",
+      "created_at": "October 27, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-U48fuptutLo/WBJu17j6ZOI/AAAAAAAAATs/wEIyMqW15Moxx6a1j2iaLo_k8TVEB5mlgCJoC/w800-h450/3.3.2.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.3.1",
+      "body": "- Fixes an issue with multi-classing as dissimilar spellcasters on Pathfinder sheets\n- Allows Warlocks to track their spell slots on D&D sheets<a href=\"https://www.beyondtabletop.com\" class=\"ot-anchor\">https://www.beyondtabletop.com</a>",
+      "created_at": "October 18, 2016"
+    },
+    {
+      "title": "Map Improvements!",
+      "body": "The Battlemap tool is long overdue for some upgrades. Today we're rolling out the first set of improvements, with more to come in the near future. The biggest change today is the addition of hotkeys which will allow players to quickly and more easily administer their battlemaps and create encounters!\n\nChangelog for 3.3.0\n\n- When copying entities on the battlemap, the newly copied entity will be offset from the original\n- Battlemap can be moved beyond its edge, and the battlemap no longer snaps back when you pan too far\n- When adding or copying entities on the battlemap, the newly created entity will automatically be selected\n- Tokens will no longer automatically sort when changing the initiative values. Instead an “Update” button will appear, which will lock in changes. This fixes tokens jumping around without players realizing the order had changed.\n- Adds many shortcut hotkeys. They are detailed on the battlemap overview help page. \n- Adds checkbox setting in map settings panel to turn off hotkeys\n- Adds undo and redo (z and shift + z)\n- Adds shape and token rotation (r key)\n- Fixes Wood Elf/Dark Elf ability score mixup for D&D sheets builder\n- Barbarians get the correct number of rounds when activating a rage on D&D sheets",
+      "created_at": "October 14, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-WYisDNEo5ig/WAFOZi5vsUI/AAAAAAAAASg/Q7nnFVHXYRsvTyJ8UzsQ9nxf9NfXzcxNgCJoC/w800-h450/map.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.2.8",
+      "body": "- Fixes a bug on D&D sheets that applied ranged bonuses to finesse weapons\n- Adds new Help page which houses documentation and eventually how-to guides and other helpful things\n- Adds help documentation for D&D sheets and Battlemap\n- Small design refresh throughout the faq and help pages",
+      "created_at": "October 8, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-bBUzmB2LuR0/V_kf1-sg50I/AAAAAAAAAQk/cdUziwWC5YcuSrLZeY4BViE_5R4z3XUfgCJoC/w800-h450/version.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.2.7",
+      "body": "- Fixes several bugs that caused issues when upgrading old Pathfinder or D&D sheets\n- Fixes a bug where Battle Master Fighters' Maneuver Save DC total was not displayed correctly",
+      "created_at": "October 1, 2016"
+    },
+    {
+      "title": "Changelog for 3.2.6",
+      "body": "- Fixes a bug that did not calculate HP after finishing the character builder\n- Fixes a bug where negative CON score would impact your total HP ",
+      "created_at": "September 8, 2016"
+    },
+    {
+      "title": "The Homebrew Update!",
+      "body": "This update adds new customizations for homebrewers and players who want support for classes not yet available on Beyond Tabletop. Go to the Settings tab to activate Homebrew Mode, and you'll be able to edit your class, race, hit die, and more.\n\nChangelog for 3.2.5\n\n- Adds new “Homebrew” setting on Settings tab of both sheets. Activating homebrew mode will allow you to edit more pieces of your sheet but be aware that class-based and race-based automatic calculation will not occur for custom classes or races.\n- On D&D sheets homebrew mode allows you to edit your hit die, race, and class\n- On Pathfinder sheets homebrew mode allows you to edit your BAB, race, and class\n- Fixes misc XP automatic calculation to take into account existing XP logs on level change for D&D sheets\n- Fixes Battlemap tokens not sizing correctly when zooming\n- You can no longer deleted a pinned shape on the Battlemap<br />",
+      "created_at": "September 1, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-QP3Cjwhnu28/V8ii7Gdy0tI/AAAAAAAAAOo/E3mbniCrwxs7adx4ZNDFGmtlSi84hXG9wCJoC/w800-h450/homebrew.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.2.4",
+      "body": "- Improves UI for custom backgrounds on D&D sheets\n- Fixes the Stout Halfling’s and Lightfoot Halfling’s racial traits from being mixed up on D&D sheets\n- Adds a new section below Skills to keep track and adjust your total/remaining skill ranks and skill ranks per level",
+      "created_at": "August 18, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-DsBxxxWyJ_s/V7YZ5VX5PLI/AAAAAAAAANc/FuEeAz9V_5Epil-BjCt-i8DsjtXs5jUewCJoC/w600-h338/rivals-version.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.2.3",
+      "body": "- Fixes Fighting Style sections for Ranger and Paladin on D&D sheets",
+      "created_at": "August 16, 2016"
+    },
+    {
+      "title": "Changelog for 3.2.2",
+      "body": "- Adds support for hit dice to be used correctly for multiclassing on D&D sheets\n- Adds delete button for XP Log on D&D sheets\n- Adds total XP on Journal tab on D&D sheets\n- Adds Tides of Chaos field for Wild Magic Sorcerers on the overview tab on D&D sheets\n- Adds checkmark icons to overview skills on D&D sheets to indicate if you are proficient or an expert in a skill\n- Adds ability to clear chat on Tables for table owner\n- Fixes a bug calculating BAB for multiclassing characters on Pathfinder sheets\n- Fixes a bug where multiclassing as a spontaneous and a prepared spellcaster would cause issues with spells per day and showing other spellcasting information on Pathfinder sheets",
+      "created_at": "August 15, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-EU_k5hQRRcQ/V7Hy9AZPkKI/AAAAAAAAAL8/KfypHXU3zs0XZgUkJm1pwdEDZ9iJnvj6g/w600-h338/rivals-version.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.2.1",
+      "body": "- Fixes a bug on D&D sheets where equipping armor would hilariously increase your AC forever\n- Replaces Feats tab with Journal tab on D&D sheets. Feats have been moved to the lists tab.\n- Adds Notes section for keeping track of descriptions or events in campaigns on D&D sheets\n- Adds XP Log section for keeping track of each time you received XP with a number and a short description on D&D sheets\n- Adds a second personality trait slot for the background section on D&D sheets",
+      "created_at": "August 13, 2016"
+    },
+    {
+      "title": "D&D 5E Character Builder Now Available",
+      "body": "We’re very excited today to bring you the newest feature of Beyond Tabletop’s D&D 5E character sheets: The Character Builder! For this first iteration, the Builder will walk you through the creation of a fully-detailed level 1 character, with built-in details of races, classes, skills, equipment, and more. New players will find this an accessible way to get started, and experienced players should appreciate the streamlined format. Future development on the Builder will add more details and provide options for leveling up.\n\nThe Builder is available to all players who have purchased the D&D 5E full upgrade. If you’ve already upgraded your 5E sheets, you can start using the builder immediately for no additional cost by making a new 5E sheet and navigating to the General or Settings tab.\n\nThis is a major update, so as always, please let us know if you find any bugs or experience any issues over on our subreddit: <a href=\"https://www.reddit.com/r/beyondtabletop/\" class=\"ot-anchor\">https://www.reddit.com/r/beyondtabletop/</a>\n\nChangelog for 3.2.0\n\n- Adds Character Builder to D&D 5E sheets. The character builder currently offers character creation and is best used on new sheets. You can use it on an existing sheet, but it wipes most of sheet’s data when you activate it. \n- Adds two new sections for attack and damage bonuses to the combat tab for D&D 5E sheets\n- Racial properties like speed, size, and skills are automatically applied to your character when you change your race\n- Fixes a bug where a negative DEX score would incorrectly lower your AC on D&D 5E sheets",
+      "created_at": "August 10, 2016",
+      "attachments": [
+        {
+          "url": "https://lh3.googleusercontent.com/-jFbG5jFUBIo/V6teq_TnwdI/AAAAAAAAAKs/wIy3ympDe-0mxZ-ne82qRwtQCyOc4-GzACL0B/s0-d/rivals-social.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for 3.1.7",
+      "body": "- Fixes incorrect calculation for saves of multiclassing characters on Pathfinder sheets\n- Fixes attack weapon rolls not recognizing some damage dice",
+      "created_at": "May 29, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.6",
+      "body": "- Adds read-only mode for Pathfinder sheets\n- Adds Companions block to overview tab of Pathfinder sheets",
+      "created_at": "May 21, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.5",
+      "body": "- Fixes custom conditions calculation on both sheets\n- Optimization in preparation for better read-only experience",
+      "created_at": "May 20, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.4",
+      "body": "- Adds Occult Classes to Pathfinder sheets\n- Even more bug fixes throughout both sheets\n- Fixs an issue with older D&D 5E sheets migrating to the latest version ",
+      "created_at": "May 16, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.3",
+      "body": "- More bug fixes throughout both sheets, mostly related to spell slots and spells per day\n- More efficient and reliable data loading process on Pathfinder sheets\n- Adds spell slots section of spells tab for spontaneous casters on Pathfinder sheets",
+      "created_at": "May 15, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.2",
+      "body": "- Fixes some more Pathfinder bugs\n- Fixes an issue where Tables wouldn't work",
+      "created_at": "May 14, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.1",
+      "body": "- Fixes a few bugs on the Pathfinder sheets regarding weapons/attacks and older sheets.",
+      "created_at": "May 11, 2016"
+    },
+    {
+      "title": "Changelog for 3.1.0",
+      "body": "- Fixes lots of little bugs, lots of backend optimizations that will make upcoming development easier\n- Opening a D&D 5E sheet you have read-only access to will redirect you to an experimental new view. We’ll be expanding this view as we get feedback from players.\n- Adds Export/Import buttons to the Settings tab of both sheets. These are still very new so please be sure to only import data into a fresh sheet, or a sheet you don’t care about just in case.\n- Very basic print styling in place for sheets, this will be improved in future versions\n- Spell slots disappeared on D&D 5E sheets, they’re back now",
+      "created_at": "May 10, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.7",
+      "body": "- Fixes a bug where list items couldn’t be added to D&D 5E sheets\n- Adds “All Saves” back to the list of condition effects on D&D 5E sheets\n- Making backend preparations for 3.1.0, please let me know in the subreddit if you experience any issues!",
+      "created_at": "May 7, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.6",
+      "body": "- Fixed a bug where new character sheets added to a table couldn’t be opened. Shoutouts to Leky on our subreddit for identifying and helping me track down this bug.",
+      "created_at": "May 5, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.5",
+      "body": "- You can now add custom backgrounds to D&D Next sheets\n- Spell slots display fixed on D&D Next sheets\n- You can share documents from the dashboard again",
+      "created_at": "May 4, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.4",
+      "body": "- You can now do custom background attributes (flaws, bonds, etc.) on D&D Next sheets\n- Dropdown selector added for weapons and armor on D&D Next sheets",
+      "created_at": "May 2, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.3",
+      "body": "- Fixed auto-calculation for Powers on D&D Next sheets for multi-class characters\n- Completely rewrote the way conditions work on both sheets. The bad news is that all the stats for existing condition effects have been set to “STR,” as some of the previously available stats have been removed. The good news is that you can now use advanced calculations, like multiplication, division, and mod (and parentheses) in your conditions. This new system is much more robust, a lot less prone to miscalculation and much easier to stack (adding multiple effects for one stat). If the loss of the missing stats stings too much, let me know on the subreddit and I’ll do what I can to put the best ones back.\n- Please note that the order in which you activate conditions will affect the result. The first condition checked is the first one that will apply. When unchecking, the system recalculates all remaining effects from top down (first to last).\n- Some stats for condition effects only accept a single numerical value instead of a formula. These are typically for adjusting combat stats like \"Ranged Attack\" or \"Melee Damage.\"\n\nPlease let me know on the subreddit if you run into any bugs. I tested this every way I could think of, but the custom conditions code is a beast!",
+      "created_at": "May 1, 2016"
+    },
+    {
+      "title": "Amazon Fraud Protection Bugs Fixed",
+      "body": "We just heard back from Amazon, they said there was a bug in our account's Fraud Protection algorithm, and it has now been fixed. If you were having trouble with completing an amazon purchase (and you haven't already upgraded via PayPal), wait 24 hours since your last attempt, then you can try again.\n\nThank you so much for your patience with this, and especially to those of you who brought it to our attention. Now we can stop worrying about this nonsense and get back to developing features!",
+      "created_at": "April 29, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.2",
+      "body": "- Added Custom Dice section to both sheets. You can add and save a list of custom dice formulas. You can type \"d6 + 3\" or \"(2d8 / 2) + (10d2 - 4 + d6) * d4\" or anything in between!\n- Added a condition purge button to fix some lingering issues where some advanced condition formulas could permanently affect stats. The clicking the button turns off all conditions and returns all stat condition modifiers to 0. This will not reset your actual stats.",
+      "created_at": "April 28, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.1",
+      "body": "- Fixed an issue where the Table wouldn't open tools due to a routing error\n- Added PayPal as a payment option on the upgrade page\n- Moved upgrade page to /purchases/upgrade",
+      "created_at": "April 28, 2016"
+    },
+    {
+      "title": "Changelog for 3.0.0",
+      "body": "A new version of Beyond Tabletop released a few days ago. Most of the changes are relevant to the backend only, and not the game tools. The changelog for changes to the game tools is listed below.\n\n- Fixed a bug where full attack dice buttons on the Pathfinder sheets would not roll correctly.\n- Some features have been restricted to upgraded users. For D&D Next, these features include the Powers, Conditions, Items, and Companions tabs. For Pathfinder, these features include the Feats, Conditions, Items, and Companions tabs.\n- Free uses will see an ad in the header and in the footer of the sheets\n- Free users cannot create more than one of each type of sheet. If you have existing sheets you can still open and use them. Please note if you would like to delete a sheet in order to make a new one, you will have to empty your Google Drive trash before the system will allow creation of a new sheet\n- Google auth refresh token should throw fewer errors.\n\nThe new overhaul of the backend should allow us to develop features more efficiently than before. We look forward to posting more updates soon!",
+      "created_at": "April 27, 2016"
+    },
+    {
+      "title": "Character sheets coming out of beta, 50% off for beta testers",
+      "body": "On April 25, both the Pathfinder and the D&D Next character sheet tools will be going out of beta and available for sale. Access to each type of tool (Pathfinder or D&D Next) costs $10, with a 50% discount for everyone who helped with beta testing. No subscription, no monthly payment! And if you’re not interested in paying, you can continue using a limited version of these tools for free.\n\nWe’re really excited to be moving out of beta with a product this polished. We hope with your support we’ll be able to continue to develop and improve Beyond Tabletop as long as you want to keep playing!\n\nIf you have any questions feel free to ask them in our new subreddit: <a href=\"https://www.reddit.com/r/beyondtabletop\" class=\"ot-anchor\">https://www.reddit.com/r/beyondtabletop</a>",
+      "created_at": "April 18, 2016"
+    },
+    {
+      "title": "New community location, now even easier to be a part!",
+      "body": "We just opened up a new subreddit: <a href=\"https://www.reddit.com/r/beyondtabletop/\" class=\"ot-anchor\">https://www.reddit.com/r/beyondtabletop/</a> to replace our current help forums. We hope being on reddit will make it easier for more people to participate, and make it easier for our veteran users to help out the newbies. We'll be closing down the current help forums at the end of April. If you have any questions, or want to make a suggestion to us, come let us know!\n\n<a href=\"https://www.reddit.com/r/beyondtabletop/\" class=\"ot-anchor\">https://www.reddit.com/r/beyondtabletop/</a>",
+      "created_at": "April 10, 2016"
+    },
+    {
+      "title": "Pathfinder Attack Revamp",
+      "body": "Version 2.3 is a major update for Pathfinder. It changes the way attacks and weapon information calculates, and goes a long way to allowing players to customize their builds while keeping it simple for new players. \n\nMake sure to double check your attacks section and set your full attack weapon before playing! For your previously entered extra attacks, there was a bug where the saved BAB for the attack wouldn’t update correctly when your character’s BAB changed. Because of this, all extra attacks’ BABs have been reset to your character’s top BAB. Please adjust as necessary.\n\nOn the overview tab, you will see a single full attack section, and a list of single attacks for all your listed weapons. If you want to see full attack data for a different weapon, simply change the weapon from the Full Attack Weapon dropdown on the Combat tab.",
+      "created_at": "March 23, 2016"
+    },
+    {
+      "title": "Changelog for v2.3",
+      "body": "- Added Full Attack Weapon field on Pathfinder sheets to keep track of which weapon should be used by BAB attacks\n- Visually added BAB attacks in Attacks list to Pathfinder sheets to show players how many attacks they get based on their BAB\n- Fixed an issue calculating damage with an offhand melee weapon to Pathfinder sheets. STR damage should be halfed, and previously it was not\n- Re-arranged some fields on the Combat tab of Pathfinder sheets\n- At least one weapon is required for all characters for Pathfinder sheets. If you don’t use a weapon you can ignore this.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "March 23, 2016"
+    },
+    {
+      "title": "Changelog for v2.2.5",
+      "body": "- Added Weight block to D&D Next sheets Overview tab\n- Fixed a bug which would sometimes add more than one token to a battlemap per button press\n- Consumables block on overview tab now allows you to edit the amount without switching tabs\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "March 17, 2016"
+    },
+    {
+      "title": "Changelog for v2.2.4",
+      "body": "- Added Weight block to Pathfinder sheets Overview tab\n- Fixed mis-calculation of attack roll for thrown weapons for Pathfinder sheets\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "March 11, 2016"
+    },
+    {
+      "title": "Changelog for v2.2.3",
+      "body": "- Sorcerers at level 1 now correctly show 0 sorcery points on D&D Next sheets\n- Changing your level on a D&D Next sheet will set your XP accordingly. Changing your XP will not alter your level.\n- Pathfinder sheets finally get Hybrid Classes! Just in time for the holidays.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "December 9, 2015"
+    },
+    {
+      "title": "Changelog for v2.2.2",
+      "body": "- Added new Overview Block for Companions!\n- Added spell slots section to the Spells Overview Block\n- Fixed an issue where you could end up with half a hit die after a long rest\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "November 18, 2015"
+    },
+    {
+      "title": "Changelog for v2.2.1",
+      "body": "- Fixed an issue on the Battlemap where the token drag distance indicator could prevent users from dragging tokens\n- Fixed an issue on the Table which would sometimes prevent a tool from being opened if a user navigated to the dashboard and back to the same Table\n- Updating a tool’s title while being viewed on a Table will update the name in the Table’s navigation, and saved list of Tools\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "November 16, 2015"
+    },
+    {
+      "title": "Cranderveldt livestreams Beyond Tabletop",
+      "body": "Check out Cranderveldt's livestream on Twitch today, he'll be setting up a D&D group using our tools! If you'd like to learn more about Beyond Tabletop or about how to play D&D, you can watch here: <a href=\"http://www.twitch.tv/cranderveldt\" class=\"ot-anchor\">http://www.twitch.tv/cranderveldt</a>",
+      "created_at": "November 14, 2015",
+      "attachments": [
+        {
+          "url": "http://static-cdn.jtvnw.net/jtv_user_pictures/cranderveldt-profile_image-7e057419921b1885-300x300.jpeg"
+        }
+      ]
+    },
+    {
+      "title": "Changelog for v2.2.0",
+      "body": "Huuuuuge update! Here's the changelog, I'll go into some more depth about the details in my next few posts.\n\n- Added new Powers tab which contains information and settings specific to your class(es). Too much stuff here to list it all, but many of the new items will affect other parts of the character sheet so double check all your stats before your next play session.\n- Added new Powers overview block, which includes fields to quickly adjust values you may need during an encounter or play session.\n- Added a new Rest block for buttons that trigger short and long rests, each of which reset a number of class specific features. The block also includes a field and a button for rolling hit dice, which will heal you when you click it.\n- Added a Wounds field in the vitals overview block for quickly adjusting health during a battle.\n- Added hit dice total and remaining to vitals block\n- Fixed an issue on the Table where you couldn’t remove a tool that had been deleted from Drive.\n- Added new Nickname field on the Table. Now your chat messages and the player list will show your nickname instead of the name you give Google.\n- Table chat can now be minimized! Look for the small caret icon near the top right of the screen, to the left of chat.\n- Changed the way armor bonus is calculated. For all armor, 10 points will NO LONGER automatically be added to the total AC bonus. Instead, enter the total AC bonus into the new “AC” field (previously “Bonus”). For Monks who have the benefit of Unarmored Movement, your AC, including the base of 10, will still automatically be calculated and applied.\n- Added support for Magic and Other types of armor. Previous version didn’t calculate those AC bonuses properly\n- Colored dice icons!!!!! This update was crazy I had to add something whimsical to stay sane.\n- On the General Tab, background attributes, including specialties, are now selectable via select dropdown instead of radio buttons\n- Brand new homepage image, illustrated by Tim Giusti!\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "November 13, 2015"
+    },
+    {
+      "title": "How to use Tables",
+      "body": "Here's a new tutorial video explaining how to use Tables. Tables are a great way to collect your Beyond Tabletop maps and character sheets into one place to share and play with your friends: <a href=\"https://www.youtube.com/watch?v=nzK37OyKEiQ\" class=\"ot-anchor\">https://www.youtube.com/watch?v=nzK37OyKEiQ</a>",
+      "created_at": "November 8, 2015"
+    },
+    {
+      "title": "Changelog for v2.1.5",
+      "body": "- New variable for Custom Conditions on D&D Next and Pathfinder sheets: l. Lowercase l is used to indicate the character’s level or total hit dice.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "September 27, 2015"
+    },
+    {
+      "title": "Changelog for v2.1.4",
+      "body": "- Revamped mobile UI on tables\n- Chat now available on mobile on tables\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>\ufeff",
+      "created_at": "September 15, 2015"
+    },
+    {
+      "title": "Changelog for v2.1.3",
+      "body": "- Added conditions block on the overview page for D&D Next sheets\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "August 30, 2015"
+    },
+    {
+      "title": "Changelog for v2.1.2",
+      "body": "- Added helpful text to tables if no other tools have been created. Text guides new users back to the dashboard where they can create battlemaps and character sheets.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "August 4, 2015"
+    },
+    {
+      "title": "Changelog for v2.1.1",
+      "body": "- Fixed a bug on D&D Next sheets where the initial starting weapon could not be added as an Attack.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "July 29, 2015"
+    },
+    {
+      "title": "Good news everyone!",
+      "body": " Sharing is back. Thanks to everyone for hanging in there while we got it fixed, improved, and implemented on the dashboard finally!\n\nChangelog for v2.1.0\n\n- Added share button to tables and battlemaps\n- Added share button to every tool listed on the dashboard\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "July 22, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.14",
+      "body": "- Updated layout and design for spellcasting and spell slots sections for D&D Next sheets\n- Added new misc field for each spell level so you can customize your spell slots per level for D&D Next sheets\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "July 21, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.13",
+      "body": "- Updated layout for the dashboard: includes new icons that show what permission level you have for each file.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "May 30, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.12",
+      "body": "- Feats and spells on the overview page now respect paragraph spaces if they are added to the description text field boxes on both sheets\n- Added Deity field on the profile for D&D Next sheets\n- Added new overview block type for Custom Stats on both sheets\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "May 28, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.11",
+      "body": "- Token drag distance indicator now sits on top of shapes on the battlemap",
+      "created_at": "May 10, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.10",
+      "body": "- Fixed the layout for spell slots for Ranger on D&D Next sheets and other classes who don’t cast up to 9th level spells\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 28, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.9",
+      "body": "- Fixed a bug that would cause spells to not be able to be added to Pathfinder sheets.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 20, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.8",
+      "body": "- Pinning and unpinning shapes on the battlemap is now reserved for the map owner only\n- Fixed an issue when opening two tools of the same type on one table would overwrite the previously opened tool\n- Lots of little bugfixes to legacy views\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 16, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.7",
+      "body": "- Removed proficiency bonus from weapon damage calculation\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 14, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.6",
+      "body": "- New Spellcasting section which includes spells known, spell slots, and a few other class-specific details for spellcasting\n- Added fields for spell slots, so you can keep track of how many slots you have left per level\n- When choosing a spell from the Find Spells list, only your selected classes’ spells will show by default\n- Added Prepared checkbox for spells, removed the prepared/remaining input fields\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 13, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.5",
+      "body": "- Fixed an issue where dice roll messages would get duplicated in the table chat\n- Fixed a bug where attack/damage would not calculate correctly\n- Fixed a bug where certain weapons couldn’t be selected by an attack\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 10, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.4",
+      "body": "- Reworking spells and attacks for D&D Next sheets\n- Rearranged the layout for basic section\n- Added new tab for Combat, including a new section for Attacks\n- New Attacks section allows you to customize your attacks more, choosing either a weapon or a spell to be used as the attack\n- Changed selection UI for background traits, ideals, bonds, and flaws\n- Fixed a few dice calculations, including saves for D&D Next sheets\n- Added new proficiency checkbox to weapons for D&D Next sheets. Includes your proficiency score in weapon attacks if proficient.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 9, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.3",
+      "body": "- Hotfix for custom conditions\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 5, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.2",
+      "body": "- Fixed a bug on Tables where you couldn’t delete a tool you’d added\n- Tables now hide tools from the available tools list that you’ve already added\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 5, 2015"
+    },
+    {
+      "title": "Changelog for v2.0.1",
+      "body": "- Fixed a bug that prevented document titles from being updated sometimes.\n- Fixed the create new orange buttons’ links on the dashboard\n- Fixed a few dice rolling buttons on Pathfinder sheets that were dropping misc modifiers\n- Fixed an issue that would reset skill proficiencies on D&D Next sheets when you opened the document\n- Multiple users can view the same sheet without having to look at the same tab now\n- Fixed an issue that would prevent users from adding spells to their D&D Next sheets\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 3, 2015"
+    },
+    {
+      "title": "Beyond Tabletop Introduces Online Support, Dice Rolling, and More! (2.0.0 Update)",
+      "body": "We’re excited to bring you the biggest update (so far) to Beyond Tabletop - online support! As you know, the early versions of Beyond Tabletop were designed for in-person play, but we’ve been working for the last 8 months to enable groups that have remote players to also take advantage of our full set of tools. But this update is more than just online support - we also introduce a new tool (the Table), dice rolling, group chat, cross-tool communication, D&D Next sheet improvements, and many application performance enhancements. \n\nFirst, I want to introduce Tables. Think of this new tool like the online version of a real gaming table - this is where the action happens. Your character sheets, your dice rolls, your online chat and more can all interact with the Table, keeping all your tools and players organized and in one place.\n\nYou make a Table just like you’d make a character sheet or battlemap, and then add your sheets and maps to it - these become tabs on the Table that are easy to switch between. Share the Table and your tools with your friends and players - they can see all the available tools and request access to any they don’t have permission to open. \n\nTables allow for cross-tool communication. Your players can add their own sheets or maps to your table, and actions they (or you) take on a character sheet show in the table’s chat. Since we’re also adding dice rolling to character sheets in this update, this means no more suspiciously consistent crits from that one person in your party (you know who you are).\n\nWe’re also improving the D&D Next character sheet and are planning more improvements in future releases. In this update, you can now select your class, level and background, along with the background’s personality traits, ideals, bonds, and flaws from drop down select options, rather than typing them all out yourself. This also means we can auto-calculate a few small things like skill proficiencies based on your background, and ability proficiencies based on your class. You can also keep track of hit dice.\n\nLastly, in this update we’ve completely changed the way the tools are loaded. You should notice that navigating between tools is snappier and the app in general is much faster. The new architecture of the system has a number of advantages, including better accessibility and file administration from the dashboard. It also opens up the possibility of porting Beyond Tabletop to more devices’ native apps - something we’re investigating now.\n\nWe’re very excited to finally get this in your hands, and we want to know what you think! Let us know how you like the update, or how you use Beyond Tabletop for your home game on our forums.\n\nChangelog for v2.0.0\n\n- Introducing the new Table tool. Tables are used to organize tools and players all in one place with real-time chat.\n- Tables list tools and include an easy button for players to request access to any tool they cannot open.\n- Added Dice tab on both sheets. Useful stats can now be rolled with a click of a button.\n- Added cross-tool communication. If you open a sheet on a table, your dice rolls will be sent to the chat\n- Brand new app routing for all tools, allowing for faster tool switching and faster load times.\n- Added file administration on dashboard, including deleting and copying files.\n- Added Backgrounds to D&D Next sheets\n- Added Class and Level select to D&D Next sheets\n- Added hit dice tracking to D&D Next sheets\n- Fixed a long-standing bug where you couldn’t use anything other than the primary google account you were logged in as. Now you can use any account to login and use tools!\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "April 2, 2015"
+    },
+    {
+      "title": "Changelog for v1.6.3",
+      "body": "- Fixed a bug where D&D Next sheets would not show Lists correctly on the overview page.\n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "March 16, 2015"
+    },
+    {
+      "title": "Changelog for v1.6.2",
+      "body": "- Added color picker for shape and token color on battlemap\n- Added profile image URL field on both sheets\n- Added misc and score (passive) columns for skills in D&D Next sheets\n- Battlemap zooming now animates smoothly\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>\ufeff",
+      "created_at": "March 15, 2015"
+    },
+    {
+      "title": "Changelog for v1.6.1",
+      "body": "- Added new layer-control buttons for shapes on the battlemap: Send to back, Move down, Move up, and Send to front\n- Adjustments to refresh token logic\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>",
+      "created_at": "March 13, 2015"
+    },
+    {
+      "title": "Beyond Tabletop updates to 1.6.0! Introducing animal companions and much more",
+      "body": "We’re really excited to announce the introduction of animal companions/familiars to both Pathfinder and D&D Next sheets. You’ll find a new tab on your sheet that includes all the fields you should need to create a faithful companion. If you don’t see something you need, let us know in the forums: <a href=\"http://www.beyondtabletop.com/help\" class=\"ot-anchor\">http://www.beyondtabletop.com/help</a>\n\nThis update also includes a revamp to the way treasure and weight are calculated for both sheets. We have added a new “Loot” list where you can keep track of items that have weight or value.\n\nLastly, we also revamped the overview tab for both sheets. You can now edit your overview layout, including only what you need to see, and rearranging however you’d like. Click the edit pencil icon at the top right of the overview tab to take a look!\n\nChangelog for v1.6.0\n- Added animal companion tab to both sheets\n- New customizable overview page for both sheets. Click the edit icon on the overview page to make changes\n- Added Items tab to both sheets\n- Added a new Treasure section for both sheets\n- Added a new Loot section for both sheets\n- Added the ability to delete custom skills for Pathfinder sheets\n- Added weight section for D&D Next sheets\n- Added weight field for weapons on both sheets\n- Performance optimizations for both sheets\n- New logic for authorization and login which should cut down on errors\n\n<a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23DND/posts\">#DND</a>  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23Pathfinder/posts\">#Pathfinder</a>  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23DNDNext/posts\">#DNDNext</a> <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23DND5E/posts\">#DND5E</a>  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23RPG/posts\">#RPG</a> \n\n<a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a>",
+      "created_at": "March 9, 2015"
+    },
+    {
+      "title": "Changelog for v1.5.4",
+      "body": "- Style improvements throughout the app\n- Fixed an error on Pathfinder sheet creation\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>\ufeff",
+      "created_at": "March 5, 2015"
+    },
+    {
+      "title": "Changelog for v1.5.3",
+      "body": "- Links back to dashboard should work as expected.\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>\ufeff",
+      "created_at": "March 4, 2015"
+    },
+    {
+      "title": "Changelog for v1.5.2",
+      "body": "- Re-added share button back to battlemap\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>\ufeff",
+      "created_at": "March 3, 2015"
+    },
+    {
+      "title": "Changelog for v1.5.1",
+      "body": "- Added finesse and thrown weapon support to Pathfinder sheets\n- Alarm spell for 5E is now a ritual spell\n- Increased the rate at which we update refresh tokens\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>\ufeff",
+      "created_at": "March 3, 2015"
+    },
+    {
+      "title": "Changelog for v1.5.0",
+      "body": "- Added zooming to the Battlemap, which is restricted to one level up and down for a total of 3 zoom views, for now.\n- Added a field to the Battlemap that allows you to change its title.\n- Implemented a fix for the common \"Refresh\" error screen that occurs when a user has a tool open in their browser for more than 15 minutes.\n- Small bugfixes and performance optimizations\n\n<a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>",
+      "created_at": "March 2, 2015"
+    },
+    {
+      "title": "Six Month Check-In with Exciting Updates",
+      "body": "It’s been six months since we opened Beyond Tabletop to the public, and what an awesome time we’ve had. There are over 8,000 people using our tools, with more and more signing up every day. Since we launched we’ve tweaked and added features to make the experience of playing RPGs online better and more fun.\n\nWe've also had a lot of great discussion in our support and suggestion forums—you guys really are awesome! Posters are great at pointing out where the tools could use work and the feedback has been very positive. We couldn’t be happier to be working on it.\n\nThat’s why we’re really excited to announce a few things:\n\nFirstly, we’re going to be updating this blog with a change list every time we push an update to Beyond Tabletop. We’ll also be posting a little bit about the decisions that go into making Beyond Tabletop’s tools.\n\nSecondly, we have a big update coming soon, which we hope will expand the number of people who can use Beyond Tabletop. When we launched, we focused on the experience of the in-person gaming group. We wanted to create tools that were easy for a real life group to use. This update will finally extend support to online groups as well. Among many many other features, we’re adding a “Table” tool which will allow groups to organize and provide a central location to load all your sheets and maps. We’ll post about it more detail when we are ready to release it.\n\nLastly, as you’ll see in our next post, the battlemap is getting zoom functionality! Now you can zoom in and out of your battle so it is easier to orient yourself and find the action. As always, let us know how you like this new feature and if there’s anything we can do to improve it.\n\nGame on, <br />Beyond Tabletop Dev Team",
+      "created_at": "March 2, 2015"
+    },
+    {
+      "title": "D&D 5E Sheets Go Live",
+      "body": "Beyond Tabletop now supports D&D 5E character sheets! Come check them out and let us know what you think: <a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23dnd5e/posts\">#dnd5e</a>     <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23dndnext/posts\">#dndnext</a>     <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23dnd5/posts\">#dnd5</a>   ",
+      "created_at": "October 15, 2014",
+      "attachments": [
+        {
+          "url": "http://www.beyondtabletop.com/ico/favicon-310.png"
+        }
+      ]
+    },
+    {
+      "title": "Beyond Tabletop Free for All During Open Beta",
+      "body": "We haven’t posted in about a year and there’s a lot to catch up on. In short we have rebuilt all of Beyond Tabletop, and it’s available now for free during our beta period.\n\nBeyond Tabletop is a set of tools for RPG players who want to enhance their in-person game sessions with cleanly designed, easy-to-use online character sheets and maps. Our web application is subscription-free and designed to be used on all devices. We currently offer two products - a battle map, which is designed to accommodate many RPG systems, and character sheets, which are built for the Pathfinder system (with more systems on the way!)\n\nOur app connects to your Google account, so your character sheets, maps and other Beyond Tabletop files are stored on your own Google Drive. Using Drive means you get nearly infinite storage space for your files. Pay for access to each tool once; you keep your files forever. You can also share any of your files with other users as easily as you can share any other Drive file.\n\nTake our tools for a test drive and let us know what you think!",
+      "created_at": "September 16, 2014",
+      "attachments": [
+        {
+          "url": "http://www.beyondtabletop.com/ico/favicon-310.png"
+        }
+      ]
+    },
+    {
+      "title": "Fortitude Save",
+      "body": "Hey everyone,\n\nWe’ve had a lot of fun in the last month. This Kickstarter is the first exposure of our product to the world, and we’ve learned a lot! You have provided invaluable feedback and ideas that will make our product great.\n\nThe bad news is our Kickstarter has less than 2 days left until it finishes, and we still have 85% of the way to go until we’re funded. I’m not a Mathmagician, but I’m pretty sure we aren’t going to make it.\n\nIt’s not all bad news though! We are still committed to developing Beyond Tabletop and providing you with a great product for your game nights. Over the next few months, our focus will be on delivering the best possible experience for the in-person gaming session.\n\nFirst, we’re going to scale back our hosting solution, allowing us to get rid of subscriptions and Player, GM, and Party packages. Instead, we’ll be offering the full application at a one-time cost of $10.\n\nSecond, we’re going to really work to enhance the functionality, usability, and accessibility of the application for real-life play. Based on the feedback we’ve received, we’ll be focusing on making this the best application it can be on touch devices like tablets and touch phones.\n\nSo we hope you’ll stick with us and continue to help us make Beyond Tabletop better. If you haven’t done so already, please go to <a href=\"http://www.beyondtabletop.com\" class=\"ot-anchor\">http://www.beyondtabletop.com</a> and sign up for our updates. In about a month, we’ll start offering those $10 accounts to the people who have signed up on our website.\n\nWe’re very excited to continue to work on this project. We also want to thank everyone who supported us, asked questions and had ideas to help us adapt in the last several weeks. Beyond Tabletop has grown into a much better product because of your contributions. Thank you, and happy gaming!",
+      "created_at": "April 27, 2013"
+    },
+    {
+      "title": "Two weeks left!",
+      "body": "We're only two weeks away until the end of our Kickstarter campaign, but we still have a long way to go. We're redoubling our efforts in the next two weeks to get the word out about Beyond Tabletop, and we hope you will do the same.\n\nMore importantly, we are hard at work polishing our application for our alpha users! This morning we finished a new update which fully integrates character sheets with the tabletop. Now you make your changes and preview them on the character sheet viewer, then join any table and bring your character into the same window without having to switch between browser tabs! Adding a character to the table also adds a personalized token, which you can also set up on the character sheet page.\n\nFinally, we have included a list of upcoming features on our Kickstarter page. These are features we plan to implement, and our early users will help us determine which ones are more important to create first. The features include Offline Mode, hexagonal maps, background image support, and native apps for Android, iOS and Windows 8.\n\nOnce again, we want to thank our friends, family, and backers for supporting us and this product we have created. Continue to tell your friends or anyone who may be interested in playing tabletop RPGs on their phone, tablet or computer!\n\n<a href=\"http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop/\" class=\"ot-anchor\">http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop/</a>",
+      "created_at": "April 15, 2013",
+      "attachments": [
+        {
+          "url": "https://s3.amazonaws.com/ksr/projects/487143/photo-med.jpg?1365082803"
+        }
+      ]
+    },
+    {
+      "title": "New Subscription-Free Rewards",
+      "body": "Based on user feedback so far we’ve decided to make a change to our pricing that we think users will really like. We’re getting rid of subscriptions for Player accounts. We are gamers and we know gamers don’t like subscriptions. By moving Player accounts to a one-time fee, we think more people will be able to enjoy our application, and will get a better experience out of it.\n\nGame Master accounts will remain subscription-based mainly because Game Masters will be hosting games and have campaign assets, which cost more money to maintain than Player accounts. We feel like this new pricing better reflects the needs of gamers; you can play the game without paying too much, and we can still afford to keep the servers running and continue developing this application. We are also keeping our party packages so that game masters can save money when buying for a group of players.\n\nWe also want to take this opportunity to thank all the people who have supported us so far and given us some really great feedback. We will continue to make our product great with your support.",
+      "created_at": "April 6, 2013"
+    },
+    {
+      "title": "Learning from our Launch",
+      "body": "Our Kickstarter project has been up for a few days now--enough time to collect some data and analyze our viewers' behaviors. We've already raised over 5% of our total goal, which is awesome progress! We did notice though, for the amount of visitors who watched our video, only about 25% of them got to the end. Of those visitors who started the video, only 1% actually backed the project.\n\nWe have also gotten some feedback from friends and message boards that our application's features aren't talked about enough on our Kickstarter page. People know we're offering in a vague way, but they don't specifically see how powerful and easy Beyond Tabletop's tools are to use.\n\nBecause of all this, we've put together a new video for our Kickstarter page that's just over 2 minutes instead of 4:30. The video focuses on actually using Beyond Tabletop, instead of talking about it! We hope that will a new round of promotion, we'll be able to double, maybe even quadruple our conversion rate.\n\nThanks to everyone who's supported our project so far, and also thanks to everyone who has given us feedback. It really helps!\n\n<a href=\"http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop\" class=\"ot-anchor\">http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop</a>\n\nKeep telling your friends or anyone you know who may be interesting in shedding the woes of pencil and paper from their tabletop RPGs!",
+      "created_at": "April 2, 2013",
+      "attachments": [
+        {
+          "url": "https://s3.amazonaws.com/ksr/projects/487143/photo-main.jpg?1364226708"
+        }
+      ]
+    },
+    {
+      "title": "Character Sheet Tabs and Groups",
+      "body": "One of the things our friends and early testers kept asking for was the ability to create separate groups within the Stats section of their character sheets. We originally didn't have groups, because different RPG systems split their stats up in different ways, and we wanted to keep it flexible. But when our users ask, we deliver. Today I have been working on setting up stat grouping. Here's how it works:\n\nEach stat keeps track of its group. If a stat has no group, it defaults to the \"stats\" group. Users can set the name of the group manually via a text field on the Edit screen. In the future, we'll be setting up some slick UI so you can drag and drop stats from one group to another, but for now you can just use the text field. When you enter a new name into the group field, the application adds a navigation tab at the top of your character sheet. Now you can split up your stats between groups, keeping as many stats as necessary on screen at any time.\n\nThese features are part of the Beyond Tabletop character sheet builder, which you can get access to if you back our kickstarter:\n\n<a href=\"http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop\" class=\"ot-anchor\">http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop</a>\n\nOnce our project is funded, all backers who signed up for Alpha Phase access will receive their accounts and get access to all our tools!",
+      "created_at": "April 1, 2013",
+      "attachments": [
+        {
+          "url": "https://s3.amazonaws.com/ksr/projects/487143/photo-main.jpg?1364226708"
+        }
+      ]
+    },
+    {
+      "title": "Kickstarter Launch",
+      "body": "In parallel with  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23TableTopDay/posts\">#TableTopDay</a>  we have launched our Kickstarter campaign! We're very excited to continue work on this product, and we hope you'll share this project with your friends:\n\n<a href=\"http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop\" class=\"ot-anchor\">http://www.kickstarter.com/projects/beyondtabletop/beyond-tabletop</a>\n\nGo spread the word! If you have any questions please feel free to ask them on our Kickstarter page.",
+      "created_at": "March 30, 2013",
+      "attachments": [
+        {
+          "url": "https://s3.amazonaws.com/ksr/projects/487143/photo-main.jpg?1364226708"
+        }
+      ]
+    },
+    {
+      "title": "We Want to Hear from You",
+      "body": "These days there are hundreds of ways for developers to stay connected with their users. Since Beyond Tabletop is a small operation, and we’re just now getting ready to launch our flagship Kickstarter campaign, we decided to concentrate most of our communication efforts into the Kickstarter comments section. Feel free to continue to tweet @beyondtabletop or post on our Google+ posts, but for the most part we want discussion to take place on Kickstarter. \n\nOnce the project is funded, we’ll set up forums for users to communicate in a more formal way, so you can better organize conversations and topics.\n\nTomorrow is  <a rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23TableTopDay/posts\">#TableTopDay</a>   and we can’t wait! Our project will launch at 10 a.m. eastern. See you there!",
+      "created_at": "March 29, 2013"
+    },
+    {
+      "title": "Ready to Kickstart",
+      "body": "Yesterday we finished the last edits on our Kickstarter video and submitted the project for approval. We're really excited to launch the campaign, and we can't wait for people to start using our tools.\n\nRight now our release schedule looks something like this:\n\nMarch 30 (TableTop Day) - Beyond Tabletop Kickstarter campaign launches<br />April 29 - Kickstarter campaign ends. If we meet our goal, Alpha accounts will be sent out over the course of that week.<br />June 1 - Alpha Phase ends, Closed Beta Phase begins. Everyone who signed up at the yearly pricing will get access to the Closed Beta<br />July 1 - Closed Beta Phased ends and Open Beta Phase begins.\n\nThose dates will be fluid. We may not need a whole month for each phase, or we may need more time. After we move into Open Beta, we'll start preparing for the \"official\" release later in the year. If we meet our mobile app stretch goals, we'll release the Android and iOS apps at that time too.\n\nDon't forget to connect with us on twitter, facebook or whatever else!\n\n<a href=\"https://twitter.com/beyondtabletop\" class=\"ot-anchor\">https://twitter.com/beyondtabletop</a><br /><a href=\"https://www.facebook.com/pages/Beyond-Tabletop/221970904611220\" class=\"ot-anchor\">https://www.facebook.com/pages/Beyond-Tabletop/221970904611220</a><br /><a href=\"http://www.youtube.com/user/beyondtabletop\" class=\"ot-anchor\">http://www.youtube.com/user/beyondtabletop</a><br /><a href=\"https://plus.google.com/u/1/b/115673272174710929091/115673272174710929091/posts\" class=\"ot-anchor\">https://plus.google.com/u/1/b/115673272174710929091/115673272174710929091/posts</a>",
+      "created_at": "March 28, 2013"
+    },
+    {
+      "title": "Introducing Beyond Tabletop",
+      "body": ", the easiest online RPG toolset, launching its kickstarter campaign on TableTop Day, March 30, 2013. Check out the demo on our homepage! <a href=\"http://www.beyondtabletop.com/\" class=\"ot-anchor\">http://www.beyondtabletop.com/</a>",
+      "created_at": "March 27, 2013"
+    }
+  ]
+}

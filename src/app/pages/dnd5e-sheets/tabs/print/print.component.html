@@ -1,0 +1,276 @@
+<div class="print-container" *ngIf="self.locals.full_access" [ngClass]="self.locals.data.print.clean_pagination ? 'clean-pagination' : ''">
+  <div class="print-options print-box bm-10">
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-4">
+        <label class="control-label downcase">Player Name</label>
+        <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.print.player_name">
+      </div>
+      <div class="flex-col-4">
+        <label class="block-label downcase">Hide remaining values for HP, etc?</label>
+        <label class="checkbox-inline checkbox-wrap downcase">
+          <input type="checkbox" title="Hide remaining values?" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.print.hide_remaining"> Hide remaining?
+        </label>
+      </div>
+
+      <div class="flex-col-4">
+        <label class="block-label downcase">Clean pagination?</label>
+        <label class="checkbox-inline checkbox-wrap downcase">
+          <input type="checkbox" title="Hide remaining values?" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.print.clean_pagination"> Keeps data together no with awkward breaks. Disable this if you have a lot of data which doesn't show up.
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="print-page-1">
+    <div class="print-box bm-10">
+      <div class="flex-row-tablet flex-config-align-center">
+        <div class="flex-col-4">
+          <div class="print-profile" *ngIf="self.model.basic.image">
+            <div class="profile-image">
+              <div class="img" [ngStyle]="{ 'background-image': 'url(' + self.model.basic.image + ')' }"></div>
+            </div>
+          </div>
+          <h3 class="print-name">{{ self.model.name }}</h3>
+        </div>
+        <div class="flex-col-8">
+          <div class="flex-row-tablet flex-config-wrap">
+            <div class="flex-col-4 print-header-info">
+              Level {{ self.methods.getTotalLevel() }} {{ self.methods.getAllKlasses() }}
+            </div>
+            <div class="flex-col-4 print-header-info">{{ self.model.basic.background.name }}</div>
+            <div class="flex-col-4 print-header-info">{{ self.methods.getPlayerName() }}</div>
+            <div class="flex-col-4 print-header-info">{{ self.model.basic.race }}</div>
+            <div class="flex-col-4 print-header-info">{{ self.model.basic.alignment }}</div>
+            <div class="flex-col-4 print-header-info">{{ self.methods.getTotalXP() }} XP</div>
+            <div class="flex-col-4 print-header-info" *ngFor="let item of self.methods.listCompleteProfiles()">{{ item.text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-4">
+        <div class="flex-row-tablet flex-gutters-5">
+          <div class="flex-col-4">
+            <div class="print-ability" *ngFor="let abl of self.locals.selection.ability_words">
+              <div class="ps12 bm-10">{{ abl.word }}</div>
+              <div class="ps36">{{ self.methods.getAbilityTotal(self.model.abilities[abl.name]) }}</div>
+              <div class="ps24">{{ self.methods.getAbilityMod(self.model.abilities[abl.name]) }}</div>
+            </div>
+          </div>
+          <div class="flex-col-8">
+
+            <div class="print-box bm-10">
+              <div class="flex-row-all flex-config-align-center flex-gutters-5">
+                <div class="ps24 flex-col">{{ self.model.basic.inspiration }}</div>
+                <div class="ps12 flex-col">Inspiration</div>
+              </div>
+            </div>
+
+            <div class="print-box bm-10">
+              <div class="flex-row-all flex-config-align-center flex-gutters-5">
+                <div class="ps24 flex-col">{{ self.methods.getProficiencyTotal() }}</div>
+                <div class="ps12 flex-col">Proficiency Bonus</div>
+              </div>
+            </div>
+
+            <div class="print-box bm-10">
+              <div class="bm-10">
+                <div class="flex-row-all flex-config-align-center flex-gutters-5" *ngFor="let abl of self.locals.selection.ability_words">
+                  <div class="flex-col" [ngClass]="self.model.abilities[abl.name].save_prof ? 'p-blue' : 'p-gray'">
+                    <i class="material-icons">{{ self.model.abilities[abl.name].save_prof ? 'radio_button_checked' : 'radio_button_unchecked' }}</i>
+                  </div>
+                  <div class="ps24 flex-col">{{ self.methods.getSaveTotal(self.model.abilities[abl.name]) }}</div>
+                  <div class="ps12 flex-col">{{ abl.word }}</div>
+                </div>
+              </div>
+              <div class="ps13 pssemi text-center">Saving Throws</div>
+            </div>
+
+            <div class="print-box bm-10">
+              <div class="bm-10">
+                <div class="flex-row-all flex-config-align-center flex-gutters-5" *ngFor="let skill of self.methods.listSkills()">
+                  <div class="flex-col" [ngClass]="skill.proficient ? 'p-blue' : 'p-gray'">
+                    <i class="material-icons">{{ skill.proficient ? 'radio_button_checked' : 'radio_button_unchecked' }}</i>
+                  </div>
+                  <div class="ps24 flex-col">{{ self.methods.getSkillTotal(skill) }}</div>
+                  <div class="ps12 flex-col"><span>{{ skill.name }}</span> <span class="p-gray">(<span>{{ skill.ability }}</span>)</span></div>
+                </div>
+              </div>
+              <div class="ps13 pssemi text-center">Skills</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="print-box bm-10">
+          <div class="flex-row-all flex-config-align-center flex-gutters-5">
+            <div class="ps24 flex-col">{{ self.methods.getSkillTotalByName('Perception') + 10 }}</div>
+            <div class="ps12 flex-col">Passive Wisdom (Perception)</div>
+          </div>
+        </div>
+
+        <div class="print-box">
+          <div class="bm-10 b-border ps12 flex-row-all flex-config-spaced">
+            <span>Wealth</span>
+            <span class="pssemi">{{ self.methods.getTotalWealth() }}</span>
+          </div>
+          <div class="bm-10">
+            <div class="ps14 downcase flex-row-all flex-config-spaced bm-5" *ngFor="let armor of self.methods.listActiveArmors()">
+              <div>{{ armor.name }}</div>
+              <div class="psbold">{{ armor.bonus }}</div>
+            </div>
+            <div class="ps14 downcase flex-row-all flex-config-spaced bm-5" *ngFor="let weapon of self.methods.listWeapons()">
+              <div>{{ weapon.name }}</div>
+              <div class="psbold">{{ weapon.damage_die }}</div>
+            </div>
+          </div>
+          <div class="ps13 pssemi text-center">Equipment</div>
+        </div>
+
+      </div>
+      <div class="flex-col-4">
+        <div class="flex-row-all flex-gutters-5 flex-config-stretch text-center bm-10">
+          <div class="flex-col-4 flex-row-all flex-config-stretch">
+            <div class="print-box flex-col-12">
+              <div class="ps36">{{ self.methods.getTotalAC() }}</div>
+              <div class="ps13 pssemi">Armor Class</div>
+            </div>
+          </div>
+          <div class="flex-col-4 flex-row-all flex-config-stretch">
+            <div class="print-box flex-col-12">
+              <div class="ps36">{{ self.methods.getTotalInit() }}</div>
+              <div class="ps13 pssemi">Initiative</div>
+            </div>
+          </div>
+          <div class="flex-col-4 flex-row-all flex-config-stretch">
+            <div class="print-box flex-col-12">
+              <div class="ps36">{{ self.methods.getTotalSpeed() }}</div>
+              <div class="ps13 pssemi">Speed</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="print-box bm-10">
+          <div class="flex-row-all flex-config-spaced flex-config-align-center bm-10 b-border">
+            <div class="ps10 p-gray downcase">Hit Point Maximum</div>
+            <div class="ps24">{{ self.methods.getHPTotal() }}</div>
+          </div>
+          <div class="ps36 text-center bm-10" [ngClass]="self.methods.printRemainingNodeClasses()">{{ self.methods.getHPRemaining() }}</div>
+          <div class="ps13 pssemi text-center">Current Hit Points</div>
+        </div>
+
+        <div class="print-box bm-10">
+          <div class="ps36 text-center bm-10" [ngClass]="self.methods.printRemainingNodeClasses()">{{ self.model.combat.hp.temporary }}</div>
+          <div class="ps13 pssemi text-center">Temporary Hit Points</div>
+        </div>
+
+        <div class="flex-row-all flex-gutters-5 flex-config-stretch bm-10">
+          <div class="flex-col-6 flex-row-all flex-config-stretch">
+            <div class="print-box flex-col-12" *ngFor="let klass of self.methods.getFirstKlassAsArray()">
+              <div class="flex-row-all flex-config-spaced flex-config-align-center bm-10 b-border">
+                <div class="ps10 p-gray downcase">Total</div>
+                <div class="ps16 psbold downcase">
+                  <span>{{ self.methods.getMiscValueAutoTotal(klass.hit_dice) }}</span><span>{{ klass.hit_die }}</span>
+                </div>
+              </div>
+              <div class="ps36 text-center" [ngClass]="self.methods.printRemainingNodeClasses()">{{ klass.hit_dice.remaining }}</div>
+              <div class="ps10 text-center">Hit Dice</div>
+            </div>
+          </div>
+          <div class="flex-col-6 flex-row-all flex-config-stretch">
+            <div class="print-box flex-col-12">
+              <div class="flex-row-all flex-config-wrap flex-config-align-center bm-30 flex-gutters-5">
+                <div class="flex-col-6 text-right">
+                  <div class="ps10">Successes</div>
+                </div>
+                <div class="flex-col-6">
+                  <i class="material-icons">radio_button_unchecked</i>
+                  <i class="material-icons">radio_button_unchecked</i>
+                  <i class="material-icons">radio_button_unchecked</i>
+                </div>
+                <div class="flex-col-6 text-right">
+                  <div class="ps10">Failures</div>
+                </div>
+                <div class="flex-col-6">
+                  <i class="material-icons">radio_button_unchecked</i>
+                  <i class="material-icons">radio_button_unchecked</i>
+                  <i class="material-icons">radio_button_unchecked</i>
+                </div>
+              </div>
+              <div class="ps10 text-center">Death Saves</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="print-box bm-10">
+          <div class="bm-10">
+            <div class="flex-row-all flex-gutters-5 bm-5 ps16 downcase" *ngFor="let attack of self.methods.listAttacks()">
+              <div class="flex-col flex-dynamic">{{ self.methods.getAttackName(attack) }}</div>
+              <div class="flex-col flex-static">{{ self.methods.printAttackRoll(attack) }}</div>
+              <div class="flex-col flex-static">{{ self.methods.printDamageRoll(attack) }}</div>
+            </div>
+          </div>
+          <div class="ps13 pssemi text-center">Attacks &amp; Spellcasting</div>
+        </div>
+
+        <div *ngFor="let attr of self.methods.listBackgroundAttributes()">
+          <div class="print-box bm-10">
+            <div class="p16 downcase bm-10" *ngFor="let item of self.methods.getBackgroundAttributeList(attr.slug)">{{ item.text }}</div>
+            <div class="ps13 pssemi text-center">{{ attr.name }}</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="flex-col-4">
+        <div class="print-box bm-10" *ngFor="let list of self.methods.listPopulatedListsBySpecial(true)">
+          <div class="p16 downcase bm-10" *ngFor="let item of self.methods.listListItems(list)" [innerHTML]="item.text"></div>
+          <div class="ps10 text-center">{{ list.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="print-page-2">
+    <div class="print-box bm-10">
+      <div class="flex-row-tablet">
+        <div class="flex-col-4 print-name" *ngFor="let klass of self.methods.getFirstKlassAsArray()">{{ klass.name }}</div>
+        <div class="flex-col-8">
+          <div class="flex-row-all">
+            <div class="flex-col-4"></div>
+            <div class="flex-col-4"></div>
+            <div class="flex-col-4"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex-row-tablet flex-gutters-5 flex-config-wrap flex-config-stretch">
+      <div class="flex-col-4 flex-row-all flex-config-stretch">
+        <div class="print-box bm-10 flex-col-12">
+          <div class="bm-10 b-border">
+            <span class="ps12 pssemi">Cantrips</span>
+          </div>
+          <div class="flex-row-all flex-config-align-center flex-gutters-5" *ngFor="let spell of self.methods.listSpellsForLevel(0)">
+            <div class="flex-col" [ngClass]="spell.prepared ? 'p-blue' : 'p-gray'">
+              <i class="material-icons">{{ spell.prepared ? 'radio_button_checked' : 'radio_button_unchecked' }}</i>
+            </div>
+            <div class="flex-col ps14 downcase">{{ spell.name }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-4 flex-row-all flex-config-stretch" *ngFor="let slot of self.methods.listPrintSpellSlots(); index as i">
+        <div class="print-box bm-10 flex-col-12">
+          <div class="bm-10 b-border flex-row-all flex-config-spaced">
+            <span class="ps18 pssemi">{{ i + 1 }}</span>
+            <span class="ps14 pssemi">Slots: <span>{{ self.methods.getMiscValueAutoTotal(slot) }}</span>/<span>{{ slot.remaining }}</span></span>
+          </div>
+          <div class="flex-row-all flex-config-align-center flex-gutters-5" *ngFor="let spell of self.methods.listSpellsForLevel(i + 1)">
+            <div class="flex-col" [ngClass]="spell.prepared ? 'p-blue' : 'p-gray'">
+              <i class="material-icons">{{ spell.prepared ? 'radio_button_checked' : 'radio_button_unchecked' }}</i>
+            </div>
+            <div class="flex-col ps14 downcase">{{ spell.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

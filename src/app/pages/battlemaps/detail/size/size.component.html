@@ -1,0 +1,14 @@
+<div class="hide-on-collapsed">
+  <div class="select-wrap">
+    <i class="material-icons">arrow_drop_down</i>
+    <label>{{ item.size.name }}</label>
+    <select
+      class="form-control"
+      (ngModelChange)="self.methods.onSizeChange(item)"
+      [(ngModel)]="item.size.name"
+      ng-selected="option.value === item.size.name"
+    >
+      <option [value]="option.value" *ngFor="let option of self.locals.selection.sizes">{{ option.name }}</option>
+    </select>
+  </div>
+</div>

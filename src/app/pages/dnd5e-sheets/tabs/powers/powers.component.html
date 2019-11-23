@@ -1,0 +1,90 @@
+<div class="sheet-tab">
+  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
+  <div class="group group-powers" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div class="flex-row-mobile flex-config-spaced bmr-40">
+      <div class="flex-dynamic">
+        <h2 class="group-header">Powers</h2>
+      </div>
+      <div class="flex-static rest-buttons">
+        <button (click)="self.methods.onShortRest()" class="white-button">Short Rest</button>
+        <button (click)="self.methods.onLongRest()" class="white-button">Long Rest</button>
+      </div>
+    </div>
+    <div class="flex-row-tablet flex-config-wrap flex-gutters-15 bmr-40">
+      <div class="class-power flex-col-6 bmr-40" *ngFor="let klass of self.methods.listKlasses()">
+        <h3 class="h4">{{ klass.name }}</h3>
+        <div [ngSwitch]="klass.name">
+          <bt-dnd5e-power-barbarian  [self]="self" [klass]="klass" *ngSwitchCase="'Barbarian'"></bt-dnd5e-power-barbarian>
+          <bt-dnd5e-power-bard       [self]="self" [klass]="klass" *ngSwitchCase="'Bard'"></bt-dnd5e-power-bard>
+          <bt-dnd5e-power-cleric     [self]="self" [klass]="klass" *ngSwitchCase="'Cleric'"></bt-dnd5e-power-cleric>
+          <bt-dnd5e-power-druid      [self]="self" [klass]="klass" *ngSwitchCase="'Druid'"></bt-dnd5e-power-druid>
+          <bt-dnd5e-power-fighter    [self]="self" [klass]="klass" *ngSwitchCase="'Fighter'"></bt-dnd5e-power-fighter>
+          <bt-dnd5e-power-monk       [self]="self" [klass]="klass" *ngSwitchCase="'Monk'"></bt-dnd5e-power-monk>
+          <bt-dnd5e-power-paladin    [self]="self" [klass]="klass" *ngSwitchCase="'Paladin'"></bt-dnd5e-power-paladin>
+          <bt-dnd5e-power-ranger     [self]="self" [klass]="klass" *ngSwitchCase="'Ranger'"></bt-dnd5e-power-ranger>
+          <bt-dnd5e-power-rogue      [self]="self" [klass]="klass" *ngSwitchCase="'Rogue'"></bt-dnd5e-power-rogue>
+          <bt-dnd5e-power-sorcerer   [self]="self" [klass]="klass" *ngSwitchCase="'Sorcerer'"></bt-dnd5e-power-sorcerer>
+          <bt-dnd5e-power-warlock    [self]="self" [klass]="klass" *ngSwitchCase="'Warlock'"></bt-dnd5e-power-warlock>
+          <bt-dnd5e-power-wizard     [self]="self" [klass]="klass" *ngSwitchCase="'Wizard'"></bt-dnd5e-power-wizard>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="self.model.prefs.homebrew">
+      <h2 class="group-header">Homebrew Powers</h2>
+      <div class="flex-row-all flex-row-all flex-config-align-center flex-gutters-5">
+        <div class="flex-col sort-column">
+        </div>
+        <div class="flex-col flex-dynamic">
+          <label class="control-label">Name</label>
+        </div>
+        <div class="flex-col num-field-column">
+          <label class="control-label">Value</label>
+        </div>
+        <div class="flex-col num-field-column">
+          <label class="control-label">Remain</label>
+        </div>
+        <div class="flex-col w-120">
+          <label class="control-label">Reset</label>
+        </div>
+        <div class="flex-col close-column">
+        </div>
+      </div>
+      <div cdkDropList [cdkDropListData]="self.model.powers.custom.spendables" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-custom-power flex-row-all flex-config-align-center flex-gutters-5 bm-20" *ngFor="let power of self.methods.listCustomPowerSpendables()" cdkDrag [cdkDragData]="power">
+          <div class="flex-col sort-column">
+            <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+          </div>
+          <div class="flex-col flex-dynamic">
+            <div class="flex-row-all flex-config-align-center flex-gutters-5 bm-10">
+              <div class="flex-col flex-dynamic">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.name" placeholder="Name">
+              </div>
+              <div class="flex-col num-field-column">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.value">
+              </div>
+              <div class="flex-col num-field-column">
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.remaining">
+              </div>
+              <div class="flex-col w-120">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.methods.selectionReverseLookup(self.locals.selection.reset_options, power.reset) }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.reset">
+                    <option [value]="option.value" *ngFor="let option of self.locals.selection.reset_options">{{ option.label }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.text" placeholder="Description">
+            </div>
+          </div>
+          <div class="flex-col close-column">
+            <button title="Remove Spendable" class="g-remove" (click)="self.methods.removeByObject(self.model.powers.custom.spendables, power)"><i class="material-icons">delete</i></button>
+          </div>
+        </div>
+      </div>
+      <button class="g-add" (click)="self.methods.addCustomPowerSpendable()"><i class="material-icons">add</i></button>
+    </div>
+  </div>
+</div>

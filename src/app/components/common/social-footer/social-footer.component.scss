@@ -1,0 +1,43 @@
+@import '../../../../app/abstracts/variables.scss';
+@import '../../../../app/abstracts/mixins.scss';
+
+.social-footer {
+  text-align: center;
+  @include flex-static;
+  @include above-mobile {
+    text-align: right;
+  }
+  a {
+    display: inline-block;
+    color: #FFF;
+    @include font-size(18, 1);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 11px;
+    margin: 0 5px;
+    border-radius: 20px;
+    @include above-mobile {
+      margin: 0 0 0 5px;
+    }
+    &:hover {
+      color: rgba(white, .4);
+    }
+    i {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  .social-twitter {
+    background: #55d8f4;
+  }
+  .social-facebook {
+    background: #3f5fa1;
+  }
+  .social-reddit {
+    background: #ff4500;
+  }
+  .social-discord {
+    background: #7289da;
+  }
+}

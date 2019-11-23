@@ -1,0 +1,92 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Choose a Race</h1>
+    <h2 class="gsh3">Each character belongs to a race, one of the many intelligent humanoid species in the D&amp;D world. The most common player character races are dwarves, elves, halflings, and humans.</h2>
+    <h2 class="gsh4 gmuted">Each race has strengths and weaknesses. Some races synergize well with certain classes. This kind of synergy, along with other choices you will make during character creation is called a "build." There are is no wrong way to build your character, but think about the benefits each race will give your character as you make your choice.</h2>
+
+    <div class="bm-20">
+      <label class="gl1">Race</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ self.model.basic.race }}</label>
+        <select class="form-control" (ngModelChange)="self.methods.onRaceChange(true)" [(ngModel)]="self.model.basic.race">
+          <option [value]="race" *ngFor="let race of self.locals.selection.races">{{ race }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="self.locals.ready && self.locals.data.races[self.model.basic.race] !== undefined">
+      <h3 class="gh3">{{ self.model.basic.race }}</h3>
+      <p>{{ self.locals.data.races[self.model.basic.race].summary }}</p>
+      <h4 class="gh4"><span>{{ self.model.basic.race }}</span> Traits</h4>
+      <ul>
+        <li *ngFor="let trait of self.methods.getRaceTraits(self.locals.data.races[self.model.basic.race])">{{ trait }}</li>
+      </ul>
+    </div>
+
+    <div class="bm-20" *ngIf="self.locals.selection.subraces[self.model.basic.race]">
+      <label class="gl1">Subrace</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ self.model.basic.subrace }}</label>
+        <select class="form-control" (ngModelChange)="self.methods.onSubraceChange(true)" [(ngModel)]="self.model.basic.subrace">
+          <option [value]="subrace" *ngFor="let subrace of self.locals.selection.subraces[self.model.basic.race]">{{ subrace }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="self.locals.ready && self.locals.data.races[self.model.basic.subrace] !== undefined">
+      <h3 class="gh3">{{ self.model.basic.subrace }}</h3>
+      <p>{{ self.locals.data.races[self.model.basic.subrace].summary }}</p>
+      <h4 class="gh4"><span>{{ self.model.basic.subrace }}</span> Traits</h4>
+      <ul>
+        <li *ngFor="let trait of self.methods.getRaceTraits(self.locals.data.races[self.model.basic.subrace])">{{ trait }}</li>
+      </ul>
+    </div>
+
+    <div *ngIf="!self.locals.data.builder.create_race.choices_made">
+      <p class="warning-text" *ngIf="self.locals.data.builder.create_race.invalid"><fa-icon [icon]="['fa', 'exclamation-triangle']"></fa-icon> Some options are invalid and must be fixed before continuing. <span>{{ self.locals.data.builder.create_race.invalid_reason }}</span></p>
+
+      <div class="bm-20" *ngIf="self.locals.data.races[self.model.basic.race].skill_choices">
+        <h4 class="gh4">Racial Skills</h4>
+        <p>Choose two racial skills before continuing to the next step.</p>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6" *ngFor="let skill of self.locals.data.races[self.model.basic.race].skill_choices">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ skill.name }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.name">
+                <option [value]="skill.name" *ngFor="let skill of self.methods.listSkills()">{{ skill.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bm-20" *ngIf="self.locals.data.races[self.model.basic.race].ability_choices">
+        <h4 class="gh4">Racial Ability Bonus</h4>
+        <p>Choose two abilities to increase by 1 before continuing to the next step.</p>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6" *ngFor="let ability of self.locals.data.races[self.model.basic.race].ability_choices">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ ability.name }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="ability.name">
+                <option [value]="abl" *ngFor="let abl of self.locals.selection.abilities">{{ abl }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.saveBuilderRace(self.locals.data.races[self.model.basic.race])" class="button button-cyan button-block">Confirm Race</button>
+      </div>
+    </div>
+  </div>
+</div>

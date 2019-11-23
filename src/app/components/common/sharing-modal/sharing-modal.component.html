@@ -1,0 +1,41 @@
+<div class="btt-modal" *ngIf="sharer.showing_modal">
+  <div class="btt-modal-bg"></div>
+  <button class="btt-modal-close button-unstyled" (click)="sharer.closeSharingModal()">
+    <i class="material-icons i24">close</i>
+  </button>
+  <div class="btt-modal-container" (click)="sharer.closeSharingModal()">
+    <div class="btt-modal-content" *ngIf="sharer.session" (click)="$event.stopPropagation()">
+      <h3 class="h20 bm-10">Share <span>{{ sharer.session.doc_title }}</span></h3>
+      <p class="bm-5">Any logged in player can view your sheet with a link.</p>
+      <input type="text" class="form-control bm-20" [value]="sharer.linkToTool(sharer.session)" readonly>
+      <p>The following players also have edit access:</p>
+      <div class="bm-20">
+        <div class="flex-row-all flex-config-align-center flex-gutters-5" *ngFor="let permission of sharer.listDocumentPermissions(sharer.session.doc_id)">
+          <div class="flex-col"><strong>{{ permission.name }}</strong></div>
+          <div class="flex-col flex-dynamic">{{ permission.email }}</div>
+          <div class="flex-col" *ngIf="permission.role !== 'owner'">
+            <button class="g-remove" (click)="sharer.removePermission(permission)">
+              <i class="material-icons">close</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label class="bm-20">Enter an email address to share it with another player. Keep in mind if they haven't converted to Firebase yet, they won't be able to interact with your files.</label>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col flex-dynamic">
+            <input type="text" class="form-control" [(ngModel)]="sharer.session.requested_email" placeholder="Email address">
+          </div>
+          <div class="flex-col flex-static">
+            <button (click)="sharer.findFirebaseUser()" class="button button-cyan">Share</button>
+          </div>
+        </div>
+        <div class="tm-20" *ngIf="sharer.session.message">{{ sharer.session.message }}</div>
+        <div class="tm-20" *ngIf="sharer.session.invite">
+          <div class="bm-10">Couldn't find a user with that email. Try entering it again, or send them an email and invite this person to join Beyond Tabletop!</div>
+          <a [href]="sharer.inviteMailto(sharer.session.requested_email)" class="button button-green">Invite via email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

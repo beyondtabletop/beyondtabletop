@@ -1,0 +1,43 @@
+<div class="overview-abilities-block">
+  <div class="flex-row-all flex-gutters-10">
+    <div class="flex-col-6 nav-clickable" (click)="self.methods.switchTab('abilities')">
+      <div class="flex-row-all flex-gutters-5" *ngFor="let ability of self.locals.selection.abilities ">
+        <div class="flex-col-6"><span>{{ ability }}</span>:</div>
+        <div class="flex-col-6">
+          <strong>{{ self.methods.getAbilityTotal(self.model.abilities[ability]) }}</strong>
+          /
+          <strong>{{ self.methods.getAbilityMod(self.model.abilities[ability]) }}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col-6 nav-clickable" (click)="self.methods.switchTab('abilities')">
+      <div class="flex-row-all flex-gutters-5" *ngFor="let stat of self.methods.listSaves()">
+        <div class="flex-col-6">
+          <span>{{ stat.name }}</span>:
+        </div>
+        <div class="flex-col-6">
+          <strong>{{ self.methods.getSaveTotal(stat) }}</strong>
+        </div>
+      </div>
+      <div class="flex-row-all flex-gutters-5 nav-clickable" (click)="self.methods.switchTab('combat')">
+        <div class="flex-col-6">CMB / CMD:</div>
+        <div class="flex-col-6">
+          <strong>{{ self.methods.getBothCombatScores(self.model.combat.cmb, self.model.combat.cmd) }}</strong>
+        </div>
+      </div>
+      <div class="flex-row-all flex-gutters-5 nav-clickable" (click)="self.methods.switchTab(
+      'Combat')">
+        <div class="flex-col-6">Initiative:</div>
+        <div class="flex-col-6">
+          <strong>{{ self.methods.getTotalInit() }}</strong>
+        </div>
+      </div>
+      <div class="flex-row-all flex-gutters-5 nav-clickable" (click)="self.methods.switchTab('combat')">
+        <div class="flex-col-6">Speed:</div>
+        <div class="flex-col-6">
+          <strong>{{ self.methods.getTotalSpeed() }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

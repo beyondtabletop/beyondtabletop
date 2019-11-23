@@ -1,0 +1,15 @@
+<div class="overview-skills-block">
+  <div class="nav-clickable overview-block" (click)="self.methods.switchTab('abilities')">
+    <h3>{{ block.name }}</h3>
+    <div class="flex-row-all flex-gutters-10" *ngFor="let skill of self.methods.listSkills()">
+      <div class="flex-col flex-static num-print-column">
+        <strong>{{ self.methods.getSkillTotal(skill) }}</strong>
+      </div>
+      <div class="flex-col flex-dynamic">
+        <fa-icon class="gmuted" [icon]="['fa', 'check-double']" *ngIf="skill.expert"></fa-icon>
+        <fa-icon class="gmuted" [icon]="['fa', 'check']" *ngIf="skill.proficient && !skill.expert"></fa-icon>
+        <span>{{ skill.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

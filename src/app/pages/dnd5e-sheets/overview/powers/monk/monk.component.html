@@ -1,0 +1,24 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 space-bottom">
+    <div class="flex-col-6">
+      <div class="power-label">Martial Arts</div>
+      <label class="block-label">{{ self.model.powers.Monk.martial_arts }}</label>
+    </div>
+    <div class="flex-col-6" *ngIf="klass.level >= 2">
+      <div class="power-label">Remaining Ki Points</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Monk.ki_points.remaining">
+    </div>
+  </div>
+  <div class="space-bottom" *ngIf="self.model.powers.Monk.tradition === 'Way of the Open Hand' && klass.level >= 6">
+    <div class="power-label">Wholeness of Body</div>
+    <button class="white-button" [disabled]="self.model.powers.Monk.wholeness === 0" (click)="self.methods.onWholenessOfBody()">
+      <span>{{ self.model.powers.Monk.wholeness > 0 ? 'Heal for ' + (klass.level * 3) + ' HP' : 'Out of Uses' }}</span>
+    </button>
+  </div>
+  <div *ngIf="self.model.powers.Monk.tradition === 'Way of the Four Elements' && klass.level >= 3">
+    <div class="block-label">Disciplines</div>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 power-label" *ngFor="let discipline of self.model.powers.Monk.disciplines || []">{{ discipline.text }}</div>
+    </div>
+  </div>
+</div>

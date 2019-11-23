@@ -1,0 +1,115 @@
+<div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 3">
+    <h5 class="h5">Ranger Archetype</h5>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Ranger.archetype }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.archetype">
+        <option [value]="option" *ngFor="let option of self.locals.selection.ranger_archetypes">{{ option }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.archetype" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">Fighting Style</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngFor="let style of self.model.powers.Ranger.style || []">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ style.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="style.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_fighting_styles">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Favored Enemies</h5>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 bm-5" *ngFor="let enemy of self.model.powers.Ranger.favored_enemies || []">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ enemy.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="enemy.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_favored_enemies">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-spaced">
+      <button class="action add-item" (click)="self.methods.addFavoredEnemy()">
+        <i class="material-icons">add</i>
+      </button>
+      <button class="action remove-item" (click)="self.methods.remove(self.model.powers.Ranger.favored_enemies, self.model.powers.Ranger.favored_enemies.length - 1)" *ngIf="self.model.powers.Ranger.favored_enemies.length > 0">
+        <i class="material-icons">remove</i>
+      </button>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Favored Terrains</h5>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 bm-5" *ngFor="let terrain of self.model.powers.Ranger.favored_terrains || []">
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ terrain.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="terrain.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_favored_terrains">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-spaced">
+      <button class="action add-item" (click)="self.methods.addFavoredTerrain()">
+        <i class="material-icons">add</i>
+      </button>
+      <button class="action remove-item" (click)="self.methods.remove(self.model.powers.Ranger.favored_terrains, self.model.powers.Ranger.favored_terrains.length - 1)" *ngIf="self.model.powers.Ranger.favored_terrains.length > 0">
+        <i class="material-icons">remove</i>
+      </button>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Ranger.archetype === 'Hunter' && klass.level >= 3">
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 bm-5">
+        <label class="control-label">Hunter's Prey</label>
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Ranger.hunters_prey }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.hunters_prey">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_hunter_feature_1">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-col-6 bm-5" *ngIf="klass.level >= 7">
+        <label class="control-label">Defensive Tactics</label>
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Ranger.defensive_tactics }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.defensive_tactics">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_hunter_feature_2">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-col-6 bm-5" *ngIf="klass.level >= 11">
+        <label class="control-label">Multiattack</label>
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Ranger.multiattack }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.multiattack">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_hunter_feature_3">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-col-6 bm-5" *ngIf="klass.level >= 15">
+        <label class="control-label">Superior Hunter's Defense</label>
+        <div class="select-wrap">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Ranger.superior_defense }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Ranger.superior_defense">
+            <option [value]="option" *ngFor="let option of self.locals.selection.ranger_hunter_feature_4">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

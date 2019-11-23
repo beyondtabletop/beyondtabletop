@@ -1,0 +1,21 @@
+<header class="left-tabs" [ngClass]="self.locals.tabs.showing_nav ? 'showing-nav' : ''">
+  <div class="visible-bar flex-row-all flex-config-align-center flex-gutters-5" (click)="self.methods.toggleNav()">
+    <div class="flex-col">
+      <button class="toggle-nav">
+        <i class="material-icons">menu</i>
+      </button>
+    </div>
+    <div class="flex-col">
+      <h2 class="rh24 weight-semibold">{{ self.methods.getActiveNavItem() }}</h2>
+    </div>
+  </div>
+  <div class="logo-wrap">
+    <a class="logo" routerLink="/dashboard">
+      <span class="dashboard">Back to Dashboard</span>
+    </a>
+  </div>
+  <div class="tabs-nav">
+    <a class="tab-nav-item" *ngFor="let tab of self.methods.listTabs()" (click)="self.methods.switchTab(tab.id)" [ngClass]="self.methods.tabClass(tab.id)">{{ tab.title }}</a>
+    <a routerLink="/dashboard" class="tab-nav-item tab-dashboard-item"><fa-icon [icon]="['fa', 'angle-left']"></fa-icon> Dashboard</a>
+  </div>
+</header>

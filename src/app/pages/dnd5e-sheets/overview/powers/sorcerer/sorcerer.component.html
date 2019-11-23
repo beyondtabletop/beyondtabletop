@@ -1,0 +1,18 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5" *ngIf="klass.level >= 2">
+    <div class="flex-col-6">
+      <div class="power-label">Remaining Sorcery Points</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.sorcery_points.remaining">
+    </div>
+  </div>
+  <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5" *ngIf="self.model.powers.Sorcerer.origin === 'Wild Magic'">
+    <div class="flex-col-6">
+      <div class="power-label">Remaining Tides of Chaos</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Sorcerer.tides_of_chaos.remaining">
+    </div>
+    <div class="flex-col-6">
+      <button class="white-button" (click)="self.methods.onWildSurge()">Wild Magic Surge</button>
+    </div>
+  </div>
+  <div class="space-bottom">{{ self.locals.data.last_magic_surge }}</div>
+</div>

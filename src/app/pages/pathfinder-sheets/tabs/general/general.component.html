@@ -1,0 +1,150 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-10">
+    <div class="flex-col-6">
+      <h2 class="group-header">Basic</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">Changing your class or level will automatically fill in details for your character from the CRB. Racial bonuses and modifers are NOT calculatead or automatically included.</p>
+      <p class="help-text" *ngIf="self.model.prefs.help"><strong>Note</strong>: No class-specific bonuses and powers are currently automatically calculated. We are in the process of cataloguing and testing all of these but we need your help! Let us know which class special abilities and upgrades would be most useful.</p>
+      <div class="group group-basic bmr-60">
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+          <div class="flex-col-6 stat-row stat-row-race">
+            <div class="name-col">
+              <div class="form-group">
+                <label class="control-label">Race</label>
+              </div>
+            </div>
+            <div class="value-col">
+              <div class="form-group">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.race">
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 stat-row stat-row-size">
+            <div class="name-col">
+              <div class="form-group">
+                <label class="control-label">Size</label>
+              </div>
+            </div>
+            <div class="value-col">
+              <div class="form-group">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.model.basic.size }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.size">
+                    <option [value]="option" *ngFor="let option of self.locals.selection.size">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <div class="form-group"><label class="control-label">Class</label></div>
+          </div>
+          <div class="flex-col-6">
+            <div class="form-group"><label class="control-label">Level</label></div>
+          </div>
+        </div>
+        <div class="bm-5" [ngClass]="i > 0 ? 'removable-klass': 'permanent-klass'" *ngFor="let klass of self.methods.listKlasses(); index as i">
+          <div class="flex-row-all flex-gutters-5 flex-config-align-center">
+            <div class="flex-col-6">
+              <div class="klass-col">
+                <div class="form-group">
+                  <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+                    <i class="material-icons">arrow_drop_down</i>
+                    <label>{{ klass.name }}</label>
+                    <select class="form-control" (ngModelChange)="self.methods.onClassChange(false)" [(ngModel)]="klass.name">
+                      <option [value]="name" *ngFor="let name of self.locals.selection.klass">{{ name }}</option>
+                    </select>
+                  </div>
+                  <input type="text" class="form-control" (ngModelChange)="self.methods.onClassChange(false)" [(ngModel)]="klass.name" *ngIf="self.model.prefs.homebrew">
+                </div>
+              </div>
+            </div>
+            <div class="flex-col-6">
+              <div class="level-col">
+                <div class="form-group">
+                  <div class="select-wrap">
+                    <i class="material-icons">arrow_drop_down</i>
+                    <label>{{ klass.level }}</label>
+                    <select class="form-control" (ngModelChange)="self.methods.onLevelChange()" [(ngModel)]="klass.level">
+                      <option [ngValue]="number" *ngFor="let number of self.methods.getLevelsForKlass(klass.name)">{{ number }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-col" *ngIf="self.model.klasses.length > 1">
+              <button class="g-remove" (click)="self.methods.removeByObject(self.model.klasses, klass)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+        </div>
+        <div class="button-wrap">
+          <button class="g-add" (click)="self.methods.addKlass()"><i class="material-icons">add</i></button>
+        </div>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6">
+            <div class="xp-col">
+              <div class="form-group">
+                <label class="block-label">Misc XP</label>
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.xp">
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6">
+            <label class="block-label">Total XP</label>
+            <label class="control-label">{{ self.methods.getTotalXP() }} XP</label>
+          </div>
+          <div class="flex-col-6">
+            <div class="progression-col">
+              <div class="form-group">
+                <label class="block-label">Progression Speed</label>
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.model.basic.progression }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.progression">
+                    <option [value]="option" *ngFor="let option of self.locals.selection.progression">{{ option }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6">
+            <div class="xp-next-col">
+              <div class="form-group">
+                <label class="block-label">Next Level</label>
+                <label class="control-label">{{ self.methods.getNextXPByLevel() }} XP</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--/group-->
+    </div>
+    <div class="flex-col-6">
+      <h2 class="group-header">Profile</h2>
+      <p class="help-text" *ngIf="self.model.prefs.help">These fields help round out your character's personality and background.</p>
+      <div class="group group-profile">
+        <div class="form-group bm-5">
+          <label class="block-label">Profile Image</label>
+          <input type="text" class="form-control" placeholder="Image URL" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.image">
+        </div>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6 stat-row bm-5">
+            <div class="value-col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Character Name" (ngModelChange)="self.methods.updateTitle()" [(ngModel)]="self.model.name">
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 stat-row bm-5" *ngFor="let stat of self.methods.listProfiles()">
+            <div class="value-col">
+              <div class="form-group">
+                <input type="text" class="form-control" [placeholder]="stat.name" (ngModelChange)="self.touch()" [(ngModel)]="stat.text">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--/group-->
+    </div>
+  </div>
+</div>

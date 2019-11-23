@@ -1,0 +1,85 @@
+<div class="find-spells spell-squares">
+  <div class="flex-row-all flex-config-spaced flex-config-align-center bm-20">
+    <div class="flex-col">
+      <h2 class="h24 weight-light">Find Spells</h2>
+    </div>
+    <div class="flex-col">
+      <button class="button button-gray" (click)="self.methods.switchTab('spells')">Spellbook</button>
+    </div>
+  </div>
+  <p class="help-text" *ngIf="self.model.prefs.help">This is a list of spells from the D20PFSRD. You can change which spellcaster's spells are displayed by clicking on the dropdown menu below. Once the spells appear you can click the plus button to add it to your spellbook on the left. You can also enter text in the field below to filter the results and find spells faster.</p>
+  <p class="help-text" *ngIf="self.model.prefs.help"><strong>Note</strong>: This database of spells is incomplete and occasionally wrong! Let us know if you find something incorrect, or if there's a spell you'd like us to add.</p>
+  <div class="bm-20">
+    <input type="text" class="form-control filter-field" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.search.spells" placeholder="Filter Spells">
+  </div>
+  <div class="advanced-filtering" [ngClass]="self.locals.feedback.advanced_filtering ? 'active' : ''">
+    <h4 class="gh4 clickable" (click)="self.locals.feedback.advanced_filtering = !self.locals.feedback.advanced_filtering">
+      <span class="advanced-toggle">
+        <i class="material-icons show-advanced">keyboard_arrow_right</i>
+        <i class="material-icons hide-advanced">keyboard_arrow_down</i>
+      </span>
+      Advanced Filtering
+    </h4>
+    <div class="advanced-body" *ngIf="self.locals.data.filtering">
+      <div class="flex-row-mobile">
+        <div class="flex-col-6">
+          <label class="block-label">By Class</label>
+          <div class="flex-row-all flex-config-wrap flex-gutters-5">
+            <div class="flex-col-6" *ngFor="let klass of self.locals.selection.spell_classes">
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" [title]="klass.name" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.filtering.by_class[klass.name]"> <span>{{ klass.name }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spell Detail Modals -->
+  <div *ngFor="let spell of self.methods.listSRDSpells()" [ngClass]="self.methods.foundSpellClasses(spell)">
+    <div class="detail" (click)="spell.$state = ''">
+      <div class="inner" (click)="$event.stopPropagation()">
+        <h2 class="h24 bm-10 weight-bold">{{ spell.name }}</h2>
+        <div class="bm-10">{{ self.methods.levelSchool(spell) }}</div>
+        <div class="bm-10">{{ self.methods.spellAtAGlance(spell) }}</div>
+        <div class="bm-20 btt-markdown" [innerHTML]="self.methods.displaySpellDescription(spell) | markdown"></div>
+        <button class="button button-cyan add-spell-button" (click)="self.methods.addSpell(spell)">Add to Spellbook</button>
+        <button class="button button-red remove-spell-button" (click)="self.methods.removeFromSpellbook(spell)">Remove from Spellbook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spell Squares -->
+  <div class="level bm-40" *ngFor="let level of self.methods.filteredSRDSpellLevels()">
+    <div class="col" *ngFor="let spell of self.methods.listSRDSpellsForLevel(level)" [ngClass]="self.methods.foundSpellClasses(spell)">
+      <div class="intrinsic">
+        <div class="spell" title="{{ spell.name }}, Level {{ level }}, {{ spell.school }}" [ngClass]="'school-' + spell.school.toLowerCase()" (click)="spell.$state = 'showing-detail'">
+          <div class="spell-name bm-5">{{ spell.name }}</div>
+          <div class="bm-5 spell-info">
+            <span title="Range">{{ spell.range }}</span> /
+            <span title="Casting">{{ spell.casting_time }}</span> /
+            <span title="Duration">{{ spell.duration }}</span>
+          </div>
+          <div>{{ spell.summary }}</div>
+          <div [title]="spell.school" class="bg-school"></div>
+          <div title="Level" class="bg-level">
+            <span>{{ level }}</span>
+            <sup>{{ self.methods.levelizeWithoutNum(level) }}</sup>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="select-wrap new-spell-level">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.locals.data.new_spell_level }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.new_spell_level">
+        <option [ngValue]="option" *ngFor="let option of self.locals.selection.spell_levels">{{ option }}</option>
+      </select>
+    </div>
+    <button class="button button-orange" (click)="self.methods.addCustomSpell()"><i class="material-icons">add</i> Spell</button>
+  </div>
+</div>

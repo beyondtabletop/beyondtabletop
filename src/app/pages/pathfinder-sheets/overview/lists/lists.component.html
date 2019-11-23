@@ -1,0 +1,13 @@
+<div class="overview-lists-block">
+  <div class="nav-clickable" (click)="self.methods.switchTab('lists')" *ngFor="let list of self.methods.listListsBySpecial(true)">
+    <h3>{{ list.name }}</h3>
+    <div class="flex-row-tablet flex-gutters-5 bm-5" *ngFor="let item of self.methods.listListItems(list)">
+      <div class="flex-col-4">
+        <strong>{{ item.name }}</strong>:
+      </div>
+      <div class="item-info flex-col-8">
+        <span [innerHTML]="item.text | markdown"></span>
+      </div>
+    </div>
+  </div>
+</div>

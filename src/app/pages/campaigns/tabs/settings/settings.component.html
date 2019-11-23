@@ -1,0 +1,70 @@
+<div class="table-tools">
+  <div class="table-intro" *ngIf="false && self.model.tools.length === 0">
+    <h2>Welcome to your Beyond Tabletop Online Campaign</h2>
+    <h3>Getting Started</h3>
+    <p>Beyond Tabletop uses campaigns to help people who play games online connect. Before gathering your players here, you'll all need to have access to your Beyond Tabletop game files (character sheets, battlemaps, etc). If you already have those, great! To get your game session started, click the "Add Tool" button below.</p>
+    <p>The tools you'll see listed are all of your Beyond Tabletop files. When you add one to this campaign, it becomes available for you to open in the campaign. </p>
+
+    <p>If you haven't created any tools yet, you'll want to <a routerLink="/dashboard">head back to the dashboard to do that first!</a></p>
+
+    <h3>What is a Campaign?</h3>
+    <p>You can think of a Campaign as an organizational structure like a chatroom or the lobby of a game. A Campaign connects players with all the tools necessary to run a campaign. A Campaign provides chat and allows players to push dice rolls and other actions to the chat for everyone to see.</p>
+
+    <h3>Sharing</h3>
+    <p>Because each google drive file has its own sharing preferences, you'll want to make sure everyone in your game group has access to the files you'll be using.</p>
+    <p>Start by sharing this campaign with everyone in your game group by clicking the share button on the left. Then you'll want to add tools to this campaign using the 'Add Tool' button below.</p>
+    <p>Next, you'll want to make sure all the game tools you add to this campaign have the correct permissions. Players must have edit-level access in order to view the tool in this campaign. Players can open this campaign to request permission to any tool they cannot open.</p>
+  </div>
+
+
+  <div class="fp-15 bmr-60">
+    <h2 class="rh24 bmr-40">Settings</h2>
+    <div class="flex-row-all flex-config-wrap flex-gutters-10">
+      <div class="flex-col-6 bm-10" *ngIf="self.methods.isGM()">
+        <label class="g-label">Campaign Title</label>
+        <input type="text" placeholder="Campaign name" class="form-control" (ngModelChange)="self.methods.updateTitle()" [(ngModel)]="self.model.name">
+      </div>
+      <div class="flex-col-6 bm-10">
+        <label class="g-label">Chat Nickname</label>
+        <input type="text" placeholder="Nickname" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.player.nickname">
+      </div>
+
+      <div class="flex-col-6 bm-10">
+        <label class="g-label">Color</label>
+        <input type="text" placeholder="Color" class="form-control" (colorPickerClose)="self.touch()" [(ngModel)]="self.locals.player.color" [(colorPicker)]="self.locals.player.color">
+      </div>
+      <div class="flex-col-6 bm-10">
+        <label class="g-label">Audio Setting</label>
+        <div class="flex-row-mobile flex-gutters-10">
+          <div class="flex-col">
+            <label class="checkbox-inline">
+              <input type="checkbox" title="Disable All Audio?" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.player.disable_audio"> Disable All Audio?
+            </label>
+          </div>
+          <div class="flex-col">
+            <label class="checkbox-inline">
+              <input type="checkbox" title="Disable Audio on this Tab?" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.mute_audio"> Disable Audio on this Tab?
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="saved-tools" [class.bt-hide]="self.model.tools.length === 0">
+    <h2 class="rh18 bm-10">All Tools</h2>
+    <p class="p3 bmr-20">All the tools you've added to this campaign are listed here. If you need to add anything extra you (like more than one character sheet per player), add them below.</p>
+    <div class="flex-row-all flex-config-align-center flex-config-spaced bm-5" *ngFor="let tool of self.methods.listTools()">
+      <div class="flex-col">
+        <h3 class="rh16">{{ tool.title }}</h3>
+      </div>
+      <div class="flex-col writer-access">
+        <button class="g-add" [class.bt-hide]="tool.disabled" ng-disable="tool.disabled" (click)="self.methods.openTool(tool)"><i class="material-icons">link</i> <span class="text">Open</span></button>
+        <button class="g-add" *ngIf="tool.disabled" (click)="self.methods.switchTabByTool(tool)"><i class="material-icons">pageview</i> <span class="text">View</span></button>
+        <button class="g-remove" *ngIf="self.methods.isGM()" (click)="self.methods.removeTool(tool)"><i class="material-icons">delete</i></button>
+      </div>
+    </div>
+    <button title="Add Tool" class="g-add" (click)="self.methods.openToolsModal()"><i class="material-icons">add</i></button>
+  </div>
+
+</div>

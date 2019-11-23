@@ -1,0 +1,228 @@
+<div class="sheet-tab">
+  <div class="flex-row-tablet flex-gutters-10">
+    <div class="flex-col-6">
+      <h2 class="group-header">Weapons</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">Add weapons here, then select your weapon as a new Attack on the Combat tab. Your list of attacks will show up on the Overview tab. Combine weapon attack bonus, enchantment bonuses and any other bonuses to all attacks made with each weapon into the Attack Bonus field. Similarly, combine all damage bonuses into the Damage Bonus field.</p>
+      <div class="bmr-60" cdkDropList [cdkDropListData]="self.model.weapons" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="weapon bmr-40 js-weapon" [ngClass]="weapon.type === 'Ranged' ? 'weapon-ranged' : 'weapon-melee'" *ngFor="let weapon of self.methods.listWeapons()" cdkDrag [cdkDragData]="weapon">
+          <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.name">
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Type</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ weapon.type }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.type">
+                  <option [value]="type" *ngFor="let type of self.locals.selection.weapon.type">{{ type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col flex-static">
+              <button class="g-remove" *ngIf="self.model.weapons.length > 1" (click)="self.methods.removeByObject(self.model.weapons, weapon)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+          <div class="flex-row-all flex-config-wrap flex-gutters-5">
+            <div class="flex-col-6">
+              <label class="control-label">Melee or Ranged</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ weapon.melee_or_ranged }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.melee_or_ranged">
+                  <option [value]="option" *ngFor="let option of self.locals.selection.weapon.melee_or_ranged">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-6">
+              <label class="block-label">Special</label>
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" [title]="self.methods.getSpecialLabelForStat(weapon)" (ngModelChange)="self.touch()" [(ngModel)]="weapon.reverse_ability"> <span>{{ self.methods.getSpecialLabelForStat(weapon) }}</span>
+              </label>
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Attack Bonus</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.attack_bonus">
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Damage Bonus</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.damage_bonus">
+            </div>
+            <div class="flex-col-3 bm-5">
+              <label class="control-label">Damage Die</label>
+              <input type="text" class="form-control" placeholder="d8, 2d6, etc." (ngModelChange)="self.touch()" [(ngModel)]="weapon.damage_die">
+            </div>
+            <div class="flex-col-3 bm-5">
+              <label class="control-label">Crit Range</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ weapon.crit_range }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.crit_range">
+                  <option [value]="option" *ngFor="let option of self.locals.selection.weapon.crit_range">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-3 bm-5">
+              <label class="control-label">Crit Mult</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ weapon.crit_mult }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.crit_mult">
+                  <option [value]="option" *ngFor="let option of self.locals.selection.weapon.crit_mult">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-3 bm-5">
+              <label class="control-label">Weight</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.weight">
+            </div>
+            <div class="flex-col-12">
+              <label class="block-label">Proficiency</label>
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" title="Proficient?" (ngModelChange)="self.touch()" [(ngModel)]="weapon.is_proficient"> Proficient?
+              </label>
+            </div>
+            <div class="flex-col-12">
+              <textarea class="form-control" placeholder="Properties" (ngModelChange)="self.touch()" [(ngModel)]="weapon.properties"></textarea>
+            </div>
+          </div>
+        </div>
+        <label class="control-label">Add weapon from template</label>
+        <div class="flex-row-mobile flex-config-spaced">
+          <div class="flex-static min-150 bm-5">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ self.locals.data.new_weapon }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.new_weapon">
+                <option [value]="weapon.name" *ngFor="let weapon of self.methods.listAvailableWeapons()">{{ weapon.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-static">
+            <button class="button button-orange" (click)="self.methods.addWeapon(self.locals.data.new_weapon)"><i class="material-icons">add</i> Weapon</button>
+          </div>
+        </div>
+      </div><!--/group-->
+    </div>
+<!--
+****************************************************************************************
+ARMOR SECTION
+****************************************************************************************
+-->
+    <div class="flex-col-6">
+      <h2 class="group-header">Armor</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">You can add as many pieces of armor as you want, but only equipped armor items' properties are included in calculations throughout the sheet.</p>
+      <div class="bmr-30">
+        <label class="block-label">Current AC: <span>{{ self.methods.getTotalAC() }}</span></label>
+      </div>
+      <div class="bmr-60" cdkDropList [cdkDropListData]="self.model.armors" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-armor bmr-40" *ngFor="let armor of self.methods.listArmors()" cdkDrag [cdkDragData]="armor">
+          <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.name">
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Type</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ armor.type }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.type">
+                  <option [value]="type" *ngFor="let type of self.locals.selection.armor.type">{{ type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col flex-static">
+              <button class="g-remove" *ngIf="self.model.armors.length > 1" (click)="self.methods.removeByObject(self.model.armors, armor)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-config-wrap flex-gutters-5">
+            <div class="flex-col-3">
+              <label class="control-label">AC</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.bonus">
+            </div>
+            <div class="flex-col-3">
+              <label class="control-label">Max DEX</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.dex">
+            </div>
+            <div class="flex-col-3">
+              <label class="control-label">Min STR</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="armor.str">
+            </div>
+            <div class="flex-col-3">
+              <label class="control-label">Weight</label>
+              <input type="number" class="form-control" placeholder="Weight" (ngModelChange)="self.touch()" [(ngModel)]="armor.weight">
+            </div>
+            <div class="flex-col-6">
+              <label class="block-label">Stealth</label>
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" title="Disadvantage?" (ngModelChange)="self.touch()" [(ngModel)]="armor.stealth_disadvantage"> Disadvantage?
+              </label>
+            </div>
+            <div class="flex-col-6">
+              <label class="block-label">Equip Armor</label>
+              <label class="checkbox-inline checkbox-wrap">
+                <input type="checkbox" title="Equipped?" (ngModelChange)="self.touch()" [(ngModel)]="armor.active"> Equipped?
+              </label>
+            </div>
+            <div class="flex-col-12">
+              <textarea class="form-control" placeholder="Properties" (ngModelChange)="self.touch()" [(ngModel)]="armor.properties"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <label class="control-label">Add armor from template</label>
+        <div class="flex-row-mobile flex-config-spaced">
+          <div class="flex-static min-150 bm-5">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ self.locals.data.new_armor }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.data.new_armor">
+                <option [value]="armor.name" *ngFor="let armor of self.methods.listAvailableArmors()">{{ armor.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-static">
+            <button class="button button-orange" (click)="self.methods.addArmor(self.locals.data.new_armor)"><i class="material-icons">add</i> Armor</button>
+          </div>
+        </div>
+      </div>
+<!--
+****************************************************************************************
+WEIGHT SECTION
+****************************************************************************************
+-->
+      <h2 class="group-header">Weight</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">Note: Please note, as of this version, Encumbrance Effects are NOT automatically calculated. They will likely be in the future.</p>
+      <div class="group group-weight">
+        <div class="flex-row-tablet flex-gutters-5">
+          <div class="flex-col-5">
+            <label class="control-label">Misc Weight</label>
+            <input type="number" class="form-control" placeholder="Weight" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.weight.misc">
+          </div>
+          <div class="flex-col-2">
+            <label class="control-label">Equipment</label>
+            <label class="block-label">{{ self.methods.getEquipmentWeight() }}</label>
+          </div>
+          <div class="flex-col-2">
+            <label class="control-label">Loot</label>
+            <label class="block-label">{{ self.methods.getLootWeight() }}</label>
+          </div>
+          <div class="flex-col-3">
+            <label class="control-label">Total Weight</label>
+            <label class="block-label">{{ self.methods.getTotalWeight(self.model.combat.weight) }}</label>
+          </div>
+        </div>
+        <div class="row-capacity">{{ self.methods.getWeightCapacity() }}</div>
+      </div>
+    </div>
+  </div>
+</div>

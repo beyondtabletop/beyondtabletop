@@ -1,0 +1,30 @@
+@import '../../../../abstracts/variables.scss';
+@import '../../../../abstracts/mixins.scss';
+
+// .button-combat {
+
+// }
+
+.combatant {
+  padding: 4px 15px;
+  h4 {
+    cursor: pointer;
+  }
+  &.active {
+    background: lighten($cyan-color, 35%);
+    h4 {
+      font-weight: bold;
+    }
+  }
+}
+
+h4, h5 {
+  margin: 0;
+  @include font-size(16, 1);
+}
+
+.initiative {
+  max-width: 30px;
+  padding: 2px 4px;
+  height: auto;
+}

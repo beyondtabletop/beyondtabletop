@@ -1,0 +1,20 @@
+<div class="kit-header">
+  <div class="logo-wrap">
+    <a class="logo" routerLink="/dashboard"></a>
+  </div>
+</div>
+<div class="fpr-40 kit-body">
+  <div class="bmr-60 bp-20 border-bottom">
+    <label class="weight-bold">Kit Name</label>
+    <input
+      placeholder="Kit Name"
+      (ngModelChange)="self.methods.updateTitle()"
+      [(ngModel)]="self.model.name"
+      class="form-control bm-20"
+      type="text"
+    >
+    <p class="help-text">This is a tool for customizing content on other sheets. Create custom spells, classes, feats, and more! Then import those custom lists into an individual sheet in the Settings tab. Start by selecting which system you'd like to customize content for.</p>
+  </div>
+  <bt-homebrew-kit-type-choose  [self]="self" *ngIf="self.model.tool_type === 'choose'"></bt-homebrew-kit-type-choose>
+  <bt-homebrew-kit-type-other   [self]="self" *ngIf="self.model.tool_type !== 'choose'"></bt-homebrew-kit-type-other>
+</div>

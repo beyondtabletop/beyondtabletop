@@ -1,0 +1,18 @@
+<div class="stat-number-row flex-gutters-5 bm-10">
+  <div class="flex-col-4">
+    <label class="block-label">{{ entity.name }}</label>
+  </div>
+  <div class="flex-col-8">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col" [class.invisible]="entity.rolls">
+        <label class="block-value">{{ self.methods.calculateFormula(entity) }}</label>
+      </div>
+      <div class="flex-col" *ngIf="entity.rolls">
+        <button class="button button-orange" (click)="self.methods.rollFormula(entity)">Roll</button>
+      </div>
+      <div class="flex-col" *ngIf="entity.rolls">
+        <label class="block-label">{{ entity.last_result }}</label>
+      </div>
+    </div>
+  </div>
+</div>

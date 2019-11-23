@@ -1,0 +1,20 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 3">
+      <div class="power-label">Remaining Divinity</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divinity.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Remaining Lay on Hands HP</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.lay_on_hands.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Remaining Divine Sense</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.divine_sense.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 14">
+      <div class="power-label">Remaining Cleansing Touch</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Paladin.cleansing_touch.remaining">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 2">
+    <h5 class="h5">Ki Points</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.model.powers.Monk.ki_points.value }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Monk.ki_points.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Monk.ki_points) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Monk.ki_points.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Monk.tradition === 'Way of the Open Hand' && klass.level >= 6">
+    <label class="block-label">Wholeness of Body</label>
+    <button class="white-button" [disabled]="self.model.powers.Monk.wholeness === 0" (click)="self.methods.onWholenessOfBody()">
+      <span>{{ self.model.powers.Monk.wholeness > 0 ? 'Heal for ' + (klass.level * 3) + ' HP' : 'Out of Uses' }}</span>
+    </button>
+  </div>
+  <div class="power-item space-bottom" *ngIf="klass.level >= 3">
+    <h5 class="h5">Monastic Traditions</h5>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Monk.tradition }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Monk.tradition">
+        <option [value]="option" *ngFor="let option of self.locals.selection.monastic_traditions">{{ option }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Monk.tradition" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6">
+        <label class="control-label">Martial Arts</label>
+        <label class="block-label">{{ self.model.powers.Monk.martial_arts }}</label>
+      </div>
+      <div class="flex-col-6">
+        <label class="control-label">Unarmored Movement</label>
+        <label class="block-label">{{ self.model.powers.Monk.unarmored_movement }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Monk.tradition === 'Way of the Four Elements' && klass.level >= 3">
+    <h5 class="h5">Disciplines</h5>
+    <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+      <div class="flex-col-6 bm-5" *ngFor="let discipline of self.model.powers.Monk.disciplines || []">
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ discipline.text }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="discipline.text">
+            <option [value]="option" *ngFor="let option of self.locals.selection.monk_disciplines">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="discipline.text" *ngIf="self.model.prefs.homebrew">
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-spaced">
+      <button class="action add-item" (click)="self.methods.addDiscipline()">
+        <i class="material-icons">add</i>
+      </button>
+      <button class="action remove-item" (click)="self.methods.remove(self.model.powers.Monk.disciplines, self.model.powers.Monk.disciplines.length - 1)" *ngIf="self.model.powers.Monk.disciplines.length > 0">
+        <i class="material-icons">remove</i>
+      </button>
+    </div>
+  </div>
+</div>

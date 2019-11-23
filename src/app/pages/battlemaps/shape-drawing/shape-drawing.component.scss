@@ -1,0 +1,58 @@
+@import '../../../../app/abstracts/variables.scss';
+@import '../../../../app/abstracts/mixins.scss';
+
+.drawable {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  &.drawing {
+    cursor: crosshair;
+  }
+}
+
+.drawing-actions {
+  position: absolute;
+  left: -40px;
+  top: 0;
+  width: 35px;
+  .drawing-action {
+    @include unstyled-button;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    width: 35px;
+    height: 35px;
+    @include font-size(30, .8);
+    margin-bottom: 5px;
+    color: $white;
+    input {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .palette i {
+    top: 2px;
+    left: 2px;
+  }
+  .paint-active {
+    background: $green;
+  }
+  .paint-inactive {
+    background: $base;
+  }
+  .clear-drawing {
+    background: $red;
+  }
+}
+
+.canvas-buffer {
+  position: absolute;
+	left: 0; right: 0;
+	bottom: 0; top: 0;
+}

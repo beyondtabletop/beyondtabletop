@@ -1,0 +1,13 @@
+<bt-static-container>
+  <section class="posts">
+    <article class="post" *ngFor="let post of posts">
+      <div class="inner">
+        <h2>{{ post.title }}</h2>
+        <div class="date">Posted on: {{ post.date }}</div>
+        <img *ngIf="post.image" [src]="post.image" [alt]="post.title" class="bm-15">
+        <div [innerHTML]="post.content | markdown"></div>
+        <a routerLink="/dashboard">https://www.beyondtabletop.com</a>
+      </div>
+    </article>
+  </section>
+</bt-static-container>

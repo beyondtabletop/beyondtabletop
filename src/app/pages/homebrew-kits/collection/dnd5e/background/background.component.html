@@ -1,0 +1,62 @@
+<div class="flex-row-mobile flex-gutters-5">
+  <div class="flex-col-6 bm-20">
+    <label class="weight-bold">Name</label>
+    <input (ngModelChange)="self.touch()" [(ngModel)]="background.name" type="text" class="form-control" placeholder="Name">
+  </div>
+  <div class="flex-col-6 bm-20">
+    <label class="weight-bold">Starting Gold</label>
+    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="background.gold" placeholder="Starting Gold">
+  </div>
+</div>
+
+<label class="weight-bold">Skills</label>
+<div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+  <div class="flex-col-6" *ngFor="let skill of self.locals.selection.dnd5eSkills">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" [title]="skill" [checked]="self.methods.doesArrayIncludeValue(background.skills, skill)" (click)="self.methods.toggleValueInArray(background, 'skills', skill)"> {{ skill }}
+    </label>
+  </div>
+</div>
+
+<div class="bm-20" *ngFor="let list of lists">
+  <label class="weight-bold">{{ list.plural }}</label>
+  <div class="bm-5 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let item of listItems(background[list.db])">
+    <div class="flex-col flex-dynamic">
+      <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text"></textarea>
+    </div>
+    <div class="flex-col flex-static">
+      <button title="Remove {{ list.label }}" class="g-remove" (click)="removeItem(background[list.db], item)"><i class="material-icons">delete</i></button>
+    </div>
+  </div>
+  <button title="Add {{ list.label }}" class="g-add" (click)="addItem(list.db)"><i class="material-icons">add</i></button>
+</div>
+
+<div class="bm-20">
+  <label class="weight-bold">Specialty Name</label>
+  <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="background.specialty_name" placeholder="Specialty Name">
+</div>
+
+<label class="weight-bold">Lists</label>
+<div class="bm-20" *ngFor="let list of listItems(background.lists)">
+  <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5">
+    <div class="flex-col flex-dynamic">
+      <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="list.name" placeholder="List Name">
+    </div>
+    <div class="flex-col flex-static">
+      <button title="Remove List" class="g-remove" (click)="removeItem(background.lists, list)"><i class="material-icons">delete</i></button>
+    </div>
+  </div>
+  <div class="bm-5" *ngFor="let item of listItems(list.items)">
+    <div class="flex-row-all flex-gutters-5 flex-config-align-center">
+      <div class="flex-col flex-dynamic">
+        <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text">
+      </div>
+      <div class="flex-col flex-static">
+        <button title="Remove Item" class="g-remove" (click)="removeItem(list.items, item)"><i class="material-icons">delete</i></button>
+      </div>
+    </div>
+  </div>
+  <button title="Add Item" class="g-add" (click)="addListItem(list)"><i class="material-icons">add</i></button>
+</div>
+
+<button title="Add List" class="button button-orange" (click)="addItem('lists')"><i class="material-icons">add</i> List</button>

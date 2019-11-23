@@ -1,0 +1,117 @@
+<div class="container table-page" [class.chat-minimized]="self.locals.chat_minimized">
+  <div class="content">
+
+    <bt-loading [self]="self"></bt-loading>
+    <bt-interface></bt-interface>
+
+    <div class="table-container">
+
+      <bt-tabs [self]="self"></bt-tabs>
+
+      <div class="table-content" [class.showing-chat]="self.locals.showing_chat">
+        <div class="table-tabs open-tools" [ngClass]="self.methods.getTableTabsClass()">
+          <div class="table-tab active" [ngSwitch]="self.locals.tabs.active">
+            <bt-campaign-tab-adventure  [self]="self" *ngSwitchCase="'adventure'"></bt-campaign-tab-adventure>
+            <bt-campaign-tab-audio      [self]="self" *ngSwitchCase="'audio'"></bt-campaign-tab-audio>
+            <bt-campaign-tab-enemies    [self]="self" *ngSwitchCase="'enemies'"></bt-campaign-tab-enemies>
+            <bt-campaign-tab-monsters   [self]="self" *ngSwitchCase="'monsters'"></bt-campaign-tab-monsters>
+            <bt-campaign-tab-lists      [self]="self" *ngSwitchCase="'lists'"></bt-campaign-tab-lists>
+            <bt-campaign-tab-npcs       [self]="self" *ngSwitchCase="'npcs'"></bt-campaign-tab-npcs>
+            <bt-campaign-tab-settings   [self]="self" *ngSwitchCase="'settings'"></bt-campaign-tab-settings>
+            <bt-campaign-tab-summary    [self]="self" *ngSwitchCase="'summary'"></bt-campaign-tab-summary>
+          </div>
+
+          <div class="table-tab" *ngFor="let tab of self.locals.tabs.tools" [ngClass]="self.methods.tabClass(tab.id)" [ngSwitch]="tab.tool_type">
+            <bt-dnd5e-sheets       [id]="tab.id" *ngSwitchCase="'dnd5e'"></bt-dnd5e-sheets>
+            <bt-pathfinder-sheets  [id]="tab.id" *ngSwitchCase="'pathfinder'"></bt-pathfinder-sheets>
+            <bt-battlemaps         [id]="tab.id" *ngSwitchCase="'battlemap'"></bt-battlemaps>
+            <bt-rpg-sheets         [id]="tab.id" *ngSwitchCase="'rpg'"></bt-rpg-sheets>
+          </div>
+        </div>
+      </div>
+      <div class="table-chats" [ngClass]="self.methods.getChatClasses()">
+        <button class="chat-toggle" (click)="self.methods.toggleChat()">
+          <fa-icon class="bt-caret-up" [icon]="['fa', 'caret-up']"></fa-icon>
+          <fa-icon class="bt-caret-down" [icon]="['fa', 'caret-down']"></fa-icon>
+        </button>
+        <div class="chat-output" id="chat-output">
+          <div class="inner">
+            <div class="chat" [ngSwitch]="chat.type" *ngFor="let chat of self.methods.listChats()">
+              <bt-campaign-chat-type-diceroll         [self]="self" [chat]="chat" *ngSwitchCase="'diceroll'"></bt-campaign-chat-type-diceroll>
+              <bt-campaign-chat-type-secret-diceroll  [self]="self" [chat]="chat" *ngSwitchCase="'secret_diceroll'"></bt-campaign-chat-type-secret-diceroll>
+              <bt-campaign-chat-type-text             [self]="self" [chat]="chat" *ngSwitchCase="'text'"></bt-campaign-chat-type-text>
+              <bt-campaign-chat-type-html             [self]="self" [chat]="chat" *ngSwitchCase="'html'"></bt-campaign-chat-type-html>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.chatbox" (keydown)="self.methods.interpretKeypress($event)"></textarea>
+          <div class="flex-row-all flex-config-spaced flex-config-align-center">
+            <button class="button send-button" (click)="self.methods.sendChat()">Send</button>
+            <button class="button-unstyled button-link" (click)="self.methods.clearChat()" *ngIf="self.locals.tool_owner">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-mobile-nav">
+        <ul class="list-unstyled flex-row-all flex-config-spaced">
+          <li class="flex-col">
+            <button [ngClass]="self.locals.tabs.active === 'summary' && self.locals.showing_chat === false ? 'active' : ''" (click)="self.methods.switchTab('summary');">
+              <i class="material-icons">dashboard</i>
+              <span>{{ self.methods.truncate(self.locals.tabs.list[0].title, 10) }}</span>
+            </button>
+          </li>
+          <li class="flex-col">
+            <button [ngClass]="self.locals.tabs.active === 'settings' && self.locals.showing_chat === false ? 'active' : ''" (click)="self.methods.switchTab('settings');">
+              <i class="material-icons">settings</i>
+              <span>Settings</span>
+            </button>
+          </li>
+          <li class="flex-col">
+            <button [ngClass]="self.locals.showing_chat ? 'active' : ''" (click)="self.locals.showing_chat = true">
+              <i class="material-icons">chat</i>
+              <span>Chat</span>
+            </button>
+          </li>
+          <li class="flex-col">
+            <a href="#/dashboard">
+              <i class="material-icons">arrow_back</i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="invisible-cues" *ngIf="!self.locals.player.disable_audio && !self.locals.mute_audio">
+        <div *ngFor="let cue of self.methods.listLoadedAudioCues()" [ngSwitch]="cue.audio_type">
+          <bt-campaign-audio-type-mp3      [self]="self" [cue]="cue" *ngSwitchCase="'mp3'"></bt-campaign-audio-type-mp3>
+          <bt-campaign-audio-type-ogg      [self]="self" [cue]="cue" *ngSwitchCase="'ogg'"></bt-campaign-audio-type-ogg>
+          <bt-campaign-audio-type-youtube  [self]="self" [cue]="cue" *ngSwitchCase="'youtube'"></bt-campaign-audio-type-youtube>
+        </div>
+      </div>
+      <div class="site-modals" [ngClass]="self.methods.getSiteModalClasses()">
+        <div class="bt-modal-bg" (click)="self.methods.closeAllModals()">
+          <div class="bt-modal-container" (click)="$event.stopPropagation()">
+            <div class="bt-modal-body">
+              <div class="bt-modal-close" (click)="self.methods.closeAllModals()">
+                <i class="material-icons">delete</i>
+              </div>
+              <div class="bt-modal-content">
+                <div class="tools-modal" *ngIf="self.methods.showingModal('tools')">
+                  <p *ngIf="self.locals.available_tools.length !== 0">Choose a Beyond Tabletop file to add to this table:</p>
+                  <p *ngIf="self.locals.available_tools.length === 0">Looks like you haven't created any Beyond Tabletop tools yet (like character sheets and battlemaps). <a routerLink="/dashboard">Click here to return to the dashboard and create those tools first.</a></p>
+
+                  <div class="tool" *ngFor="let tool of self.methods.getAvailableTools()">
+                    <div class="inner flex-row-all flex-config-spaced">
+                      <h3 class="gh4">{{ tool.title }}</h3>
+                      <button class="g-add" (click)="self.methods.addToolFromModal(tool)"><i class="material-icons">add</i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

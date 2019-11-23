@@ -1,0 +1,74 @@
+<div class="sheet-tab overview-tab">
+  <div class="overview">
+    <div class="overview-header">
+      <div class="flex-row-mobile">
+        <div class="flex-static profile-column" *ngIf="self.model.basic.image">
+          <div class="profile-image">
+            <div class="img" *ngIf="self.model.basic.image" [ngStyle]="{ 'background-image': 'url(' + self.model.basic.image + ')' }"></div>
+          </div>
+        </div>
+        <div class="flex-col flex-dynamic">
+          <div class="flex-row-all flex-config-spaced">
+            <h2 class="group-header nav-clickable flex-dynamic" (click)="self.methods.switchTab('general')">
+              {{ self.model.name }}: Level {{ self.methods.getTotalLevel() }} {{ self.methods.getAllKlasses() }}
+            </h2>
+            <button *ngIf="!self.locals.data.editing_overview" (click)="self.locals.data.editing_overview = true" class="icon-button flex-static"><fa-icon [icon]="['fa', 'pencil-alt']"></fa-icon></button>
+            <button *ngIf="self.locals.data.editing_overview" (click)="self.locals.data.editing_overview = false" class="icon-button flex-static"><i class="material-icons">check</i> Done</button>
+          </div>
+          <p class="help-text" [class.bt-hide]="!self.model.prefs.help">This is your overview page. As you fill out details on the other tabs, the most relevant information will show up in a compact and easy-to-understand format here. You can also click on some of the text here to jump to the corresponding tab to edit its data.</p>
+          <p class="help-text" [class.bt-hide]="!self.model.prefs.help">Clicking on a feat or a spell will expand it to show more information.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-tablet flex-gutters-10">
+      <div class="flex-col-6" *ngFor="let column_id of self.locals.selection.block_column_ids">
+        <div class="overview-column-{{ column_id }}" cdkDropList [cdkDropListData]="self.model.blocks" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="overview-block js-overview-block" *ngFor="let block of self.methods.listBlocksForColumn(column_id)" [ngClass]="self.locals.data.editing_overview ? 'editing-overview' : ''" cdkDrag [cdkDragData]="block" [cdkDragDisabled]="!self.locals.data.editing_overview">
+            <div class="overview-block-admin flex-row-all flex-config-align-center flex-config-justify-center" *ngIf="self.locals.data.editing_overview">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              <button class="g-remove remove-block" (click)="self.methods.removeByObject(self.model.blocks, block)"><i class="material-icons">delete</i></button>
+
+              <div class="v-centered flex-dynamic">
+                <div class="flex-row-all flex-gutters-5">
+                  <div class="flex-col-6">
+                    <label class="control-label">Block Name</label>
+                    <input type="text" placeholder="Block Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="block.name">
+                  </div>
+                  <div class="flex-col-6">
+                    <label class="control-label">Block Type</label>
+                    <div class="select-wrap">
+                      <i class="material-icons">arrow_drop_down</i>
+                      <label>{{ self.locals.selection.block_reverse_lookup[block.type] }}</label>
+                      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="block.type">
+                        <option [value]="option.type" *ngFor="let option of self.locals.selection.blocks">{{ option.name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div [ngSwitch]="block.type">
+              <bt-dnd5e-overview-abilities     [self]="self" [block]="block" *ngSwitchCase="'abilities_block'"></bt-dnd5e-overview-abilities>
+              <bt-dnd5e-overview-attacks       [self]="self" [block]="block" *ngSwitchCase="'attacks_block'"></bt-dnd5e-overview-attacks>
+              <bt-dnd5e-overview-companions    [self]="self" [block]="block" *ngSwitchCase="'companions_block'"></bt-dnd5e-overview-companions>
+              <bt-dnd5e-overview-conditions    [self]="self" [block]="block" *ngSwitchCase="'conditions_block'"></bt-dnd5e-overview-conditions>
+              <bt-dnd5e-overview-consumables   [self]="self" [block]="block" *ngSwitchCase="'consumables_block'"></bt-dnd5e-overview-consumables>
+              <bt-dnd5e-overview-custom-stats  [self]="self" [block]="block" *ngSwitchCase="'custom_stats_block'"></bt-dnd5e-overview-custom-stats>
+              <bt-dnd5e-overview-feats         [self]="self" [block]="block" *ngSwitchCase="'feats_block'"></bt-dnd5e-overview-feats>
+              <bt-dnd5e-overview-lists         [self]="self" [block]="block" *ngSwitchCase="'lists_block'"></bt-dnd5e-overview-lists>
+              <bt-dnd5e-overview-powers        [self]="self" [block]="block" *ngSwitchCase="'powers_block'"></bt-dnd5e-overview-powers>
+              <bt-dnd5e-overview-rest          [self]="self" [block]="block" *ngSwitchCase="'rest_block'"></bt-dnd5e-overview-rest>
+              <bt-dnd5e-overview-skills        [self]="self" [block]="block" *ngSwitchCase="'skills_block'"></bt-dnd5e-overview-skills>
+              <bt-dnd5e-overview-spells        [self]="self" [block]="block" *ngSwitchCase="'spells_block'"></bt-dnd5e-overview-spells>
+              <bt-dnd5e-overview-valuables     [self]="self" [block]="block" *ngSwitchCase="'valuables_block'"></bt-dnd5e-overview-valuables>
+              <bt-dnd5e-overview-vitals        [self]="self" [block]="block" *ngSwitchCase="'vitals_block'"></bt-dnd5e-overview-vitals>
+              <bt-dnd5e-overview-weight        [self]="self" [block]="block" *ngSwitchCase="'weight_block'"></bt-dnd5e-overview-weight>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="self.locals.data.editing_overview" (click)="self.methods.addBlock(column_id)" class="button button-orange"><i class="material-icons">add</i> Overview Block</button>
+      </div>
+    </div>
+  </div>
+</div>

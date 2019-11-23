@@ -1,0 +1,93 @@
+<div class="step">
+  <div class="max-500 auto-margin bm-40">
+    <h1 class="gh1">Describe Your Character</h1>
+    <h2 class="gsh3">Now that you know the basic game aspects of your character, it's time to flesh him or her out as a person. Your character needs a name and a personality. Spend a few minutes thinking about what he or she looks like and how he or she behaves in general terms.</h2>
+    <h2 class="gsh4 gmuted">Don't forget to take your character's race and ability scores into account when designing his or her personality. A very strong character with low Intelligence might think and behave very differently from a smart character with low Strength. See the Player's Handbook for how ability scores affect other character aspects.</h2>
+  </div>
+
+  <div class="max-1000 auto-margin">
+    <div class="flex-row-tablet flex-gutters-15">
+      <div class="flex-col-6 bm-20">
+        <h3 class="gh2">Background</h3>
+        <h2 class="gsh4 gmuted">Your character's background reveals where you came from, how you became an adventurer, and your place in the world.</h2>
+        <div class="bm-20">
+          <div class="select-wrap">
+            <i class="material-icons">arrow_drop_down</i>
+            <label class="gl1">{{ self.model.basic.background.name }}</label>
+            <select class="form-control" (ngModelChange)="self.methods.onBackgroundChange(true)" [(ngModel)]="self.model.basic.background.name">
+              <option [value]="background" *ngFor="let background of self.methods.listBackgroundSelection()">{{ background }}</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="self.methods.isBackgroundListed()">
+          <h4 class="gh3">Background Attributes</h4>
+          <div *ngFor="let list of self.methods.getBackgroundDataLists()">
+            <h5 class="gh5">{{ list.name }}</h5>
+            <ul>
+              <li *ngFor="let item of list.items">{{ item.text }}</li>
+            </ul>
+          </div>
+          <h5 class="gh5">Wealth</h5>
+          <p><span>{{ self.methods.getBackgroundGold() }}</span> gp</p>
+
+
+        </div>
+        <div class="bm-20" *ngFor="let attr of self.methods.listBackgroundAttributes()">
+          <h4 class="gh4" *ngIf="attr.name">{{ self.methods.backgroundListName(attr) }}</h4>
+          <div class="bm-5" *ngFor="let item of self.methods.getBackgroundAttributeList(attr.slug)">
+            <div class="select-wrap" *ngIf="self.methods.isBackgroundListed()">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ item.text || 'Choose ' + attr.singular }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text">
+                <option [value]="option.text" *ngFor="let option of self.methods.listBackgroundAttributeOptions(attr.slug)">{{ option.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-col-6 bm-20">
+        <h3 class="gh2">Profile</h3>
+        <h2 class="gsh4 gmuted">Smaller details about your character like skin color, height, and age can be recorded here.</h2>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6 bm-10">
+            <label class="gl1">Character Name</label>
+            <!-- fix ng-blur -->
+            <input type="text" class="form-control" placeholder="Character Name" (ngModelChange)="self.methods.updateTitle()" [(ngModel)]="self.model.name">
+          </div>
+          <div class="flex-col-6 bm-10">
+            <label class="gl1">Alignment</label>
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ self.model.basic.alignment }}</label>
+              <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.alignment">
+                <option [value]="alignment" *ngFor="let alignment of self.locals.selection.alignments">{{ alignment }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6 bm-10" *ngFor="let stat of self.methods.listProfiles()">
+            <label class="gl1">{{ stat.name }}</label>
+            <input type="text" class="form-control" [placeholder]="stat.name" (ngModelChange)="self.touch()" [(ngModel)]="stat.text">
+          </div>
+        </div>
+        <div class="bm-10">
+          <label class="gl1">Profile Image</label>
+          <input type="text" class="form-control" placeholder="Image URL" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-500 auto-margin">
+    <div class="flex-row-all flex-gutters-10">
+      <div class="flex-col-6">
+        <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+      </div>
+      <div class="flex-col-6">
+        <button (click)="self.methods.finishStep('creation', 'profile', 'create-equipment')" class="button button-cyan button-block">Confirm Profile</button>
+      </div>
+    </div>
+  </div>
+</div>

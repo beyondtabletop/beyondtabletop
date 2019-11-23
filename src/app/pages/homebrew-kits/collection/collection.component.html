@@ -1,0 +1,38 @@
+<div class="bm-30 bp-30 border-bottom">
+  <button (click)="add()" class="button button-ghost" *ngIf="!any()">Customize {{ collection.title }}</button>
+  <div *ngIf="any()">
+    <div class="flex-row-mobile flex-config-wrap flex-gutters-10 flex-config-top">
+      <div class="flex-col-6 bm-40">
+        <h3 class="h24 bm-20">{{ collection.title }}</h3>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div
+            (click)="select(item)"
+            *ngFor="let item of list()"
+            class="flex-col faux-link bm-10"
+          >{{ item.name || 'Untitled' }}</div>
+        </div>
+      </div>
+      <div [ngSwitch]="collection.switch" class="flex-col-6 bm-40" *ngFor="let item of active()">
+        <bt-homebrew-kit-collection-dnd5e-spell            [self]="self" [spell]="item"       *ngSwitchCase="'dnd5e_spell'"></bt-homebrew-kit-collection-dnd5e-spell>
+        <bt-homebrew-kit-collection-dnd5e-invocation       [self]="self" [invocation]="item"  *ngSwitchCase="'dnd5e_invocation'"></bt-homebrew-kit-collection-dnd5e-invocation>
+        <bt-homebrew-kit-collection-dnd5e-klass            [self]="self" [klass]="item"       *ngSwitchCase="'dnd5e_klass'"></bt-homebrew-kit-collection-dnd5e-klass>
+        <bt-homebrew-kit-collection-dnd5e-background       [self]="self" [background]="item"  *ngSwitchCase="'dnd5e_background'"></bt-homebrew-kit-collection-dnd5e-background>
+        <bt-homebrew-kit-collection-dnd5e-armor            [self]="self" [armor]="item"       *ngSwitchCase="'dnd5e_armor'"></bt-homebrew-kit-collection-dnd5e-armor>
+        <bt-homebrew-kit-collection-dnd5e-weapon           [self]="self" [weapon]="item"      *ngSwitchCase="'dnd5e_weapon'"></bt-homebrew-kit-collection-dnd5e-weapon>
+        <bt-homebrew-kit-collection-pathfinder-spell       [self]="self" [spell]="item"       *ngSwitchCase="'pathfinder_spell'"></bt-homebrew-kit-collection-pathfinder-spell>
+        <bt-homebrew-kit-collection-pathfinder-feat        [self]="self" [feat]="item"        *ngSwitchCase="'pathfinder_feat'"></bt-homebrew-kit-collection-pathfinder-feat>
+        <bt-homebrew-kit-collection-pathfinder-klass       [self]="self" [klass]="item"       *ngSwitchCase="'pathfinder_klass'"></bt-homebrew-kit-collection-pathfinder-klass>
+        <bt-homebrew-kit-collection-pathfinder-armor       [self]="self" [armor]="item"       *ngSwitchCase="'pathfinder_armor'"></bt-homebrew-kit-collection-pathfinder-armor>
+        <bt-homebrew-kit-collection-pathfinder-weapon      [self]="self" [weapon]="item"      *ngSwitchCase="'pathfinder_weapon'"></bt-homebrew-kit-collection-pathfinder-weapon>
+      </div>
+    </div>
+    <div class="flex-row-all flex-config-spaced flex-align-center">
+      <div class="flex-col">
+        <button (click)="add()" class="button button-cyan"><i class="material-icons">add</i> New</button>
+      </div>
+      <div class="flex-col" *ngFor="let item of active()">
+        <button (click)="remove(item)" class="button button-red"><i class="material-icons">delete</i> Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

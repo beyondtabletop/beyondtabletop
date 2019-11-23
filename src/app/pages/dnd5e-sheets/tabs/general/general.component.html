@@ -1,0 +1,213 @@
+<div class="sheet-tab">
+  <div class="tab-notice" *ngIf="self.model.prefs.show_announcement">
+    <h2 class="gh3"><fa-icon [icon]="['fa', 'bullhorn']"></fa-icon> New Character Builder</h2>
+    <p>New to D&amp;D? Try the new Beyond Tabletop Character Builder to be guided step-by-step through character creation. Launching the builder will reset the bulk of your character, so consider trying it out on a new character sheet first. <strong *ngIf="!self.locals.full_access">You must upgrade your sheets before you can access the builder.</strong></p>
+    <div class="flex-row-mobile flex-config-spaced flex-config-bottom">
+      <div class="button button-orange" (click)="self.methods.switchTab('builder')" *ngIf="self.locals.full_access">Launch Builder</div>
+      <a routerLink="/donate" class="button button-orange" *ngIf="!self.locals.full_access">Upgrade Now</a>
+      <div class="help-text tm-20 clickable" (click)="self.model.prefs.show_announcement = false">No thanks, hide this</div>
+    </div>
+  </div>
+
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bmr-60">
+      <h2 class="group-header">Basic</h2>
+      <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-10">
+
+        <div class="flex-col-6">
+          <label class="control-label">Race</label>
+          <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+            <i class="material-icons">arrow_drop_down</i>
+            <label>{{ self.model.basic.race }}</label>
+            <select class="form-control" (ngModelChange)="self.methods.onRaceChange(true)" [(ngModel)]="self.model.basic.race">
+              <option [value]="race" *ngFor="let race of self.locals.selection.races">{{ race }}</option>
+            </select>
+          </div>
+          <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.race" *ngIf="self.model.prefs.homebrew">
+        </div>
+
+        <div class="flex-col-6" *ngIf="self.model.prefs.homebrew">
+          <label class="control-label">Subrace</label>
+          <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.subrace">
+        </div>
+
+        <div class="flex-col-6">
+          <label class="control-label">Size</label>
+          <div class="select-wrap">
+            <i class="material-icons">arrow_drop_down</i>
+            <label>{{ self.model.basic.size }}</label>
+            <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.size">
+              <option [value]="size" *ngFor="let size of self.locals.selection.size">{{ size }}</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <div class="flex-row-all flex-gutters-5">
+        <div class="flex-col-6">
+          <div class="form-group"><label class="control-label">Class</label></div>
+        </div>
+        <div class="flex-col-6">
+          <div class="form-group"><label class="control-label">Level</label></div>
+        </div>
+      </div>
+      <div class="bm-5" *ngFor="let klass of self.methods.listKlasses()">
+        <div class="flex-row-all flex-config-align-center flex-gutters-5">
+          <div class="flex-col-6">
+            <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ klass.name }}</label>
+              <select class="form-control" (ngModelChange)="self.methods.onClassChange(false)" [(ngModel)]="klass.name">
+                <option [value]="name" *ngFor="let name of self.methods.listKlassSelection()">{{ name }}</option>
+              </select>
+            </div>
+            <input type="text" class="form-control" (ngModelChange)="self.methods.onClassChange(false)" [(ngModel)]="klass.name" *ngIf="self.model.prefs.homebrew">
+          </div>
+          <div class="flex-col-6">
+            <div class="select-wrap">
+              <i class="material-icons">arrow_drop_down</i>
+              <label>{{ klass.level }}</label>
+              <select class="form-control" (ngModelChange)="self.methods.onLevelChange(false)" [(ngModel)]="klass.level">
+                <option [ngValue]="level" *ngFor="let level of self.locals.selection.level">{{ level }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-col" *ngIf="self.model.klasses.length > 1">
+            <button class="g-remove" (click)="self.methods.removeKlass(klass)"><i class="material-icons">delete</i></button>
+          </div>
+        </div>
+      </div>
+      <div class="button-wrap">
+        <button class="g-add" (click)="self.methods.addKlass()"><i class="material-icons">add</i></button>
+      </div>
+      <div class="flex-row-all flex-config-wrap flex-config-bottom flex-gutters-5 bmr-40">
+        <div class="flex-col-6">
+          <label class="block-label">Proficiency Score</label>
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.proficiency.value">
+          <label class="bt-hide">{{ self.methods.getProficiencyTotal() }}</label>
+        </div>
+        <div class="flex-col-6">
+          <label class="block-label">Inspiration</label>
+          <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.inspiration">
+        </div>
+        <div class="flex-col-6">
+          <div class="bm-10">
+            <label class="block-label">Misc XP</label>
+            <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.xp">
+          </div>
+        </div>
+        <div class="flex-col-6">
+          <label class="control-label">Total XP: <span>{{ self.methods.getTotalXP() }}</span></label>
+        </div>
+      </div>
+      <h2 class="group-header">Profile</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">These fields help round out your character's personality and background.</p>
+      <div class="group group-profile">
+        <div class="form-group bm-5">
+          <label class="block-label">Profile Image</label>
+          <input type="text" class="form-control" placeholder="Image URL" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.image">
+        </div>
+        <div class="form-group">
+          <label class="block-label">Profile Info</label>
+        </div>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6 stat-row bm-5">
+            <div class="value-col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Character Name" (ngModelChange)="self.methods.updateTitle()" [(ngModel)]="self.model.name">
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 stat-row bm-5" *ngFor="let stat of self.methods.listProfiles()">
+            <div class="value-col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="{{ stat.name }}" (ngModelChange)="self.touch()" [(ngModel)]="stat.text">
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 stat-row bm-5">
+            <div class="value-col">
+              <div class="form-group">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.model.basic.alignment }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.alignment">
+                    <option [value]="alignment" *ngFor="let alignment of self.locals.selection.alignments">{{ alignment }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--/group-->
+    </div>
+    <div class="flex-col-6">
+      <h3 class="h4">Background</h3>
+      <div class="group group-background">
+        <div class="form-group">
+          <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5" *ngIf="self.methods.isBackgroundListed() && !self.locals.data.custom_background">
+            <div class="flex-col flex-dynamic">
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.model.basic.background.name }}</label>
+                <select class="form-control" (ngModelChange)="self.methods.onBackgroundChange(true)" [(ngModel)]="self.model.basic.background.name">
+                  <option [value]="background" *ngFor="let background of self.methods.listBackgroundSelection()">{{ background }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col flex-static">
+              <button class="g-neutral" (click)="self.locals.data.custom_background = true"><fa-icon [icon]="['fa', 'pencil-alt']"></fa-icon></button>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5" *ngIf="!self.methods.isBackgroundListed() || self.locals.data.custom_background">
+            <div class="flex-col flex-dynamic">
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.background.name">
+            </div>
+            <div class="flex-col flex-static">
+              <button class="g-neutral" (click)="self.methods.resetBackground()"><fa-icon [icon]="['fa', 'list']"></fa-icon></button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="self.methods.isBackgroundListed()">
+          <h4>Background Attributes</h4>
+          <div *ngFor="let list of self.methods.getBackgroundDataLists()">
+            <h5 class="gh5">{{ list.name }}</h5>
+            <ul>
+              <li *ngFor="let item of list.items">{{ item.text }}</li>
+            </ul>
+          </div>
+          <h5 class="gh5">Wealth</h5>
+          <p>{{ self.methods.getBackgroundGold() }}</p>
+        </div>
+        <div *ngFor="let attr of self.methods.listBackgroundAttributes()">
+          <h4 *ngIf="attr.name">{{ self.methods.backgroundListName(attr) }}</h4>
+          <div *ngFor="let item of self.methods.getBackgroundAttributeList(attr.slug)">
+            <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5" *ngIf="self.methods.isBackgroundAttrListed(item, attr)">
+              <div class="flex-col flex-dynamic">
+                <div class="select-wrap">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ item.text || 'Choose ' + attr.singular }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text">
+                    <option [value]="option.text" *ngFor="let option of self.methods.listBackgroundAttributeOptions(attr.slug)">{{ option.text }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col flex-static">
+                <button class="g-neutral" (click)="attr.custom = true"><fa-icon [icon]="['fa', 'pencil-alt']"></fa-icon></button>
+              </div>
+            </div>
+            <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5" *ngIf="!attr.listed">
+              <div class="flex-col flex-dynamic">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text" placeholder="{{ 'Choose ' + attr.singular }}">
+              </div>
+              <div class="flex-col flex-static" *ngIf="self.methods.isBackgroundListed()">
+                <button class="g-neutral" (click)="attr.custom = false"><fa-icon [icon]="['fa', 'list']"></fa-icon></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="fp-15">
+  <div class="flex-row-tablet flex-gutters-15">
+    <div class="flex-col-6 bm-20">
+      <h2 class="rh24 bmr-20">Adventure Log</h2>
+      <p class="help-text">Use logs to keep track of what happened on each play session.  You can be as thorough as you want, but keep in mind these logs are visible to all players. A summary of the latest log will be shown on the Summary tab. If no summary is entered for a log, the Summary tab will show an excerpt of the main text.</p>
+      <div cdkDropList [cdkDropListData]="self.model.logs" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-log adventure-log bmr-40" *ngFor="let log of self.methods.listLogs()" cdkDrag [cdkDragData]="log">
+          <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-10">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+            <div class="flex-col flex-dynamic">
+              <input type="text" (ngModelChange)="self.touch()" [(ngModel)]="log.summary" placeholder="Summary (optional)" class="form-control">
+            </div>
+            <div class="flex-col flex-static">
+              <button title="Remove Log" class="g-remove" (click)="self.methods.removeByObject(self.model.logs, log)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+          <textarea (ngModelChange)="self.touch()" [(ngModel)]="log.text" class="form-control bm-10"></textarea>
+          <input type="date" [(ngModel)]="log.created_at" class="form-control bm-5">
+        </div>
+      </div>
+      <button title="Add Log" class="g-add" (click)="self.methods.addLog()"><i class="material-icons">add</i></button>
+    </div>
+
+    <div class="flex-col-6 bm-20">
+      <h2 class="rh24 bmr-20">Quests</h2>
+      <p class="help-text">Quests can help organize goals and missions for the party into one place. The "Known?" checkbox toggles whether the other players can view each quest. Players cannot see the Reward field for each quest. When you click "Start Quest," the system logs a timestamp of when you started it. Similarly, a timestamp is recorded for when you complete the quest.</p>
+      <div cdkDropList [cdkDropListData]="self.model.quests" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+        <div class="js-quest quest bmr-40" *ngFor="let quest of self.methods.listQuests()" cdkDrag [cdkDragData]="quest">
+          <div class="flex-row-all flex-gutters-5 bm-10">
+            <div class="flex-col flex-static">
+              <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+            </div>
+
+            <div class="flex-col flex-dynamic">
+              <input type="text" (ngModelChange)="self.touch()" [(ngModel)]="quest.name" placeholder="Name" class="form-control">
+            </div>
+
+            <div class="flex-col flex-static">
+              <button title="Remove Quest" class="g-remove" (click)="self.methods.removeByObject(self.model.quests, quest)"><i class="material-icons">delete</i></button>
+            </div>
+          </div>
+
+          <div class="bm-10">
+            <textarea (ngModelChange)="self.touch()" [(ngModel)]="quest.text" class="form-control"></textarea>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5 bm-10">
+            <div class="flex-col-6">
+              <input type="text" (ngModelChange)="self.touch()" [(ngModel)]="quest.origin" placeholder="Origin" class="form-control">
+            </div>
+            <div class="flex-col-6">
+              <input type="text" (ngModelChange)="self.touch()" [(ngModel)]="quest.reward" placeholder="Reward" class="form-control">
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-config-align-center flex-config-spaced flex-gutters-5">
+            <div class="flex-col">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="quest.known"> Known?
+              </label>
+            </div>
+            <div class="flex-col">
+              <button (click)="self.methods.startQuest(quest)" *ngIf="self.methods.questIsNotStarted(quest)" class="button button-cyan">Start Quest</button>
+              <button (click)="self.methods.completeQuest(quest)" *ngIf="self.methods.questIsIncomplete(quest)" class="button button-green">Quest Complete!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button title="Add Quest" class="g-add" (click)="self.methods.addQuest()"><i class="material-icons">add</i></button>
+    </div>
+  </div>
+</div>

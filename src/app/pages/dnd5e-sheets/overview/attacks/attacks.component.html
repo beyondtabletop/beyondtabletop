@@ -1,0 +1,13 @@
+<div class="overview-attacks-block">
+  <div class="nav-clickable" *ngFor="let attack of self.methods.listAttacks()" (click)="self.methods.switchTab('combat')">
+    <h3>{{ self.methods.getAttackName(attack) }}</h3>
+    <div class="flex-row-all flex-gutters-5 bm-5 attack-row">
+      <div class="flex-col-6 attack-col">
+        <div>{{ self.methods.printAttackRoll(attack) }}</div>
+      </div>
+      <div class="flex-col-6 damage-col">
+        <div>{{ self.methods.printDamageRoll(attack) }}</div>
+      </div>
+    </div>
+  </div>
+</div>

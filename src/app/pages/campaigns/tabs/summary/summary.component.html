@@ -1,0 +1,211 @@
+<div class="table-summary fp-15">
+  <div class="max-700 auto-margin">
+    <h2 class="rh24 bmr-40">Summary</h2>
+    <div class="bmr-40" *ngFor="let log of self.methods.getMostRecentLogInArray()">
+      <span>{{ log.created_at }}</span> - <span>{{ self.methods.getLogSummary(log) }}</span>
+    </div>
+    <div class="tool-map flex-row-all flex-config-align-center flex-config-justify-center bmr-40" *ngFor="let map of self.methods.getCampaignMapArray()" (click)="self.methods.onMapToolClick(map)">
+      <button class="g-remove" (click)="self.methods.removeTool(map)" *ngIf="self.methods.canRemoveTableMap()"><i class="material-icons">delete</i></button>
+      <h3 class="rh18 text-center">{{ map.title }}</h3>
+    </div>
+
+    <div class="table-players bmr-60">
+      <div class="player bm-5 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let player of self.methods.listPlayers()" [ngClass]="self.methods.getPlayerClasses(player)">
+        <div class="flex-col flex-static" *ngIf="self.methods.canDeletePlayer(player)">
+          <button title="Remove Player" [disabled]="player.busy" class="g-remove" (click)="self.methods.removePlayer(player)"><i class="material-icons">delete</i></button>
+        </div>
+        <div class="flex-col flex-static">
+          <div class="player-image" *ngIf="player.image">
+            <img [src]="player.image" [alt]="self.methods.getPlayerName(player)">
+          </div>
+        </div>
+        <div class="flex-col flex-dynamic">
+          <h4 class="rh16" [ngStyle]="{ color: player.color }">{{ self.methods.getPlayerName(player) }}</h4>
+        </div>
+        <div class="flex-col flex-static" *ngIf="self.methods.canLinkPlayerSheet(player)">
+          <button title="Link character sheet" class="g-add" (click)="self.methods.addSheetToPlayer(player)">
+            <span class="text">Link sheet</span>
+            <i class="material-icons">link</i>
+          </button>
+        </div>
+        <div class="flex-col flex-static" *ngIf="self.methods.canOpenPlayerSheet(player)">
+          <button title="Open character sheet" class="g-add" (click)="self.methods.onPlayerSheetClick(player.sheet_id)">
+            <span class="text">{{ self.methods.getPlayerSheetName(player) }}</span>
+            <i class="material-icons">open_in_new</i>
+          </button>
+        </div>
+        <div class="flex-col" *ngIf="self.methods.canRemovePlayerSheet(player)">
+          <button class="g-remove" (click)="self.methods.removeSheetFromPlayer(player)"><i class="material-icons">delete</i></button>
+        </div>
+      </div>
+      <div class="tm-20">
+        <button class="button button-green" (click)="self.methods.shareDocument(self.locals.document_id)">Add Player</button>
+      </div>
+    </div>
+
+    <div class="bmr-60" *ngIf="self.methods.anyKnownQuests()">
+      <h3 class="rh18 bm-10">Quests</h3>
+      <div class="bm-10" *ngFor="let quest of self.methods.listKnownQuests()">
+        <div class="flex-row-all flex-config-spaced flex-config-align-center bm-10">
+          <div class="flex-col">
+            <h4 class="rh18 weight-normal">{{ quest.name }}</h4>
+          </div>
+          <div class="flex-col">
+            <button (click)="self.methods.startQuest(quest)" *ngIf="self.methods.questIsNotStarted(quest)" class="button button-cyan">Start Quest</button>
+            <button (click)="self.methods.completeQuest(quest)" *ngIf="self.methods.questIsIncomplete(quest)" class="button button-green">Quest Complete!</button>
+          </div>
+        </div>
+        <p class="bm-10">{{ quest.text }}</p>
+        <div class="base-color">
+          Origin: <span>{{ quest.origin }}</span>
+          <span *ngIf="quest.started_at !== null">
+              - Started: <span>{{ quest.started_at }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bmr-60" *ngIf="self.methods.anyKnownNPCs()">
+      <h3 class="rh18 bm-10">NPCs</h3>
+      <div class="summary-npc bm-20" *ngFor="let npc of self.methods.listKnownNPCs()" [ngClass]="self.methods.getNPCClass(npc)">
+        <div class="bm-5 flex-row-all flex-gutters-5 flex-config-align-center" (click)="self.methods.toggleActiveNPC(npc)">
+          <div class="flex-col flex-static" *ngIf="npc.image">
+            <div class="npc-image">
+              <div class="intrinsic">
+                <div class="img" [ngStyle]="self.methods.backgroundStyle(npc.image)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col flex-dynamic">
+            <h4 class="rh16 weight-semibold">{{ npc.name }}</h4>
+          </div>
+          <div class="flex-col">
+            <button class="g-icon">
+              <i class="material-icons hide-on-active">keyboard_arrow_down</i>
+              <i class="material-icons hide-on-inactive">keyboard_arrow_up</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="hide-on-inactive">
+          <div class="flex-row-all flex-config-wrap flex-gutters-5 flex-config-align-center">
+            <div class="flex-col flex-row-all flex-gutters-2 flex-config-align-center" *ngFor="let detail of self.methods.listKnownNPCDetails(npc, 'abilities')">
+              <div class="flex-col">
+                <label class="g-label weight-normal">{{ detail.name }}</label>:
+              </div>
+              <div class="flex-col">
+                <label class="g-label">
+                  <span>{{ detail.value }}</span> / <span>{{ detail.misc }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(npc, 'basic')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">{{ detail.value }}</label>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(npc, 'custom')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">{{ detail.value }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bmr-60" *ngIf="self.methods.anyKnownFoes()">
+      <h3 class="rh18 bm-10">Enemies</h3>
+      <div class="summary-npc bm-20" *ngFor="let foe of self.methods.listKnownFoes()" [ngClass]="self.methods.getNPCClass(foe)">
+        <div class="bm-5 flex-row-all flex-gutters-5 flex-config-align-center" (click)="self.methods.toggleActiveNPC(foe)">
+          <div class="flex-col flex-static" *ngIf="foe.image">
+            <div class="npc-image">
+              <div class="intrinsic">
+                <div class="img" [ngStyle]="self.methods.backgroundStyle(foe.image)"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col flex-dynamic">
+            <h4 class="rh16 weight-semibold">{{ foe.name }}</h4>
+          </div>
+          <div class="flex-col" *ngIf="self.methods.anyDetailsVisible(foe)">
+            <button class="g-icon">
+              <i class="material-icons hide-on-active">keyboard_arrow_down</i>
+              <i class="material-icons hide-on-inactive">keyboard_arrow_up</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="hide-on-inactive">
+          <div class="flex-row-all flex-config-wrap flex-gutters-5 flex-config-align-center">
+            <div class="flex-col flex-row-all flex-gutters-2 flex-config-align-center" *ngFor="let detail of self.methods.listKnownNPCDetails(foe, 'abilities')">
+              <div class="flex-col">
+                <label class="g-label weight-normal">{{ detail.name }}</label>:
+              </div>
+              <div class="flex-col">
+                <label class="g-label">
+                  <span>{{ detail.value }}</span> / <span>{{ detail.misc }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(foe, 'combat_num')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">{{ detail.value }}</label>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(foe, 'combat_text')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">{{ detail.value }}</label>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(foe, 'attack')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">
+                <span>{{ detail.value }}</span> / <span>{{ detail.misc }}</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex-row-all flex-gutters-5" *ngFor="let detail of self.methods.listKnownNPCDetails(foe, 'custom')">
+            <div class="flex-col">
+              <label class="g-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col">
+              <label class="g-label weight-normal">{{ detail.value }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bmr-60" *ngIf="self.model.logs.length > 0">
+      <h3 class="rh18 bm-20">Adventure Logs</h3>
+      <div class="bm-20" *ngFor="let log of self.methods.listLogs()">
+        <h4 class="rh16 bm-5 weight-semibold">{{ self.methods.displayDate(log.created_at) }}</h4>
+        <div class="bm-10 btt-markdown" [innerHTML]="log.text | markdown"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

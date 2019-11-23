@@ -1,0 +1,8 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap" *ngIf="klass.level >= 2">
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Remaining Wild Shapes</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Druid.wild_shape.remaining">
+    </div>
+  </div>
+</div>

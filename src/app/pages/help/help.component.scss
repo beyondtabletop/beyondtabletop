@@ -1,0 +1,11 @@
+@import '../../abstracts/variables';
+@import '../../abstracts/mixins';
+
+.faq-list {
+  h2, h3 {
+    font-family: $title;
+  }
+  .faq-item {
+    margin-bottom: 30px;
+  }
+}

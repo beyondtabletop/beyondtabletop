@@ -1,0 +1,120 @@
+<div class="fp-15">
+  <h2 class="rh24 bmr-40">NPCs</h2>
+  <p class="help-text">NPCs have a lot of properties, divided up by groups. You can fill out as many or as few details per NPC as you'd like, and you can toggle each "Known?" checkbox when the party learns more about each piece of information. The "Known?" checkbox under the name toggles whether the NPC shows up on the Summary screen (visible by players).</p>
+  <p class="help-text">You can also add custom attributes in the last section.</p>
+
+  <div class="flex-row-all flex-config-wrap flex-gutters-10 bm-20">
+    <div class="flex-col" *ngFor="let npc of self.methods.listNPCs()">
+      <button class="button button-ghost" (click)="self.methods.toggleActiveNPC(npc)">{{ npc.name }}</button>
+    </div>
+  </div>
+
+  <div class="bmr-40" cdkDropList [cdkDropListData]="self.model.npcs" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+    <div class="js-npc table-npc bm-20" *ngFor="let npc of self.methods.listNPCs()" cdkDrag [cdkDragData]="npc" [ngClass]="self.methods.getNPCClass(npc)">
+      <div class="hide-on-active flex-row-all flex-dynamic flex-config-align-center flex-gutters-5 summary-row">
+        <div class="flex-col flex-static">
+          <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+        </div>
+        <div class="flex-col flex-dynamic">
+          <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="npc.name" placeholder="Name">
+        </div>
+        <div class="flex-col flex-static">
+          <button title="Edit NPC" class="g-icon" (click)="self.methods.toggleActiveNPC(npc)"><fa-icon [icon]="['fa', 'edit']"></fa-icon></button>
+        </div>
+        <div class="flex-col flex-static">
+          <button title="Remove NPC" class="g-remove" (click)="self.methods.removeByObject(self.model.npcs, npc)"><i class="material-icons">delete</i></button>
+        </div>
+      </div>
+
+      <div class="hide-on-inactive">
+        <div class="bmr-40">
+          <h2 class="rh18 bm-10">Name</h2>
+          <input type="text" class="form-control bm-10" (ngModelChange)="self.touch()" [(ngModel)]="npc.name" placeholder="Name">
+          <div class="flex-row-all flex-config-spaced flex-gutters-5">
+            <div class="flex-col">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="npc.known"> Known?
+              </label>
+            </div>
+            <div class="flex-col">
+              <button class="button button-cyan" (click)="self.methods.randomName(npc)">Randomize Name</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bmr-40">
+          <h2 class="rh18 bm-10">Image</h2>
+          <input type="text" class="form-control bm-10" (ngModelChange)="self.touch()" [(ngModel)]="npc.image" placeholder="Image URL">
+        </div>
+
+        <h2 class="rh18 bm-10">Abilities</h2>
+        <div class="details bmr-40" cdkDropList [cdkDropListData]="npc.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let detail of self.methods.listNPCDetailsByGroup(npc, 'abilities')">
+            <div class="flex-col w-40">
+              <label class="control-label">{{ detail.name }}</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+            </div>
+            <div class="flex-col num-print-column">
+              <label class="block-label">{{ self.methods.getAbilityMod(detail) }}</label>
+            </div>
+            <div class="flex-col flex-static">
+              <label class="checkbox-inline">
+                <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="rh18 bm-10">Basic</h2>
+        <div class="details bmr-40  flex-row-tablet flex-gutters-10 flex-config-wrap" cdkDropList [cdkDropListData]="npc.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-col-6" *ngFor="let detail of self.methods.listNPCDetailsByGroup(npc, 'basic')">
+            <div class="flex-row-all flex-config-spaced flex-config-align-center">
+              <div class="flex-col">
+                <label class="control-label">{{ detail.name }}</label>
+              </div>
+              <div class="flex-col">
+                <label class="checkbox-inline">
+                  <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known"> Known?
+                </label>
+              </div>
+            </div>
+            <input type="text" [title]="detail.name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+
+          </div>
+        </div>
+
+        <h2 class="rh18 bm-10">Custom</h2>
+        <div class="details" cdkDropList [cdkDropListData]="npc.details" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+          <div class="js-npc-detail bm-10 flex-col-6" *ngFor="let detail of self.methods.listNPCDetailsByGroup(npc, 'custom')" cdkDrag [cdkDragData]="detail">
+            <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5">
+              <div class="flex-col flex-static">
+                <span class="sub-drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col-6">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.name" placeholder="Name">
+              </div>
+              <div class="flex-col-6">
+                <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="detail.value" [placeholder]="detail.name">
+              </div>
+              <div class="flex-col flex-static">
+                <label class="checkbox-inline">
+                  <input type="checkbox" title="Known?" (ngModelChange)="self.touch()" [(ngModel)]="detail.known">
+                </label>
+              </div>
+              <div class="flex-col flex-static">
+                <button title="Remove NPC Detail" class="g-remove" (click)="self.methods.removeByObject(npc.details, detail)"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button title="Add NPC Detail" class="g-add" (click)="self.methods.addNPCDetail(npc, 'custom')"><i class="material-icons">add</i></button>
+        <div class="tm-20"><button title="Move to Enemies" class="button button-cyan" (click)="self.methods.moveNPC(npc, 'foes')">Move <span>{{ npc.name }}</span> to Enemies</button></div>
+      </div>
+
+    </div>
+  </div>
+  <button title="Add NPC" class="button button-orange" (click)="self.methods.addNPC()"><i class="material-icons">add</i> NPC</button>
+
+</div>

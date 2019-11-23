@@ -1,0 +1,14 @@
+<div class="flex-row-all flex-gutters-5 tm-10">
+  <div class="flex-col-3">
+    <button title="Send to back" class="primary-button" (click)="self.methods.changeLayer(item, 'back')"><fa-icon [icon]="['fa', 'angle-double-down']"></fa-icon></button>
+  </div>
+  <div class="flex-col-3">
+    <button title="Move down" class="primary-button" (click)="self.methods.changeLayer(item, 'down')"><fa-icon [icon]="['fa', 'angle-down']"></fa-icon></button>
+  </div>
+  <div class="flex-col-3">
+    <button title="Move up" class="primary-button" (click)="self.methods.changeLayer(item, 'up')"><fa-icon [icon]="['fa', 'angle-up']"></fa-icon></button>
+  </div>
+  <div class="flex-col-3">
+    <button title="Send to front" class="primary-button" (click)="self.methods.changeLayer(item, 'front')"><fa-icon [icon]="['fa', 'angle-double-up']"></fa-icon></button>
+  </div>
+</div>

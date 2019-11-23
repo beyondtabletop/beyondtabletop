@@ -1,0 +1,28 @@
+<div>
+  <h4 class="gh3">Choose your domain</h4>
+  <div class="flex-row-tablet flex-gutters-10 flex-config-wrap">
+    <div class="flex-col-6 bm-20" *ngFor="let domain of self.locals.selection.domains">
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col">
+          <button class="button button-checkbox" (click)="self.methods.onClericDomainChange(domain)" [ngClass]="self.model.powers.Cleric.domain === domain ? 'checked' : 'unchecked'">
+            <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+          </button>
+        </div>
+        <div class="flex-col">
+          <h5 class="gh4">{{ domain }}</h5>
+          <p>{{ self.locals.data.builder.create_powers.Cleric.domains[domain] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="max-500 auto-margin" *ngIf="self.model.powers.Cleric.domain === 'Knowledge Domain'">
+    <h4 class="gh3">Blessings of Knowledge</h4>
+    <h3 class="gh4">Pick 2 from the following list:</h3>
+    <div *ngFor="let stat of self.locals.data.blessing_of_knowledge">
+      <label class="checkbox-inline">
+        <input type="checkbox" [title]="stat.name" (ngModelChange)="self.methods.setClericExpertise(self.model.skills[stat.id])" [(ngModel)]="self.model.skills[stat.id].expert">
+        <span>{{ stat.name }}</span>
+      </label>
+    </div>
+  </div>
+</div>

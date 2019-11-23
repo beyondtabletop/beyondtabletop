@@ -1,0 +1,21 @@
+@import '../../../app/abstracts/variables.scss';
+@import '../../../app/abstracts/mixins.scss';
+
+.kit-header {
+  background: $secondary-color;
+  padding: 8px;
+  .logo {
+    display: block;
+    background: transparent url("/assets/img/logo.png") 0 0 no-repeat;
+    background-image: url("/assets/img/logo.svg"), none;
+    background-size: contain;
+    height: 45px;
+    position: relative;
+  }
+}
+
+.kit-body {
+  textarea.form-control {
+    min-height: 150px;
+  }
+}

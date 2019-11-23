@@ -1,0 +1,29 @@
+<div class="flex-row-tablet flex-gutters-10">
+  <div class="flex-col-7">
+    <h4 class="gh3">Choose your Archetype</h4>
+    <div class="bm-20" *ngFor="let archetype of self.locals.selection.rogue_archetypes">
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col">
+          <button class="button button-checkbox" (click)="self.model.powers.Rogue.archetype = archetype" [ngClass]="self.model.powers.Rogue.archetype === archetype ? 'checked' : 'unchecked'">
+            <fa-icon class="check-icon" [icon]="['fa', 'check']"></fa-icon>
+          </button>
+        </div>
+        <div class="flex-col">
+          <h5 class="gh4">{{ archetype }}</h5>
+          <p>{{ self.locals.data.builder.create_powers.Rogue.archetypes[archetype] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-col-5">
+    <h4 class="gh3">Expertise</h4>
+    <p>You are an expert at two of your existing proficient skills.</p>
+    <h3 class="gh4">Pick 2 from the following list:</h3>
+    <div class="stat-row" *ngFor="let stat of self.methods.listProficientSkills()">
+      <label class="checkbox-inline">
+        <input type="checkbox" [title]="stat.name" (ngModelChange)="self.touch()" [(ngModel)]="stat.expert">
+        <span>{{ stat.name }}</span>
+      </label>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,272 @@
+<div class="sheet-tab">
+  <bt-tab-upgrade *ngIf="!self.locals.full_access" [self]="self"></bt-tab-upgrade>
+  <div class="group-companions" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+    <div *ngIf="self.model.companions.length < 1">
+      <h2 class="group-header">Companions</h2>
+      <p class="help-text" [class.bt-hide]="!self.model.prefs.help">Welcome to the new Companions tab! Here you can add details for an animal companion or a familiar.</p>
+    </div>
+    <div class="companion" *ngFor="let companion of self.methods.listCompanions()">
+      <div class="flex-row-all flex-config-spaced">
+        <h2 class="group-header">{{ companion.name }}</h2>
+        <bt-hold-delete title="Remove Companion" (holdComplete)="self.methods.removeByObject(self.model.companions, companion)"></bt-hold-delete>
+      </div>
+      <div class="flex-row-tablet flex-gutters-15">
+        <div class="flex-col-6">
+          <h3 class="gh4">Basic</h3>
+          <div>
+            <label class="control-label">Name</label>
+            <input type="text" class="form-control" placeholder="Companion Name" (ngModelChange)="self.touch()" [(ngModel)]="companion.name">
+          </div>
+          <div class="flex-row-all flex-gutters-5 bmr-40 flex-config-wrap">
+            <div class="flex-col-6">
+              <label class="control-label">Type</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ companion.type }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.type">
+                  <option [value]="type" *ngFor="let type of self.locals.selection.companion_types">{{ type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Size</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ companion.basic.size }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.basic.size">
+                  <option [value]="size" *ngFor="let size of self.locals.selection.size"></option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-col-6">
+              <label class="control-label">Proficiency</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.basic.proficiency.value">
+              <!-- this line below calculates the creature's proficiency total, which is necessary to do other stuff. We hide it bc we don't want to show it right now but we will want to show this eventually so here it is! -->
+              <span class="visually-hidden">{{ self.methods.getProficiencyTotal(companion) }}</span>
+            </div>
+          </div>
+
+          <h3 class="gh4">Abilities</h3>
+          <div class="group group-abilities bmr-40">
+            <div class="flex-row-all flex-gutters-5 bm-5">
+              <div class="flex-col name-col">
+                <label class="control-label">Name</label>
+              </div>
+              <div class="flex-col num-field-column">
+                <label class="control-label">Value</label>
+              </div>
+              <div class="flex-col num-field-column">
+                <label class="control-label">Misc</label>
+              </div>
+              <div class="flex-col total-col">
+                <label class="control-label">Total</label>
+              </div>
+              <div class="flex-col mod-col">
+                <label class="control-label">Mod</label>
+              </div>
+              <div class="flex-col save-col">
+                <label class="control-label">Save</label>
+              </div>
+            </div>
+
+            <div class="stat-row" *ngFor="let ability of self.locals.selection.abilities">
+              <div class="flex-row-all flex-gutters-5 bm-5">
+                <div class="flex-col name-col">
+                  <label class="control-label">{{ ability }}</label>
+                </div>
+                <div class="flex-col num-field-column">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.abilities[ability].value">
+                </div>
+                <div class="flex-col num-field-column">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.abilities[ability].misc">
+                </div>
+                <div class="flex-col total-col">
+                  <label class="control-label">{{ self.methods.getAbilityTotal(companion.abilities[ability]) }}</label>
+                </div>
+                <div class="flex-col mod-col">
+                  <label class="control-label">{{ self.methods.getAbilityMod(companion.abilities[ability]) }}</label>
+                </div>
+                <div class="flex-col save-col">
+                  <label class="control-label">{{ self.methods.getSaveTotal(companion.abilities[ability], companion) }}</label>
+                  <input type="checkbox" title="Save proficiency in {{ ability }}" (ngModelChange)="self.touch()" [(ngModel)]="companion.abilities[ability].save_prof">
+                </div>
+              </div>
+            </div>
+          </div><!--/group-->
+
+          <div class="group-group-combat">
+            <h2 class="gh3">Combat</h2>
+
+            <h3 class="gh4">HP</h3>
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">HP</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.hp.value">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Temporary HP</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.hp.temporary">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Wounds</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.hp.damage">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Current HP</label>
+                <label class="control-label">{{ self.methods.getHPRemaining(companion) }}</label>
+              </div>
+            </div>
+
+            <h3 class="gh4">Initiative</h3>
+            <div class="flex-row-all flex-gutters-5 bmr-40">
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Misc Initiative</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.init.misc">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Total Initiative</label>
+                <label class="control-label">{{ self.methods.getTotalInit(companion) }}</label>
+              </div>
+            </div>
+
+            <h3 class="gh4">AC</h3>
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Natural AC</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.ac.natural">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Deflection AC</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.ac.deflection">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Dodge AC</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.ac.dodge">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Misc AC</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.ac.misc">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Dex Bonus: <span>{{ self.methods.getDexBonusToAC(companion) }}</span></label>
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">AC Total: <span>{{ self.methods.getTotalAC(companion) }}</span></label>
+              </div>
+            </div>
+
+            <h3 class="gh4">Speed</h3>
+            <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Base</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.speed.base">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Fly</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.speed.fly">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Swim</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.speed.swim">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Climb</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.speed.climb">
+              </div>
+              <div class="flex-col-6 bm-5">
+                <label class="block-label">Burrow</label>
+                <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="companion.combat.speed.burrow">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col-6">
+          <h3 class="gh4">Attacks</h3>
+          <div class="bmr-60">
+            <div class="bmr-20" *ngFor="let attack of self.methods.listCompanionAttacks(companion)">
+              <div class="flex-row-all flex-config-bottom flex-gutters-5">
+                <div class="flex-col flex-dynamic">
+                  <label class="control-label">Name</label>
+                  <input type="text" placeholder="Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.name">
+                </div>
+                <div class="flex-col flex-static">
+                  <button class="g-remove" (click)="self.methods.removeByObject(companion.attacks, attack)"><i class="material-icons">delete</i></button>
+                </div>
+              </div>
+              <div class="flex-row-all flex-gutters-5">
+                <div class="flex-col-4">
+                  <label class="control-label">Attack Bonus</label>
+                  <input type="number" placeholder="Attack Bonus" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.attack_bonus">
+                </div>
+                <div class="flex-col-4">
+                  <label class="control-label">Damage Bonus</label>
+                  <input type="number" placeholder="Damage Bonus" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.damage_bonus">
+                </div>
+                <div class="flex-col-4">
+                  <label class="control-label">Damage Die</label>
+                  <input type="text" placeholder="Damage Die" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.damage_die">
+                </div>
+              </div>
+              <div>
+                <label class="control-label">Special</label>
+                <input type="text" placeholder="Special" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.special">
+              </div>
+            </div>
+            <button class="g-add" (click)="self.methods.addCompanionAttack(companion)"><i class="material-icons">add</i></button>
+          </div>
+
+
+          <h3 class="gh4">Skills</h3>
+          <div class="bmr-60">
+            <div class="bm-10" *ngFor="let skill of self.methods.listCompanionSkills(companion)">
+              <div class="flex-row-all flex-config-align-center flex-gutters-5">
+                <div class="flex-col w-150">
+                  <div class="select-wrap">
+                    <i class="material-icons">arrow_drop_down</i>
+                    <label>{{ skill.name }}</label>
+                    <select class="form-control" (ngModelChange)="self.methods.setSkillAbility(skill)" [(ngModel)]="skill.name">
+                      <option [value]="stat.name" *ngFor="let stat of self.methods.listSkills()">{{ stat.name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="flex-col flex-dynamic">
+                  <span>{{ skill.ability }}</span>: <span>{{ self.methods.getAbilityMod(companion.abilities[skill.ability]) }}</span>
+                </div>
+                <div class="flex-col num-field-column">
+                  <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="skill.misc">
+                </div>
+                <div class="flex-col num-print-column">
+                  <strong>{{ self.methods.getSkillTotal(skill, companion) }}</strong>
+                </div>
+                <div class="flex-col flex-static">
+                  <button class="g-remove" (click)="self.methods.removeByObject(companion.skills, skill)"><i class="material-icons">delete</i></button>
+                </div>
+              </div>
+            </div>
+            <button class="g-add" (click)="self.methods.addCompanionSkill(companion)"><i class="material-icons">add</i></button>
+          </div>
+
+
+          <h3 class="gh4">Special Abilities</h3>
+          <div class="bmr-60">
+            <div class="bm-10" *ngFor="let special of self.methods.listCompanionSpecials(companion)">
+              <div class="flex-row-all flex-config-bottom flex-gutters-5">
+                <div class="flex-col-4">
+                  <input type="text" placeholder="Name" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="special.name">
+                </div>
+                <div class="flex-col-8">
+                  <input type="text" placeholder="Text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="special.text">
+                </div>
+                <div class="flex-col flex-static">
+                  <button class="g-remove" (click)="self.methods.removeByObject(companion.specials, special)"><i class="material-icons">delete</i></button>
+                </div>
+              </div>
+            </div>
+            <button class="g-add" (click)="self.methods.addCompanionSpecial(companion)"><i class="material-icons">add</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="button button-orange" (click)="self.methods.addCompanion()"><i class="material-icons">add</i> Companion</button>
+  </div>
+</div>

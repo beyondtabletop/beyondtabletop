@@ -1,0 +1,58 @@
+<div class="step">
+  <div class="max-500 auto-margin">
+    <h1 class="gh1">Review Lists</h1>
+    <h2 class="gsh3">Many of your choices up to now have granted various abilities or traits that are collected here for your review.</h2>
+    <h2 class="gsh4 gmuted">Many of these items require input on your part. For example, if you have a list item that says "One language of your choice" you will need to select a language for that item. If you're satisfied with all your previous choices, click the button below to generate the lists.</h2>
+
+    <div class="flex-row-all flex-config-justify-center flex-gutters-10 bm-40" *ngIf="!self.model.builder.creation.lists && !self.locals.builder.list_generated">
+      <div class="flex-col-6">
+        <button (click)="self.methods.generateBuilderLists()" class="button button-orange button-block">Generate Lists</button>
+      </div>
+    </div>
+
+    <div *ngIf="self.model.builder.creation.lists || self.locals.builder.list_generated">
+      <div class="bm-40">
+        <h3 class="gh3">Languages</h3>
+        <div class="bm-10" *ngFor="let item of self.methods.getListByName('Languages').items">
+          <div class="select-wrap">
+            <i class="material-icons">arrow_drop_down</i>
+            <label>{{ item.text }}</label>
+            <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text">
+              <option [value]="language" *ngFor="let language of self.locals.selection.languages">{{ language }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="bm-40">
+        <h3 class="gh3">Equipment</h3>
+        <div class="bm-10" *ngFor="let item of self.methods.getListByName('Equipment').items">
+          <h4 class="gh5">{{ item.text }}</h4>
+        </div>
+      </div>
+
+      <div class="bm-40">
+        <h3 class="gh3">Racial Traits</h3>
+        <div class="bm-10" *ngFor="let item of self.methods.getListByName('Racial Traits').items">
+          <h4 class="gh5">{{ item.text }}</h4>
+        </div>
+      </div>
+
+      <div class="bm-40" *ngIf="self.methods.getListByName('Tool Proficiencies').items.length > 0">
+        <h3 class="gh3">Tool Proficiencies</h3>
+        <div class="bm-10" *ngFor="let item of self.methods.getListByName('Tool Proficiencies').items">
+          <h4 class="gh5">{{ item.text }}</h4>
+        </div>
+      </div>
+
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col-6">
+          <button (click)="self.methods.switchStep('create-character')" class="button button-gray button-block">Back</button>
+        </div>
+        <div class="flex-col-6">
+          <button (click)="self.methods.builderFinishCharacter()" class="button button-cyan button-block">Create Character!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

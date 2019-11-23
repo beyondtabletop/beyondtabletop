@@ -1,0 +1,6 @@
+<youtube-player
+  class="visually-hidden"
+  [videoId]="cue.src"
+  (ready)="savePlayer($event)"
+  (change)="onStateChange($event)"
+></youtube-player>

@@ -1,0 +1,38 @@
+<div>
+  <div class="power-item space-bottom" [class.bt-hide]="klass.level < 2">
+    <h5 class="h5">Arcane Traditions</h5>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Wizard.tradition }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Wizard.tradition">
+        <option [value]="tradition" *ngFor="let tradition of self.locals.selection.wizard_traditions">{{ tradition }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Wizard.tradition" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.locals.data.wizard_tradition_features[self.model.powers.Wizard.tradition]">
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-6">
+        <h5 class="h5">{{ self.locals.data.wizard_tradition_features[self.model.powers.Wizard.tradition] }}</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Wizard.tradition_feature.remaining">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom" *ngIf="self.model.powers.Wizard.tradition === 'Divination' && klass.level >= 2">
+    <h5 class="h5">Portent Rolls</h5>
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-4" *ngFor="let roll of self.methods.listWizardPortentRolls(klass)">
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="roll.value">
+      </div>
+    </div>
+  </div>
+</div>

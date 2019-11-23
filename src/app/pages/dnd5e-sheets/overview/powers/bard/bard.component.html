@@ -1,0 +1,20 @@
+<div>
+  <div class="flex-row-all flex-gutters-5 flex-config-wrap">
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Inspiration Die</div>
+      <label class="block-label">{{ self.model.powers.Bard.inspiration_die }}</label>
+    </div>
+    <div class="flex-col-6 space-bottom">
+      <div class="power-label">Remaining Inspirations</div>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Bard.inspiration.remaining">
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 2">
+      <div class="power-label">JoAT Bonus</div>
+      <label class="block-label">{{ self.methods.halfRoundedDown(self.methods.getProficiencyTotal()) }}</label>
+    </div>
+    <div class="flex-col-6 space-bottom" *ngIf="klass.level >= 2">
+      <div class="power-label">Song of Rest</div>
+      <label class="block-label">{{ self.model.powers.Bard.song_of_rest }}</label>
+    </div>
+  </div>
+</div>

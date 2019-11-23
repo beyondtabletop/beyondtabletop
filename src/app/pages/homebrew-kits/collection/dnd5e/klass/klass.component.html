@@ -1,0 +1,29 @@
+<div class="bm-20">
+  <label class="weight-bold">Name</label>
+  <input (ngModelChange)="self.touch()" [(ngModel)]="klass.name" type="text" class="form-control" placeholder="Name">
+</div>
+<div class="flex-row-mobile flex-gutters-5">
+  <div class="flex-col-6 bm-20">
+    <label class="weight-bold">Hit Die</label>
+    <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.hit_die" placeholder="Hit Die">
+  </div>
+  <div class="flex-col-6 bm-20">
+    <label class="weight-bold">Spell Ability</label>
+    <div class="select-wrap">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ klass.spell_ability }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.spell_ability">
+        <option [value]="option" *ngFor="let option of self.locals.selection.abilities">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<label class="weight-bold">Saves</label>
+<div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+  <div class="flex-col-6" *ngFor="let abl of self.locals.selection.abilities">
+    <label class="checkbox-inline checkbox-wrap">
+      <input type="checkbox" [title]="abl" [checked]="self.methods.doesArrayIncludeValue(klass.saves, abl)" (click)="self.methods.toggleValueInArray(klass, 'saves', abl)"> {{ abl }}
+    </label>
+  </div>
+</div>

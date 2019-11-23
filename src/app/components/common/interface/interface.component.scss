@@ -1,0 +1,77 @@
+@import '../../../../app/abstracts/variables.scss';
+@import '../../../../app/abstracts/mixins.scss';
+
+.btt-notice {
+  left: 0;
+  width: 100vw;
+  position: fixed;
+  bottom: -100px;
+  transition: bottom .1s linear;
+  z-index: 10;
+  &.notice-showing {
+    bottom: 20px;
+  }
+  .notice-inner {
+    margin: auto;
+    padding: 20px;
+    border-radius: 4px;
+    background: $secondary-color;
+    color: $white;
+    width: 90vw;
+    @include above-width($tablet) {
+      width: 700px;
+    }
+  }
+}
+
+.btt-alert {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 13;
+  &.alert-showing {
+    display: block;
+  }
+  .alert-bg {
+    background: rgba($black, .5);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+  }
+  .alert-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    @include quick-flex($justify: center, $align: center, $wrap: nowrap)
+  }
+  .alert-content {
+    background: $white;
+    border-radius: 4px;
+    padding: 20px;
+    width: 500px;
+  }
+  .alert-close {
+    @include unstyled-button;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    @include font-size(48, 1);
+    color: $white;
+    cursor: pointer;
+  }
+}
+
+@media print {
+  .btt-interface {
+    display: none !important;
+  }
+}

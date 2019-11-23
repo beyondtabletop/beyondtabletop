@@ -1,0 +1,75 @@
+<div>
+  <div class="power-item">
+    <h5 class="h5">Rages</h5>
+    <div class="flex-row-all flex-gutters-15 flex-config-bottom">
+      <div class="flex-col">
+        <button class="white-button rage-button" [ngClass]="self.model.powers.Barbarian.rage_rounds > 0 ? 'raging': ''" [disabled]="self.model.powers.Barbarian.rage_rounds > 0" (click)="self.methods.onRage()">{{ self.model.powers.Barbarian.rage_rounds > 0 ? 'Raging!': 'Rage!' }}</button>
+      </div>
+      <div class="flex-col" *ngIf="self.model.powers.Barbarian.rage_rounds > 0">
+        <label class="control-label">Rounds Left</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rage_rounds">
+      </div>
+    </div>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-3">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.model.powers.Barbarian.rages.value }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rages.misc">
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Barbarian.rages) }}</label>
+      </div>
+      <div class="flex-col-3">
+        <label class="control-label">Remaining</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rages.remaining">
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <h5 class="h5">Rage Damage</h5>
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-4">
+        <label class="control-label">Value</label>
+        <label class="block-label">{{ self.model.powers.Barbarian.rage_damage.value }}</label>
+      </div>
+      <div class="flex-col-4">
+        <label class="control-label">Misc</label>
+        <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.rage_damage.misc">
+      </div>
+      <div class="flex-col-4">
+        <label class="control-label">Total</label>
+        <label class="block-label">{{ self.methods.getMiscValueAutoTotal(self.model.powers.Barbarian.rage_damage) }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <label class="control-label">Path</label>
+    <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>{{ self.model.powers.Barbarian.path }}</label>
+      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.path">
+        <option [value]="option" *ngFor="let option of self.locals.selection.barbarian_paths">{{ option }}</option>
+      </select>
+    </div>
+    <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Barbarian.path" *ngIf="self.model.prefs.homebrew">
+  </div>
+  <div class="power-item" *ngIf="self.model.powers.Barbarian.path === 'Path of the Totem Warrior'">
+    <h5 class="h5">Path of the Totem Warrior</h5>
+    <div class="bmr-20" *ngFor="let totem of self.model.powers.Barbarian.totem_beasts || []; index as i">
+      <div class="flex-row-all flex-config-spaced">
+        <label class="control-label">{{ self.locals.data.barbarian_totem_beasts[i] }}</label>
+        <button class="g-remove" (click)="self.methods.remove(self.model.powers.Barbarian.totem_beasts, i)">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+      <textarea (ngModelChange)="self.touch()" [(ngModel)]="totem.text" class="form-control"></textarea>
+    </div>
+    <button class="g-add" (click)="self.methods.addTotemBeast()">
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+</div>

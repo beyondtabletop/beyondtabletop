@@ -1,0 +1,4 @@
+<label class="checkbox-inline">
+  <input type="checkbox" title="{{ field.name }}?" (ngModelChange)="self.touch()" [(ngModel)]="item[field.field_id]">
+  <span *ngIf="collectable.label_type !== 'above'"><span>{{ field.name }}</span>?</span>
+</label>

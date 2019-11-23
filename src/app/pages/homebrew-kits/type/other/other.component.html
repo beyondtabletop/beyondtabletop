@@ -1,0 +1,8 @@
+<div>
+  <bt-homebrew-kit-collection
+    [self]="self"
+    [collection]="collection"
+    [parent]="self.model.tool_type"
+    *ngFor="let collection of self.methods.listCollections()"
+  ></bt-homebrew-kit-collection>
+</div>

@@ -1,0 +1,43 @@
+<div class="map isometric-map"
+  ng-keyup="self.methods.onKeyup($event)"
+  [ngStyle]="self.methods.getMapStyle(scene)"
+  [ngClass]="self.methods.mapClasses(scene)"
+  tabindex="0"
+  cdkDrag
+  (cdkDragReleased)="self.methods.mapDragStop($event)"
+>
+  <bt-battlemap-context-menu [self]="self"></bt-battlemap-context-menu>
+  <div class="shapes">
+    <div class="shape"
+      [ngClass]="self.methods.getShapeClasses(shape)"
+      (click)="self.methods.selectItem(shape)"
+      *ngFor="let shape of self.methods.listSceneShapes(scene)"
+      [ngStyle]="self.methods.getOuterShapeStyle(shape)"
+      cdkDrag
+      cdkDragBoundary=".map"
+      [cdkDragDisabled]="shape.pinned"
+      (cdkDragReleased)="self.methods.dragStop(shape, $event)"
+      (cdkDragStarted)="self.methods.itemDragStart(shape, $event)"
+    >
+      <div [class.bt-hide]="shape.image" class="image" [ngStyle]="self.methods.getInnerShapeStyle(shape)" (mousedown)="self.methods.onItemClick(shape, $event)" oncontextmenu="return false"></div>
+      <img *ngIf="shape.image" [src]="shape.image" class="shape-image" (mousedown)="self.methods.onItemClick(shape, $event)" oncontextmenu="return false">
+      <!-- <bt-battlemap-shape-drawing [self]="self" [shape]="shape"></bt-battlemap-shape-drawing> -->
+      <bt-battlemap-shape-resizer [self]="self" [shape]="shape"></bt-battlemap-shape-resizer>
+    </div>
+  </div>
+  <div class="tokens">
+    <div class="token"
+      [ngClass]="self.methods.getTokenClasses(token, scene)"
+      (click)="self.methods.selectItem(token)"
+      *ngFor="let token of self.methods.listSceneTokens(scene)"
+      [ngStyle]="self.methods.getOuterTokenStyle(token)"
+      cdkDrag
+      cdkDragBoundary=".map"
+      (cdkDragReleased)="self.methods.dragStop(token, $event)"
+      (cdkDragStarted)="self.methods.itemDragStart(token, $event)"
+    >
+      <div class="icon" [ngStyle]="self.methods.getInnerTokenStyle(token, scene)" (mousedown)="self.methods.onItemClick(token, $event)" oncontextmenu="return false"></div>
+      <div class="image" *ngIf="token.image" [ngStyle]="self.methods.getTokenImageStyle(token)" (mousedown)="self.methods.onItemClick(token, $event)" oncontextmenu="return false"></div>
+    </div>
+  </div>
+</div>

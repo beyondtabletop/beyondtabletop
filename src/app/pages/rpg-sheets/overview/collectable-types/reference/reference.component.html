@@ -1,0 +1,2 @@
+<label class="control-label" *ngIf="collectable.label_type === 'inline'">{{ field.name }}</label>
+<div class="block-value">{{ self.methods.reverseLookupBy(self.methods.listEntitiesForConditionEffect(), {id: item[field.field_id]}, 'name') }}</div>

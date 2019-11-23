@@ -1,0 +1,62 @@
+<div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-all flex-gutters-5">
+      <div class="flex-col-6" *ngIf="klass.level >= 3">
+        <h5 class="h5">Archetype</h5>
+        <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
+          <i class="material-icons">arrow_drop_down</i>
+          <label>{{ self.model.powers.Rogue.archetype }}</label>
+          <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Rogue.archetype">
+            <option [value]="option" *ngFor="let option of self.locals.selection.rogue_archetypes">{{ option }}</option>
+          </select>
+        </div>
+        <input class="form-control" type="text" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Rogue.archetype" *ngIf="self.model.prefs.homebrew">
+      </div>
+      <div class="flex-col-6">
+        <h5 class="h5">Sneak Atack</h5>
+        <label class="block-label">{{ self.model.powers.Rogue.sneak_attack }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="power-item space-bottom">
+    <div class="flex-row-tablet flex-gutters-5">
+      <div class="flex-col-6" *ngIf="klass.level >= 20">
+        <h5 class="h5">Stroke of Luck</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Rogue.stroke_of_luck.remaining">
+          </div>
+        </div>
+      </div>
+      <div class="flex-col-6" *ngIf="self.model.powers.Rogue.archetype === 'Arcane Trickster' && klass.level >= 17">
+        <h5 class="h5">Spell Thief</h5>
+        <div class="flex-row-all flex-gutters-5">
+          <div class="flex-col-6">
+            <label class="control-label">Total</label>
+            <label class="block-label">1</label>
+          </div>
+          <div class="flex-col-6">
+            <label class="control-label">Remaining</label>
+            <input class="form-control" type="number" (ngModelChange)="self.touch()" [(ngModel)]="self.model.powers.Rogue.spell_thief.remaining">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="power-item">
+    <h5 class="h5">Expertise</h5>
+    <div class="stat-row" *ngFor="let skill of self.methods.listProficientSkills()">
+      <div class="form-group">
+        <label class="checkbox-inline">
+          <input type="checkbox" title="Expertise in {{ skill.name }}" (ngModelChange)="self.touch()" [(ngModel)]="skill.expert">
+          <span>{{ skill.name }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

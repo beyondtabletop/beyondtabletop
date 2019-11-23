@@ -1,0 +1,369 @@
+<div class="sheet-tab">
+  <h2 class="group-header">Combat</h2>
+  <div class="group group-combat">
+    <div class="flex-row-tablet flex-gutters-10">
+      <div class="flex-col-6">
+        <h3 class="h4">HP</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">Total HP is made up of all four of the following pieces. Your HP from CON is automatically calculated and added to your total.</p>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+          <div class="flex-col-6 bm-5 value-col">
+            <div class="form-group">
+              <label class="block-label">Rolled HP</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.hp.value">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 temporary-col">
+            <div class="form-group">
+              <label class="block-label">Temporary HP</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.hp.temporary">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 misc-col">
+            <div class="form-group">
+              <label class="block-label">Misc HP</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.hp.misc">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 damage-col">
+            <div class="form-group">
+              <label class="block-label">Wounds</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.hp.damage">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 value-col">
+            <div class="form-group">
+              <label class="block-label">HP from CON</label>
+              <label class="control-label">{{ self.methods.getHPFromCON() }}</label>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 remaining-col">
+            <div class="form-group">
+              <label class="block-label">Current HP</label>
+              <label class="control-label">{{ self.methods.getHPRemaining() }}</label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('HP') }}</div>
+          </div>
+        </div>
+        <h3 class="h4">Maneuvers</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">Base Attack Bonus is pulled from your selected Class and Level.</p>
+        <div class="flex-row-all flex-config-wrap flex-config-bottom flex-gutters-5 bmr-40">
+          <div class="flex-col-6 value-col" *ngIf="self.model.prefs.homebrew">
+            <div class="form-group">
+              <label class="block-label">Top BAB</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.bab.value" min="0" max="20">
+            </div>
+          </div>
+          <div class="value-col" [ngClass]="self.model.prefs.homebrew ? 'flex-col-6' : 'flex-col-12'">
+            <div class="form-group">
+              <label class="block-label">BAB: <span>{{ self.methods.displayBAB(self.model.combat.bab.value) }}</span></label>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 misc-col">
+            <div class="form-group">
+              <label class="block-label">Misc CMB</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.cmb.misc">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 total-col">
+            <div class="form-group">
+              <label class="block-label">CMB Total: <span>{{ self.methods.getTotalCMB(self.model.combat.cmb) }}</span></label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('CMB') }}</div>
+          </div>
+          <div class="flex-col-6 bm-5 misc-col">
+            <div class="form-group">
+              <label class="block-label">Misc CMD</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.cmd.misc">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 total-col">
+            <div class="form-group">
+              <label class="block-label">CMD Total: <span>{{ self.methods.getTotalCMD(self.model.combat.cmd) }}</span></label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('CMD') }}</div>
+          </div>
+        </div>
+        <h3 class="h4">Misc.</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">Various resistance values and other combat variables. Style refers to your combat style. Selecting Two-Weapon Fighting assumes your offhand weapon is light and that you have the Two-Weapon Fighting feat and will change the way your attacks are calculated. Selecting Weilding Two-Handed will multiply your attack damage by 1.5.</p>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+          <div class="flex-col-6 dr-col">
+            <div class="form-group bm-5">
+              <label class="block-label">DR</label>
+              <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.dr.text">
+            </div>
+          </div>
+          <div class="flex-col-6 sr-col">
+            <div class="form-group bm-5">
+              <label class="block-label">SR</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.sr.value">
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('SR') }}</div>
+          </div>
+          <div class="flex-col-6 bm-5 misc-col">
+            <div class="form-group">
+              <label class="block-label">Misc Initiative</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.init.misc">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 total-col">
+            <div class="form-group">
+              <label class="block-label">Total Initiative</label>
+              <label class="control-label">{{ self.methods.getTotalInit() }}</label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('Initiative') }}</div>
+          </div>
+          <div class="flex-col-6 bm-5 style-col">
+            <div class="form-group">
+              <label class="block-label">Style</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.model.combat.style }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.style">
+                  <option [value]="option" *ngFor="let option of self.locals.selection.styles">{{ option }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5"></div>
+          <div class="flex-col-6 bm-5 mainhand-col" *ngIf="self.methods.shouldShowTwoWeaponFighting()">
+            <div class="form-group">
+              <label class="block-label">Main Hand Weapon</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.methods.getWeaponNameById(self.model.combat.mainhand) }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.mainhand">
+                  <option [value]="weapon.id" *ngFor="let weapon of self.methods.listWeapons()">{{ weapon.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 offhand-col" *ngIf="self.methods.shouldShowTwoWeaponFighting()">
+            <div class="form-group">
+              <label class="block-label">Offhand Weapon</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.methods.getWeaponNameById(self.model.combat.offhand) }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.offhand">
+                  <option [value]="weapon.id" *ngFor="let weapon of self.methods.listWeapons()">{{ weapon.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="h4">Powers</h3>
+          <div class="flex-row-all flex-row-all flex-config-align-center flex-gutters-5">
+            <div class="flex-col sort-column">
+            </div>
+            <div class="flex-col flex-dynamic">
+              <label class="control-label">Name</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <label class="control-label">Value</label>
+            </div>
+            <div class="flex-col num-field-column">
+              <label class="control-label">Remain</label>
+            </div>
+            <div class="flex-col close-column">
+            </div>
+          </div>
+          <div cdkDropList [cdkDropListData]="self.model.powers" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+            <div class="js-custom-power flex-row-all flex-config-align-center flex-gutters-5 bm-20" *ngFor="let power of self.methods.listPowers()" cdkDrag [cdkDragData]="power">
+              <div class="flex-col sort-column">
+                <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col flex-dynamic">
+                <div class="flex-row-all flex-config-align-center flex-gutters-5 bm-10">
+                  <div class="flex-col flex-dynamic">
+                    <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.name" placeholder="Name">
+                  </div>
+                  <div class="flex-col num-field-column">
+                    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.value">
+                  </div>
+                  <div class="flex-col num-field-column">
+                    <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.remaining">
+                  </div>
+                </div>
+                <div>
+                  <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="power.text" placeholder="Description">
+                </div>
+              </div>
+              <div class="flex-col close-column">
+                <button title="Remove Spendable" class="g-remove" (click)="self.methods.removeByObject(self.model.powers, power)"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+          </div>
+          <button class="g-add" (click)="self.methods.addPower()"><i class="material-icons">add</i></button>
+        </div>
+      </div>
+      <div class="flex-col-6">
+        <h3 class="h4">Attacks</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">Choose which weapon you want to use for your full attack. You can change this between combat rounds.</p>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-20">
+          <div class="flex-col-6 bm-5 style-col">
+            <div class="form-group">
+              <label class="block-label">Full Attack Weapon</label>
+              <div class="select-wrap">
+                <i class="material-icons">arrow_drop_down</i>
+                <label>{{ self.methods.getWeaponNameById(self.model.combat.full_attack) }}</label>
+                <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.full_attack">
+                  <option [value]="weapon.id" *ngFor="let weapon of self.methods.listWeapons()">{{ weapon.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="help-text" *ngIf="self.model.prefs.help">Add extra attacks if you have special abilities, conditions or feats that allow you to take them. This section is especially helpful if you are Two-Weapon Fighting and need to add offhand attacks.</p>
+        <div class="group group-attack">
+          <div class="flex-row-all flex-gutters-5 bm-5">
+            <div class="flex-col-4 form-group">
+              <label class="block-label">Weapon</label>
+            </div>
+            <div class="flex-col-4 form-group">
+              <label class="block-label">Attack Bonus</label>
+            </div>
+            <div class="flex-col-4 form-group">
+              <label class="block-label">BAB</label>
+            </div>
+          </div>
+          <div class="bm-20" cdkDropList [cdkDropListData]="self.model.attacks" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+            <div class="flex-row-all flex-gutters-5 bm-5 js-attack" *ngFor="let attack of self.methods.listAttacks()" cdkDrag [cdkDragData]="attack" [ngClass]="attack.source + '-generated-attack'">
+              <div class="flex-col flex-static">
+                <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
+              </div>
+              <div class="flex-col-4">
+                <label class="control-label" *ngIf="attack.source !== 'user'">{{ self.methods.getWeaponNameById(attack.weapon) }}</label>
+
+                <div class="select-wrap" *ngIf="attack.source === 'user'">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.methods.getWeaponNameById(attack.weapon) }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.weapon">
+                    <option [value]="weapon.id" *ngFor="let weapon of self.methods.listWeapons()">{{ weapon.name }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col-4">
+                <input type="number" class="form-control" placeholder="Attack Bonus" (ngModelChange)="self.touch()" [(ngModel)]="attack.attack_bonus" *ngIf="attack.source === 'user'">
+              </div>
+              <div class="flex-col-4">
+                <label class="control-label" *ngIf="attack.source !== 'user'">{{ self.methods.getBABOffset(attack.bab) }}</label>
+
+                <div class="select-wrap" *ngIf="attack.source === 'user'">
+                  <i class="material-icons">arrow_drop_down</i>
+                  <label>{{ self.methods.getBABOffset(attack.bab) }}</label>
+                  <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.bab">
+                    <option [ngValue]="bab" *ngFor="let bab of self.locals.selection.babs">{{ self.methods.getBABOffset(bab) }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex-col flex-static">
+                <button class="g-add" (click)="self.methods.removeByObject(self.model.attacks, attack)" *ngIf="attack.source === 'user'"><i class="material-icons">delete</i></button>
+              </div>
+            </div>
+          </div>
+          <div class="button-wrap bmr-60">
+            <button class="button button-orange" (click)="self.methods.addAttack()"><i class="material-icons">add</i> Attack</button>
+          </div>
+        </div>
+        <h3 class="h4">AC</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">You can find your Flat Footed and Touch ACs on the Overview tab.</p>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-40">
+          <div class="flex-col-6 bm-5 armor-col">
+            <div class="form-group">
+              <label class="block-label">Armor Bonus: <span>{{ self.methods.getArmorBonus('Armor') }}</span></label>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 shield-col">
+            <div class="form-group">
+              <label class="block-label">Shield Bonus: <span>{{ self.methods.getArmorBonus('Shield') }}</span></label>
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 natural-col">
+            <div class="form-group">
+              <label class="block-label">Natural AC</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.ac.natural.value">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 deflection-col">
+            <div class="form-group">
+              <label class="block-label">Deflection AC</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.ac.deflection">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 dodge-col">
+            <div class="form-group">
+              <label class="block-label">Dodge AC</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.ac.dodge.value">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 misc-col">
+            <div class="form-group">
+              <label class="block-label">Misc AC</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.ac.misc">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 dex-col">
+            <div class="form-group">
+              <label class="block-label">Dex Bonus</label>
+              <label class="control-label">{{ self.model.combat.ac.dex.value }}</label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('Dex Bonus to AC') }}</div>
+          </div>
+          <div class="flex-col-6 bm-5 total-col">
+            <div class="form-group">
+              <label class="block-label">AC Total: <span>{{ self.methods.getTotalAC() }}</span></label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('AC') }}</div>
+          </div>
+        </div>
+        <h3 class="h4">Speed</h3>
+        <p class="help-text" *ngIf="self.model.prefs.help">Use the Armor Penalty field to subtract how much wearing your armor slows you down.</p>
+        <div class="flex-row-all flex-config-wrap flex-gutters-5">
+          <div class="flex-col-6 bm-5 base-col">
+            <div class="form-group">
+              <label class="block-label">Speed</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.base">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 armor-col">
+            <div class="form-group">
+              <label class="block-label">Armor Penalty</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.armor">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 fly-col">
+            <div class="form-group">
+              <label class="block-label">Fly Speed</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.fly">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 swim-col">
+            <div class="form-group">
+              <label class="block-label">Swim Speed</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.swim">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 climb-col">
+            <div class="form-group">
+              <label class="block-label">Climb Speed</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.climb">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 burrow-col">
+            <div class="form-group">
+              <label class="block-label">Burrow Speed</label>
+              <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.combat.speed.burrow">
+            </div>
+          </div>
+          <div class="flex-col-6 bm-5 current-col">
+            <div class="form-group">
+              <label class="block-label">Current Speed: <span>{{ self.methods.getTotalSpeed() }}</span></label>
+            </div>
+            <div class="calculated-notice">{{ self.methods.getCalculatedNotice('Speed') }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!--/group-->
+</div><!--/tab-->

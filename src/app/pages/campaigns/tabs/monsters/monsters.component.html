@@ -1,0 +1,44 @@
+<div class="fp-15">
+  <h2 class="rh24 bmr-20">Monsters</h2>
+  <div class="flex-row-all flex-gutters-10 bm-20">
+    <div class="flex-col-6">
+      <input type="text" class="form-control" placeholder="Search for a monster" [(ngModel)]="self.locals.monster_search">
+    </div>
+    <div class="flex-col-6">
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ self.locals.monster_level }}</label>
+        <select class="form-control" [(ngModel)]="self.locals.monster_level">
+          <option [ngValue]="level" *ngFor="let level of self.locals.selection.monster_levels">{{ level }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <section class="monster-squares">
+    <article class="flex-col bm-10" [ngClass]="monster.$state" *ngFor="let monster of self.methods.filteredMonsters()">
+      <div class="intrinsic">
+        <div class="monster" [ngStyle]="monsterStyle(monster)" (click)="monster.$state = 'showing-detail'">
+          <h3>{{ monster.name }}</h3>
+          <p>{{ monster.type_alignment }}</p>
+          <p>CR: {{ monster.challenge }} {{ monster.challenge_xp }}</p>
+          <p>HP: {{ monster.hp }} / AC: {{ monster.ac }} {{ monster.ac_type }}</p>
+          <p>Speed: {{ monster.base_speed }} {{ monster.other_speed }}</p>
+        </div>
+      </div>
+      <div class="detail" (click)="monster.$state = ''">
+        <div class="inner" (click)="$event.stopPropagation()">
+          <h2>{{ monster.name }}</h2>
+          <p>{{ monster.type_alignment }}</p>
+          <p>CR: {{ monster.challenge }} {{ monster.challenge_xp }}</p>
+          <p>HP: {{ monster.hp }} / AC: {{ monster.ac }} {{ monster.ac_type }}</p>
+          <p>Speed: {{ monster.base_speed }} {{ monster.other_speed }}</p>
+          <p *ngFor="let info of monster.infos">{{ info.title }}: {{ info.description }}</p>
+          <div class="monster-text" [innerHTML]="monster.text | markdown"></div>
+          <div *ngIf="self.methods.hasOpenCampaignMap()">
+            <button class="button button-cyan" (click)="store.addMonsterAsToken(monster)">Add to Battlemap</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>

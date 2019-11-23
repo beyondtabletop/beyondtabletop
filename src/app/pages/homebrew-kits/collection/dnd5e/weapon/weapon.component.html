@@ -1,0 +1,81 @@
+<div [ngClass]="weapon.type === 'Ranged' ? 'weapon-ranged' : 'weapon-melee'">
+  <div class="flex-row-all flex-gutters-5 flex-config-bottom bm-5">
+    <div class="flex-col-6">
+      <label class="control-label">Name</label>
+      <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.name">
+    </div>
+    <div class="flex-col-6">
+      <label class="control-label">Type</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ weapon.type }}</label>
+        <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.type">
+          <option [value]="type" *ngFor="let type of self.locals.selection.weapon.type">{{ type }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="flex-row-all flex-config-wrap flex-gutters-5">
+    <div class="flex-col-6">
+      <label class="control-label">Melee or Ranged</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ weapon.melee_or_ranged }}</label>
+        <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.melee_or_ranged">
+          <option [value]="option" *ngFor="let option of self.locals.selection.weapon.melee_or_ranged">{{ option }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-col-6">
+      <label class="block-label">Special</label>
+      <label class="checkbox-inline checkbox-wrap">
+        <input type="checkbox" [title]="getSpecialLabelForStat(weapon)" (ngModelChange)="self.touch()" [(ngModel)]="weapon.reverse_ability"> <span>{{ getSpecialLabelForStat(weapon) }}</span>
+      </label>
+    </div>
+    <div class="flex-col-6">
+      <label class="control-label">Attack Bonus</label>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.attack_bonus">
+    </div>
+    <div class="flex-col-6">
+      <label class="control-label">Damage Bonus</label>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.damage_bonus">
+    </div>
+    <div class="flex-col-3 bm-5">
+      <label class="control-label">Damage Die</label>
+      <input type="text" class="form-control" placeholder="d8, 2d6, etc." (ngModelChange)="self.touch()" [(ngModel)]="weapon.damage_die">
+    </div>
+    <div class="flex-col-3 bm-5">
+      <label class="control-label">Crit Range</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ weapon.crit_range }}</label>
+        <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.crit_range">
+          <option [value]="option" *ngFor="let option of self.locals.selection.weapon.crit_range">{{ option }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-col-3 bm-5">
+      <label class="control-label">Crit Mult</label>
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>{{ weapon.crit_mult }}</label>
+        <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.crit_mult">
+          <option [value]="option" *ngFor="let option of self.locals.selection.weapon.crit_mult">{{ option }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-col-3 bm-5">
+      <label class="control-label">Weight</label>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="weapon.weight">
+    </div>
+    <div class="flex-col-12">
+      <label class="block-label">Proficiency</label>
+      <label class="checkbox-inline checkbox-wrap">
+        <input type="checkbox" title="Proficient?" (ngModelChange)="self.touch()" [(ngModel)]="weapon.is_proficient"> Proficient?
+      </label>
+    </div>
+    <div class="flex-col-12">
+      <textarea class="form-control" placeholder="Properties" (ngModelChange)="self.touch()" [(ngModel)]="weapon.properties"></textarea>
+    </div>
+  </div>
+</div>
