@@ -867,8 +867,8 @@ export class BattlemapService {
       item.moving = false
       const ref: DragRef = e.source._dragRef
       const pos = e.source._dragRef._passiveTransform
-      item.position.left += pos.x
-      item.position.top += pos.y
+      item.position.left += (pos.x / self.locals.map.zoom)
+      item.position.top += (pos.y / self.locals.map.zoom)
       ref.reset()
       self.touch()
       onItemDragStop(item)
@@ -887,8 +887,8 @@ export class BattlemapService {
     self.methods.resizeMove = async (item: any, e: any): Promise<void> => {
       await Promise.resolve()
       const pos = e.source._dragRef._pointerPositionAtLastDirectionChange
-      item.size.$width = item.size.width + (pos.x - item.size.$x)
-      item.size.$height = item.size.height + (pos.y - item.size.$y)
+      item.size.$width = item.size.width + ((pos.x - item.size.$x) / self.locals.map.zoom)
+      item.size.$height = item.size.height + ((pos.y - item.size.$y) / self.locals.map.zoom)
     }
 
     self.methods.resizeStop = async (item: any, e: any): Promise<void> => {
@@ -897,8 +897,8 @@ export class BattlemapService {
       const pos = e.source._dragRef._passiveTransform
       item.size.$width = null
       item.size.$height = null
-      item.size.width += pos.x
-      item.size.height += pos.y
+      item.size.width += (pos.x / self.locals.map.zoom)
+      item.size.height += (pos.y / self.locals.map.zoom)
       ref.reset()
       self.touch()
       onResizeItemDragStop(item)
@@ -923,8 +923,8 @@ export class BattlemapService {
       const scene = self.methods.getCurrentScene()
       if (item.snapped !== false && !scene.disable_grid) {
         if (!self.methods.ifItemIsShape(item) || scene.scene_type === 'battle') {
-          item.size.width = Math.round(item.size.width / self.locals.map.zoomed_tile) * self.locals.map.zoomed_tile
-          item.size.height = Math.round(item.size.height / self.locals.map.zoomed_tile) * self.locals.map.zoomed_tile
+          item.size.width = Math.round(item.size.width / self.locals.map.base_tile) * self.locals.map.base_tile
+          item.size.height = Math.round(item.size.height / self.locals.map.base_tile) * self.locals.map.base_tile
         }
       }
     }
@@ -933,8 +933,8 @@ export class BattlemapService {
       const x = item.position.left * self.locals.map.zoom
       const y = item.position.top * self.locals.map.zoom
       if (grid === 'battle') {
-        item.position.left = Math.round(item.position.left / self.locals.map.zoomed_tile) * self.locals.map.zoomed_tile
-        item.position.top = Math.round(item.position.top / self.locals.map.zoomed_tile) * self.locals.map.zoomed_tile
+        item.position.left = Math.round(item.position.left / self.locals.map.base_tile) * self.locals.map.base_tile
+        item.position.top = Math.round(item.position.top / self.locals.map.base_tile) * self.locals.map.base_tile
       }
       if (grid === 'isometric') {
         const x_tile = self.locals.map.iso_bg_natural_x / 4 * self.locals.map.zoom
