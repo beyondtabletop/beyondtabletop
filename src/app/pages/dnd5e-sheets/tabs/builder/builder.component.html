@@ -8,9 +8,9 @@
       <div class="track-item" [ngClass]="self.methods.getTrackClass(name)" *ngFor="let name of self.methods.showingTrackNodes()" (click)="self.methods.switchStep(name)">
         <div class="node">
           <div class="inner" *ngIf="name === self.model.builder.step">
-            <fa-icon [icon]="['fa', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
+            <fa-icon [icon]="['fas', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
           </div>
-          <fa-icon [icon]="['fa', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
+          <fa-icon [icon]="['fas', 'check']" *ngIf="self.model.builder.creation[name.replace('create-', '')]"></fa-icon>
         </div>
         <div class="text">{{ self.locals.selection.track_names[name] }}</div>
       </div>
@@ -28,7 +28,7 @@
 
         <div class="text-center">
           <div class="bm-20">
-            <a routerLink="/donate" class="button button-cyan button-large text-center"><fa-icon [icon]="['fa', 'star']"></fa-icon> Upgrade Now for 10</a>
+            <a routerLink="/donate" class="button button-cyan button-large text-center"><fa-icon [icon]="['fas', 'star']"></fa-icon> Upgrade Now for 10</a>
           </div>
 
           <a routerLink="/donate">

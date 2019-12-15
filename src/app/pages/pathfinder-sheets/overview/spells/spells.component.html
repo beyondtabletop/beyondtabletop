@@ -21,8 +21,8 @@
     <div class="spells-showing" *ngFor="let level of self.methods.filteredSpellLevels()">
       <div class="bm-10" [class.bt-hide]="level.length === 0">
         <span class="spell-level-toggle" [ngClass]="self.methods.getSpellbookLevelClass(level)" (click)="self.methods.toggleSpellbookLevel(level)">
-          <fa-icon class="show-spell-level" [icon]="['fa', 'caret-right']"></fa-icon>
-          <fa-icon class="hide-spell-level" [icon]="['fa', 'caret-down']"></fa-icon>
+          <fa-icon class="show-spell-level" [icon]="['fas', 'caret-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fas', 'caret-down']"></fa-icon>
         </span>
         Level <span>{{ level }}</span>
       </div>

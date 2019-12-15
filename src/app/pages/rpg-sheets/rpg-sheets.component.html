@@ -19,7 +19,7 @@
     <div class="tabs-nav">
       <button class="tab-nav-item" (click)="self.methods.switchTab(tab.id)" [class.active]="self.methods.isTabActive(tab.id)" *ngFor="let tab of self.methods.listAllTabs()">{{ tab.name }}</button>
       <button class="tab-nav-item" (click)="self.methods.switchTab('settings')" [class.active]="self.methods.isTabActive('settings')">Settings</button>
-      <a routerLink="/dashboard" class="tab-nav-item tab-dashboard-item"><fa-icon [icon]="['fa', 'chevron-left']"></fa-icon> Dashboard</a>
+      <a routerLink="/dashboard" class="tab-nav-item tab-dashboard-item"><fa-icon [icon]="['fas', 'chevron-left']"></fa-icon> Dashboard</a>
     </div>
   </header>
   <div class="content">
@@ -161,7 +161,7 @@ CONTENT TAB
 
       <div class="tab" [class.active]="self.methods.isTabActive('content')">
         <div class="tab-notice" *ngIf="self.model.prefs.show_announcement">
-          <h2 class="gh3"><fa-icon [icon]="['fa', 'bullhorn']"></fa-icon> This tool is still in development</h2>
+          <h2 class="gh3"><fa-icon [icon]="['fas', 'bullhorn']"></fa-icon> This tool is still in development</h2>
           <p>Welcome to the RPG Sheets alpha. This tool is designed to be flexible enough to be used for any system. <a routerLink="/help/overview-rpg">Check out this guide on how to get started.</a> Please leave feedback and suggestions <a href="https://www.reddit.com/r/beyondtabletop" target="_blank">in the Beyond Tabletop subreddit</a> and let us know if you find any bugs.</p>
           <div class="flex-row-mobile flex-config-spaced flex-config-bottom">
             <a routerLink="/help/overview-rpg" class="button button-orange">View Help Guide</a>

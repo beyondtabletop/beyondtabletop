@@ -19,7 +19,7 @@
           <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="foe.name" placeholder="Name">
         </div>
         <div class="flex-col flex-static">
-          <button title="Edit Enemy" class="g-icon" (click)="self.methods.toggleActiveNPC(foe)"><fa-icon [icon]="['fa', 'edit']"></fa-icon></button>
+          <button title="Edit Enemy" class="g-icon" (click)="self.methods.toggleActiveNPC(foe)"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
         </div>
         <div class="flex-col flex-static">
           <button title="Remove Enemy" class="g-remove" (click)="self.methods.removeByObject(self.model.foes, foe)"><i class="material-icons">delete</i></button>

@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <p class="warning-text" *ngIf="self.locals.data.builder.create_abilities.invalid"><fa-icon [icon]="['fa', 'exclamation-triangle']"></fa-icon> Ability scores are not valid and were not saved. Check that you have assigned all your scores and that you haven't assigned two scores to the same ability.</p>
+    <p class="warning-text" *ngIf="self.locals.data.builder.create_abilities.invalid"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> Ability scores are not valid and were not saved. Check that you have assigned all your scores and that you haven't assigned two scores to the same ability.</p>
 
     <div class="bm-20" *ngIf="self.locals.data.builder.create_abilities.type === 'roll'">
       <p class="help-text">First, click the button on the right to roll your score. Then assign the score to one of the 6 abilities. Keep in mind as a <span>{{ self.model.klasses[0].name }}</span>, your most important abilities (in order) are <span>{{ self.methods.getFirstKlassData().key_abilities }}</span>.</p>

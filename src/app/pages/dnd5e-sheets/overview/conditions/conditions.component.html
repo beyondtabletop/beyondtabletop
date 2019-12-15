@@ -6,7 +6,7 @@
         <label class="checkbox-inline">
           <input type="checkbox" title="Toggle {{ condition.name }}" [disabled]="!self.methods.isConditionValid(condition)" (ngModelChange)="self.methods.toggleCondition(condition)" [(ngModel)]="condition.active" class="hide-for-read-only">
           <span class="show-for-read-only">
-            <fa-icon [icon]="['fa', 'check']" *ngIf="condition.active"></fa-icon>
+            <fa-icon [icon]="['fas', 'check']" *ngIf="condition.active"></fa-icon>
           </span>
           <span>{{ condition.name }}</span>
         </label>

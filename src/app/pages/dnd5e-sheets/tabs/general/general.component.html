@@ -1,6 +1,6 @@
 <div class="sheet-tab">
   <div class="tab-notice" *ngIf="self.model.prefs.show_announcement">
-    <h2 class="gh3"><fa-icon [icon]="['fa', 'bullhorn']"></fa-icon> New Character Builder</h2>
+    <h2 class="gh3"><fa-icon [icon]="['fas', 'bullhorn']"></fa-icon> New Character Builder</h2>
     <p>New to D&amp;D? Try the new Beyond Tabletop Character Builder to be guided step-by-step through character creation. Launching the builder will reset the bulk of your character, so consider trying it out on a new character sheet first. <strong *ngIf="!self.locals.full_access">You must upgrade your sheets before you can access the builder.</strong></p>
     <div class="flex-row-mobile flex-config-spaced flex-config-bottom">
       <div class="button button-orange" (click)="self.methods.switchTab('builder')" *ngIf="self.locals.full_access">Launch Builder</div>
@@ -156,7 +156,7 @@
               </div>
             </div>
             <div class="flex-col flex-static">
-              <button class="g-neutral" (click)="self.locals.data.custom_background = true"><fa-icon [icon]="['fa', 'pencil-alt']"></fa-icon></button>
+              <button class="g-neutral" (click)="self.locals.data.custom_background = true"><fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon></button>
             </div>
           </div>
 
@@ -165,7 +165,7 @@
               <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.basic.background.name">
             </div>
             <div class="flex-col flex-static">
-              <button class="g-neutral" (click)="self.methods.resetBackground()"><fa-icon [icon]="['fa', 'list']"></fa-icon></button>
+              <button class="g-neutral" (click)="self.methods.resetBackground()"><fa-icon [icon]="['fas', 'list']"></fa-icon></button>
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
                 </div>
               </div>
               <div class="flex-col flex-static">
-                <button class="g-neutral" (click)="attr.custom = true"><fa-icon [icon]="['fa', 'pencil-alt']"></fa-icon></button>
+                <button class="g-neutral" (click)="attr.custom = true"><fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon></button>
               </div>
             </div>
             <div class="flex-row-all flex-gutters-5 flex-config-align-center bm-5" *ngIf="!attr.listed">
@@ -202,7 +202,7 @@
                 <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.text" placeholder="{{ 'Choose ' + attr.singular }}">
               </div>
               <div class="flex-col flex-static" *ngIf="self.methods.isBackgroundListed()">
-                <button class="g-neutral" (click)="attr.custom = false"><fa-icon [icon]="['fa', 'list']"></fa-icon></button>
+                <button class="g-neutral" (click)="attr.custom = false"><fa-icon [icon]="['fas', 'list']"></fa-icon></button>
               </div>
             </div>
           </div>

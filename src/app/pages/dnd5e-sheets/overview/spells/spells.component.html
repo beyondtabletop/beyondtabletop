@@ -38,8 +38,8 @@
     <div class="spell-level bm-20" *ngFor="let level of self.methods.listSpellLevelsWithContent()" [ngClass]="self.methods.getSpellbookLevelClass(level)">
       <div class="bm-10" (click)="self.methods.toggleSpellbookLevel(level)">
         <span class="spell-level-toggle">
-          <fa-icon class="show-spell-level" [icon]="['fa', 'chevron-right']"></fa-icon>
-          <fa-icon class="hide-spell-level" [icon]="['fa', 'chevron-down']"></fa-icon>
+          <fa-icon class="show-spell-level" [icon]="['fas', 'chevron-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fas', 'chevron-down']"></fa-icon>
         </span>
         Level <span>{{ level }}</span>
       </div>

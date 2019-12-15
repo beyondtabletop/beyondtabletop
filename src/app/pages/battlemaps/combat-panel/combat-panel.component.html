@@ -34,13 +34,13 @@
   <div class="tp-10 form-group" *ngIf="self.methods.canAdvanceCombat()">
     <div class="flex-row-all flex-gutters-5">
       <div class="flex-col-5">
-        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(-1)"><fa-icon [icon]="['fa', 'backward']"></fa-icon> Prev</button>
+        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(-1)"><fa-icon [icon]="['fas', 'backward']"></fa-icon> Prev</button>
       </div>
       <div class="flex-col-2">
         <button class="button button-gray turn-button" (click)="self.methods.endCombat()">End</button>
       </div>
       <div class="flex-col-5">
-        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(1)">Next <fa-icon [icon]="['fa', 'forward']"></fa-icon></button>
+        <button class="button button-cyan turn-button" (click)="self.methods.advanceCombat(1)">Next <fa-icon [icon]="['fas', 'forward']"></fa-icon></button>
       </div>
     </div>
   </div>

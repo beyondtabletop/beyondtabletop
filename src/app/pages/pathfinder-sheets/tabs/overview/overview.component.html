@@ -10,7 +10,7 @@
         <div class="flex-col flex-dynamic">
           <div class="flex-row-all flex-config-spaced">
             <h2 class="group-header nav-clickable flex-dynamic" (click)="self.methods.switchTab('general')">{{ self.model.name }}: Level {{ self.methods.getTotalLevel() }} {{ self.methods.getAllKlasses() }}</h2>
-            <button [class.bt-hide]="self.locals.data.editing_overview" (click)="self.locals.data.editing_overview = true" class="icon-button flex-static"><fa-icon [icon]="['fa', 'edit']"></fa-icon></button>
+            <button [class.bt-hide]="self.locals.data.editing_overview" (click)="self.locals.data.editing_overview = true" class="icon-button flex-static"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
             <button *ngIf="self.locals.data.editing_overview" (click)="self.locals.data.editing_overview = false" class="icon-button flex-static"><i class="material-icons">check</i> Done</button>
           </div>
           <p class="help-text" *ngIf="self.model.prefs.help">This is your overview page. As you fill out details on the other tabs, the most relevant information will show up in a compact and easy-to-understand format here. You can also click on some of the text here to jump to the corresponding tab to edit its data.</p>

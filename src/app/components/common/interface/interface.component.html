@@ -8,7 +8,7 @@
   <div class="btt-alert" [ngClass]="interfaceSvc.alertClasses()">
     <div class="alert-bg" (click)="interfaceSvc.closeAlert()"></div>
     <div class="alert-container">
-      <button class="alert-close" (click)="interfaceSvc.closeAlert()"><fa-icon [icon]="['fa', 'times']"></fa-icon></button>
+      <button class="alert-close" (click)="interfaceSvc.closeAlert()"><fa-icon [icon]="['fas', 'times']"></fa-icon></button>
       <div class="alert-content">
         <div class="alert-message" [innerHTML]="interfaceSvc.alertMessage()"></div>
       </div>

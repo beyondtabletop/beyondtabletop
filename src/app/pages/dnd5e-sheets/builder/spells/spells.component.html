@@ -12,8 +12,8 @@
     <div class="builder-spells-wrap spell-level" *ngFor="let level of self.locals.selection.spell_levels" [ngClass]="self.methods.getSpellListLevelClass(level)">
       <h3 class="gh3 clickable" (click)="self.methods.toggleSpellListLevel(level)">
         <span class="spell-level-toggle">
-          <fa-icon class="show-spell-level" [icon]="['fa', 'chevron-right']"></fa-icon>
-          <fa-icon class="hide-spell-level" [icon]="['fa', 'chevron-down']"></fa-icon>
+          <fa-icon class="show-spell-level" [icon]="['fas', 'chevron-right']"></fa-icon>
+          <fa-icon class="hide-spell-level" [icon]="['fas', 'chevron-down']"></fa-icon>
         </span>
         Level <span>{{ level }}</span> Spells
       </h3>
@@ -21,7 +21,7 @@
         <div class="spell-row" *ngFor="let spell of self.methods.filterAvailableSpellsForLevel(level)" [ngClass]="{'bt-hide': !self.methods.shouldShowBuilderSpell(spell), active: spell.$active }" (click)="spell.$active = !spell.$active">
           <div class="add-or-remove-group" [ngClass]="self.methods.spellAppearsInSpellbook(spell) ? 'show-remove' : 'show-add'">
             <button class="action add-button g-add" (click)="self.methods.addSpell(spell); $event.stopPropagation();">
-              <fa-icon  [icon]="['fa', 'plus']"></fa-icon>
+              <fa-icon  [icon]="['fas', 'plus']"></fa-icon>
             </button>
             <button class="action remove-button g-add" class="action" (click)="self.methods.removeFromSpellbook(spell); $event.stopPropagation();">
               <i class="material-icons">delete</i>

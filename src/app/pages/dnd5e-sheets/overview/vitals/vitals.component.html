@@ -58,7 +58,7 @@
     </div>
     <div class="flex-col">
       <button class="death-save" (click)="self.methods.rollDeathSave()">
-        <fa-icon [icon]="['fa', 'skull']"></fa-icon>
+        <fa-icon [icon]="['fas', 'skull']"></fa-icon>
       </button>
     </div>
     <div class="flex-col" [class.base-color]="!save.value" [class.green-color]="save.value" *ngFor="let save of self.model.combat.hp.life_saves">

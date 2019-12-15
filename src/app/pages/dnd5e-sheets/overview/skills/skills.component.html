@@ -6,8 +6,8 @@
         <strong>{{ self.methods.getSkillTotal(skill) }}</strong>
       </div>
       <div class="flex-col flex-dynamic">
-        <fa-icon class="gmuted" [icon]="['fa', 'check-double']" *ngIf="skill.expert"></fa-icon>
-        <fa-icon class="gmuted" [icon]="['fa', 'check']" *ngIf="skill.proficient && !skill.expert"></fa-icon>
+        <fa-icon class="gmuted" [icon]="['fas', 'check-double']" *ngIf="skill.expert"></fa-icon>
+        <fa-icon class="gmuted" [icon]="['fas', 'check']" *ngIf="skill.proficient && !skill.expert"></fa-icon>
         <span>{{ skill.name }}</span>
       </div>
     </div>

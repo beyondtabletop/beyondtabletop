@@ -45,7 +45,7 @@
     </div>
 
     <div *ngIf="!self.locals.data.builder.create_race.choices_made">
-      <p class="warning-text" *ngIf="self.locals.data.builder.create_race.invalid"><fa-icon [icon]="['fa', 'exclamation-triangle']"></fa-icon> Some options are invalid and must be fixed before continuing. <span>{{ self.locals.data.builder.create_race.invalid_reason }}</span></p>
+      <p class="warning-text" *ngIf="self.locals.data.builder.create_race.invalid"><fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon> Some options are invalid and must be fixed before continuing. <span>{{ self.locals.data.builder.create_race.invalid_reason }}</span></p>
 
       <div class="bm-20" *ngIf="self.locals.data.races[self.model.basic.race].skill_choices">
         <h4 class="gh4">Racial Skills</h4>

@@ -11,8 +11,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 
 // This is used sparingly throughout the app
@@ -586,8 +585,10 @@ export function markedOptionsFactory(): MarkedOptions {
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
 })
 export class AppModule {
-  constructor() {
-    library.add(
+  constructor(
+    library: FaIconLibrary,
+  ) {
+    library.addIcons(
       faDiscord,
       faFacebookF,
       faRedditAlien,

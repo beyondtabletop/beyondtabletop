@@ -16,6 +16,6 @@
   </div>
   <div class="tabs-nav">
     <a class="tab-nav-item" *ngFor="let tab of self.methods.listTabs()" (click)="self.methods.switchTab(tab.id)" [ngClass]="self.methods.tabClass(tab.id)">{{ tab.title }}</a>
-    <a routerLink="/dashboard" class="tab-nav-item tab-dashboard-item"><fa-icon [icon]="['fa', 'angle-left']"></fa-icon> Dashboard</a>
+    <a routerLink="/dashboard" class="tab-nav-item tab-dashboard-item"><fa-icon [icon]="['fas', 'angle-left']"></fa-icon> Dashboard</a>
   </div>
 </header>
