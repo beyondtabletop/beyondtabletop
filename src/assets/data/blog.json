@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.2.7",
+      "body": "- Fixes moving and resizing battlemap items while zoomed in or out\n- Fixes Font Awesome console errors",
+      "created_at": "December 15, 2019"
+    },
+    {
       "title": "Changelog for 5.2.6",
       "body": "- Fixes syncing when using combat panel on Battlemaps\n- Fix syncing issue where arrays would reorder incorrectly",
       "created_at": "October 12, 2019"
