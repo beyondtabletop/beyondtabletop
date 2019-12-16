@@ -1599,13 +1599,13 @@ export class Dnd5eService {
       let ability_value = self.methods.getAbilityMod(self.model.abilities[attack.ability])
 
       if (attack.type === 'Physical') {
-        let weapon = self.methods.getAttackWeapon(attack)
+        const weapon = self.methods.getAttackWeapon(attack)
         if (!weapon) {
           return 0
         }
         let rage_bonus = 0
         let dueling_bonus = 0
-        let melee_or_ranged_bonus = weapon.melee_or_ranged === 'Ranged' ? self.model.combat.damage.ranged : self.model.combat.damage.melee
+        const melee_or_ranged_bonus = weapon.melee_or_ranged === 'Ranged' ? self.model.combat.damage.ranged : self.model.combat.damage.melee
         if (weapon.melee_or_ranged !== 'Ranged' && self.methods.isClass('Barbarian') && self.model.powers.Barbarian.rage_rounds > 0) {
           rage_bonus = self.methods.getMiscValueAutoTotal(self.model.powers.Barbarian.rage_damage)
         }
@@ -2692,9 +2692,9 @@ export class Dnd5eService {
 
     self.methods.rollDamageDice = (attack) => {
       self.methods.rollCustomDice({
-        text: attack.damage_die,
+        text: `${attack.damage_die} + ${self.methods.getDamageModifier(attack)}`,
         name: attack.name,
-      }, self.methods.getDamageModifier(attack), 'damage for #')
+      }, 0, 'damage for #')
     }
 
     self.methods.rollInitiative = () => {
