@@ -9,15 +9,13 @@
   </div>
   <div class="bm-10 js-collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)">
     <div class="flex-row-all flex-gutters-5 flex-config-wrap flex-config-align-center flex-config-spaced">
-      <div class="flex-col">
-        <div [ngSwitch]="field.input_type" *ngFor="let field of self.methods.listCollectableFields(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
-          <bt-rpg-overview-collectable-type-boolean    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'boolean'"></bt-rpg-overview-collectable-type-boolean>
-          <bt-rpg-overview-collectable-type-formula    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'formula'"></bt-rpg-overview-collectable-type-formula>
-          <bt-rpg-overview-collectable-type-reference  [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'reference'"></bt-rpg-overview-collectable-type-reference>
-          <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'text'"></bt-rpg-overview-collectable-type-value>
-          <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'textarea'"></bt-rpg-overview-collectable-type-value>
-          <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'number'"></bt-rpg-overview-collectable-type-value>
-        </div>
+      <div class="flex-col" [ngSwitch]="field.input_type" *ngFor="let field of self.methods.listCollectableFields(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
+        <bt-rpg-overview-collectable-type-boolean    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'boolean'"></bt-rpg-overview-collectable-type-boolean>
+        <bt-rpg-overview-collectable-type-formula    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'formula'"></bt-rpg-overview-collectable-type-formula>
+        <bt-rpg-overview-collectable-type-reference  [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'reference'"></bt-rpg-overview-collectable-type-reference>
+        <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'text'"></bt-rpg-overview-collectable-type-value>
+        <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'textarea'"></bt-rpg-overview-collectable-type-value>
+        <bt-rpg-overview-collectable-type-value      [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'number'"></bt-rpg-overview-collectable-type-value>
       </div>
     </div>
   </div>

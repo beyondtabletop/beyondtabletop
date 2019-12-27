@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.2.8",
+      "body": "- Fixes damage calculation in weapons that use more than one dice\n- Fixes Overview tab layout for RPG Sheets",
+      "created_at": "December 15, 2019"
+    },
+    {
       "title": "Changelog for 5.2.7",
       "body": "- Fixes moving and resizing battlemap items while zoomed in or out\n- Fixes Font Awesome console errors",
       "created_at": "December 15, 2019"
