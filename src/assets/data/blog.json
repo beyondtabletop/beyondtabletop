@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.2.9",
+      "body": "- Fixes max dex not calculating AC correctly on D&D 5e sheets\n- Adds new Spell DC Misc field on Spells tab of D&D 5e sheets",
+      "created_at": "January 26, 2020"
+    },
+    {
       "title": "Changelog for 5.2.8",
       "body": "- Fixes damage calculation in weapons that use more than one dice\n- Fixes Overview tab layout for RPG Sheets",
       "created_at": "December 15, 2019"

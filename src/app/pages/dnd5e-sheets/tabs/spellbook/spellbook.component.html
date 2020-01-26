@@ -1,7 +1,7 @@
 <div class="sheet-tab">
   <div class="group group-spellcasting bmr-40">
     <h2 class="group-header">Spellcasting</h2>
-    <div class="flex-row-all flex-config-wrap flex-gutters-5 bmr-30" *ngFor="let klass of self.methods.listSpellCasters()">
+    <div class="flex-row-all flex-config-wrap flex-gutters-5 bm-10" *ngFor="let klass of self.methods.listSpellCasters()">
       <div class="flex-col" *ngIf="klass.spells_known || self.model.prefs.homebrew">
         <label class="control-label">Spells Known</label>
         <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.spells_known">
@@ -14,6 +14,10 @@
         <label class="control-label">Slot Level</label>
         <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="klass.slot_level">
       </div>
+    </div>
+    <div class="bmr-30 max-300">
+      <label class="control-label">Spell DC Misc</label>
+      <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.model.casting.dc">
     </div>
     <!--   *ngIf="self.methods.characterHasSpellSlots()"  -->
     <div class="bmr-30">

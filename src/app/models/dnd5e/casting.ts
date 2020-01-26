@@ -10,6 +10,7 @@ export class Dnd5eCasting extends BtBase {
     return {
       prepared: false,
       points: false,
+      dc: 0,
     }
   }
 }

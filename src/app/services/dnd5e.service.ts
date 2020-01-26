@@ -1289,7 +1289,7 @@ export class Dnd5eService {
 
       if (!!creature.armors) {
         creature = self.model
-        dex = self.methods.getAbilityMod(creature.abilities.DEX)
+        dex = self.methods.listArmors().filter(x => x.active).reduce((acc, armor) => Math.min(acc, armor.dex), self.methods.getAbilityMod(creature.abilities.DEX))
 
         let ability_bonus = 0
         if (creature.combat.ac.use_ability) {
@@ -1751,7 +1751,7 @@ export class Dnd5eService {
     }
 
     self.methods.getSpellSaveDC = (abl = self.methods.firstKlassSpellAbility()) => {
-      return 8 + self.methods.getProficiencyTotal() + self.methods.getAbilityMod(self.model.abilities[abl])
+      return 8 + self.methods.getProficiencyTotal() + self.methods.getAbilityMod(self.model.abilities[abl]) + (self.model.casting.dc || 0)
     }
 
     self.methods.getSpellAttackBonus = (abl) => {
