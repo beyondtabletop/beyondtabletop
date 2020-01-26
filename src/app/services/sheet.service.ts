@@ -285,9 +285,9 @@ export class SheetService {
     let sylTypes = []
     let hyphenated = false
     const hyphenateChance = this.randomNumber(1, 20) === 1
-    const doubleVowelChance = this.randomNumber(1, 3) == 1
+    const doubleVowelChance = this.randomNumber(1, 3) === 1
     let lastCharIsVowel = false
-    
+
     if (word.length !== 0) {
       const runawayVowels = word.length > 1 && word.join('').slice(-2).split('').every(x => vowelsMap.includes(x))
       lastCharIsVowel = lastCharVowel()
@@ -309,7 +309,7 @@ export class SheetService {
       }
     }
 
-    let sylType = this.randomFromArray(sylTypes)
+    const sylType = this.randomFromArray(sylTypes)
     let syllable = ''
 
     switch (sylType) {
