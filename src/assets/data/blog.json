@@ -1,8 +1,8 @@
 {
   "posts": [
     {
-      "title": "Changelog for 5.3.0",
-      "body": "- Fixes Add Player modal breaking after opening it once on Campaigns\n- Includes special attacks and saves on companion overview for Pathfinder sheets\n- [No longer overwrites token image with blank character sheet image when connecting a token to a sheet](https://github.com/beyondtabletop/beyondtabletop/issues/1)\n- Fixes damage die not displaying correctly in the edit attacks area of D&D 5e sheets",
+      "title": "Changelog for 5.2.10",
+      "body": "- Adds Gang Up and Pressed to the Wall feats to Pathfinder sheets\nFixes mobile layout so bottom of tabs can be seen on Campaigns\n- Fixes Add Player modal breaking after opening it once on Campaigns\n- Includes special attacks and saves on companion overview for Pathfinder sheets\n- [No longer overwrites token image with blank character sheet image when connecting a token to a sheet](https://github.com/beyondtabletop/beyondtabletop/issues/1)\n- Fixes damage die not displaying correctly in the edit attacks area of D&D 5e sheets",
       "created_at": "April 3, 2020"
     },
     {

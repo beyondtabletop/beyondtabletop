@@ -1183,6 +1183,21 @@
     "prereq": "Caster level 7th."
   },
   {
+    "name": "Gang Up",
+    "summary": "You are adept at using greater numbers against foes.",
+    "text": [
+      {
+        "name": "Benefit",
+        "text": "You are considered to be flanking an opponent if at least two of your allies are threatening that opponent, regardless of your actual positioning."
+      },
+      {
+        "name": "Normal",
+        "text": "You must be positioned opposite an ally to flank an opponent."
+      }
+    ],
+    "prereq": "Int 13, Combat Expertise."
+  },
+  {
     "name": "Gorgon's Fist",
     "summary": "Stagger a foe whose speed is reduced",
     "text": [
@@ -2309,6 +2324,17 @@
       }
     ],
     "prereq": "Point-Blank Shot."
+  },
+  {
+    "name": "Press to the Wall",
+    "summary": "You gain an advantage when your opponent can’t easily retreat.",
+    "text": [
+      {
+        "name": "Benefit",
+        "text": "If you are the only character threatening an opponent, you can treat solid, immovable objects that occupy a square (such as columns, tree trunks, and walls) and are adjacent to that opponent as allies threatening the opponent when determining whether you flank the foe."
+      }
+    ],
+    "prereq": "Step Up, base attack bonus +3."
   },
   {
     "name": "Quick Draw",

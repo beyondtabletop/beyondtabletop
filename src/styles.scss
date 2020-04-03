@@ -3096,6 +3096,7 @@ $map-size: 8000;
   .table-tab {
     display: none;
     padding-top: 43px;
+    padding-bottom: 40px;
     @include above-tablet {
       border-left: 1px solid #222;
       min-height: 100%;
