@@ -25,6 +25,12 @@
         </div>
       </div>
       <div class="flex-col-6">
+        <div class="flex-row-all flex-gutters-5" *ngFor="let stat of self.methods.listCompanionSaves(companion)">
+          <div class="flex-col-6"><span>{{ stat.name }}</span>:</div>
+          <div class="flex-col-6">
+            <strong>{{ self.methods.getSaveTotal(stat, companion, false) }}</strong>
+          </div>
+        </div>
         <div class="flex-row-all flex-gutters-5">
           <div class="flex-col-6">HP:</div>
           <div class="flex-col-6">
@@ -51,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div class="companion-wounds bm-5">
+    <div class="companion-wounds bm-10">
       <div class="flex-row-all">
         <div class="flex-col-6">
           <div class="bm-5">Wounds</div>
@@ -66,6 +72,12 @@
         <div class="flex-col-5">
           <strong>{{ self.methods.getSkillTotal(skill, companion) }}</strong>
         </div>
+      </div>
+    </div>
+    <div class="overview-block">
+      <div class="flex-row-all flex-gutters-10" *ngFor="let special of self.methods.listCompanionSpecials(companion)">
+        <div class="flex-col"><strong>{{ special.name }}</strong></div>
+        <div class="flex-col"><span>{{ special.text }}</span></div>
       </div>
     </div>
   </div>
