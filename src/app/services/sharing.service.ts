@@ -52,6 +52,7 @@ export class SharingService {
     this.showing_modal = true;
     if (this.permissions[doc.id]) {
       this.permissions[doc.id].watching = true
+      this.onSharingDataLoaded(doc, doc_slug);
     } else {
       this.permissions[doc.id] = { watching: true, list: [] }
       this.store.documentPermissions$(doc.id).pipe(
