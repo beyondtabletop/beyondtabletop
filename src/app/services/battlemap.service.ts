@@ -330,7 +330,7 @@ export class BattlemapService {
       const token = self.methods.tokenForCombatant(combatant)
       if (token) {
         token.label = sheet.model.name
-        token.image = sheet.model.basic.image
+        token.image = sheet.model.basic.image || token.image
       }
       combatant.stats.damage = sheet.model.combat.hp.damage
       combatant.stats.hp = sheet.methods.getHPTotal()

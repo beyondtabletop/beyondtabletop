@@ -28,7 +28,7 @@
         <i class="material-icons">arrow_drop_down</i>
         <label>{{ weapon ? weapon.name : '' }}</label>
         <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="attack.weapon">
-          <option [value]="weapon.id" *ngFor="let weapon of self.methods.listWeapons()">{{ weapon.name }}</option>
+          <option [value]="weaponOption.id" *ngFor="let weaponOption of self.methods.listWeapons()">{{ weaponOption.name }}</option>
         </select>
       </div>
     </div>
