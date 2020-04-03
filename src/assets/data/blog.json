@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.3.0",
+      "body": "- asdfasdfasdf\n- Fixes damage die not displaying correctly in the edit attacks area of D&D 5e sheets",
+      "created_at": "April 3, 2020"
+    },
+    {
       "title": "Changelog for 5.2.9",
       "body": "- Fixes max dex not calculating AC correctly on D&D 5e sheets\n- Adds new Spell DC Misc field on Spells tab of D&D 5e sheets",
       "created_at": "January 26, 2020"
