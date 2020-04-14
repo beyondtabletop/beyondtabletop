@@ -163,6 +163,7 @@ export class BattlemapService {
       nav_status: 'visible',
       toolbar: {
         activeItem: null,
+        activeCombatant: null,
         activeList: [],
         selectingTokens: false,
         selectingShapes: false,
@@ -267,6 +268,7 @@ export class BattlemapService {
       self.methods.disconnectSheet(combatant)
       if (tool && tool.id) {
         token.label = tool.title
+        combatant.name = tool.title
         combatant.type = tool.tool_type
         token.owner_id = self.locals.user.firebase_id
       } else {
@@ -323,7 +325,7 @@ export class BattlemapService {
     }
 
     self.methods.anyCombatantForToken = (token: BattlemapToken): boolean => {
-      return self.methods.listCombatants().map(x => x.token_id).includes(token.id)
+      return self.methods.listCombatants().map(x => x.id).includes(token.combatant_id)
     }
 
     self.methods.updateConnectedCombatant = (combatant: BattlemapCombatant, sheet: any): void => {
@@ -332,6 +334,7 @@ export class BattlemapService {
         token.label = sheet.model.name
         token.image = sheet.model.basic.image || token.image
       }
+      combatant.name = sheet.model.name
       combatant.stats.damage = sheet.model.combat.hp.damage
       combatant.stats.hp = sheet.methods.getHPTotal()
       combatant.stats.init = sheet.model.combat.init.value
@@ -385,6 +388,13 @@ export class BattlemapService {
       }
     }
 
+    self.methods.onTokenConnectedWithCombatant = async (token: BattlemapToken): Promise<void> => {
+      await Promise.resolve()
+      self.touch()
+      const combatant = self.methods.combatantForToken(token)
+      combatant.name = token.label
+    }
+
     self.methods.openMonsterModal = (): void => {
       // todo: monster modal
     }
@@ -407,11 +417,12 @@ export class BattlemapService {
      * Accessor Methods
      ******************************************************/
 
-    self.methods.$add = (parent: any, slug: string, construct: any, init: any = {}): void => {
+    self.methods.$add = (parent: any, slug: string, construct: any, init: any = {}): any => {
       self.touch()
       parent[slug] = parent[slug] || []
       const item: any = new construct(init)
       parent[slug].push(item)
+      return item
     }
 
     // Scenes
@@ -475,8 +486,19 @@ export class BattlemapService {
     self.methods.listCombatants = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapCombatant[] => scene.combatants || []
     self.methods.addCombatant = (token: BattlemapToken, json: any = {}): void => {
       const scene: BattlemapScene = self.methods.getCurrentScene()
-      if (!!token) { json.token_id = token.id }
-      self.methods.$add(scene, 'combatants', BattlemapCombatant, json)
+      if (token) { json.name = token.label }
+      const combatant = self.methods.$add(scene, 'combatants', BattlemapCombatant, json)
+      if (token && combatant.id) {
+        token.combatant_id = combatant.id
+        if (self.methods.isActiveItem(token)) {
+          self.methods.selectOne(token, combatant)
+        }
+      }
+    }
+
+    self.methods.listUnmatchedCombatants = (scene: BattlemapScene = self.methods.getCurrentScene()) => {
+      const matchingTokens = self.methods.listSceneTokens(scene).map(x => x.combatant_id).filter(x => x)
+      return self.methods.listCombatants(scene).filter(x => !matchingTokens.includes(x.id))
     }
 
     self.methods.addCombatantToScene = (scene: BattlemapScene, json: any) => {
@@ -493,11 +515,11 @@ export class BattlemapService {
     }
 
     self.methods.tokenForCombatant = (combatant: BattlemapCombatant): BattlemapToken => {
-      return self.methods.listSceneTokens().find(x => x.id === combatant.token_id)
+      return self.methods.listSceneTokens().find(x => x.combatant_id === combatant.id)
     }
 
     self.methods.combatantForToken = (token: BattlemapToken): BattlemapCombatant => {
-      return self.methods.listCombatants().find(x => x.token_id === token.id)
+      return self.methods.listCombatants().find(x => x.id === token.combatant_id)
     }
 
     self.methods.listCombatantAttacks = (combatant: BattlemapCombatant): BattlemapCombatantAttack[] => combatant.stats.attacks || []
@@ -540,7 +562,7 @@ export class BattlemapService {
     }
 
     self.methods.removeToken = (scene: BattlemapScene, token: BattlemapToken): void => {
-      const combatant = self.methods.listCombatants().find(x => x.token_id === token.id)
+      const combatant = self.methods.combatantForToken(token)
       this.sheetSvc.removeByObject(scene.tokens, token)
       if (combatant) {
         this.sheetSvc.removeByObject(scene.combatants, combatant)
@@ -614,9 +636,9 @@ export class BattlemapService {
       return !!self.locals.toolbar.activeItem ? [self.locals.toolbar.activeItem] : []
     }
 
-    self.methods.selectItem = (item: any): void => {
+    self.methods.selectItem = (item: any, combatant: BattlemapCombatant): void => {
       if (!self.locals.map.keys.shift) {
-        return self.methods.selectOne(item)
+        return self.methods.selectOne(item, combatant)
       }
 
       /* activeItem should only be null on load or after deleting items */
@@ -629,7 +651,7 @@ export class BattlemapService {
 
       /* check to see if we're still selectig the same type of item */
       if (self.locals.toolbar.selectingTokens !== self.methods.ifItemIsToken(item)) {
-        self.methods.selectOne(item)
+        self.methods.selectOne(item, combatant)
       }
 
       self.locals.toolbar.selectingTokens = self.methods.ifItemIsToken(item)
@@ -649,13 +671,19 @@ export class BattlemapService {
       self.locals.toolbar.activeItem = ''
     }
 
-    self.methods.selectOne = (item: any): void => {
+    self.methods.selectOne = (item: any, combatant: BattlemapCombatant): void => {
       if (self.locals.toolbar.activeItem !== item) {
         self.locals.drawing.active = false
         self.locals.toolbar.activeList = []
         self.locals.toolbar.activeItem = item
         self.locals.toolbar.selectingTokens = self.methods.ifItemIsToken(item)
         self.locals.toolbar.selectingShapes = self.methods.ifItemIsShape(item)
+      }
+
+      if (combatant) {
+        self.locals.toolbar.activeCombatant = combatant
+      } else if (self.methods.ifItemIsToken(item)) {
+        self.locals.toolbar.activeCombatant = self.methods.combatantForToken(item)
       }
     }
 
@@ -764,6 +792,10 @@ export class BattlemapService {
         details.push('layer')
       }
 
+      if (!self.methods.activeItemIsGroup() && self.methods.ifItemIsToken(item) && self.methods.canEditItem(item) && !self.methods.anyCombatantForToken(item)) {
+        details.push('combatant')
+      }
+
       if (
         !self.methods.activeItemIsGroup() &&
         (self.methods.ifItemIsShape(item) || scene.scene_type === 'isometric') &&
@@ -784,10 +816,6 @@ export class BattlemapService {
       if (self.locals.map.map_owner) {
         details.push('fog')
         details.push('obscure')
-      }
-
-      if (!self.methods.activeItemIsGroup() && self.methods.ifItemIsToken(item) && self.methods.canEditItem(item) && !self.methods.anyCombatantForToken(item)) {
-        details.push('combat')
       }
 
       if (self.methods.ifItemIsShape(item) && scene.scene_type === 'battle' && self.methods.canEditItem(item)) {
@@ -814,10 +842,7 @@ export class BattlemapService {
     }
 
     self.methods.activeCombatant = (): BattlemapCombatant => {
-      const token = self.methods.activeToken()
-      if (token) {
-        return self.methods.combatantForToken(token)
-      }
+      return self.locals.toolbar.activeCombatant
     }
 
     // Draggable Map
@@ -1014,6 +1039,15 @@ export class BattlemapService {
     }
 
     self.methods.getLabelInitial = (label: string): string => label.toUpperCase().charAt(0)
+
+    self.methods.onLabelChange = async (token: BattlemapToken): Promise<void> => {
+      await Promise.resolve()
+      self.touch()
+      const combatant = self.methods.combatantForToken(token)
+      if (combatant) {
+        combatant.name = token.label
+      }
+    }
 
     self.methods.getCurrentPosition = (): BattlemapPosition => {
       const top = Math.abs(self.methods.roundToNearest(self.locals.map.pos.top, self.locals.map.zoomed_tile)) / self.locals.map.zoom

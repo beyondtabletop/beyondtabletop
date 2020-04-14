@@ -65,7 +65,8 @@
       <div class="details tm-10" *ngFor="let item of self.methods.activeItemInArray()">
         <div class="detail form-group" [ngSwitch]="detail" *ngFor="let detail of self.methods.getDetailsForActiveItem(item, scene)">
           <bt-battlemap-detail-color     [self]="self" [item]="item" *ngSwitchCase="'color'"></bt-battlemap-detail-color>
-          <bt-battlemap-detail-combat     [self]="self" [item]="item" *ngSwitchCase="'combat'"></bt-battlemap-detail-combat>
+          <bt-battlemap-detail-combat    [self]="self" [item]="item" *ngSwitchCase="'combat'"></bt-battlemap-detail-combat>
+          <bt-battlemap-detail-combatant [self]="self" [item]="item" *ngSwitchCase="'combatant'"></bt-battlemap-detail-combatant>
           <bt-battlemap-detail-damage    [self]="self" [item]="item" *ngSwitchCase="'damage'"></bt-battlemap-detail-damage>
           <bt-battlemap-detail-drawable  [self]="self" [item]="item" *ngSwitchCase="'drawable'"></bt-battlemap-detail-drawable>
           <bt-battlemap-detail-fog       [self]="self" [item]="item" *ngSwitchCase="'fog'"></bt-battlemap-detail-fog>

@@ -13,7 +13,7 @@ export class BattlemapBase extends BtBase {
 
   getProto() {
     return {
-      version: 17,
+      version: 18,
       name: 'New Battlemap',
       oversized: false,
       change_id: '0',

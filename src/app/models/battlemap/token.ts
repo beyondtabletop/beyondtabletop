@@ -10,6 +10,7 @@ export class BattlemapToken extends BtBase {
   fog: boolean
   obscure: boolean
   owner_id: string
+  combatant_id: string
   active: boolean
   angle: number
   size: BattlemapSize
@@ -24,6 +25,7 @@ export class BattlemapToken extends BtBase {
       fog: false,
       obscure: false,
       owner_id: null,
+      combatant_id: null,
       active: false,
       angle: 0,
       size: new BattlemapSize({

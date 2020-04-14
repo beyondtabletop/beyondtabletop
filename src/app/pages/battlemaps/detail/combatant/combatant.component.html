@@ -1,0 +1,17 @@
+<div *ngIf="self.locals.ready">
+  <div class="flex-row-all">
+    <div class="flex-col flex-dynamic">
+      <div class="select-wrap">
+        <i class="material-icons">arrow_drop_down</i>
+        <label>Connect to Combatant</label>
+        <select class="form-control" (ngModelChange)="self.methods.onTokenConnectedWithCombatant(item)" [(ngModel)]="item.combatant_id">
+          <option [value]="null">Disconnected</option>
+          <option [value]="combatant.id" *ngFor="let combatant of self.methods.listUnmatchedCombatants()">{{ combatant.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-col flex-static">
+      <button class="button button-cyan" (click)="self.methods.addCombatant(item)">Add to Combat</button>
+    </div>
+  </div>
+</div>

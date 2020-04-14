@@ -10,13 +10,13 @@
 
 <ng-template #disconnected>
   <div class="flex-row-all flex-config-align-center flex-gutters-5">
-    <div class="flex-col profile-image-col" *ngIf="token.image">
+    <div class="flex-col profile-image-col" *ngIf="token && token.image">
       <div class="profile-image">
         <div class="img" [ngStyle]="{ 'background-image': 'url(' + token.image + ')' }"></div>
       </div>
     </div>
     <div class="flex-col flex-dynamic">
-      <h2 class="h18 bm-10">Setup {{ token.label }}</h2>
+      <h2 class="h18 bm-10">Setup {{ combatant.name }}</h2>
       <div *ngIf="combatant.type else no_type">
         <div *ngIf="combatant.sheet_id else no_sheet">
           <button *ngIf="combatant.sheet_id" class="button button-cyan" (click)="self.methods.connectCombatantToSheet(combatant)">Connect</button>
@@ -43,7 +43,7 @@
 <ng-template #no_sheet>
   <div class="select-wrap bm-5" *ngIf="self.locals.ready">
     <i class="material-icons">arrow_drop_down</i>
-    <label>{{ combatant.sheet_id ? token.label : 'Connect to Sheet' }}</label>
+    <label>{{ combatant.sheet_id ? combatant.name : 'Connect to Sheet' }}</label>
     <select
       class="form-control"
       (ngModelChange)="self.methods.setConnectedTokenDetails(combatant, token)"

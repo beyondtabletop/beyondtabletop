@@ -375,16 +375,17 @@ export class StorageService {
     if (!battlemap) { return }
 
     const scene = battlemap.methods.getFirstBattleScene()
+
+    const combatant = new BattlemapCombatant({
+      sheet_id: character.locals.document_id,
+      type: toolType,
+    })
+
     const token = new BattlemapToken({
+      combatant_id: combatant.id,
       owner_id: this.user.firebase_id,
       label: character.model.name,
       image: character.model.basic.image,
-    })
-
-    const combatant = new BattlemapCombatant({
-      token_id: token.id,
-      sheet_id: character.locals.document_id,
-      type: toolType,
     })
 
     if (scene) {
@@ -398,15 +399,8 @@ export class StorageService {
     if (!battlemap) { return }
 
     const scene = battlemap.methods.getFirstBattleScene()
-    const token = new BattlemapToken({
-      label: monster.name,
-      size: new BattlemapSize({
-        name: monster.size.toLowerCase(),
-      }),
-    })
 
     const combatant = new BattlemapCombatant({
-      token_id: token.id,
       type: 'custom',
       stats: {
         ac: monster.ac,
@@ -419,6 +413,14 @@ export class StorageService {
         CHA: monster.abilities.CHA,
         attacks: monster.attacks || [],
       }
+    })
+
+    const token = new BattlemapToken({
+      combatant_id: combatant.id,
+      label: monster.name,
+      size: new BattlemapSize({
+        name: monster.size.toLowerCase(),
+      }),
     })
 
     if (monster.image) {

@@ -1,6 +1,5 @@
 <div class="combatant flex-row-all flex-config-align-center"
-  *ngIf="token else empty"
-  (click)="self.methods.selectItem(token)"
+  (click)="self.methods.selectItem(token, combatant)"
   [class.active]="self.methods.combatantIsActive(combatant)"
 >
   <div class="flex-col flex-static rp-5 base-color">
@@ -8,7 +7,7 @@
   </div>
 
   <div class="flex-col flex-dynamic">
-    <h4>{{ token.label }}</h4>
+    <h4>{{ combatant.name }}</h4>
   </div>
   
   <div class="flex-col flex-static">
@@ -17,18 +16,6 @@
     </button>
   </div>
 </div>
-
-<ng-template #empty>
-  <div class="hp-15">
-    <div class="select-wrap" *ngIf="self.locals.ready">
-      <i class="material-icons">arrow_drop_down</i>
-      <label>Connect to Token</label>
-      <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="combatant.token_id">
-        <option [value]="token.id" *ngFor="let token of self.methods.listSceneTokens(scene)">{{ token.label }}</option>
-      </select>
-    </div>
-  </div>
-</ng-template>
 
 <ng-template #displayInit>
   <h4>{{ combatant.init }}</h4>

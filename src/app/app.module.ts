@@ -298,6 +298,7 @@ import { BattlemapCombatPanelComponent } from './pages/battlemaps/combat-panel/c
 import { BattlemapCombatantComponent } from './pages/battlemaps/combat-panel/combatant/combatant.component';
 import { BattlemapDetailLayerComponent } from './pages/battlemaps/detail/layer/layer.component';
 import { Dnd5eEditAttackComponent } from './pages/dnd5e-sheets/components/attack/attack.component';
+import { BattlemapDetailCombatantComponent } from './pages/battlemaps/detail/combatant/combatant.component';
 
 export function markedOptionsFactory(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -547,6 +548,7 @@ export function markedOptionsFactory(): MarkedOptions {
     BattlemapCombatantComponent,
     BattlemapDetailLayerComponent,
     Dnd5eEditAttackComponent,
+    BattlemapDetailCombatantComponent,
   ],
   imports: [
     BrowserModule,

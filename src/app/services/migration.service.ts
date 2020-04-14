@@ -425,6 +425,26 @@ export class MigrationService {
           }
           // todo: convert all tokens to combatants?
         },
+        18: async (model: any) => {
+          if (model.scenes) {
+            model.scenes.forEach(scene => {
+              const tokens = scene.tokens || []
+              scene.combatants = scene.combatants || []
+
+              tokens.forEach(token => {
+                const combatant = scene.combatants.find(x => token.id === x.token_id || token.combatant_id === x.id)
+                if (combatant) {
+                  token.combatant_id = combatant.id
+                  combatant.name = token.label || combatant.name
+                }
+              })
+              const matchedCombatantIds = tokens.map(x => x.combatant_id)
+              scene.combatants.filter(x => !matchedCombatantIds.includes(x.id)).forEach(combatant => {
+                combatant.name = combatant.name || 'New Combatant'
+              })
+            })
+          }
+        },
       },
       campaign: {
         4: async (model: any) => {

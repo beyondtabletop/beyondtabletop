@@ -2,13 +2,13 @@
   <button class="unstyled-button base-color corner-button h24" (click)="toggleEditing()">
     <i class="material-icons">edit</i>
   </button>
-  <div class="flex-col profile-image-col" *ngIf="token.image">
+  <div class="flex-col profile-image-col" *ngIf="token && token.image">
     <div class="profile-image">
       <div class="img" [ngStyle]="{ 'background-image': 'url(' + token.image + ')' }"></div>
     </div>
   </div>
   <div class="flex-col flex-static min-120">
-    <h2 class="h18 bm-5 style-nowrap">{{ token.label }}</h2>
+    <h2 class="h18 bm-5 style-nowrap">{{ combatant.name }}</h2>
     <div>AC: <strong>{{ combatant.stats.ac }}</strong></div>
     <div>Speed: <strong>{{ combatant.stats.speed }}</strong></div>
     <div class="tm-5">
