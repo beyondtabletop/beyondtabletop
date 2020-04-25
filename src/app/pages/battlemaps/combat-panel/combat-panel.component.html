@@ -16,7 +16,7 @@
   </h3>
 
   <div class="combat-order">
-    <bt-battlemap-combatant [self]="self" [scene]="scene" [combatant]="combatant" [token]="self.methods.tokenForCombatant(combatant)" *ngFor="let combatant of self.methods.listCombatants(scene)"></bt-battlemap-combatant>
+    <bt-battlemap-combatant [self]="self" [combatant]="combatant" [token]="self.methods.tokenForCombatant(combatant)" *ngFor="let combatant of self.methods.listCombatants()"></bt-battlemap-combatant>
   </div>
 
   <div class="flex-row-all flex-config-spaced">

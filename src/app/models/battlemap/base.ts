@@ -1,6 +1,7 @@
 import { BtBase } from '../common/base'
 import { BattlemapDetails } from './details'
 import { BattlemapScene } from './scene'
+import { BattlemapCombatant } from './combatant'
 
 export class BattlemapBase extends BtBase {
   version: number
@@ -10,6 +11,7 @@ export class BattlemapBase extends BtBase {
   campaign_id: string
   details: BattlemapDetails
   scenes: BattlemapScene[]
+  combatants: BattlemapCombatant[]
 
   getProto() {
     return {
@@ -21,7 +23,13 @@ export class BattlemapBase extends BtBase {
       details: new BattlemapDetails(),
       scenes: [
         new BattlemapScene()
-      ]
+      ],
+      combatants: [],
+    }
+  }
+  getLookup() {
+    return {
+      combatants: BattlemapCombatant
     }
   }
 }

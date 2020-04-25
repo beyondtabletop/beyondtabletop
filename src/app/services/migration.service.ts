@@ -426,6 +426,11 @@ export class MigrationService {
           // todo: convert all tokens to combatants?
         },
         18: async (model: any) => {
+          const notYetExtractedCombatants = (!model.combatants || model.combatants.length === 0)
+          if (notYetExtractedCombatants) {
+            model.combatants = []
+          }
+
           if (model.scenes) {
             model.scenes.forEach(scene => {
               const tokens = scene.tokens || []
@@ -442,6 +447,11 @@ export class MigrationService {
               scene.combatants.filter(x => !matchedCombatantIds.includes(x.id)).forEach(combatant => {
                 combatant.name = combatant.name || 'New Combatant'
               })
+
+              if (notYetExtractedCombatants) {
+                console.log('okay?')
+                model.combatants = [...model.combatants, ...scene.combatants]
+              }
             })
           }
         },

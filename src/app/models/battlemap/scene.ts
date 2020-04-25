@@ -13,7 +13,6 @@ export class BattlemapScene extends BtBase {
   tokens: BattlemapToken[]
   shapes: BattlemapShape[]
   tiles: BattlemapTile[]
-  combatants: BattlemapCombatant[]
   combat: BattlemapCombat
   $deleting?: boolean
 
@@ -33,12 +32,6 @@ export class BattlemapScene extends BtBase {
       tiles: [
         new BattlemapTile()
       ],
-      combatants: [],
-    }
-  }
-  getLookup() {
-    return {
-      combatants: BattlemapCombatant,
     }
   }
 }

@@ -10,13 +10,12 @@ import { BattlemapCombatant } from 'src/app/models/battlemap/combatant';
 })
 export class BattlemapCombatantComponent {
   @Input() public self: any
-  @Input() public scene: BattlemapScene
   @Input() public token: BattlemapToken
   @Input() public combatant: BattlemapCombatant
   constructor() { }
 
   removeCombatant() {
-    this.self.methods.removeByObject(this.scene.combatants, this.combatant)
+    this.self.methods.removeByObject(this.self.model.combatants, this.combatant)
     this.self.touch()
   }
 }

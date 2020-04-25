@@ -455,8 +455,7 @@ export class StorageService {
     const battlemap = this.firstOpenToolOfType('battlemap')
     if (!battlemap) { return }
 
-    const scene = battlemap.methods.getFirstBattleScene()
-    const combatant = battlemap.methods.listCombatants(scene).find(x => x.sheet_id === id)
+    const combatant = battlemap.methods.listCombatants().find(x => x.sheet_id === id)
 
     if (combatant) {
       battlemap.methods.setCombatantInit(combatant, init)

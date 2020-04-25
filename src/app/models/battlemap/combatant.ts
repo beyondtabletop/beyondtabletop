@@ -8,6 +8,7 @@ export class BattlemapCombatant extends BtBase {
   known: boolean
   stats: BattlemapCombatantStats
   name: string
+  $token_id: string
 
   getProto() {
     return {

@@ -261,19 +261,23 @@ export class BattlemapService {
       self.locals.available_tools = list
     }
 
-    self.methods.setConnectedTokenDetails = async (combatant: BattlemapCombatant, token: BattlemapToken): Promise<void> => {
+    self.methods.setConnectedCombatantDetails = async (combatant: BattlemapCombatant, token: BattlemapToken): Promise<void> => {
       await Promise.resolve()
       self.touch()
       const tool = self.locals.available_tools.find(x => x.id === combatant.sheet_id)
       self.methods.disconnectSheet(combatant)
       if (tool && tool.id) {
-        token.label = tool.title
+        if (token) {
+          token.label = tool.title
+          token.owner_id = self.locals.user.firebase_id
+        }
         combatant.name = tool.title
         combatant.type = tool.tool_type
-        token.owner_id = self.locals.user.firebase_id
       } else {
         combatant.type = 'custom'
-        token.owner_id = null
+        if (token) {
+          token.owner_id = null
+        }
       }
     }
 
@@ -393,6 +397,16 @@ export class BattlemapService {
       self.touch()
       const combatant = self.methods.combatantForToken(token)
       combatant.name = token.label
+      self.methods.selectOne(token, combatant)
+    }
+
+    self.methods.reverseConnectTokenWithCombatant = async (combatant: BattlemapCombatant): Promise<void> => {
+      await Promise.resolve()
+      self.touch()
+      const token = self.methods.listSceneTokens().find(x => x.id === combatant.$token_id)
+      token.combatant_id = combatant.id
+      combatant.name = token.label
+      self.methods.selectOne(token, combatant)
     }
 
     self.methods.openMonsterModal = (): void => {
@@ -483,11 +497,10 @@ export class BattlemapService {
 
     // Combatants
     // ---------------------------------------------------
-    self.methods.listCombatants = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapCombatant[] => scene.combatants || []
+    self.methods.listCombatants = (): BattlemapCombatant[] => self.model.combatants || []
     self.methods.addCombatant = (token: BattlemapToken, json: any = {}): void => {
-      const scene: BattlemapScene = self.methods.getCurrentScene()
       if (token) { json.name = token.label }
-      const combatant = self.methods.$add(scene, 'combatants', BattlemapCombatant, json)
+      const combatant = self.methods.$add(self.model, 'combatants', BattlemapCombatant, json)
       if (token && combatant.id) {
         token.combatant_id = combatant.id
         if (self.methods.isActiveItem(token)) {
@@ -498,7 +511,7 @@ export class BattlemapService {
 
     self.methods.listUnmatchedCombatants = (scene: BattlemapScene = self.methods.getCurrentScene()) => {
       const matchingTokens = self.methods.listSceneTokens(scene).map(x => x.combatant_id).filter(x => x)
-      return self.methods.listCombatants(scene).filter(x => !matchingTokens.includes(x.id))
+      return self.methods.listCombatants().filter(x => !matchingTokens.includes(x.id))
     }
 
     self.methods.addCombatantToScene = (scene: BattlemapScene, json: any) => {
@@ -543,29 +556,36 @@ export class BattlemapService {
     self.methods.listSceneTokens = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapToken[] => scene.tokens || []
     self.methods.getSceneToken = (index: number, scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapToken => scene.tokens[index]
 
-    self.methods.addToken = (token: BattlemapToken): void => self.methods.addSceneToken(self.methods.getCurrentScene(), token)
-    self.methods.addSceneToken = (scene: BattlemapScene, token = new BattlemapToken()): void => {
-      token.position = self.methods.getCurrentPosition()
-      if (!token.image) {
-        token.color = this.sheetSvc.getRandomColor()
+    self.methods.addToken = (token: BattlemapToken, combatant: BattlemapCombatant): void => self.methods.addSceneToken(self.methods.getCurrentScene(), token, combatant)
+    self.methods.addSceneToken = (scene: BattlemapScene, json = new BattlemapToken(), combatant: BattlemapCombatant): void => {
+      json.position = self.methods.getCurrentPosition()
+
+      if (!json.image) {
+        json.color = this.sheetSvc.getRandomColor()
       }
 
-      self.methods.$add(scene, 'tokens', BattlemapToken, token)
+      if (combatant) {
+        json.combatant_id = combatant.id
+      }
+
+      const token = self.methods.$add(scene, 'tokens', BattlemapToken, json)
 
       if (scene.tokens.length === 1) {
-        self.methods.getSceneToken(0).active = true
+        token.active = true
       }
 
-      self.methods.selectOne(
-        self.methods.getSceneToken(self.methods.listSceneTokens(scene).length - 1)
-      )
+      if (combatant) {
+        combatant.name = token.label
+      }
+
+      self.methods.selectOne(token, combatant)
     }
 
     self.methods.removeToken = (scene: BattlemapScene, token: BattlemapToken): void => {
       const combatant = self.methods.combatantForToken(token)
       this.sheetSvc.removeByObject(scene.tokens, token)
       if (combatant) {
-        this.sheetSvc.removeByObject(scene.combatants, combatant)
+        this.sheetSvc.removeByObject(self.model.combatants, combatant)
         self.methods.disconnectSheet(combatant)
       }
 

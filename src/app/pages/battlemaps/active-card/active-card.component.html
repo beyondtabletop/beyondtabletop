@@ -28,15 +28,32 @@
 
 <ng-template #no_type>
   <div class="flex-row-all flex-gutters-5">
-    <div class="flex-col-4">
-      <button class="button button-cyan button-block" (click)="setCombatantType('dnd5e')">Connect to D&D 5e Sheet</button>
-    </div>
-    <div class="flex-col-4">
-      <button class="button button-cyan button-block" (click)="setCombatantType('pathfinder')">Connect to Pathfinder Sheet</button>
-    </div>
+    <ng-container *ngIf="token else no_token">
+      <div class="flex-col-4" *ngIf="token">
+        <button class="button button-cyan button-block" (click)="setCombatantType('dnd5e')">Connect to D&D 5e Sheet</button>
+      </div>
+      <div class="flex-col-4" *ngIf="token">
+        <button class="button button-cyan button-block" (click)="setCombatantType('pathfinder')">Connect to Pathfinder Sheet</button>
+      </div>
+    </ng-container>
     <div class="flex-col-4">
       <button class="button button-cyan button-block" (click)="setCombatantType('custom')">Custom Stats</button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #no_token>
+  <div class="flex-col-4">
+    <div class="select-wrap">
+      <i class="material-icons">arrow_drop_down</i>
+      <label>Connect to Token</label>
+      <select class="form-control" (ngModelChange)="self.methods.reverseConnectTokenWithCombatant(combatant)" [(ngModel)]="combatant.$token_id">
+        <option [value]="token.id" *ngFor="let token of self.methods.listSceneTokens(scene)">{{ token.label }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex-col-4">
+    <button class="button button-cyan button-block" (click)="self.methods.addToken({}, combatant)">Create Token</button>
   </div>
 </ng-template>
 
@@ -46,7 +63,7 @@
     <label>{{ combatant.sheet_id ? combatant.name : 'Connect to Sheet' }}</label>
     <select
       class="form-control"
-      (ngModelChange)="self.methods.setConnectedTokenDetails(combatant, token)"
+      (ngModelChange)="self.methods.setConnectedCombatantDetails(combatant, token)"
       [(ngModel)]="combatant.sheet_id"
     >
       <option [value]="tool.id" *ngFor="let tool of self.methods.avaialbleSheetsByType(combatant.type)">{{ tool.title }}</option>
