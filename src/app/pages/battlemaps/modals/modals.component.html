@@ -102,6 +102,19 @@
                     </div>
                   </div>
                 </div>
+
+                <h4 class="gh4 bm-10">All Layers</h4>
+                <p>List of all created layers in this scene.</p>
+                <div>
+                  <div class="flex-row-all flex-config-align-center border-bottom bm-10 bp-5 js-scene-shape" *ngFor="let layer of self.methods.listLayers(scene); index as i">
+                    <div class="flex-col flex-dynamic">
+                      <span>{{ i }}</span>: <span>{{ layer.name }}</span>
+                    </div>
+                    <div class="flex-col flex-static">
+                      <button (click)="self.methods.removeLayer(layer)" class="g-remove"><i class="material-icons">delete</i></button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

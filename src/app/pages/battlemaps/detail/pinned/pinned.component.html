@@ -1,4 +1,5 @@
 <div class="checkbox-group hide-on-collapsed">
-  <input type="checkbox" title="Pinned" (ngModelChange)="self.touch()" [(ngModel)]="item.pinned">
+  <input *ngIf="!layer" type="checkbox" title="Pinned" (ngModelChange)="self.touch()" [(ngModel)]="item.pinned">
+  <input *ngIf="layer"  type="checkbox" title="Pinned" (ngModelChange)="self.touch()" [(ngModel)]="layer.pinned">
   <label>Pinned</label>
 </div>

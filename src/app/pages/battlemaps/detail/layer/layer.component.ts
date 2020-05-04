@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { BattlemapLayer } from 'src/app/models/battlemap/layer';
 
 @Component({
   selector: 'bt-battlemap-detail-layer',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BattlemapDetailLayerComponent implements OnInit {
   @Input() public self: any
   @Input() public item: any
+  @Input() public layer: BattlemapLayer
 
   constructor() { }
 

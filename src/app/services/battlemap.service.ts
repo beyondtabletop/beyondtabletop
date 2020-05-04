@@ -15,6 +15,7 @@ import { BattlemapTile } from '../models/battlemap/tile';
 import { BattlemapCombatant } from '../models/battlemap/combatant';
 import { BattlemapCombatantAttack } from '../models/battlemap/combatant-attack';
 import { BtText } from '../models/common/text';
+import { BattlemapLayer } from '../models/battlemap/layer'
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +95,7 @@ export class BattlemapService {
         right: '8px',
       },
       managementPanel: {
-        top: '200px',
+        top: '400px',
         left: '8px',
       },
       nav: {
@@ -551,6 +552,34 @@ export class BattlemapService {
       self.touch()
     }
 
+    // Layers
+    // ---------------------------------------------------
+    self.methods.listLayers = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapLayer[] => scene.layers || []
+    self.methods.addLayer = (item, scene: BattlemapScene = self.methods.getCurrentScene()): void => {
+      const json = {
+        name: item.layer
+      }
+
+      const layer = self.methods.$add(scene, 'layers', BattlemapLayer, json)
+      item.layer_id = layer.id
+    }
+
+    self.methods.anyItemsOnLayer = (layer: BattlemapLayer): boolean => {
+      if (!layer) { return false }
+      return [...self.methods.listSceneShapes(), ...self.methods.listSceneTokens()].map(x => x.layer_id).includes(layer.id)
+    }
+
+    self.methods.removeLayer = (layer: BattlemapLayer, scene: BattlemapScene = self.methods.getCurrentScene()): void => {
+      if (layer) {
+        self.methods.listSceneTokens().filter(x => x.layer_id === layer.id).forEach(x => x.layer_id = null)
+      }
+      this.sheetSvc.removeByObject(scene.layers, layer)
+    }
+
+    self.methods.getLayerForItem = (item): BattlemapLayer => {
+      return self.methods.listLayers().find(x => item.layer_id === x.id)
+    }
+
     // Tokens
     // ---------------------------------------------------
     self.methods.listSceneTokens = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapToken[] => scene.tokens || []
@@ -654,6 +683,11 @@ export class BattlemapService {
         return [self.locals.toolbar.activeDummyItem]
       }
       return !!self.locals.toolbar.activeItem ? [self.locals.toolbar.activeItem] : []
+    }
+
+    self.methods.isItemPinned = (item) => {
+      const layer = self.methods.getLayerForItem(item)
+      return item.pinned || (layer && layer.pinned)
     }
 
     self.methods.selectItem = (item: any, combatant: BattlemapCombatant): void => {
@@ -808,10 +842,6 @@ export class BattlemapService {
         details.push('size')
       }
 
-      if (self.methods.canEditItem(item)) {
-        details.push('layer')
-      }
-
       if (!self.methods.activeItemIsGroup() && self.methods.ifItemIsToken(item) && self.methods.canEditItem(item) && !self.methods.anyCombatantForToken(item)) {
         details.push('combatant')
       }
@@ -825,6 +855,11 @@ export class BattlemapService {
         details.push('height')
       }
 
+      if (self.methods.canEditItem(item)) {
+        details.push('layer')
+      }
+
+
       if (self.methods.ifItemIsShape(item) && self.methods.canEditItem(item)) {
         details.push('pinned')
       }
@@ -835,7 +870,6 @@ export class BattlemapService {
 
       if (self.locals.map.map_owner) {
         details.push('fog')
-        details.push('obscure')
       }
 
       if (self.methods.ifItemIsShape(item) && scene.scene_type === 'battle' && self.methods.canEditItem(item)) {
@@ -1053,6 +1087,50 @@ export class BattlemapService {
       token.size.height = size.height
     }
 
+    self.methods.onLayerChange = async (item): Promise<void> => {
+      clearTimeout(self.locals.layerTimeout)
+      self.locals.layerTimeout = setTimeout(() => self.methods.whenLayerChanges(item), 2000)
+    }
+
+    self.methods.whenLayerChanges = async (item): Promise<void> => {
+      await Promise.resolve()
+      self.touch()
+
+      if (!item.layer) {
+        item.$layer = false
+
+        if (!self.methods.anyItemsOnLayer()) {
+          self.methods.removeLayer(self.methods.getLayerForItem(item))
+        }
+
+        item.layer_id = null
+
+        return
+      }
+
+      const differentLayer = self.methods.listLayers().find(x => x.id !== item.layer_id && x.name === item.layer)
+
+      if (differentLayer) {
+        if (!self.methods.anyItemsOnLayer()) {
+          self.methods.removeLayer(self.methods.getLayerForItem(item))
+        }
+
+        item.layer_id = differentLayer.id
+
+        return
+      }
+
+      if (!item.layer_id) {
+        self.methods.addLayer(item)
+        return
+      }
+
+      const layer = self.methods.getLayerForItem(item)
+      if (layer) {
+        layer.name = item.layer
+      }
+    }
+
     self.methods.onSortableDrop = (e: CdkDragDrop<string[]>) => {
       moveItemInArray(e.container.data, e.previousIndex, e.currentIndex)
       self.touch()
@@ -1110,14 +1188,13 @@ export class BattlemapService {
     }
 
     self.methods.getTokenClasses = (token: BattlemapToken, scene: BattlemapScene): any => {
+      const layer = self.methods.getLayerForItem(token)
       return {
         round: scene.scene_type === 'isometric',
         'token-type': !token.image && scene.scene_type !== 'isometric',
         'sprite-type': !!token.image && scene.scene_type !== 'isometric',
         moving: token.moving,
-        foggy: token.fog && !self.locals.map.map_owner,
-        'owner-obscured': token.obscure && self.locals.map.map_owner,
-        'obscured': token.obscure && !self.locals.map.map_owner,
+        foggy: (token.fog || (layer && layer.fog)) && !self.locals.map.map_owner,
         selected: self.methods.isActiveItem(token) || self.locals.toolbar.activeList.includes(token),
         [`rotate-${token.angle}`]: true,
         [token.size.name]: true,
@@ -1125,15 +1202,15 @@ export class BattlemapService {
     }
 
     self.methods.getShapeClasses = (shape: BattlemapShape): any => {
+      const layer = self.methods.getLayerForItem(shape)
       return {
         'bg-image': !!shape.image,
         moving: shape.moving,
         round: shape.round,
         square: !shape.round,
-        pinned: shape.pinned,
+        pinned: self.methods.isItemPinned(shape),
         tiled: shape.tiled,
-        foggy: shape.fog && !self.locals.map.map_owner,
-        obscured: shape.obscure && !self.locals.map.map_owner,
+        foggy: (shape.fog || (layer && layer.fog)) && !self.locals.map.map_owner,
         selected: self.methods.isActiveItem(shape) || self.locals.toolbar.activeList.includes(shape),
         [`rotate-${shape.angle}`]: true,
       }

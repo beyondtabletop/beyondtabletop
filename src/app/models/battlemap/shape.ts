@@ -11,11 +11,12 @@ export class BattlemapShape extends BtBase {
   drawable: boolean
   moving: boolean
   fog: boolean
-  obscure: boolean
   pinned: boolean
   snapped: boolean
   tiled: boolean
   angle: number
+  layer: string
+  layer_id: string
   size: BattlemapSize
   position: BattlemapPosition
   lines: any[]
@@ -30,11 +31,12 @@ export class BattlemapShape extends BtBase {
       drawable: false,
       moving: false,
       fog: false,
-      obscure: false,
       pinned: false,
       snapped: true,
       tiled: false,
       angle: 0,
+      layer: null,
+      layer_id: null,
       size: new BattlemapSize({
         width: 80,
         height: 80,

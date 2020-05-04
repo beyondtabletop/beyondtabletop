@@ -8,11 +8,12 @@ export class BattlemapToken extends BtBase {
   image: string
   moving: boolean
   fog: boolean
-  obscure: boolean
   owner_id: string
   combatant_id: string
   active: boolean
   angle: number
+  layer: string
+  layer_id: string
   size: BattlemapSize
   position: BattlemapPosition
 
@@ -23,11 +24,12 @@ export class BattlemapToken extends BtBase {
       image: null,
       moving: false,
       fog: false,
-      obscure: false,
       owner_id: null,
       combatant_id: null,
       active: false,
       angle: 0,
+      layer: null,
+      layer_id: null,
       size: new BattlemapSize({
         width: 40,
         height: 40,

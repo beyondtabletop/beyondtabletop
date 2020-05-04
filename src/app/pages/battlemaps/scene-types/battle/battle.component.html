@@ -19,7 +19,7 @@
       [ngStyle]="self.methods.getOuterShapeStyle(shape)"
       cdkDrag
       cdkDragBoundary=".map"
-      [cdkDragDisabled]="shape.pinned"
+      [cdkDragDisabled]="self.methods.isItemPinned(shape)"
       (cdkDragReleased)="self.methods.dragStop(shape, $event)"
       (cdkDragStarted)="self.methods.itemDragStart(shape, $event)"
     >

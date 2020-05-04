@@ -1,5 +1,5 @@
 <div class="resizer-corner"
-  *ngIf="!shape.pinned"
+  *ngIf="!self.methods.isItemPinned(shape)"
   cdkDrag
   cdkDragBoundary=".map"
   (cdkDragStarted)="self.methods.resizeStart(shape, $event)"
@@ -7,7 +7,7 @@
   (cdkDragReleased)="self.methods.resizeStop(shape, $event)"
 ></div>
 <div class="resizer-bottom"
-  *ngIf="!shape.pinned"
+  *ngIf="!self.methods.isItemPinned(shape)"
   cdkDrag
   cdkDragLockAxis="y"
   cdkDragBoundary=".map"
@@ -16,7 +16,7 @@
   (cdkDragReleased)="self.methods.resizeStop(shape, $event)"
 ></div>
 <div class="resizer-side"
-  *ngIf="!shape.pinned"
+  *ngIf="!self.methods.isItemPinned(shape)"
   cdkDrag
   cdkDragLockAxis="x"
   cdkDragBoundary=".map"

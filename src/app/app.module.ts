@@ -193,7 +193,6 @@ import { BattlemapDetailDamageComponent } from './pages/battlemaps/detail/damage
 import { BattlemapDetailFogComponent } from './pages/battlemaps/detail/fog/fog.component';
 import { BattlemapDetailImageComponent } from './pages/battlemaps/detail/image/image.component';
 import { BattlemapDetailLabelComponent } from './pages/battlemaps/detail/label/label.component';
-import { BattlemapDetailObscureComponent } from './pages/battlemaps/detail/obscure/obscure.component';
 import { BattlemapDetailSnappedComponent } from './pages/battlemaps/detail/snapped/snapped.component';
 import { BattlemapDetailCombatComponent } from './pages/battlemaps/detail/combat/combat.component';
 import { BattlemapDetailDrawableComponent } from './pages/battlemaps/detail/drawable/drawable.component';
@@ -445,7 +444,6 @@ export function markedOptionsFactory(): MarkedOptions {
     BattlemapDetailFogComponent,
     BattlemapDetailImageComponent,
     BattlemapDetailLabelComponent,
-    BattlemapDetailObscureComponent,
     BattlemapDetailSnappedComponent,
     BattlemapDetailCombatComponent,
     BattlemapDetailDrawableComponent,

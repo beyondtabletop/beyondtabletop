@@ -1,4 +1,5 @@
 <div class="checkbox-group hide-on-collapsed">
-  <input type="checkbox" title="Hide for Players" (ngModelChange)="self.touch()" [(ngModel)]="item.fog">
+  <input *ngIf="!layer" type="checkbox" title="Hide for Players" (ngModelChange)="self.touch()" [(ngModel)]="item.fog">
+  <input *ngIf="layer" type="checkbox" title="Hide for Players" (ngModelChange)="self.touch()" [(ngModel)]="layer.fog">
   <label>Hide for Players</label>
 </div>

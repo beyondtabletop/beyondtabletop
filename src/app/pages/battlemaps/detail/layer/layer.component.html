@@ -1,3 +1,8 @@
-<div>
-  <input type="text" class="form-control" placeholder="Layer" (ngModelChange)="self.touch()" [(ngModel)]="item.layer">
+<div class="checkbox-group hide-on-collapsed" *ngIf="!item.$layer && !item.layer">
+  <input type="checkbox" title="Attach to Layer?" (ngModelChange)="self.touch()" [(ngModel)]="item.$layer">
+  <label>Attach to Layer?</label>
+</div>
+
+<div *ngIf="item.$layer || item.layer">
+  <input type="text" class="form-control" placeholder="Layer" (ngModelChange)="self.methods.onLayerChange(item)" [(ngModel)]="item.layer">
 </div>

@@ -3,7 +3,7 @@ import { BattlemapToken } from './token'
 import { BattlemapShape } from './shape'
 import { BattlemapTile } from './tile'
 import { BattlemapCombat } from './combat'
-import { BattlemapCombatant } from './combatant'
+import { BattlemapLayer } from './layer'
 
 export class BattlemapScene extends BtBase {
   name: string
@@ -13,6 +13,7 @@ export class BattlemapScene extends BtBase {
   tokens: BattlemapToken[]
   shapes: BattlemapShape[]
   tiles: BattlemapTile[]
+  layers: BattlemapLayer[]
   combat: BattlemapCombat
   $deleting?: boolean
 
@@ -32,6 +33,12 @@ export class BattlemapScene extends BtBase {
       tiles: [
         new BattlemapTile()
       ],
+      layers: []
+    }
+  }
+  getLookup() {
+    return {
+      layers: BattlemapLayer
     }
   }
 }

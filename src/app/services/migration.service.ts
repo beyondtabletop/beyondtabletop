@@ -439,7 +439,7 @@ export class MigrationService {
               tokens.forEach(token => {
                 const combatant = scene.combatants.find(x => token.id === x.token_id || token.combatant_id === x.id)
                 if (combatant) {
-                  token.combatant_id = combatant.id
+                  token.combatant_id = combatant.id || null
                   combatant.name = token.label || combatant.name
                 }
               })
@@ -449,7 +449,6 @@ export class MigrationService {
               })
 
               if (notYetExtractedCombatants) {
-                console.log('okay?')
                 model.combatants = [...model.combatants, ...scene.combatants]
               }
             })
