@@ -223,7 +223,7 @@ export class CampaignService {
       if (!!match) {
         match.$added = false
       }
-      this.sheetSvc.removeByObject(self.model.tools, tool)
+      self.methods.removeByObject(self.model.tools, tool)
     }
 
     self.methods.removeToolById = (id: string): void => {
@@ -284,13 +284,13 @@ export class CampaignService {
       player.$busy = true
       await this.store.deleteFirebaseToolFromPlayer(self.locals.document_id, player.id)
       await this.store.deleteFirebaseUserPermission(self.locals.document_id, player.id)
-      this.sheetSvc.removeByObject(self.model.players, player)
+      self.methods.removeByObject(self.model.players, player)
     }
 
     self.methods.prunePlayerById = (id: string): void => {
       const player = self.methods.listPlayers().find(x => x.id === id)
       if (!!player) {
-        this.sheetSvc.removeByObject(self.model.players, player)
+        self.methods.removeByObject(self.model.players, player)
       }
     }
 
@@ -505,10 +505,10 @@ export class CampaignService {
     self.methods.moveNPC = (npc: CampaignNpc, name: string): void => {
       if (name === 'foes') {
         self.methods.addFoe(npc)
-        this.sheetSvc.removeByObject(self.model.npcs, npc)
+        self.methods.removeByObject(self.model.npcs, npc)
       } else {
         self.methods.addNPC(npc)
-        this.sheetSvc.removeByObject(self.model.foes, npc)
+        self.methods.removeByObject(self.model.foes, npc)
       }
     }
 
@@ -544,7 +544,10 @@ export class CampaignService {
     self.methods.closeChooser = (): void => { self.locals.choosing_tools = false }
 
     self.methods.backgroundStyle = this.sheetSvc.backgroundStyle
-    self.methods.removeByObject = this.sheetSvc.removeByObject
+    self.methods.removeByObject = (array, item) => {
+      self.touch()
+      this.sheetSvc.removeByObject(array, item)
+    }
     self.methods.selectionReverseLookup = this.sheetSvc.selectionReverseLookup
     self.methods.canDeletePlayer = (player): boolean => self.methods.isGM() && !self.methods.isGM(player)
 

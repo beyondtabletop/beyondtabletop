@@ -12,6 +12,10 @@ export class BtBase {
 
   constructor(init = {}) {
     const self = this
+
+    const proto: any = self.getProto()
+    const lookup = self.getLookup()
+
     const randomSecureString = (length = 12) => {
       let text = ''
       const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -37,8 +41,6 @@ export class BtBase {
       self[slug] = init[slug]
     }
 
-    const proto: any = self.getProto()
-    const lookup = self.getLookup()
     proto.id = randomSecureString()
     Object.assign(self, proto)
 
@@ -84,6 +86,20 @@ export class BtBase {
       })
     }
 
+    // Simple recursive function to interate through the changes lookup
+    // and remove the conflicting change
+    const removeConflict = (parent, segments) => {
+      const segment = segments.shift()
+      const segmentChanges = parent.changes && parent.changes.includes(segment)
+      if (segmentChanges) {
+        parent.changes.splice(parent.changes.indexOf(segment), 1)
+      } else if (parent[segment] && segments.length > 0) {
+        removeConflict(parent[segment], segments)
+      } else {
+        delete parent[segment]
+      }
+    }
+
     // The only conflict we have to manually address is if a local item gets
     // added and remote doesn't know about it yet. OR if a remote deletes something
     // we were still editing locally
@@ -98,20 +114,6 @@ export class BtBase {
           removeConflict(remoteChanges.lookup, segments)
         }
       })
-    }
-
-    // Simple recursive function to interate through the changes lookup
-    // and remove the conflicting change
-    const removeConflict = (parent, segments) => {
-      const segment = segments.shift()
-      const segmentChanges = parent.changes && parent.changes.includes(segment)
-      if (segmentChanges) {
-        parent.changes.splice(parent.changes.indexOf(segment), 1)
-      } else if (parent[segment] && segments.length > 0) {
-        removeConflict(parent[segment], segments)
-      } else {
-        delete parent[segment]
-      }
     }
 
     // Resets changes object to initial state
@@ -144,16 +146,22 @@ export class BtBase {
     // we start by ignoring all properties that begin with _
     // becuase those are handled elsewhere
     // Once we finish we delete the lookup id and changes
+
+    const arrayFullyDeleted = (a, b, item) => {
+      return item instanceof Array && a && !b
+    }
+
     const handlePrimitives = (a, b) => {
       if (!!lookup.changes) {
-        lookup.changes.filter(x => x.charAt(0) !== '_').forEach(slug => {
-          const item = proto[slug]
-          if (typeof item !== 'object' || item === null) {
-            a[slug] = b[slug]
-          }
-        })
-        delete lookup.id
+        lookup.changes
+          .filter(x => x.charAt(0) !== '_')
+          .map(slug => ({ slug, item: proto[slug] }))
+          // Filter out non primitive
+          // Unless an entire array has been deleted
+          .filter(({item, slug}) => typeof item !== 'object' || item === null || arrayFullyDeleted(a[slug], b[slug], item))
+          .forEach(({slug}) => a[slug] = b[slug])
         delete lookup.changes
+        delete lookup.id
       }
     }
 
@@ -185,16 +193,19 @@ export class BtBase {
     // Check through proto keys that exist in our lookup and send them to
     // updateArray or into recursive commitUpdate. Primitives are handled separately
     const updateObject = (a, b) => {
-      Object.keys(proto).filter(x => lookup[x] !== undefined).forEach(slug => {
-        const item = proto[slug]
-        if (typeof item === 'object' && item !== null) {
+      Object.keys(proto)
+        // Filter out slugs that aren't in the lookup
+        .filter(x => lookup[x] !== undefined)
+        .map(slug => ({ slug, item: proto[slug] }))
+        // Filter out slugs defined as primitives in the proto
+        .filter(({item}) => typeof item === 'object' && item !== null)
+        .forEach(({item, slug}) => {
           if (item instanceof Array) {
             updateArray(a, b, slug)
           } else {
             a[slug].commitUpdate(b[slug], lookup[slug])
           }
-        }
-      })
+        })
     }
 
     handlePrimitives(self, incoming)
@@ -261,16 +272,16 @@ export class BtBase {
       }
     }
 
-    const compareIndex = (array, a, b) => {
-      return findIndex(array, a.id) - findIndex(array, b.id)
-    }
-
     const findIndex = (array, id) => {
       let index = array.findIndex(x => x.id === id)
       if (index < 0) {
         index = array.length
       }
       return index
+    }
+
+    const compareIndex = (array, a, b) => {
+      return findIndex(array, a.id) - findIndex(array, b.id)
     }
 
     // Compare 2 arrays on a given slug (Example: character.feats)

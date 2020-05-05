@@ -457,7 +457,10 @@ export class Dnd5eService {
     self.methods.levelizeWithoutNum = this.sheetSvc.levelizeWithoutNum
     self.methods.selectionReverseLookup = this.sheetSvc.selectionReverseLookup
     self.methods.remove = this.sheetSvc.remove
-    self.methods.removeByObject = this.sheetSvc.removeByObject
+    self.methods.removeByObject = (array, item) => {
+      self.touch()
+      this.sheetSvc.removeByObject(array, item)
+    }
     self.methods.turnOnConfirmation = this.sheetSvc.turnOnConfirmation
     self.methods.turnOffConfirmation = this.sheetSvc.turnOffConfirmation
     self.methods.sizedArray = this.sheetSvc.sizedArray
