@@ -1,7 +1,7 @@
 {
   "posts": [
     {
-      "title": "Changelog for 5.2.11",
+      "title": "Changelog for 5.3.0",
       "body": "- Allows tokens and combatants to be created and linked separately for Battlemaps\n- Adds layer functionality! Simply type in the name of a layer into the layer field of any shape or token to sync up the Pinned and Hide for Players checkboxes!\n- Small tweak to the syncing code that fixes clients not correctly receiving changes when an array was entirely deleted",
       "created_at": "April 3, 2020"
     },
