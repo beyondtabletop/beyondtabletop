@@ -1,9 +1,14 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.3.1",
+      "body": "- Fixes adding players and monsters to battlemap",
+      "created_at": "May 7, 2020"
+    },
+    {
       "title": "Changelog for 5.3.0",
       "body": "- Allows tokens and combatants to be created and linked separately for Battlemaps\n- Adds layer functionality! Simply type in the name of a layer into the layer field of any shape or token to sync up the Pinned and Hide for Players checkboxes!\n- Small tweak to the syncing code that fixes clients not correctly receiving changes when an array was entirely deleted",
-      "created_at": "April 3, 2020"
+      "created_at": "May 5, 2020"
     },
     {
       "title": "Changelog for 5.2.10",

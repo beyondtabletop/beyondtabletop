@@ -515,10 +515,6 @@ export class BattlemapService {
       return self.methods.listCombatants().filter(x => !matchingTokens.includes(x.id))
     }
 
-    self.methods.addCombatantToScene = (scene: BattlemapScene, json: any) => {
-      self.methods.$add(scene, 'combatants', BattlemapCombatant, json)
-    }
-
     self.methods.sortCombatants = () => {
       self.methods.listCombatants().sort((a, b) => b.init - a.init)
     }

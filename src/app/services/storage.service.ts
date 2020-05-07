@@ -390,7 +390,7 @@ export class StorageService {
 
     if (scene) {
       battlemap.methods.addSceneToken(scene, token)
-      battlemap.methods.addCombatantToScene(scene, combatant)
+      battlemap.methods.addCombatant(null, combatant)
     }
   }
 
@@ -398,10 +398,11 @@ export class StorageService {
     const battlemap = this.firstOpenToolOfType('battlemap')
     if (!battlemap) { return }
 
-    const scene = battlemap.methods.getFirstBattleScene()
+    const scene = battlemap.methods.getCurrentScene()
 
     const combatant = new BattlemapCombatant({
       type: 'custom',
+      name: monster.name,
       stats: {
         ac: monster.ac,
         hp: monster.hp,
@@ -435,7 +436,7 @@ export class StorageService {
         token.size.height = size.height
       }
       battlemap.methods.addSceneToken(scene, token)
-      battlemap.methods.addCombatantToScene(scene, combatant)
+      battlemap.methods.addCombatant(null, combatant)
       this.interfaceSvc.showNotice(`${monster.name} added to ${battlemap.model.name}.`)
     }
   }
