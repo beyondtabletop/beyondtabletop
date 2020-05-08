@@ -743,6 +743,8 @@ export class BattlemapService {
         self.locals.toolbar.activeCombatant = combatant
       } else if (self.methods.ifItemIsToken(item)) {
         self.locals.toolbar.activeCombatant = self.methods.combatantForToken(item)
+      } else {
+        self.locals.toolbar.activeCombatant = null
       }
     }
 
