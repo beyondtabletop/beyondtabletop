@@ -16,6 +16,9 @@
       font-weight: bold;
     }
   }
+  &.hide-for-players {
+    display: none;
+  }
 }
 
 h4, h5 {

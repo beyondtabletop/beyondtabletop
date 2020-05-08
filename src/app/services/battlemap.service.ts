@@ -524,6 +524,10 @@ export class BattlemapService {
       return combatant.id === scene.combat.active
     }
 
+    self.methods.combatantIsHidden = (token: BattlemapToken): boolean => {
+      return !self.locals.map.map_owner && (!token || self.methods.isItemFoggy(token))
+    }
+
     self.methods.tokenForCombatant = (combatant: BattlemapCombatant): BattlemapToken => {
       return self.methods.listSceneTokens().find(x => x.combatant_id === combatant.id)
     }
@@ -684,6 +688,11 @@ export class BattlemapService {
     self.methods.isItemPinned = (item) => {
       const layer = self.methods.getLayerForItem(item)
       return item.pinned || (layer && layer.pinned)
+    }
+
+    self.methods.isItemFoggy = (item) => {
+      const layer = self.methods.getLayerForItem(item)
+      return item.fog || (layer && layer.fog)
     }
 
     self.methods.selectItem = (item: any, combatant: BattlemapCombatant): void => {
@@ -1190,7 +1199,7 @@ export class BattlemapService {
         'token-type': !token.image && scene.scene_type !== 'isometric',
         'sprite-type': !!token.image && scene.scene_type !== 'isometric',
         moving: token.moving,
-        foggy: (token.fog || (layer && layer.fog)) && !self.locals.map.map_owner,
+        foggy: self.methods.isItemFoggy(token) && !self.locals.map.map_owner,
         selected: self.methods.isActiveItem(token) || self.locals.toolbar.activeList.includes(token),
         [`rotate-${token.angle}`]: true,
         [token.size.name]: true,
@@ -1206,7 +1215,7 @@ export class BattlemapService {
         square: !shape.round,
         pinned: self.methods.isItemPinned(shape),
         tiled: shape.tiled,
-        foggy: (shape.fog || (layer && layer.fog)) && !self.locals.map.map_owner,
+        foggy: self.methods.isItemFoggy(shape) && !self.locals.map.map_owner,
         selected: self.methods.isActiveItem(shape) || self.locals.toolbar.activeList.includes(shape),
         [`rotate-${shape.angle}`]: true,
       }

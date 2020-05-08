@@ -1,6 +1,7 @@
 <div class="combatant flex-row-all flex-config-align-center"
   (click)="self.methods.selectItem(token, combatant)"
   [class.active]="self.methods.combatantIsActive(combatant)"
+  [class.hide-for-players]="self.methods.combatantIsHidden(token)"
 >
   <div class="flex-col flex-static rp-5 base-color">
     <input [(ngModel)]="combatant.init" (blur)="self.methods.setCombatantInit(combatant)" *ngIf="self.methods.canEditItem(token) else displayInit" type="text" class="form-control initiative">
