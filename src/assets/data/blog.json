@@ -2,7 +2,7 @@
   "posts": [
     {
       "title": "Changelog for 5.3.1",
-      "body": "- Fixes adding players and monsters to battlemap\n- Hide combatants from players if not connected to a token or token is foggy",
+      "body": "- Fixes adding players and monsters to battlemap\n- Hide combatants from players if not connected to a token or token is foggy\n- Fixes medium-tier BABs (Monk for example) for Pathfinder sheets",
       "created_at": "May 7, 2020"
     },
     {

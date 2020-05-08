@@ -1645,17 +1645,17 @@ export class PathfinderService {
       if (weapon === undefined) {
         return null
       }
-      let str = self.methods.getAbilityMod(self.model.abilities['STR'])
-      let sickened_penalty = self.model.core_conditions.sickened ? -2 : 0
+      let str = self.methods.getAbilityMod(self.model.abilities.STR)
+      const sickened_penalty = self.model.core_conditions.sickened ? -2 : 0
       if (self.model.combat.style === 'Wielding Two-Handed') {
         str = Math.floor(str * 1.5)
       }
       let melee_or_ranged_bonus = self.model.combat.damage.melee
       if (weapon.melee_or_ranged === 'Ranged' && !weapon.reverse_ability) {
-        let melee_or_ranged_bonus = self.model.combat.damage.ranged
+        melee_or_ranged_bonus = self.model.combat.damage.ranged
         str = 0
       }
-      let damage = str + weapon.damage_bonus + self.model.combat.damage.misc + melee_or_ranged_bonus + sickened_penalty
+      const damage = str + weapon.damage_bonus + self.model.combat.damage.misc + melee_or_ranged_bonus + sickened_penalty
       return damage
     }
 
