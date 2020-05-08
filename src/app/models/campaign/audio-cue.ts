@@ -10,6 +10,8 @@ export class CampaignAudioCue extends BtBase {
   volume: number
   loop: boolean
   $player: any
+  $volume: number
+  $active: boolean
 
   getProto() {
     return {

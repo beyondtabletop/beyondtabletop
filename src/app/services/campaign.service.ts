@@ -298,6 +298,7 @@ export class CampaignService {
     // ---------------------------------------------------
     self.methods.listAudioCues = (): CampaignAudioCue[] => self.model.audio_cues || []
     self.methods.listLoadedAudioCues = (): CampaignAudioCue[] => self.methods.listAudioCues().filter(x => x.loaded)
+    self.methods.listLoadedActiveAudioCues = (): CampaignAudioCue[] => self.methods.listAudioCues().filter(x => x.loaded && x.$active !== false)
 
     self.methods.addAudioCue = (): void => {
       self.methods.$add(self.model, 'audio_cues', CampaignAudioCue, {
@@ -305,8 +306,13 @@ export class CampaignService {
       })
     }
 
-    self.methods.toggleCue = async (cue: CampaignAudioCue): Promise<void> => {
+    self.methods.toggleCue = async (cue: CampaignAudioCue, local = false): Promise<void> => {
       await Promise.resolve()
+      if (local) {
+        if (cue.$active === undefined) { cue.$active = true }
+        cue.$active = !cue.$active
+        return
+      }
       cue.loaded = !cue.loaded
       if (cue.loaded) {
         self.methods.addChat({
@@ -316,25 +322,34 @@ export class CampaignService {
       self.touch()
     }
 
-    self.methods.toggleVolume = (cue: CampaignAudioCue) => {
-      cue.volume = (cue.volume || 4) - 1
-      if (cue.volume < 1) {
-        cue.volume = 4
+    self.methods.toggleVolume = (cue: CampaignAudioCue, volumePropertyName = 'volume') => {
+      cue[volumePropertyName] = (cue[volumePropertyName] || 4) - 1
+      if (cue[volumePropertyName] < 1) {
+        cue[volumePropertyName] = 4
       }
 
-      if (cue.$player && cue.audio_type === 'youtube') {
-        cue.$player.setVolume((cue.volume - 1) * self.locals.audio_mult)
-      }
-
-      if (cue.$player && cue.audio_type !== 'youtube') {
-        cue.$player.volume = ((cue.volume - 1) * self.locals.audio_mult) / 100
-      }
-
+      self.methods.setCueVolume(cue)
       self.touch()
     }
 
-    self.methods.volumeIcon = (cue: CampaignAudioCue) => {
-      switch (cue.volume) {
+    self.methods.setLocalVolume = async () => {
+      await Promise.resolve()
+      self.methods.listLoadedActiveAudioCues().forEach((cue: CampaignAudioCue) => self.methods.setCueVolume(cue))
+    }
+
+    self.methods.setCueVolume = (cue: CampaignAudioCue) => {
+      const volumePropertyName = cue.$volume === undefined ? 'volume' : '$volume'
+      if (cue.$player && cue.audio_type === 'youtube') {
+        cue.$player.setVolume((cue[volumePropertyName] - 1) * self.locals.audio_mult)
+      }
+
+      if (cue.$player && cue.audio_type !== 'youtube') {
+        cue.$player.volume = ((cue[volumePropertyName] - 1) * self.locals.audio_mult) / 100
+      }
+    }
+
+    self.methods.volumeIcon = (cue: CampaignAudioCue, volumePropertyName = 'volume') => {
+      switch (cue[volumePropertyName]) {
         case 4: return 'volume_up'
         case 3: return 'volume_down'
         case 2: return 'volume_mute'

@@ -82,7 +82,7 @@
         </ul>
       </div>
       <div class="invisible-cues" *ngIf="!self.locals.player.disable_audio && !self.locals.mute_audio">
-        <div *ngFor="let cue of self.methods.listLoadedAudioCues()" [ngSwitch]="cue.audio_type">
+        <div *ngFor="let cue of self.methods.listLoadedActiveAudioCues()" [ngSwitch]="cue.audio_type">
           <bt-campaign-audio-type-mp3      [self]="self" [cue]="cue" *ngSwitchCase="'mp3'"></bt-campaign-audio-type-mp3>
           <bt-campaign-audio-type-ogg      [self]="self" [cue]="cue" *ngSwitchCase="'ogg'"></bt-campaign-audio-type-ogg>
           <bt-campaign-audio-type-youtube  [self]="self" [cue]="cue" *ngSwitchCase="'youtube'"></bt-campaign-audio-type-youtube>

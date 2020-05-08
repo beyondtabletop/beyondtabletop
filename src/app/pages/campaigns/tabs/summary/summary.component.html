@@ -207,5 +207,32 @@
       </div>
     </div>
 
+    <div *ngIf="!self.locals.player.disable_audio && !self.locals.mute_audio">
+      <h3 class="rh18 bm-20">Currently Playing:</h3>
+      <div class="flex-row-all flex-gutters-10">
+        <div class="flex-col flex-static"><label>Global volume:</label></div>
+        <div class="flex-col flex-dynamic">
+          <input type="range" [(ngModel)]="self.locals.audio_mult" min="0" max="33" step="1" (ngModelChange)="self.methods.setLocalVolume()">
+        </div>
+      </div>
+
+      <div class="flex-row-all flex-gutters-5 flex-config-align-center" *ngFor="let cue of self.methods.listLoadedAudioCues()">
+        <div class="flex-col">
+          {{ cue.name }}
+        </div>
+        <div class="flex-col">
+          <button title="Toggle Volume" class="g-icon" (click)="self.methods.toggleVolume(cue, '$volume')">
+            <i class="material-icons">{{ self.methods.volumeIcon(cue, '$volume') }}</i>
+          </button>
+        </div>
+        <div class="flex-col">
+          <button title="{{ cue.$playing ? 'Stop' : 'Start' }} Audio Cue" class="g-icon" (click)="self.methods.toggleCue(cue, true)">
+            <i class="material-icons" *ngIf="cue.$active === false">play_arrow</i>
+            <i class="material-icons" *ngIf="cue.$active !== false">stop</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
