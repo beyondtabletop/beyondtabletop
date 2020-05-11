@@ -374,7 +374,6 @@ export class StorageService {
     const battlemap = this.firstOpenToolOfType('battlemap')
     if (!battlemap) { return }
 
-    const scene = battlemap.methods.getFirstBattleScene()
 
     const combatant = new BattlemapCombatant({
       sheet_id: character.locals.document_id,
@@ -388,9 +387,10 @@ export class StorageService {
       image: character.model.basic.image,
     })
 
+    const scene = battlemap.methods.getFirstBattleScene()
     if (scene) {
+      battlemap.methods.addCombatant(token, combatant)
       battlemap.methods.addSceneToken(scene, token)
-      battlemap.methods.addCombatant(null, combatant)
     }
   }
 
