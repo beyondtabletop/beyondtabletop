@@ -27,7 +27,7 @@
         <button class="dice-button" (click)="self.methods.rollManyDice('d20', self.methods.getDiceFullAttack(), 'a full attack')"><i class="dice-icon dice-icon-d20"></i> Roll full attack</button>
       </div>
       <div class="dice-col">
-        <button class="dice-button" (click)="self.methods.rollManyDice(self.methods.getDiceFullAttackDamageSides(), self.methods.getDiceFullAttackDamageMods(), 'full attack damage')"><i class="dice-icon" [ngClass]="self.methods.getFullAttackDamageDiceIconClass()"></i> Roll damage for full attack</button>
+        <button class="dice-button" (click)="self.methods.rollFullAttackDamage()"><i class="dice-icon" [ngClass]="self.methods.getFullAttackDamageDiceIconClass()"></i> Roll damage for full attack</button>
       </div>
     </div>
   </div>

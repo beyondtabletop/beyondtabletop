@@ -19,9 +19,12 @@
     <bt-battlemap-combatant [self]="self" [combatant]="combatant" [token]="self.methods.tokenForCombatant(combatant)" *ngFor="let combatant of self.methods.listCombatants()"></bt-battlemap-combatant>
   </div>
 
-  <div class="flex-row-all flex-config-spaced">
+  <div class="flex-row-all flex-config-spaced" *ngIf="self.locals.map.map_owner">
     <div class="flex-col">
       <button class="button button-cyan" (click)="self.methods.addCombatant()">Add</button>
+    </div>
+    <div class="flex-col" *ngIf="scene.combat.status === 'active'">
+      <button class="button button-cyan" (click)="self.methods.rollCombatantsInits()">Roll Inits</button>
     </div>
     <div class="flex-col" *ngIf="scene.combat.status === 'preparing'">
       <button class="button button-cyan" (click)="setCombatStatus('active')">Begin Combat</button>

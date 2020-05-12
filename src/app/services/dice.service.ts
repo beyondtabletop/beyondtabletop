@@ -33,6 +33,7 @@ export class DiceService {
   }
 
   // TODO, does anyone make use of modifier here?
+  // Yes, pathfinder does somehow, it's insane and needs to change
   public getDicePackage(sidesString: string|number = 'd20', modifier = 0, name = '', phrasing = ''): DicePackage {
     const record: DiceRecord = { total: 0, list: [] }
     if (typeof sidesString === 'number') { sidesString = `d${sidesString}`}

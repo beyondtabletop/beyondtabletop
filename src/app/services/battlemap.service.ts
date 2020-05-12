@@ -16,6 +16,7 @@ import { BattlemapCombatant } from '../models/battlemap/combatant';
 import { BattlemapCombatantAttack } from '../models/battlemap/combatant-attack';
 import { BtText } from '../models/common/text';
 import { BattlemapLayer } from '../models/battlemap/layer'
+import { DiceService } from './dice.service'
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class BattlemapService {
     public dnd5eSvc: Dnd5eService,
     public pathfinderSvc: PathfinderService,
     public campaignSvc: CampaignService,
+    public diceSvc: DiceService,
   ) { }
 
   public payload = (docId: string) => {
@@ -550,6 +552,21 @@ export class BattlemapService {
       combatant.init = init
       self.methods.sortCombatants()
       self.touch()
+    }
+
+    self.methods.rollCombatantsInits = () => {
+      self.touch()
+      const packs = self.methods.listCombatants()
+        .filter(combatant => {
+          const token = self.methods.tokenForCombatant(combatant)
+          return !token || !token.owner_id || token.owner_id === self.locals.user.firebase_id
+        })
+        .map(combatant => {
+          const pack = this.diceSvc.getDicePackage('d20', Math.floor((combatant.stats.DEX - 10) / 2), 'initiative')
+          self.methods.setCombatantInit(combatant, pack.result)
+          return pack
+        })
+      this.store.addRollsToChat(packs, name)
     }
 
     // Layers

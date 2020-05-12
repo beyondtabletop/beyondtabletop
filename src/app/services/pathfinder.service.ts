@@ -27,6 +27,7 @@ import { PathfinderWeapon } from '../models/pathfinder/weapon'
 import { PathfinderCoreConditions } from '../models/pathfinder/core-conditions'
 import { BtPlayerTool } from '../models/common/player-tool.model';
 import { CampaignService } from './campaign.service';
+import { DicePackage } from '../models/dice/package'
 
 @Injectable({
   providedIn: 'root'
@@ -1691,27 +1692,19 @@ export class PathfinderService {
     }
 
     self.methods.getDiceFullAttack = () => {
-      let attack_array = []
-      if (self.locals.ready) {
-        attack_array = self.methods.listAttacks().map(attack => self.methods.getAttackRoll(attack))
-      }
-      return attack_array
+      return self.methods.listAttacks()
+        .map(attack => self.methods.getAttackRoll(attack))
     }
 
     self.methods.getDiceFullAttackDamageMods = () => {
-      let damage_array = []
-      if (self.locals.ready) {
-        damage_array = self.methods.listAttacks().map(attack => self.methods.getDamageRoll(attack))
-      }
-      return damage_array
+      return self.methods.listAttacks()
+        .map(attack => self.methods.getDamageRoll(attack))
     }
 
     self.methods.getDiceFullAttackDamageSides = () => {
-      let sides_array = []
-      if (self.locals.ready) {
-        sides_array = self.methods.listAttacks().map(attack => self.methods.getWeaponFromAttack(attack)).map(weapon => self.methods.weaponDamageDie(weapon))
-      }
-      return sides_array
+      return self.methods.listAttacks()
+        .map(attack => self.methods.getWeaponFromAttack(attack))
+        .map(weapon => self.methods.weaponDamageDie(weapon))
     }
 
     self.methods.companionAttackAbilityMod = (attack, companion) => {
@@ -2003,15 +1996,33 @@ export class PathfinderService {
       self.locals.data.last_dice_rolled = result
     }
 
-    self.methods.rollManyDice = (sides, modifier_list, name, phrasing) => {
-      let rolls = []
-
-      modifier_list.forEach((mod, index) => {
-        rolls.push(this.diceSvc.getDicePackage(typeof sides === 'object' ? sides[index] : sides, mod, name, phrasing))
+    self.methods.rollManyDice = (sides, modsArray, name) => {
+      const packs = modsArray.map((mod, index) => {
+        const text = typeof sides === 'object' ? sides[index] : sides
+        return this.diceSvc.rollCustomDice({ text, name }, mod)
+      }).map(result => {
+        return result.rolls.reduce((acc, pack) => {
+          acc.modifier += pack.modifier
+          acc.name = pack.name
+          acc.result += pack.result
+          acc.record.list = [...acc.record.list, ...pack.record.list]
+          acc.record.total += pack.record.total
+          return acc
+        }, {
+          modifier: 0,
+          result: 0,
+          record: {
+            list: [],
+            total: 0,
+          }
+        }) as DicePackage
       })
+      self.methods.showRollResult(packs)
+      this.store.addRollsToChat(packs, name)
+    }
 
-      self.methods.showRollResult(rolls)
-      this.store.addRollsToChat(rolls, name)
+    self.methods.rollFullAttackDamage = () => {
+      self.methods.rollManyDice(self.methods.getDiceFullAttackDamageSides(), self.methods.getDiceFullAttackDamageMods(), 'full attack damage')
     }
 
     self.methods.rollOneDice = (sides, modifier, name, phrasing) => {
