@@ -526,6 +526,12 @@ export class BattlemapService {
       return combatant.id === scene.combat.active
     }
 
+    self.methods.listNonHiddenCombatants = () => {
+      return self.methods.listCombatants().filter(combatant => {
+        return !self.methods.combatantIsHidden(self.methods.tokenForCombatant(combatant))
+      })
+    }
+
     self.methods.combatantIsHidden = (token: BattlemapToken): boolean => {
       return !self.locals.map.map_owner && (!token || self.methods.isItemFoggy(token))
     }
