@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   showingNav = false;
   busy = false;
   ready = false;
-  public APP_VERSION = '5.3.2'
+  public APP_VERSION = '5.3.3'
   public announcementText = 'Beyond Tabletop has been rewritten from the ground up. This means faster performance, futureproofing, easier bugfixing and bug finding.'
 
   sortedDocuments: any[] = [];

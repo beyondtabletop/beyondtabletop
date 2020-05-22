@@ -490,7 +490,7 @@ export class StorageService {
   }
 
   public setupToolController = async (self: any, toolType: string, sourceKey: string, playerPipe: any[]): Promise<void> => {
-    const debounceDelay = 500
+    const debounceDelay = 5000
     const maxUndefined = 20
     const paths = this.toolPathsForSlug(toolType)
 
@@ -580,6 +580,7 @@ export class StorageService {
 
       self.meta.watching = true
       watchPlayer()
+      watchPermissions()
       if (self.meta.remoteSub) {
         self.meta.remoteSub.unsubscribe()
       }
@@ -814,6 +815,18 @@ export class StorageService {
         takeWhile(() => self.meta.watching),
         pipeFromArray(playerPipe),
       ).subscribe()
+    }
+
+    const watchPermissions = (): void => {
+      if (self.meta.docPermissionsSub) {
+        self.meta.docPermissionsSub.unsubscribe()
+      }
+
+      self.meta.docPermissionsSub = this.documentPermissions$(self.locals.document_id).pipe(
+        takeWhile(() => self.meta.watching)
+      ).subscribe(permissions => {
+        self.locals.documentPermissions = permissions
+      })
     }
 
     const initialize = async (): Promise<void> => {

@@ -1,0 +1,14 @@
+<ng-container *ngIf="self.locals.map.map_owner else nonGm">
+  <div class="select-wrap">
+    <i class="material-icons">arrow_drop_down</i>
+    <label>{{ self.methods.nameForOwnerId(item.owner_id) }}</label>
+    <select class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="item.owner_id">
+      <option [ngValue]='null'>Disconnected</option>
+      <option [value]="permission.id" *ngFor="let permission of self.locals.documentPermissions">{{ permission.name }}</option>
+    </select>
+  </div>
+</ng-container>
+
+<ng-template #nonGm>
+  <button *ngIf="!item.owner_id" class="button button-cyan" (click)="self.methods.claimToken(item)">Claim Token</button>
+</ng-template>

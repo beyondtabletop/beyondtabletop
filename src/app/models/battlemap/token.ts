@@ -16,6 +16,7 @@ export class BattlemapToken extends BtBase {
   layer_id: string
   size: BattlemapSize
   position: BattlemapPosition
+  $tempName: string
 
   getProto() {
     return {

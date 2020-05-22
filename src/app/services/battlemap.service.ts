@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BattlemapBase } from '../models/battlemap/base'
 import { SheetService } from './sheet.service'
 import { StorageService } from './storage.service'
-import { takeWhile } from 'rxjs/operators'
+import { takeWhile, map, take } from 'rxjs/operators'
 import { DragRef, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop'
 import { Dnd5eService } from './dnd5e.service'
 import { PathfinderService } from './pathfinder.service'
@@ -17,6 +17,8 @@ import { BattlemapCombatantAttack } from '../models/battlemap/combatant-attack';
 import { BtText } from '../models/common/text';
 import { BattlemapLayer } from '../models/battlemap/layer'
 import { DiceService } from './dice.service'
+import { Observable, of } from 'rxjs'
+import { BtPermission } from '../models/common/permission.model'
 
 @Injectable({
   providedIn: 'root'
@@ -634,16 +636,23 @@ export class BattlemapService {
     }
 
     self.methods.removeToken = (scene: BattlemapScene, token: BattlemapToken): void => {
-      const combatant = self.methods.combatantForToken(token)
       this.sheetSvc.removeByObject(scene.tokens, token)
-      if (combatant) {
-        this.sheetSvc.removeByObject(self.model.combatants, combatant)
-        self.methods.disconnectSheet(combatant)
-      }
 
       if (token.active && scene.tokens.length > 0) {
         self.methods.getSceneToken(0).active = true
       }
+    }
+
+    self.methods.copyToAllScenes = (token: BattlemapToken): void => {
+      if (!token.combatant_id) { return }
+      self.methods.listScenes().forEach(scene => {
+        const foundToken = self.methods.listSceneTokens(scene).find(x => x.combatant_id === token.combatant_id)
+        if (!foundToken) {
+          const json = {}
+          Object.keys(token).filter(x => x !== 'id').forEach(key => json[key] = token[key])
+          self.methods.addSceneToken(scene, json)
+        }
+      })
     }
 
     // Shapes
@@ -872,7 +881,7 @@ export class BattlemapService {
         details.push('size')
       }
 
-      if (!self.methods.activeItemIsGroup() && self.methods.ifItemIsToken(item) && self.methods.canEditItem(item) && !self.methods.anyCombatantForToken(item)) {
+      if (!self.methods.activeItemIsGroup() && self.methods.ifItemIsToken(item) && (self.locals.map.map_owner || item.owner_id === self.locals.user.firebase_id) && !self.methods.anyCombatantForToken(item)) {
         details.push('combatant')
       }
 
@@ -918,6 +927,10 @@ export class BattlemapService {
         details.push('layering')
       }
 
+      if (self.methods.ifItemIsToken(item) && self.methods.canEditItem(item)) {
+        details.push('owner')
+      }
+
       return details
     }
 
@@ -927,6 +940,17 @@ export class BattlemapService {
 
     self.methods.activeCombatant = (): BattlemapCombatant => {
       return self.locals.toolbar.activeCombatant
+    }
+
+    self.methods.nameForOwnerId = (owner_id: string): string => {
+      if (!owner_id) { return 'Select token owner' }
+      const permission = self.locals.documentPermissions.find(x => x.id === owner_id)
+      return (!!permission ? permission.name : 'Select token owner')
+    }
+
+    self.methods.claimToken = (token: BattlemapToken): void => {
+      token.owner_id = self.locals.user.firebase_id
+      self.touch()
     }
 
     // Draggable Map

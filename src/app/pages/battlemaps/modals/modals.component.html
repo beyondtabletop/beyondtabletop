@@ -82,8 +82,9 @@
                 <p>List of all created tokens in this scene.</p>
                 <div class="bm-20">
                   <div class="flex-row-all flex-config-align-center flex-config-spaced border-bottom bm-10 bp-5" *ngFor="let token of self.methods.listSceneTokens(scene); index as i">
-                    <div class="flex-col"><span>{{ $i }}</span>: <span>{{ token.label }}</span> / <span>{{ token.size.width }}</span>x<span>{{ token.size.height }}</span> / X: <span>{{ token.position.left }}</span>, Y: <span>{{ token.position.top }}</span></div>
-                    <div class="flex-col"><button (click)="self.methods.deleteItem(token)" class="g-remove"><i class="material-icons">delete</i></button></div>
+                    <div class="flex-col flex-dynamic"><span>{{ $i }}</span>: <span>{{ token.label }}</span> / <span>{{ token.size.width }}</span>x<span>{{ token.size.height }}</span> / X: <span>{{ token.position.left }}</span>, Y: <span>{{ token.position.top }}</span></div>
+                    <div class="flex-col flex-static" *ngIf="token.combatant_id"><button (click)="self.methods.copyToAllScenes(token)" title="Copy to all other scenes" class="g-remove"><i class="material-icons">toll</i></button></div>
+                    <div class="flex-col flex-static"><button (click)="self.methods.deleteItem(token)" class="g-remove"><i class="material-icons">delete</i></button></div>
                   </div>
                 </div>
 

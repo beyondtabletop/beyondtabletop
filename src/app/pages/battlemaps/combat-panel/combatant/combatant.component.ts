@@ -16,6 +16,7 @@ export class BattlemapCombatantComponent {
 
   removeCombatant() {
     this.self.methods.removeByObject(this.self.model.combatants, this.combatant)
+    this.self.methods.disconnectSheet(this.combatant)
     this.self.touch()
   }
 }

@@ -75,6 +75,7 @@
           <bt-battlemap-detail-label     [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'label'"></bt-battlemap-detail-label>
           <bt-battlemap-detail-layer     [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'layer'"></bt-battlemap-detail-layer>
           <bt-battlemap-detail-layering  [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'layering'"></bt-battlemap-detail-layering>
+          <bt-battlemap-detail-owner     [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'owner'"></bt-battlemap-detail-owner>
           <bt-battlemap-detail-pinned    [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'pinned'"></bt-battlemap-detail-pinned>
           <bt-battlemap-detail-round     [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'round'"></bt-battlemap-detail-round>
           <bt-battlemap-detail-size      [self]="self" [item]="item" [layer]="self.methods.getLayerForItem(item)" *ngSwitchCase="'size'"></bt-battlemap-detail-size>

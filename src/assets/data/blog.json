@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.3.3",
+      "body": "- Add button to copy token to all scenes on Battlemaps\n- Adds owner selection back to tokens on Battlemaps",
+      "created_at": "May 22, 2020"
+    },
+    {
       "title": "Changelog for 5.3.2",
       "body": "- Adds button to roll all NPC combatants' initiatives at once\n- Fixes another bug with adding players to battlemap\n- Allows custom dice forumals in the damage die field for Pathfinder weapons",
       "created_at": "May 11, 2020"
