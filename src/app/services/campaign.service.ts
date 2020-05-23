@@ -24,6 +24,7 @@ import { format, parse } from 'date-fns'
 import { CampaignCommand } from '../models/campaign/command.model'
 import { BtUser } from '../models/common/user.model'
 import { HttpService } from './http.service'
+import { InterfaceService } from './interface.service'
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class CampaignService {
     public sharer: SharingService,
     private diceSvc: DiceService,
     public http: HttpService,
+    public interfaceSvc: InterfaceService,
   ) { }
 
   public payload = (docId: string): CampaignPayload => {
@@ -697,6 +699,15 @@ export class CampaignService {
       return !!sheet && (self.methods.doIOwnTool(sheet) || self.methods.isGM() || self.locals.player.id === player.id)
     }
 
+    self.methods.canAddSheetAsTokenToMap = (player: CampaignPlayer): boolean => {
+      return (self.methods.isGM() || player.id === self.locals.player.id) && self.methods.hasOpenCampaignMap() && self.methods.playerHasOpenSheet(player)
+    }
+
+    self.methods.addPlayerSheetAsToken = (player: CampaignPlayer): void => {
+      this.store.addCharacterAsTokenById(player.sheet_id)
+      this.interfaceSvc.showNotice('Token added!')
+    }
+
     self.methods.getPlayerSheet = (player: CampaignPlayer): CampaignTool => {
       return self.methods.listTools().find(x => x.id === player.sheet_id)
     }
@@ -704,6 +715,11 @@ export class CampaignService {
     self.methods.playerHasSheet = (player: CampaignPlayer): boolean => {
       const sheet = self.methods.getPlayerSheet(player)
       return !!sheet
+    }
+
+    self.methods.playerHasOpenSheet = (player: CampaignPlayer): boolean => {
+      const sheet = self.methods.getPlayerSheet(player)
+      return !!sheet && sheet.$disabled
     }
 
     self.methods.getPlayerSheetName = (player: CampaignPlayer): string => {

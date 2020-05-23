@@ -370,15 +370,25 @@ export class StorageService {
     return Object.values(this.tools).find((tool: any) => tool.meta.toolType === toolType && tool.meta.watching)
   }
 
+  public addCharacterAsTokenById = (docId: string): void => {
+    const tool = this.tools[docId]
+    if (!tool || !tool.meta.watching) { return }
+    this.addCharacterAsToken(tool, tool.meta.toolType)
+  }
+
   public addCharacterAsToken = (character: any, toolType: string): void => {
     const battlemap = this.firstOpenToolOfType('battlemap')
     if (!battlemap) { return }
 
+    let combatant = battlemap.methods.combatantForSheetId(character.locals.document_id)
+    const newCombatant = !combatant
 
-    const combatant = new BattlemapCombatant({
-      sheet_id: character.locals.document_id,
-      type: toolType,
-    })
+    if (newCombatant) {
+      combatant = new BattlemapCombatant({
+        sheet_id: character.locals.document_id,
+        type: toolType,
+      })
+    }
 
     const token = new BattlemapToken({
       combatant_id: combatant.id,
@@ -389,7 +399,9 @@ export class StorageService {
 
     const scene = battlemap.methods.getFirstBattleScene()
     if (scene) {
-      battlemap.methods.addCombatant(token, combatant)
+      if (newCombatant) {
+        battlemap.methods.addCombatant(token, combatant)
+      }
       battlemap.methods.addSceneToken(scene, token)
     }
   }

@@ -546,6 +546,10 @@ export class BattlemapService {
       return self.methods.listCombatants().find(x => x.id === token.combatant_id)
     }
 
+    self.methods.combatantForSheetId = (sheet_id: string): BattlemapCombatant => {
+      return self.methods.listCombatants().find(x => x.sheet_id === sheet_id)
+    }
+
     self.methods.listCombatantAttacks = (combatant: BattlemapCombatant): BattlemapCombatantAttack[] => combatant.stats.attacks || []
     self.methods.addCombatantAttack = (combatant: BattlemapCombatant): void => {
       self.methods.$add(combatant.stats, 'attacks', BattlemapCombatantAttack)

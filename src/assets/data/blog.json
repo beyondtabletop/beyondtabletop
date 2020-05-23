@@ -2,7 +2,7 @@
   "posts": [
     {
       "title": "Changelog for 5.3.3",
-      "body": "- Add button to copy token to all scenes on Battlemaps\n- Adds owner selection back to tokens on Battlemaps",
+      "body": "- Adds button to copy token to all scenes on Battlemaps\n- Adds owner selection back to tokens on Battlemaps\n- Prevents Add Token To Battlemap from creating a bunch of duplicate combatants on Battlemaps\n- Adds button on Campaign summary tab to add token to battlemap",
       "created_at": "May 22, 2020"
     },
     {

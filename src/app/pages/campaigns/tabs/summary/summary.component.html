@@ -22,6 +22,11 @@
         <div class="flex-col flex-dynamic">
           <h4 class="rh16" [ngStyle]="{ color: player.color }">{{ self.methods.getPlayerName(player) }}</h4>
         </div>
+        <div class="flex-col flex-static" *ngIf="self.methods.canAddSheetAsTokenToMap(player)">
+          <button title="Add character as token to Battlemap" class="g-add" (click)="self.methods.addPlayerSheetAsToken(player)">
+            <i class="material-icons">add_circle</i>
+          </button>
+        </div>
         <div class="flex-col flex-static" *ngIf="self.methods.canLinkPlayerSheet(player)">
           <button title="Link character sheet" class="g-add" (click)="self.methods.addSheetToPlayer(player)">
             <span class="text">Link sheet</span>
