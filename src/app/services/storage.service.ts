@@ -502,7 +502,7 @@ export class StorageService {
   }
 
   public setupToolController = async (self: any, toolType: string, sourceKey: string, playerPipe: any[]): Promise<void> => {
-    const debounceDelay = 5000
+    const debounceDelay = 500
     const maxUndefined = 20
     const paths = this.toolPathsForSlug(toolType)
 
