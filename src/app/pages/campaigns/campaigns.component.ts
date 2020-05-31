@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignService } from 'src/app/services/campaign.service';
-import { take, takeWhile, filter, tap } from 'rxjs/operators';
+import { filter, tap, switchMap } from 'rxjs/operators';
 import { BtPermission } from 'src/app/models/common/permission.model';
 import { CampaignPlayer } from 'src/app/models/campaign/player';
 import { SheetService } from 'src/app/services/sheet.service';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'bt-campaigns',
@@ -13,7 +14,7 @@ import { SheetService } from 'src/app/services/sheet.service';
   styleUrls: ['./campaigns.component.scss']
 })
 
-export class CampaignsComponent implements OnInit {
+export class CampaignsComponent implements OnInit, OnDestroy {
   public self: any = {}
 
   constructor(
@@ -27,28 +28,21 @@ export class CampaignsComponent implements OnInit {
     const documentId = this.route.snapshot.paramMap.get('id');
     const existingSelf = this.store.tools[documentId]
     this.self = !!existingSelf ? existingSelf : this.svc.payload(documentId)
-    this.store.base$.pipe(take(1)).subscribe(async () => {
-      await this.store.setupToolController(this.self, 'campaign', 'home', [
-        tap(this.self.methods.onPlayerUpdate)
-      ])
-
-      if (this.self.meta.permissionSub) {
-        this.self.meta.permissionSub.unsubscribe()
-      }
-
-      if (this.self.meta.collectionSubscription) {
-        this.self.meta.collectionSubscription.unsubscribe()
-      }
-
-      this.self.meta.permissionSub = this.store.documentPermissions$(documentId).pipe(
-        takeWhile(() => this.self.meta.watching)
-      ).subscribe(this.organizePermissions)
-
-      this.self.meta.collectionSubscription = this.self.meta.collectionSubject.pipe(
-        takeWhile(() => this.self.meta.watching),
-        filter((collections: string[]) => collections.includes('chats'))
-      ).subscribe(this.self.methods.goToBottomOfChat)
-    })
+    this.self.meta.subscriptions.home = this.store.base$.pipe(
+      switchMap(() => {
+        return merge(
+          this.store.setupToolController(this.self, 'campaign', [
+            tap(this.self.methods.onPlayerUpdate)
+          ], [
+            tap(this.organizePermissions)
+          ]),
+          this.self.meta.collectionSubject.pipe(
+            filter((collections: string[]) => collections.includes('chats')),
+            tap(this.self.methods.goToBottomOfChat),
+          ),
+        )
+      })
+    ).subscribe()
   }
 
   private organizePermissions = (permissions: BtPermission[]) => {
@@ -83,5 +77,11 @@ export class CampaignsComponent implements OnInit {
     this.self.locals.chat_minimized = this.self.locals.player.chat_minimized || false
     this.self.methods.setPlayerLastTab();
   };
+
+  ngOnDestroy() {
+    if (this.self.unsubscribe) {
+      this.self.unsubscribe()
+    }
+  }
 
 }

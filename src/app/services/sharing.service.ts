@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, tap, switchMap, take } from 'rxjs/operators';
 import { BtUser } from '../models/common/user.model';
 import { BtPermission } from '../models/common/permission.model';
 import { BtPlayerTool } from '../models/common/player-tool.model';
@@ -78,14 +78,24 @@ export class SharingService {
   };
 
   public shareDocument = async (doc_id: string, doc_slug: string, target_user: BtUser, doc_title: string): Promise<void> => {
-    await this.store.createFirebasePermission(doc_id, target_user.firebase_id, {
+    this.store.createFirebasePermission$(doc_id, target_user.firebase_id, {
       role: 'writer',
       email: target_user.email,
       name: target_user.name,
-    })
-    await this.store.addNewToolToFirebasePlayer(doc_slug, doc_id, target_user.firebase_id, 'writer', doc_title)
-    this.busy = false;
-    this.session.requested_email = '';
+    }).pipe(
+      switchMap(() => this.store.addNewToolToFirebasePlayer$(
+        doc_slug,
+        doc_id,
+        target_user.firebase_id,
+        'writer',
+        doc_title,
+      )),
+      take(1),
+      tap(() => {
+        this.busy = false;
+        this.session.requested_email = '';
+      })
+    ).subscribe()
   };
 
   public findFirebaseUser = (): void => {

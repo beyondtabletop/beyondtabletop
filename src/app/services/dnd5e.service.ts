@@ -50,7 +50,7 @@ export class Dnd5eService {
     self.methods = {}
     self.migrations = {}
     self.meta = {
-      sources: [],
+      subscriptions: {},
       undefinedErrorCount: 0,
     }
     self.locals = {
@@ -59,7 +59,6 @@ export class Dnd5eService {
       forbidden: false,
       document_failed: false,
       title_busy: false,
-      full_access: false,
       beta_user: false,
       product_is_premium: false,
       this_product_key: 'dnd5e',
@@ -2772,7 +2771,7 @@ export class Dnd5eService {
     self.methods.connectCampaign = (): void => {
       const existingSelf = this.store.tools[self.model.campaign_id]
       const campaign = !!existingSelf ? existingSelf : this.campaignSvc.payload(self.model.campaign_id)
-      this.store.setupToolController(campaign, 'campaign', self.model.id, [])
+      this.store.setupToolController(campaign, 'campaign')
     }
 
     self.methods.campaignConnected = (): boolean => {

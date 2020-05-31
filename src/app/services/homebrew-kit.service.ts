@@ -24,7 +24,7 @@ export class HomebrewKitService {
     self.model = new HomebrewKitBase()
     self.methods = {}
     self.meta = {
-      sources: [],
+      subscriptions: {},
       undefinedErrorCount: 0,
     }
     self.locals = {

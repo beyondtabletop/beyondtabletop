@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { HomebrewKitService } from 'src/app/services/homebrew-kit.service';
-import { take } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'bt-homebrew-kits',
@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./homebrew-kits.component.scss']
 })
 
-export class HomebrewKitsComponent implements OnInit {
+export class HomebrewKitsComponent implements OnInit, OnDestroy {
   @Input() public id: string
   public self: any = {}
 
@@ -24,8 +24,16 @@ export class HomebrewKitsComponent implements OnInit {
     const documentId = !!this.id ? this.id : this.route.snapshot.paramMap.get('id');
     const existingSelf = this.store.tools[documentId]
     this.self = !!existingSelf ? existingSelf : this.svc.payload(documentId)
-    this.store.base$.pipe(take(1)).subscribe(() => {
-      this.store.setupToolController(this.self, 'homebrew-kit', 'home', [])
-    })
+    this.self.meta.subscriptions.home = this.store.base$.pipe(
+      switchMap(() => {
+        return this.store.setupToolController(this.self, 'homebrew-kit')
+      })
+    ).subscribe()
+  }
+
+  ngOnDestroy() {
+    if (this.self.unsubscribe) {
+      this.self.unsubscribe()
+    }
   }
 }

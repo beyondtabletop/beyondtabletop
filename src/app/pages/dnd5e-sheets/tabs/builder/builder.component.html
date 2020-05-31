@@ -1,5 +1,5 @@
 <div class="sheet-tab">
-  <div class="sheet-builder" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+  <div class="sheet-builder">
     <div class="builder-track" *ngIf="self.methods.shouldShowTrack()">
       <div class="track-item track-placeholder" *ngIf="self.model.builder.step === 'create-race'" (click)="self.methods.switchStep('create-character')">
         <div class="node"></div>
@@ -19,7 +19,7 @@
         <div class="text">Back</div>
       </div>
     </div>
-    <div class="steps-unauthorized" *ngIf="!self.locals.full_access">
+    <div class="steps-unauthorized">
       <div class="max-500 auto-margin">
         <h1 class="gh1">Character Builder</h1>
         <h2 class="gsh3">Welcome to the Beyond Tabletop D&amp;D 5E Character builder. This view will guide you through character creation and leveling up. The builder is beneficial for all players, but is especially helpful for players new to D&amp;D.</h2>
@@ -38,7 +38,7 @@
 
       </div>
     </div>
-    <div class="steps-wrapper" *ngIf="self.locals.full_access">
+    <div class="steps-wrapper">
       <div [ngSwitch]="self.locals.steps.active_step">
         <bt-dnd5e-builder-intro      [self]="self" *ngSwitchCase="'intro'"></bt-dnd5e-builder-intro>
         <bt-dnd5e-builder-character  [self]="self" *ngSwitchCase="'create-character'"></bt-dnd5e-builder-character>

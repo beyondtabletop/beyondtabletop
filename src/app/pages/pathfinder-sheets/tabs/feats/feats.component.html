@@ -1,6 +1,5 @@
 <div class="sheet-tab">
-  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
-  <div class="flex-row-tablet flex-gutters-15 sources" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+  <div class="flex-row-tablet flex-gutters-15 sources">
     <div class="flex-col-6 source source-player">
       <h2 class="group-header">Feats</h2>
       <p class="help-text" *ngIf="self.model.prefs.help">This is a list of your feats. Keep in mind that feats ARE NOT calculated nor do they influence any other part of the sheet. If the feat allows your to make changes to your stats, you must make them yourself. You can add a new feat yourself and fill out all the fields, or you can find feats from the database on the right.</p>

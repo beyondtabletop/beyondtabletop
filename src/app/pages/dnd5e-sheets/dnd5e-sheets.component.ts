@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { Dnd5eService } from 'src/app/services/dnd5e.service';
-import { take, tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 import { BtPlayerTool } from 'src/app/models/common/player-tool.model';
 
 @Component({
@@ -11,7 +11,7 @@ import { BtPlayerTool } from 'src/app/models/common/player-tool.model';
   styleUrls: ['./dnd5e-sheets.component.scss']
 })
 
-export class Dnd5eSheetsComponent implements OnInit {
+export class Dnd5eSheetsComponent implements OnInit, OnDestroy {
   @Input() public id: string
   public self: any = {}
 
@@ -25,10 +25,18 @@ export class Dnd5eSheetsComponent implements OnInit {
     const documentId = !!this.id ? this.id : this.route.snapshot.paramMap.get('id');
     const existingSelf = this.store.tools[documentId]
     this.self = !!existingSelf ? existingSelf : this.svc.payload(documentId)
-    this.store.base$.pipe(take(1)).subscribe(() => {
-      this.store.setupToolController(this.self, 'dnd5e', 'home', [
-        tap((tools: BtPlayerTool[]) => this.self.locals.tools = tools)
-      ])
-    })
+    this.self.meta.subscriptions.home = this.store.base$.pipe(
+      switchMap(() => {
+        return this.store.setupToolController(this.self, 'dnd5e', [
+          tap((tools: BtPlayerTool[]) => this.self.locals.tools = tools)
+        ])
+      })
+    ).subscribe()
+  }
+
+  ngOnDestroy() {
+    if (this.self.unsubscribe) {
+      this.self.unsubscribe()
+    }
   }
 }

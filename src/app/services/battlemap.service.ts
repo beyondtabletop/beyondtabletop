@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BattlemapBase } from '../models/battlemap/base'
 import { SheetService } from './sheet.service'
 import { StorageService } from './storage.service'
-import { takeWhile, map, take } from 'rxjs/operators'
+import { takeWhile, map, take, tap } from 'rxjs/operators'
 import { DragRef, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop'
 import { Dnd5eService } from './dnd5e.service'
 import { PathfinderService } from './pathfinder.service'
@@ -17,7 +17,7 @@ import { BattlemapCombatantAttack } from '../models/battlemap/combatant-attack';
 import { BtText } from '../models/common/text';
 import { BattlemapLayer } from '../models/battlemap/layer'
 import { DiceService } from './dice.service'
-import { Observable, of } from 'rxjs'
+import { Observable, of, merge } from 'rxjs'
 import { BtPermission } from '../models/common/permission.model'
 
 @Injectable({
@@ -40,7 +40,7 @@ export class BattlemapService {
     self.model = new BattlemapBase()
     self.methods = {}
     self.meta = {
-      sources: [],
+      subscriptions: {},
       undefinedErrorCount: 0,
     }
     self.locals = {
@@ -369,17 +369,20 @@ export class BattlemapService {
 
       const svc = combatant.type === 'dnd5e' ? this.dnd5eSvc : this.pathfinderSvc // eventually make this into a lookup/struc
       const sheet = this.store.tools[combatant.sheet_id] || svc.payload(combatant.sheet_id)
-      this.store.setupToolController(sheet, combatant.type, `${self.locals.document_id}-battlemap`, [])
-      if (sheet.meta[`${combatant.sheet_id}_sub`]) {
-        sheet.meta[`${combatant.sheet_id}_sub`].unsubscribe()
-      }
-      sheet.meta[`${combatant.sheet_id}_sub`] = sheet.meta.combinedSubject.pipe(takeWhile(() => sheet.meta.watching)).subscribe(() => self.methods.updateConnectedCombatant(combatant, sheet))
+      self.meta.subscriptions[combatant.sheet_id] = merge(
+        this.store.setupToolController(sheet, combatant.type),
+        sheet.meta.combinedSubject.pipe(
+          tap(() => self.methods.updateConnectedCombatant(combatant, sheet))
+        ),
+      ).subscribe()
+      sheet.meta.subscriptions.home = self.meta.subscriptions[combatant.sheet_id]
     }
 
     self.methods.connectCampaign = (): void => {
       const existingSelf = this.store.tools[self.model.campaign_id]
       const campaign = !!existingSelf ? existingSelf : this.campaignSvc.payload(self.model.campaign_id)
-      this.store.setupToolController(campaign, 'campaign', self.model.id, [])
+      self.meta.subscriptions[self.model.campaign_id] = this.store.setupToolController(campaign, 'campaign').subscribe()
+      campaign.meta.subscriptions.home = self.meta.subscriptions[self.model.campaign_id]
     }
 
     self.methods.connectedCombatantSheet = (combatant: BattlemapCombatant): any => self.methods.combatantSheetConnected(combatant) ? this.store.tools[combatant.sheet_id] : null
@@ -389,12 +392,8 @@ export class BattlemapService {
       const sheet = this.store.tools[combatant.sheet_id]
       if (!sheet) { return }
 
-      sheet.meta.watching = false
-      const key = `${self.locals.document_id}-battlemap`
-      const index = sheet.meta.sources.indexOf(key)
-      if (index > -1) {
-        sheet.meta.sources.splice(index, 1)
-      }
+      sheet.unsubscribe()
+      delete self.meta.subscriptions[self.locals.document_id]
     }
 
     self.methods.onTokenConnectedWithCombatant = async (token: BattlemapToken): Promise<void> => {

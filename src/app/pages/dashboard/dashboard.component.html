@@ -5,24 +5,24 @@
     </div>
     <div class="flex-col flex-dynamic">{{ announcementText }}</div>
   </div>
-  <div class="loading-block" *ngIf="!ready">
+  <div class="loading-block" *ngIf="false">
     <h4 class="hx-21"><fa-icon class="bt-icon-spin" [icon]="['fas', 'cog']"></fa-icon> Loading your BTT files, please wait ...</h4>
   </div>
-  <div class="ready-block content-base" *ngIf="ready">
+  <div class="ready-block content-base">
     <div class="flex-row-tablet flex-gutters-15">
-      <div class="flex-col-6" *ngFor="let col of [1,2]">
-        <div class="btt-file-type" *ngFor="let type of filterDocumentTypes(col)">
+      <div class="flex-col-6" *ngFor="let col of documents$ | async">
+        <div class="btt-file-type" *ngFor="let type of col">
           <h5 class="h5">
             <span>
               {{ type.plural }}
               <span class="new" *ngIf="type.status">({{ type.status }})</span>
             </span>
-            <a [routerLink]="'/' + type.path"><i class="material-icons">add</i> Create</a>
+            <a [routerLink]="['/', type.path]"><i class="material-icons">add</i> Create</a>
           </h5>
-          <div class="{{ type.path }}-listing dashboard-listing" *ngIf="anyDocumentsForType(type.slug)">
+          <div class="dashboard-listing" *ngIf="type.documents.length > 0 else noneForType">
             <ul class="list-unstyled">
-              <li *ngFor="let doc of documentsForType(type.slug)" class="flex-row-all flex-config-spaced">
-                <a [routerLink]="'/' + type.path + '/' + doc.id">
+              <li *ngFor="let doc of type.documents" class="flex-row-all flex-config-spaced">
+                <a [routerLink]="['/', type.path, doc.id]">
                   <fa-icon class="permission-icon" [icon]="['fas', permissionIconForRole(doc)]"></fa-icon>
                   {{ doc.title }}
                 </a>
@@ -46,10 +46,12 @@
               </li>
             </ul>
           </div>
-          <div class="dashboard-new-group" *ngIf="!anyDocumentsForType(type.slug)">
-            <p>You have no {{ type.plural }}</p>
-            <a [routerLink]="'/' + type.path" class="button button-orange"><i class="material-icons">add</i> Create new {{ type.title }}</a>
-          </div>
+          <ng-template #noneForType>
+            <div class="dashboard-new-group">
+              <p>You have no {{ type.plural }}</p>
+              <a [routerLink]="['/', type.path]" class="button button-orange"><i class="material-icons">add</i> Create new {{ type.title }}</a>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
