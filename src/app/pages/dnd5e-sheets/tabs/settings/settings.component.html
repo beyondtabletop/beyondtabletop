@@ -35,9 +35,8 @@
       </div>
       <div class="form-group bmr-40">
         <h4>Print mode</h4>
-        <p>Switch to print mode to see your data in a more traditional paper character sheet format or to print your Beyond Tabletop sheet onto PDF or paper sheet. <span *ngIf="!self.locals.full_access">You must upgrade your sheets before you can switch to print mode.</span></p>
-        <a routerLink="/donate" class="button button-orange" *ngIf="!self.locals.full_access">Upgrade Now</a>
-        <button class="button button-orange" (click)="self.methods.switchTab('print')" *ngIf="self.locals.full_access">Print Sheet</button>
+        <p>Switch to print mode to see your data in a more traditional paper character sheet format or to print your Beyond Tabletop sheet onto PDF or paper sheet.</p>
+        <button class="button button-orange" (click)="self.methods.switchTab('print')">Print Sheet</button>
       </div>
       <div class="form-group bmr-40">
         <h4>Warn before exiting</h4>

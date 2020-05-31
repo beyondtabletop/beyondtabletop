@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { RpgService } from 'src/app/services/rpg.service';
-import { take } from 'rxjs/operators';
-import { BtPlayerTool } from 'src/app/models/common/player-tool.model';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'bt-rpg-sheets',
@@ -11,7 +10,7 @@ import { BtPlayerTool } from 'src/app/models/common/player-tool.model';
   styleUrls: ['./rpg-sheets.component.scss']
 })
 
-export class RpgSheetsComponent implements OnInit {
+export class RpgSheetsComponent implements OnInit, OnDestroy {
   @Input() public id: string
   public self: any = {}
 
@@ -25,9 +24,16 @@ export class RpgSheetsComponent implements OnInit {
     const documentId = !!this.id ? this.id : this.route.snapshot.paramMap.get('id');
     const existingSelf = this.store.tools[documentId]
     this.self = !!existingSelf ? existingSelf : this.svc.payload(documentId)
-    this.store.base$.pipe(take(1)).subscribe(() => {
-      this.store.setupToolController(this.self, 'rpg', 'home', [])
-    })
+    this.self.meta.subscriptions.home = this.store.base$.pipe(
+      switchMap(() => {
+        return this.store.setupToolController(this.self, 'rpg')
+      })
+    ).subscribe()
   }
 
+  ngOnDestroy() {
+    if (this.self.unsubscribe) {
+      this.self.unsubscribe()
+    }
+  }
 }

@@ -1,6 +1,5 @@
 <div class="sheet-tab">
-  <bt-tab-upgrade *ngIf="!self.locals.full_access" [self]="self"></bt-tab-upgrade>
-  <div class="flex-row-tablet flex-gutters-10" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+  <div class="flex-row-tablet flex-gutters-10">
     <div class="flex-col-6">
       <h2 class="group-header">Custom Conditions</h2>
       <p class="help-text" [class.bt-hide]="!self.model.prefs.help">You can also add custom conditions that affect almost any stat in the character sheet. To create a custom effect, add a new custom condition, give it a name and add an effect with the green plus button. You can then select which stat to affect on the left and what formula to use on the right. Formulas can include <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> or <code>%</code> and use <code>n</code> in place of the stat being affected. You can also use <code>l</code> to represent your character's level/total hit dice.</p>

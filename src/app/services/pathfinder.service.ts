@@ -48,7 +48,7 @@ export class PathfinderService {
     self.methods = {}
     self.migrations = {}
     self.meta = {
-      sources: [],
+      subscriptions: {},
       undefinedErrorCount: 0,
     }
     self.locals = {
@@ -57,7 +57,6 @@ export class PathfinderService {
       forbidden: false,
       document_failed: false,
       title_busy: false,
-      full_access: false,
       beta_user: false,
       product_is_premium: false,
       this_product_key: 'pathfinder',
@@ -2058,7 +2057,7 @@ export class PathfinderService {
     self.methods.connectCampaign = (): void => {
       const existingSelf = this.store.tools[self.model.campaign_id]
       const campaign = !!existingSelf ? existingSelf : this.campaignSvc.payload(self.model.campaign_id)
-      this.store.setupToolController(campaign, 'campaign', self.model.id, [])
+      this.store.setupToolController(campaign, 'campaign')
     }
 
     self.methods.campaignConnected = (): boolean => {

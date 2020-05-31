@@ -25,6 +25,7 @@ import { CampaignCommand } from '../models/campaign/command.model'
 import { BtUser } from '../models/common/user.model'
 import { HttpService } from './http.service'
 import { InterfaceService } from './interface.service'
+import { take } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class CampaignService {
     self.model = new CampaignBase
     self.methods = {}
     self.meta = {
-      sources: [],
+      subscriptions: {},
       undefinedErrorCount: 0,
     }
     self.locals = {
@@ -569,19 +570,20 @@ export class CampaignService {
     self.methods.canDeletePlayer = (player): boolean => self.methods.isGM() && !self.methods.isGM(player)
 
     self.methods.shareMapWithCampaignPlayers = async (map: BtPlayerTool): Promise<void> => {
-      const permissions: BtPermission[] = await this.store.listFirebasePermissions(map.id)
-      const map_player_ids = permissions.map(x => x.id)
-      self.methods.listPlayers().filter(player => !map_player_ids.includes(player.id)).forEach((player: CampaignPlayer) => {
-        this.sharer.shareDocument(
-          map.id,
-          'battlemap',
-          {
-            firebase_id: player.id,
-            email: self.locals.player_emails[player.id],
-            name: player.name,
-          } as BtUser,
-          map.title
-        )
+      this.store.documentPermissions$(map.id).pipe(take(1)).subscribe((permissions: BtPermission[]) => {
+        const map_player_ids = permissions.map(x => x.id)
+        self.methods.listPlayers().filter(player => !map_player_ids.includes(player.id)).forEach((player: CampaignPlayer) => {
+          this.sharer.shareDocument(
+            map.id,
+            'battlemap',
+            {
+              firebase_id: player.id,
+              email: self.locals.player_emails[player.id],
+              name: player.name,
+            } as BtUser,
+            map.title
+          )
+        })
       })
     }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BtUser } from '../models/common/user.model'
 import { AuthService } from './auth.service'
-import { Observable, Subject, of } from 'rxjs'
+import { Observable, Subject, of, throwError, merge, iif, Subscription } from 'rxjs'
 import { Dnd5eCharacter } from '../models/dnd5e/base'
 import { PathfinderCharacter } from '../models/pathfinder/base'
 import { RpgCharacter } from '../models/rpg/base'
@@ -10,7 +10,7 @@ import { BattlemapBase } from '../models/battlemap/base'
 import { CampaignBase } from '../models/campaign/base'
 import { HomebrewKitBase } from '../models/homebrew-kits/base'
 import { Router, NavigationStart } from '@angular/router'
-import { take, map, debounceTime, filter, takeWhile, skip, tap, switchMap } from 'rxjs/operators'
+import { take, map, debounceTime, filter, takeWhile, skip, tap, switchMap, mergeMap, catchError } from 'rxjs/operators'
 // import { FormBuilder } from '@angular/forms'
 import { MigrationService } from './migration.service'
 import { InterfaceService } from './interface.service'
@@ -22,6 +22,7 @@ import { BattlemapSize } from '../models/battlemap/size';
 import { BattlemapToken } from '../models/battlemap/token';
 import { BtPlayerTool } from '../models/common/player-tool.model';
 import { BattlemapCombatant } from '../models/battlemap/combatant';
+import { BtError } from '../models/common/error'
 
 @Injectable({
   providedIn: 'root'
@@ -105,38 +106,16 @@ export class StorageService {
     return this.toolPaths[slug] || {}
   }
 
-  public createFirebasePermission(docId: string, userId: string, permission: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const permRef = this.db.object(`permissions/${docId}/${userId}`)
-      permRef.valueChanges().pipe(
-        filter(p => !p),
-        take(1),
-      ).subscribe((p: any) => {
-        permRef.set(permission)
+  public createFirebasePermission$(docId: string, userId: string, permission: any): Observable<any> {
+    const permRef = this.db.object(`permissions/${docId}/${userId}`)
+    return permRef.valueChanges().pipe(
+      filter(p => !p),
+      take(1),
+      tap(async () => {
+        await permRef.set(permission)
         console.log(`new permission created for document: ${docId}, for user: ${userId}`)
-        resolve()
-      }, reject)
-    })
-  }
-
-  public async listFirebasePermissions(docId): Promise<BtPermission[]> {
-    return new Promise((resolve, reject) => {
-      if (!this.permissions[docId]) {
-        // don't use angularfire here, switch to raw firebase
-        // or better yet, make the whole tool creation process an observable
-        this.documentPermissions$(docId).pipe(
-          take(1)
-        ).subscribe((list: any[]) => {
-          // Cache the permissions if there are any
-          if (list.length > 0) {
-            this.permissions[docId] = { array: list }
-          }
-          resolve(list)
-        }, reject)
-      } else {
-        resolve(this.permissions[docId].array)
-      }
-    })
+      })
+    )
   }
 
   public documentPermissions$ = (docId): Observable<BtPermission[]> => {
@@ -189,19 +168,22 @@ export class StorageService {
     console.log(`${userId} destroyed completely`)
   }
 
-  private async checkFirebasePermissions(docId: string, userId: string): Promise<any> {
-    return await this.listFirebasePermissions(docId).then(array => {
-      const exists = array.length > 0
-      const permission = array.find(x => x.id === userId)
-      const owner = array.find(x => x.role === 'owner')
+  private userPermissionForDocument$(docId: string, userId: string): Observable<any> {
+    return this.documentPermissions$(docId).pipe(
+      map(permissions => {
+        const exists = permissions.length > 0
+        const permission = permissions.find(x => x.id === userId)
+        const owner = permissions.find(x => x.role === 'owner')
 
-      return {
-        writer: permission && (permission.role === 'owner' || permission.role === 'writer'),
-        exists,
-        role: permission ? permission.role : 'reader',
-        owner_id: owner ? owner.id : null
-      }
-    })
+        return {
+          writer: permission && (permission.role === 'owner' || permission.role === 'writer'),
+          exists,
+          role: permission ? permission.role : 'reader',
+          owner_id: owner ? owner.id : null
+        }
+      }),
+      take(1),
+    )
   }
 
   public deleteFirebaseTool = async (docId: string, toolType: string, userId: string): Promise<any> => {
@@ -223,11 +205,7 @@ export class StorageService {
 
   // Deletes all permissions for a tool
   public deleteFirebaseToolPermissions = (docId: string): Promise<any> => {
-    return this.db.object(`permissions/${docId}`).remove().then(() => {
-      if (this.permissions[docId]) {
-        delete this.permissions[docId]
-      }
-    })
+    return this.db.object(`permissions/${docId}`).remove()
   }
 
   // Deletes single permission for one user for a tool
@@ -235,13 +213,15 @@ export class StorageService {
     return this.db.object(`permissions/${docId}/${userId}`).remove()
   }
 
-  private async setupToolAssociations(toolType: string, docId: string, userId: string, permission: any, toolTitle?: string): Promise<any> {
+  private setupToolAssociations$(toolType: string, docId: string, userId: string, permission: any, toolTitle?: string): Observable<any> {
     // After creating the permission, we have to chain adding
     // the data in /players/ which will allow the dashboard to list
     // all documents without querying
-    await this.createFirebasePermission(docId, userId, permission)
-    await this.addNewToolToFirebasePlayer(toolType, docId, userId, permission.role, toolTitle)
-    return
+    return this.createFirebasePermission$(docId, userId, permission).pipe(
+      switchMap(p => {
+        return this.addNewToolToFirebasePlayer$(toolType, docId, userId, p.role, toolTitle)
+      })
+    )
   }
 
   public updatePlayerToolTitle(userId: string, docId: string, title: string): void {
@@ -259,12 +239,11 @@ export class StorageService {
     return this.db.object(`homebrew-kits/${docId}`).valueChanges()
   }
 
-  public addNewToolToFirebasePlayer(toolType: string, docId: string, userId: string, role: string, toolTitle?: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const permRef = this.db.object(`players/${userId}/${docId}`)
-      permRef.valueChanges().pipe(
-        take(1),
-      ).subscribe((document: any) => {
+  public addNewToolToFirebasePlayer$(toolType: string, docId: string, userId: string, role: string, toolTitle?: string): Observable<any> {
+    const permRef = this.db.object(`players/${userId}/${docId}`)
+    return permRef.valueChanges().pipe(
+      take(1),
+      tap(async (document: any) => {
         const now = Date.now()
         document = {}
         document.id = docId
@@ -273,58 +252,62 @@ export class StorageService {
         document.tool_type = toolType
         document.created_at = now
         document.updated_at = now
-        permRef.set(document)
-        resolve()
-      }, reject)
-    })
+        await permRef.set(document)
+      }),
+    )
   }
 
-  private createFirebaseTool = async (toolType: string, userId: string): Promise<void> => {
+  private createFirebaseTool$ = (toolType: string, userId: string): Observable<any> => {
     const paths = this.toolPathsForSlug(toolType)
     const newDocId = this.sheetSvc.randomSecureString(this.sheetSvc.randomNumber(28, 35))
-    const list = await this.listFirebasePermissions(newDocId)
-
-    // This checks to see if any permissions for this tool already exist
-    // If it finds the permission already, we aren't
-    // creating a new tool so it rerolls the newDocId
-    if (list.length !== 0) {
-      return await this.createFirebaseTool(toolType, userId)
-    }
-
-    const permission = {
-      role: 'owner',
-      email: this.user.email,
-      name: this.user.name,
-    }
-
-    await this.setupToolAssociations(
-      toolType,
-      newDocId,
-      userId,
-      permission,
+    return this.documentPermissions$(newDocId).pipe(
+      take(1),
+      switchMap(permissions => {
+        // This checks to see if any permissions for this tool already exist
+        // If it finds the permission already, we aren't
+        // creating a new tool so it rerolls the newDocId
+        if (permissions.length !== 0) {
+          return this.createFirebaseTool$(toolType, userId)
+        } else {
+          of({
+            role: 'owner',
+            email: this.user.email,
+            name: this.user.name,
+          })
+        }
+      }),
+      // This is to filter out the recursive shit
+      filter(permission => !!permission),
+      switchMap(permission => {
+        return this.setupToolAssociations$(
+          toolType,
+          newDocId,
+          userId,
+          permission,
+        )
+      }),
+      tap(() => {
+        this.router.navigate([`/${paths.web_path}/${newDocId}`])
+      }),
+      map(() => false),
+      take(1),
     )
-    this.router.navigate([`/${paths.web_path}/${newDocId}`])
   }
 
-  public snapshotOfDocument = (path: string, docId: string): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      this.db.object(`${path}/${docId}`).valueChanges().pipe(take(1)).subscribe(resolve, reject)
-    })
+  public snapshotOfDocument$ = (path: string, docId: string): Observable<any> => {
+    return this.db.object(`${path}/${docId}`).valueChanges().pipe(take(1))
   }
 
-  public copyFirebaseTool = async (sourceDocId: string, toolType: string, userId: string, toolTitle: string): Promise<any> => {
+  public copyFirebaseTool$ = (sourceDocId: string, toolType: string, userId: string, toolTitle: string): Observable<any> => {
     const targetDocId = this.sheetSvc.randomSecureString(this.sheetSvc.randomNumber(28, 35))
     const paths = this.toolPathsForSlug(toolType)
-    const list = await this.listFirebasePermissions(targetDocId)
 
     // This checks to see if any permissions for this tool already exist
     // If it finds the permission already, we aren't
     // creating a new tool so it rerolls the id
-    if (list.length !== 0) {
-      return await this.copyFirebaseTool(sourceDocId, toolType, userId, toolTitle)
-    }
+    const recursive$ = this.copyFirebaseTool$(sourceDocId, toolType, userId, toolTitle)
 
-    await this.setupToolAssociations(
+    const associations$ = this.setupToolAssociations$(
       toolType,
       targetDocId,
       userId,
@@ -336,10 +319,16 @@ export class StorageService {
       `Copy of ${toolTitle}`,
     )
 
-    const source: any = await this.snapshotOfDocument(paths.db_path, sourceDocId)
-    const targetRef = this.db.object(`${paths.db_path}/${targetDocId}`)
-    source.name = `Copy of ${source.name}`
-    return await targetRef.set(source)
+    return this.documentPermissions$(targetDocId).pipe(
+      mergeMap((list) => iif(() => list.length === 0, associations$, recursive$)),
+      take(1),
+      switchMap(() => this.snapshotOfDocument$(paths.db_path, sourceDocId)),
+      tap(async (source) => {
+        const targetRef = this.db.object(`${paths.db_path}/${targetDocId}`)
+        source.name = `Copy of ${source.name}`
+        await targetRef.set(source)
+      }),
+    )
   }
 
   // private buildFormArray = (list) => {
@@ -501,7 +490,7 @@ export class StorageService {
     campaign.methods.addCustomRollToChat(text, this.user.firebase_id)
   }
 
-  public setupToolController = async (self: any, toolType: string, sourceKey: string, playerPipe: any[]): Promise<void> => {
+  public setupToolController = (self: any, toolType: string, playerPipe = [], permissionsPipe = []): Observable<any> => {
     const debounceDelay = 500
     const maxUndefined = 20
     const paths = this.toolPathsForSlug(toolType)
@@ -514,20 +503,169 @@ export class StorageService {
       }
     }
 
-    // we should split this up so one function gets run from controller
-    // and others get run from elsewhere
-    const loadModel = async (): Promise<any> => {
+    const loadingError$ = (error: BtError): Observable<any> => {
+      console.error(error)
+
+      const toolNotFoundError = `<h2 class='h20 bm-10'>Tool Not Found</h2><div class='bm-20'>We couldn't find a tool with this ID. It has either been deleted, or never existed. Sorry!</div>`
+
+      switch (error.code) {
+        case 1001: {
+          this.interfaceSvc.showAlert(toolNotFoundError)
+          this.router.navigate(['/dashboard'])
+          return of(null)
+        }
+        case 666: {
+          this.interfaceSvc.showAlert(toolNotFoundError)
+          this.router.navigate(['/dashboard'])
+          return of(null)
+        }
+        // future version error
+        case 2077: {
+          this.interfaceSvc.showAlert(error.message)
+          this.router.navigate(['/dashboard'])
+          return of(null)
+        }
+        // migration error
+        case 1015: {
+          this.interfaceSvc.showAlert(error.message)
+          this.router.navigate(['/dashboard'])
+          return of(null)
+        }
+        default: {
+          this.interfaceSvc.showAlert(`There was an error loading this tool. Check the JavaScript Console for more details and let us know what happened <a href="https://www.reddit.com/r/beyondtabletop">on the subreddit</a>.`)
+          return of(null)
+        }
+      }
+    }
+
+    const runtimeError$ = (error: BtError): Observable<any> => {
+      console.error(error)
+      this.interfaceSvc.showAlert(error.message)
+      return of(null)
+    }
+
+    // STEP 4.2
+    const onModelLoaded = (data: any): void => {
+      console.log('%cmodel loaded', 'color: #aaa')
+      data.id = self.locals.document_id
+      self.model = new paths.construct(data)
+      self.methods.onModelReady()
+    }
+
+    // STEP 4.1
+    const saveToFirebase = async (): Promise<void> => {
+      if (this.locals.migration_now) {
+        this.interfaceSvc.showAlert(`Your local changes cannot be saved while a migration is in process. Migrations usually take between 2-5 minutes. If you're still seeing this error after 5 minutes please refresh the page. If you still see this error after that let us know <a href="https://www.reddit.com/r/beyondtabletop">on the subreddit</a>!`)
+        clearChanges('localChanges')
+        return
+      }
+      if (self.model.getProto().version > self.model.version) {
+        this.interfaceSvc.showAlert(`Looks like a background migration got reverted while you had this document open in more than one place. Close out this document on all machines and try again.`)
+        clearChanges('localChanges')
+        return
+      }
+
+      // Set change ID to compare remote changes to
+      const preparedModel = self.model.databaseSafe()
+      checkFileSize(preparedModel)
+      self.meta.localChanges.id = this.sheetSvc.randomSecureString(6)
+      preparedModel.change_id = self.meta.localChanges.id
+
+      try {
+        await self.meta.remoteRef.set(preparedModel)
+        clearChanges('localChanges')
+        console.log('%csheet saved to firebase', 'color: #aaa')
+      } catch (error) {
+        handleSaveError(error)
+      }
+    }
+
+    // STEP 4.0: We pass in the unwrapped value from the document here. First
+    // we set the raw object as self.remote. If the value is null, it means we
+    // just created the document, and we need to save default object to the db.
+    // There's also an edge case where there's no document but there is a
+    // permission, but we don't have permission to write to it. In this case we
+    // just throw an error.
+    //
+    // If document version is lower than the current version, we have to
+    // migrate. Each document type has its own migrations which are handled
+    // in a separate service. If the migration runs successfully, we run
+    // onModelLoaded and return. If the document is higher than the current
+    // verison, it means that I accidentally opened a dev document on
+    // production, and we return an error.
+    //
+    // Finally if the versions match we run onModelLoaded and return
+    const firstDocumentRead = async (val): Promise<any> => {
+      return new Promise(async (resolve, reject) => {
+        const currentVersion = self.model.getProto().version
+        self.remote = val
+
+        // This case is unusual, it means permissions exist, but the document
+        // doesn't AND the current user doesn't have write permissions
+        if (val === null && !self.locals.permission.writer) {
+          return reject({ code: 666, message: 'Ghost document error' })
+        }
+
+        // If remote document is undefined, we save the empty schema data
+        if (val === null) {
+          console.log('document data doesn\'t exist, creating it now')
+          self.remote = self.model.databaseSafe()
+          await saveToFirebase()
+          self.methods.onModelReady()
+          return resolve(true)
+        }
+
+        // If remote version is below the model version, migrate
+        if (val.version < currentVersion) {
+          try {
+            const data = await this.migration.migrateTool({
+              toolId: self.locals.document_id,
+              toolType,
+              toolData: val,
+              toolRef: self.meta.remoteRef,
+              finalVersion: currentVersion,
+              ownerId: self.locals.permission.owner_id,
+            })
+            onModelLoaded(data)
+            return resolve(true)
+          } catch (error) {
+            console.log(error)
+            return reject({ code: 1015, message: error })
+          }
+        }
+
+        if (val.version > currentVersion) {
+          return reject({ code: 2077, message: 'Load error: This tool is running on a future version that the site cannot support.' })
+        }
+
+        // Otherwise we just load the data
+        onModelLoaded(val)
+        resolve(true)
+      })
+    }
+
+    // STEP 2.0a: Set defaults for changes then checks if the controller passed
+    // in a document ID or not. If not, we create the document with Step 3.0a
+    //
+    // If we have an ID, then we grab the single permission for the document
+    // for our user ID. Once we have that, we check to see if permissions
+    // exist for the document, and what our access is. If permissions exist,
+    // that means the document ID is valid, and we can proceed. Otherwise, it
+    // means someone typed garbage into the URL to make a cool custom document.
+    // In this case we return an error.
+    //
+    // If we're all good, then we pass the firebase valueChanges observable for
+    // the document to the next step, which attempts to read the document once.
+    // If successful, we return true. Otherwise throw error.
+    const loadModel$ = (): Observable<any> => {
       // Initialize
       console.log('%cschema loaded', 'color: #aaa')
       clearChanges('localChanges')
       clearChanges('remoteChanges')
 
-      // Paid Product
-      self.locals.full_access = self.locals.product_is_premium ? this.user[paths.pay_slug] : true
-
       // Check and create document if necessary
       if (!self.locals.document_id) {
-        return await this.createFirebaseTool(
+        return this.createFirebaseTool$(
           toolType,
           this.user.firebase_id,
         )
@@ -535,29 +673,31 @@ export class StorageService {
 
       // checking permissions/doc_id to see if the tool has a permissions file
       // the assumption is that if it's a legit create, it would have a permissions file by now
-      self.locals.permission = await this.checkFirebasePermissions(
+      return this.userPermissionForDocument$(
         self.locals.document_id,
         this.user.firebase_id,
+      ).pipe(
+        switchMap(permission => {
+          // Permissions exists, which means it's legit
+          if (permission.exists) {
+            self.locals.permission = permission
+            self.meta.remoteRef = this.db.object(`${paths.db_path}/${self.locals.document_id}`)
+            self.meta.document$ = self.meta.remoteRef.valueChanges()
+            return self.meta.document$.pipe(take(1))
+          } else {
+            // This prevents people from putting garbage into the url and making a sheet out of it
+            return throwError({ code: 1001, message: 'Cannot load model from this ID' })
+          }
+        }),
+        switchMap(async (document) => {
+          const result = await firstDocumentRead(document)
+          if (result === true) {
+            return of(true)
+          } else {
+            return throwError(result)
+          }
+        })
       )
-
-      // Permissions exists, which means it's legit
-      if (self.locals.permission.exists) {
-        self.meta.remoteRef = this.db.object(`${paths.db_path}/${self.locals.document_id}`)
-        self.meta.document$ = self.meta.remoteRef.valueChanges()
-
-        try {
-          await firstDocumentRead()
-          onDocumentLoaded()
-        } catch (error) {
-          onDocumentError(error)
-        }
-      }
-
-      // This prevents people from putting garbage into the url and making a sheet out of it
-      if (!self.locals.permission.exists) {
-        this.interfaceSvc.showAlert(`<h2 class='h20 bm-10'>Tool Not Found</h2><div class='bm-20'>We couldn't find a tool with this ID. It has either been deleted, or never existed. Sorry!</div>`)
-        this.router.navigate(['/dashboard'])
-      }
     }
 
     const onRemoteUpdate = (val: any): void => {
@@ -586,18 +726,27 @@ export class StorageService {
       return actualChanges && moreThanChangeId
     }
 
-    const onDocumentLoaded = (): void => {
-      // Once we load or create read only data, we can subscribe to remote updates
-      if (self.not_found) { return }
-
+    // STEP 5.0 or 3.0b: Handle not found error, then set watching bool to true
+    // Set up unsubscribe function to be called from controller. Show notice
+    // to read-only players and update tool title now that we have the document
+    //
+    // Stack up four observables: player, permissions, document remote, and
+    // document local.
+    const watchDocument$ = (): Observable<any> => {
       self.meta.watching = true
-      watchPlayer()
-      watchPermissions()
-      if (self.meta.remoteSub) {
-        self.meta.remoteSub.unsubscribe()
+
+      self.unsubscribe = (): void => {
+        self.meta.watching = false
+        Object.values(self.meta.subscriptions).forEach((sub: Subscription) => sub.unsubscribe())
+        self.meta.subscriptions = {}
       }
-      self.meta.remoteSub = self.meta.document$.pipe(
-        takeWhile(() => self.meta.watching),
+
+      if (!self.locals.permission.writer) {
+        this.interfaceSvc.showNotice('This is a read-only document. Any changes you make will not be saved.')
+      }
+      this.updatePlayerToolTitle(this.user.firebase_id, self.locals.document_id, self.model.name)
+
+      const remoteDocument$ = self.meta.document$.pipe(
         skip(1),
         tap(() => clearChanges('remoteChanges')),
         filter((val: any) => {
@@ -614,20 +763,12 @@ export class StorageService {
           // console.log('remote changes: ', self.meta.remoteChanges.list.join('\n'))
           return self.meta.remoteChanges.list.length > 0 && (self.meta.remoteChanges.list.length > 1)
         }),
-      ).subscribe(onRemoteUpdate, () => {}, clearChanges('remoteChanges'))
-
-      if (!self.locals.permission.writer) {
-        this.interfaceSvc.showNotice('This is a read-only document. Any changes you make will not be saved.')
-        return
-      }
+        tap(val => onRemoteUpdate(val)),
+      )
 
       // And publish local updates if we have write access
-      if (self.meta.localSub) {
-        self.meta.localSub.unsubscribe()
-      }
-      self.meta.localSub = self.meta.localSubject.pipe(
+      const localDocument$ = self.meta.localSubject.pipe(
         filter(() => self.locals.permission.writer),
-        takeWhile(() => self.meta.watching),
         tap(() => self.meta.debouncing = true),
         debounceTime(debounceDelay),
         tap(() => self.meta.debouncing = false),
@@ -637,101 +778,29 @@ export class StorageService {
           const shouldSave = shouldSaveLocalChanges()
           if (!shouldSave) { clearChanges('localChanges') }
           return shouldSave
-        })
-      ).subscribe(onLocalChange, () => {}, clearChanges('localChanges'))
-      this.updatePlayerToolTitle(this.user.firebase_id, self.locals.document_id, self.model.name)
-    }
+        }),
+        tap(() => onLocalChange()),
+      )
 
-    const onDocumentError = (error: any): void => {
-      console.error(error)
-      this.interfaceSvc.showAlert(`There was an error loading this tool. Check the JavaScript Console for more details and let us know what happened <a href="https://www.reddit.com/r/beyondtabletop">on the subreddit</a>.`)
-    }
+      const player$ = of(null).pipe(mergeMap(() => iif(
+        () => playerPipe instanceof Array && playerPipe.length > 0,
+        of(null),
+        this.player$.pipe(pipeFromArray(playerPipe))
+      )))
 
-    const firstDocumentRead = async (): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        self.meta.document$.pipe(
-          take(1),
-        ).subscribe(async val => {
-          const currentVersion = self.model.getProto().version
-          self.remote = val
+      const permissions$ = this.documentPermissions$(self.locals.document_id).pipe(
+        pipeFromArray(permissionsPipe),
+        tap(permissions => self.locals.documentPermissions = permissions),
+      )
 
-          // This case is unusual, it means permissions exist, but the document
-          // doesn't AND the current user doesn't have write permissions
-          if (val === null && !self.locals.permission.writer) {
-            self.not_found = true
-            return reject('Ghost document error')
-          }
-
-          // If remote document is undefined, we save the empty schema data
-          if (val === null) {
-            console.log('document data doesn\'t exist, creating it now')
-            self.remote = self.model.databaseSafe()
-            await saveToFirebase()
-            self.methods.onModelReady()
-            return resolve()
-          }
-
-          // If remote version is below the model version, migrate
-          if (val.version < currentVersion) {
-            try {
-              const data = await this.migration.migrateTool({
-                toolId: self.locals.document_id,
-                toolType,
-                toolData: val,
-                toolRef: self.meta.remoteRef,
-                finalVersion: currentVersion,
-                ownerId: self.locals.permission.owner_id,
-              })
-              onModelLoaded(data)
-              return resolve()
-            } catch (error) {
-              return reject(error)
-            }
-          }
-
-          if (val.version > currentVersion) {
-            return reject(`Load error: This tool is running on a future version that the site cannot support.`)
-          }
-
-          // Otherwise we just load the data
-          onModelLoaded(val)
-          resolve()
-        })
-      })
-    }
-
-    const onModelLoaded = (data: any): void => {
-      console.log('%cmodel loaded', 'color: #aaa')
-      data.id = self.locals.document_id
-      self.model = new paths.construct(data)
-      self.methods.onModelReady()
-    }
-
-    const saveToFirebase = async (): Promise<void> => {
-      if (this.locals.migration_now) {
-        this.interfaceSvc.showAlert(`Your local changes cannot be saved while a migration is in process. Migrations usually take between 2-5 minutes. If you're still seeing this error after 5 minutes please refresh the page. If you still see this error after that let us know <a href="https://www.reddit.com/r/beyondtabletop">on the subreddit</a>!`)
-        clearChanges('localChanges')
-        return
-      }
-      if (self.model.getProto().version > self.model.version) {
-        this.interfaceSvc.showAlert(`Looks like a background migration got reverted while you had this document open in more than one place. Close out this document on all machines and try again.`)
-        clearChanges('localChanges')
-        return
-      }
-
-      // Set change ID to compare remote changes to
-      const preparedModel = self.model.databaseSafe()
-      checkFileSize(preparedModel)
-      self.meta.localChanges.id = this.sheetSvc.randomSecureString(6)
-      preparedModel.change_id = self.meta.localChanges.id
-
-      try {
-        await self.meta.remoteRef.set(preparedModel)
-        clearChanges('localChanges')
-        console.log('%csheet saved to firebase', 'color: #aaa')
-      } catch (error) {
-        handleSaveError(error)
-      }
+      return merge(
+        player$,
+        permissions$,
+        remoteDocument$,
+        localDocument$,
+      ).pipe(
+        catchError(runtimeError$),
+      )
     }
 
     const checkFileSize = (model: any): void => {
@@ -767,21 +836,6 @@ export class StorageService {
       return message.indexOf('Reference.set failed: First argument contains undefined') !== -1 && self.meta.undefinedErrorCount < maxUndefined
     }
 
-    const handleSaveError = (error: any): void => {
-      console.log('error saving sheet')
-      clearChanges('localChanges')
-
-      if (shouldAttemptToFixUndefinedError(error.message)) {
-        console.log('attempting to fix undefined error')
-        handleUndefinedError(error.message.replace('Reference.set failed: First argument contains undefined in property ', ''))
-      } else {
-        this.interfaceSvc.showAlert(`Error saving to Firebase: ${error.message}`)
-
-        self.error = error.message
-        console.log(error.message)
-      }
-    }
-
     const handleUndefinedError = (path: string): void => {
       self.meta.undefinedErrorCount += 1
       let parent = self.model
@@ -799,49 +853,47 @@ export class StorageService {
       return
     }
 
-    const riseFromYourGrave = (): void => {
+    const handleSaveError = (error: any): void => {
+      console.log('error saving sheet')
+      clearChanges('localChanges')
+
+      if (shouldAttemptToFixUndefinedError(error.message)) {
+        console.log('attempting to fix undefined error')
+        handleUndefinedError(error.message.replace('Reference.set failed: First argument contains undefined in property ', ''))
+      } else {
+        this.interfaceSvc.showAlert(`Error saving to Firebase: ${error.message}`)
+
+        self.error = error.message
+        console.log(error.message)
+      }
+    }
+
+    // STEP 2.0b: This gets called if we're opening a document we've already
+    // opened during this session. If we happen to already be watching, we know
+    // there's nothing we need to do, otherwise we have to unfreeze the state
+    // of the document by clearing changes, setting ready to false, calling
+    // onUnfrozen for the service, and then running watchDocument$
+    const riseFromYourGrave$ = (): Observable<any> => {
       if (!self.meta.watching) {
         console.log('RISING FROM THE GRAVE')
         clearChanges('localChanges')
         clearChanges('remoteChanges')
         self.locals.ready = false
         self.methods.onUnfrozen()
-        onDocumentLoaded()
+        return watchDocument$()
+      } else {
+        return of(null)
       }
     }
 
-    const watchRouting = (): void => {
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationStart),
-        take(1),
-      ).subscribe(() => self.meta.watching = false)
-    }
-
-    const watchPlayer = (): void => {
-      if (!playerPipe) { return }
-      if (self.meta.playerSub) {
-        self.meta.playerSub.unsubscribe()
-      }
-
-      self.meta.playerSub = this.player$.pipe(
-        takeWhile(() => self.meta.watching),
-        pipeFromArray(playerPipe),
-      ).subscribe()
-    }
-
-    const watchPermissions = (): void => {
-      if (self.meta.docPermissionsSub) {
-        self.meta.docPermissionsSub.unsubscribe()
-      }
-
-      self.meta.docPermissionsSub = this.documentPermissions$(self.locals.document_id).pipe(
-        takeWhile(() => self.meta.watching)
-      ).subscribe(permissions => {
-        self.locals.documentPermissions = permissions
-      })
-    }
-
-    const initialize = async (): Promise<void> => {
+    // STEP 1.0: Initialize. If the document ID is stored in memory then
+    // everything is set up already. Otherwise we save the self object
+    // passed in along with use, tool type, set up subjects and touch func
+    //
+    // Then we begin watching for routing, set the sessionId for changes,
+    // push our sourceKey to the stack, and depending on if we have a saved
+    // documentRef, either loadModel$ or reopen model with riseFromYourGrave$
+    const initialize$ = (): Observable<any> => {
       if (this.tools[self.locals.document_id]) {
         self = this.tools[self.locals.document_id]
       } else if (self.locals.document_id) {
@@ -856,20 +908,26 @@ export class StorageService {
           self.meta.combinedSubject.next()
         }
       }
-      watchRouting()
 
       self.meta.sessionId = this.sheetSvc.randomSecureString(6)
-      if (!self.meta.sources.includes(sourceKey)) {
-        self.meta.sources.push(sourceKey)
-      }
 
       if (!!self.meta.remoteRef) {
-        riseFromYourGrave()
+        return riseFromYourGrave$()
       } else {
-        await loadModel()
+        return loadModel$().pipe(
+          take(1),
+          catchError(loadingError$),
+          switchMap((keepGoing) => {
+            if (keepGoing) {
+              return watchDocument$()
+            } else {
+              return of(false)
+            }
+          }),
+        )
       }
     }
 
-    await initialize()
+    return initialize$()
   }
 }

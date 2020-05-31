@@ -1,10 +1,9 @@
 <div class="sheet-tab">
   <div class="tab-notice" *ngIf="self.model.prefs.show_announcement">
     <h2 class="gh3"><fa-icon [icon]="['fas', 'bullhorn']"></fa-icon> New Character Builder</h2>
-    <p>New to D&amp;D? Try the new Beyond Tabletop Character Builder to be guided step-by-step through character creation. Launching the builder will reset the bulk of your character, so consider trying it out on a new character sheet first. <strong *ngIf="!self.locals.full_access">You must upgrade your sheets before you can access the builder.</strong></p>
+    <p>New to D&amp;D? Try the new Beyond Tabletop Character Builder to be guided step-by-step through character creation. Launching the builder will reset the bulk of your character, so consider trying it out on a new character sheet first.</p>
     <div class="flex-row-mobile flex-config-spaced flex-config-bottom">
-      <div class="button button-orange" (click)="self.methods.switchTab('builder')" *ngIf="self.locals.full_access">Launch Builder</div>
-      <a routerLink="/donate" class="button button-orange" *ngIf="!self.locals.full_access">Upgrade Now</a>
+      <div class="button button-orange" (click)="self.methods.switchTab('builder')">Launch Builder</div>
       <div class="help-text tm-20 clickable" (click)="self.model.prefs.show_announcement = false">No thanks, hide this</div>
     </div>
   </div>

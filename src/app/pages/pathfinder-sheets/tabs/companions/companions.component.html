@@ -1,6 +1,5 @@
 <div class="sheet-tab">
-  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
-  <div class="group-companions" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+  <div class="group-companions">
     <div *ngIf="self.model.companions.length < 1">
       <h2 class="group-header">Companions</h2>
       <p class="help-text" *ngIf="self.model.prefs.help">Welcome to the new Companions tab! Here you can add details for an animal companion or a familiar.</p>

@@ -1,6 +1,5 @@
 <div class="sheet-tab">
-  <bt-tab-upgrade [self]="self" *ngIf="!self.locals.full_access"></bt-tab-upgrade>
-  <div class="flex-row-tablet flex-gutters-10" *ngIf="self.locals.full_access || !self.locals.permission.writer">
+  <div class="flex-row-tablet flex-gutters-10">
     <div class="flex-col-6">
       <h2 class="group-header">Core Conditions</h2>
       <p class="help-text" *ngIf="self.model.prefs.help">These are conditions that affect your character from the Core Rule Book. Click on them to enable and view the description.</p>
