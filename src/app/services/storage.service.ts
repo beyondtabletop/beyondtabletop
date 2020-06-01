@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BtUser } from '../models/common/user.model'
 import { AuthService } from './auth.service'
-import { Observable, Subject, of, throwError, merge, iif, Subscription } from 'rxjs'
+import { Observable, Subject, of, throwError, merge, iif, Subscription, from } from 'rxjs'
 import { Dnd5eCharacter } from '../models/dnd5e/base'
 import { PathfinderCharacter } from '../models/pathfinder/base'
 import { RpgCharacter } from '../models/rpg/base'
@@ -111,10 +111,11 @@ export class StorageService {
     return permRef.valueChanges().pipe(
       filter(p => !p),
       take(1),
-      tap(async () => {
-        await permRef.set(permission)
+      switchMap(() => {
         console.log(`new permission created for document: ${docId}, for user: ${userId}`)
-      })
+        return from(permRef.set(permission))
+      }),
+      map(() => permission)
     )
   }
 
@@ -269,7 +270,7 @@ export class StorageService {
         if (permissions.length !== 0) {
           return this.createFirebaseTool$(toolType, userId)
         } else {
-          of({
+          return of({
             role: 'owner',
             email: this.user.email,
             name: this.user.name,
@@ -286,11 +287,11 @@ export class StorageService {
           permission,
         )
       }),
+      take(1),
       tap(() => {
         this.router.navigate([`/${paths.web_path}/${newDocId}`])
       }),
       map(() => false),
-      take(1),
     )
   }
 
