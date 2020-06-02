@@ -2395,6 +2395,9 @@ $bg-opacity: 0.075;
         background: lighten($cyan-color, 5%)
       }
     }
+    .button-block {
+      width: 100%;
+    }
   }
   .micro-field {
     height: auto;

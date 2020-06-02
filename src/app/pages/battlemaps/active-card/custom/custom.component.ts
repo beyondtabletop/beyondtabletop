@@ -15,6 +15,9 @@ export class BattlemapActiveCardCustomComponent {
   @Input() public token: BattlemapToken
   @Input() public combatant: BattlemapCombatant
   public viewing = true
+  damageOverlay = false
+  damage = 0
+  health = 0
 
   constructor(
     public diceSvc: DiceService,
@@ -28,7 +31,7 @@ export class BattlemapActiveCardCustomComponent {
   }
 
   public currentHP(hp: number, damage: number): number {
-    return hp - Math.abs(damage)
+    return hp - damage
   }
 
   public HPRingColor(hp: number, damage: number): string {
@@ -81,5 +84,22 @@ export class BattlemapActiveCardCustomComponent {
     list.sort().shift()
     const ability = list.reduce((acc, x) => x + acc, 0)
     this.combatant.stats[abl] = ability
+  }
+
+  public toggleDamagePanel(): void {
+    this.damageOverlay = !this.damageOverlay
+  }
+
+  public applyDamage(): void {
+    this.combatant.stats.damage += this.damage
+    this.damage = 0
+    this.self.touch()
+  }
+
+  public applyHealing(): void {
+    this.combatant.stats.damage -= this.health
+    this.combatant.stats.damage = Math.max(this.combatant.stats.damage, 0)
+    this.health = 0
+    this.self.touch()
   }
 }

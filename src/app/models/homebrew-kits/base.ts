@@ -8,6 +8,7 @@ export class HomebrewKitBase extends BtBase {
   change_id: string
   tool_type: string
   dnd5e: HomebrewKitDnd5e
+  pathfinder: HomebrewKitPathfinder
 
   getProto() {
     return {
@@ -15,8 +16,8 @@ export class HomebrewKitBase extends BtBase {
       name: 'New Homebrew Kit',
       change_id: '0',
       tool_type: 'choose',
-      dnd5e: new HomebrewKitDnd5e,
-      pathfinder: new HomebrewKitPathfinder,
+      dnd5e: new HomebrewKitDnd5e(),
+      pathfinder: new HomebrewKitPathfinder(),
     }
   }
 }

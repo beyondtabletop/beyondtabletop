@@ -350,7 +350,7 @@ export class BtBase {
     // after we finish we clean up empty objects
     const compareObject = (slug) => {
       changesLookup[slug] = {}
-      self[slug].compareChanges(rival[slug], changesList, changesLookup[slug], `${context}.${slug}`, isNew)
+      self[slug].compareChanges(rival[slug] || {}, changesList, changesLookup[slug], `${context}.${slug}`, isNew)
       removeEmptyObjects(changesLookup, slug)
     }
 

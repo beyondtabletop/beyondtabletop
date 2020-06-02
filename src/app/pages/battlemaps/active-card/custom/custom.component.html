@@ -51,6 +51,9 @@
         <button class="inc-button g-neutral h36" (click)="incrementDamage(combatant, -1)"><i class="material-icons">add</i></button>
       </div>
     </div>
+    <div class="tm-5">
+      <button class="micro-button button-block" (click)="toggleDamagePanel()">Change HP</button>
+    </div>
   </div>
   <div class="flex-col monster-info-column align-start">
     <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let attack of self.methods.listCombatantAttacks(combatant)">
@@ -67,6 +70,30 @@
   </div>
   <div class="flex-col monster-info-column combatant-details align-start">
     <div class="bm-5 p12" *ngFor="let detail of self.methods.listCombatantDetails(combatant)" [innerHTML]="detail.text | markdown"></div>
+  </div>
+</div>
+
+<div class="damage-overlay" *ngIf="damageOverlay">
+  <button class="unstyled-button base-color corner-button h24" (click)="toggleDamagePanel()">
+    <i class="material-icons">close</i>
+  </button>
+  <div class="flex-row-all flex-gutters-15">
+    <div class="flex-col flex-static">
+      <div class="bm-5">
+        <input type="number" class="form-control w-110" [(ngModel)]="damage">
+      </div>
+      <div>
+        <button class="mini-button" (click)="applyDamage()">Apply Damage</button>
+      </div>
+    </div>
+    <div class="flex-col flex-static">
+      <div class="bm-5">
+        <input type="number" class="form-control w-110" [(ngModel)]="health">
+      </div>
+      <div>
+        <button class="mini-button" (click)="applyHealing()">Apply Healing</button>
+      </div>
+    </div>
   </div>
 </div>
 

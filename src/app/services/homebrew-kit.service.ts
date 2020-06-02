@@ -8,6 +8,11 @@ import { Dnd5eWeapon } from '../models/dnd5e/weapon'
 import { Dnd5eArmor } from '../models/dnd5e/armor'
 import { Dnd5eFeat } from '../models/dnd5e/feat'
 import { HomebrewKitDnd5eBackground } from '../models/homebrew-kits/background'
+import { PathfinderArmor } from '../models/pathfinder/armor'
+import { PathfinderFeat } from '../models/pathfinder/feat'
+import { PathfinderKlass } from '../models/pathfinder/klass'
+import { PathfinderSpell } from '../models/pathfinder/spell'
+import { PathfinderWeapon } from '../models/pathfinder/weapon'
 
 @Injectable({
   providedIn: 'root'
@@ -100,31 +105,31 @@ export class HomebrewKitService {
       ],
       pathfinder_collections: [
         {
-          modelClass: HomebrewKitDnd5eKlass,
+          modelClass: PathfinderKlass,
           dbSlug: 'klasses',
           title: 'Classes',
           switch: 'pathfinder_klass',
         },
         {
-          modelClass: Dnd5eSpell,
+          modelClass: PathfinderSpell,
           dbSlug: 'spells',
           title: 'Spells',
           switch: 'pathfinder_spell',
         },
         {
-          modelClass: Dnd5eWeapon,
+          modelClass: PathfinderWeapon,
           dbSlug: 'weapons',
           title: 'Weapons',
           switch: 'pathfinder_weapon',
         },
         {
-          modelClass: Dnd5eArmor,
+          modelClass: PathfinderArmor,
           dbSlug: 'armors',
           title: 'Armor',
           switch: 'pathfinder_armor',
         },
         {
-          modelClass: Dnd5eFeat,
+          modelClass: PathfinderFeat,
           dbSlug: 'feats',
           title: 'Feats',
           switch: 'pathfinder_feat',

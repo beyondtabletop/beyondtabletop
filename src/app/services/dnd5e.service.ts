@@ -663,6 +663,41 @@ export class Dnd5eService {
     self.methods.listHomebrewKits = (): string[] => self.model.homebrew_kits || []
     self.methods.kitAdded = (kit: HomebrewKitBase): boolean => self.methods.listHomebrewKits().includes(kit.id)
 
+    const kitIsLoaded = (id: string): boolean => !!self.locals.loaded_kits.find(x => id === x.id)
+
+    const kitSubscribe = (kit: HomebrewKitBase): void => {
+      self.locals.kit_data[kit.id] = kit.dnd5e
+    }
+
+    const loadKitData = (): void => {
+      if (self.model.homebrew_kits) {
+        self.model.homebrew_kits.filter(id => !kitIsLoaded(id)).forEach(id => {
+          const obj: any = {
+            id,
+            stream$: this.store.getHomebrewKit(id).pipe(
+              tap(kitSubscribe)
+            )
+          }
+          self.meta.subscriptions[id] = obj.stream$.subscribe()
+          obj.subscription = self.meta.subscriptions[id]
+          self.locals.loaded_kits.push(obj)
+        })
+      }
+    }
+
+    const listKitDataByKey = (collectionKey: string): any[] => {
+      return Object.keys(self.locals.kit_data).reduce((acc, key) => acc.concat(self.locals.kit_data[key][collectionKey] || []), [])
+    }
+
+    const unloadKit = (id: string): void => {
+      const item = self.locals.loaded_kits.find(x => x.id === id)
+      if (item) {
+        item.subscription.unsubscribe()
+        delete self.meta.subscriptions[id]
+        this.sheetSvc.removeByObject(self.locals.loaded_kits, item)
+      }
+    }
+
     self.methods.removeKit = (id: string): void => {
       unloadKit(id)
       this.sheetSvc.removeByObject(self.model.homebrew_kits, id)
@@ -674,44 +709,12 @@ export class Dnd5eService {
       loadKitData()
     }
 
-    const unloadKit = (id: string): void => {
-      const item = self.locals.loaded_kits.find(x => x.id === id)
-      if (item) {
-        item.subscription.unsubscribe()
-        this.sheetSvc.removeByObject(self.locals.loaded_kits, item)
-      }
-    }
-
-    const kitIsLoaded = (id: string): boolean => !!self.locals.loaded_kits.find(x => id === x.id)
-
-    const kitSubscribe = (kit: HomebrewKitBase): void => { self.locals.kit_data[kit.id] = kit.dnd5e }
-
     const prepareKitList = (): void => {
       self.locals.available_kits$ = this.store.player$.pipe(
-        takeWhile(() => self.meta.watching),
         map((tools: BtPlayerTool[]) => tools.filter((tool: BtPlayerTool) => {
           return tool.tool_type === 'homebrew-kit' && ['owner', 'writer'].includes(tool.role) && tool.kit_type === 'dnd5e'
         })),
       )
-    }
-
-    const loadKitData = (): void => {
-      if (self.model.homebrew_kits) {
-        self.model.homebrew_kits.filter(id => !kitIsLoaded(id)).forEach(id => {
-          const obj: any = {
-            id,
-            stream$: this.store.getHomebrewKit(id).pipe(
-              takeWhile(() => self.meta.watching)
-            )
-          }
-          obj.subscription = obj.stream$.subscribe(kitSubscribe, ()=>{}, () => unloadKit(id))
-          self.locals.loaded_kits.push(obj)
-        })
-      }
-    }
-
-    const listKitDataByKey = (collectionKey: string): any[] => {
-      return Object.keys(self.locals.kit_data).reduce((acc, key) => acc.concat(self.locals.kit_data[key][collectionKey] || []), [])
     }
 
     // Klasses

@@ -1,5 +1,11 @@
 {
   "posts": [
+    
+    {
+      "title": "Changelog for 5.4.1",
+      "body": "",
+      "created_at": "June 1, 2020"
+    },
     {
       "title": "Changelog for 5.4.0",
       "body": "- Rewrites storage service to use Observables. In other words, better patterns, faster and smoother experience overall",

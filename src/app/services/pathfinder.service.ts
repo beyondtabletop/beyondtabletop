@@ -28,6 +28,8 @@ import { PathfinderCoreConditions } from '../models/pathfinder/core-conditions'
 import { BtPlayerTool } from '../models/common/player-tool.model';
 import { CampaignService } from './campaign.service';
 import { DicePackage } from '../models/dice/package'
+import { map } from 'rxjs/operators'
+import { HomebrewKitBase } from '../models/homebrew-kits/base'
 
 @Injectable({
   providedIn: 'root'
@@ -633,6 +635,10 @@ export class PathfinderService {
         pos: self.methods.listFeatTexts(feat).length
       })
     }
+
+    // Homebrew Kits
+    // ---------------------------------------------------
+    // TO come
 
     // Klasses
     // ---------------------------------------------------
