@@ -1,9 +1,8 @@
 {
   "posts": [
-    
     {
       "title": "Changelog for 5.4.1",
-      "body": "",
+      "body": "- Adds new Change HP button on monster tokens for quick damage dealing/healing on battlemaps\n- Fixes issue connecting dice tab to campaigns on character sheets\n- Fixes issue creating new tools using the new Observables pattern",
       "created_at": "June 1, 2020"
     },
     {

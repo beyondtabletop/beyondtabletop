@@ -46,6 +46,7 @@ export class BattlemapActiveCardCustomComponent {
 
   public incrementDamage(combatant: BattlemapCombatant, dir: number): void {
     combatant.stats.damage += dir
+    combatant.stats.damage = Math.max(combatant.stats.damage, 0)
   }
 
   public rollOneDice(sides, modifier, name, phrasing?): any[] {

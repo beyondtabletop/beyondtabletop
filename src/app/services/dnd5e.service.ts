@@ -2775,6 +2775,8 @@ export class Dnd5eService {
       const existingSelf = this.store.tools[self.model.campaign_id]
       const campaign = !!existingSelf ? existingSelf : this.campaignSvc.payload(self.model.campaign_id)
       this.store.setupToolController(campaign, 'campaign')
+      self.meta.subscriptions[self.model.campaign_id] = this.store.setupToolController(campaign, 'campaign').subscribe()
+      campaign.meta.subscriptions.home = self.meta.subscriptions[self.model.campaign_id]
     }
 
     self.methods.campaignConnected = (): boolean => {
