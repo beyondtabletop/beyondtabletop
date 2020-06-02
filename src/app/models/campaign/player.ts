@@ -8,6 +8,7 @@ export class CampaignPlayer extends BtBase {
   image: string
   sheet_id: string
   disable_audio: boolean
+  audio_mult: number
   chat_minimized: boolean
   tab: string
   $busy: boolean
@@ -21,6 +22,7 @@ export class CampaignPlayer extends BtBase {
       image: null,
       sheet_id: null,
       disable_audio: false,
+      audio_mult: 10,
       chat_minimized: false,
       tab: 'summary',
     }

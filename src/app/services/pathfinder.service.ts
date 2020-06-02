@@ -1178,7 +1178,7 @@ export class PathfinderService {
     }
 
     self.methods.getHPRemaining = (creature = self.model) => {
-      return self.methods.getHPTotal(creature) - Math.abs(creature.combat.hp.damage)
+      return self.methods.getHPTotal(creature) - creature.combat.hp.damage
     }
 
     self.methods.getHPTotal = (creature = self.model) => {
@@ -1186,12 +1186,12 @@ export class PathfinderService {
     }
 
     self.methods.getHPRingValue = (creature = self.model) => {
-      let wounds_percent = Math.min(Math.floor(Math.abs(creature.combat.hp.damage) * 100 / self.methods.getHPTotal(creature)), 100)
+      let wounds_percent = Math.min(Math.floor(creature.combat.hp.damage * 100 / self.methods.getHPTotal(creature)), 100)
       return Math.max(Math.floor(wounds_percent * 6.29), 0)
     }
 
     self.methods.HPRingColor = (creature = self.model) => {
-      let wounds_percent = Math.min(Math.floor(Math.abs(creature.combat.hp.damage) * 100 / self.methods.getHPTotal(creature)), 100)
+      let wounds_percent = Math.min(Math.floor(creature.combat.hp.damage * 100 / self.methods.getHPTotal(creature)), 100)
       return wounds_percent >= 75 ? '#c61515' : '#26e265'
     }
 

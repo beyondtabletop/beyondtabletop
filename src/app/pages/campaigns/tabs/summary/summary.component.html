@@ -217,7 +217,7 @@
       <div class="flex-row-all flex-gutters-10">
         <div class="flex-col flex-static"><label>Global volume:</label></div>
         <div class="flex-col flex-dynamic">
-          <input type="range" [(ngModel)]="self.locals.audio_mult" min="0" max="33" step="1" (ngModelChange)="self.methods.setLocalVolume()">
+          <input type="range" [(ngModel)]="self.locals.player.audio_mult" min="0" max="33" step="1" (ngModelChange)="self.methods.setLocalVolume()">
         </div>
       </div>
 

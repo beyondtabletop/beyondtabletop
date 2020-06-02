@@ -1,9 +1,14 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.4.2",
+      "body": "- Expeditious Retreat now included in Sorcerer and Warlock spell lists on D&D5e sheets\n- Active card on battlemaps can now be minimized\n- Campaign chat now changes the width of active card when open while on a battlemap\n- Local audio volume settings now saved per player on campaigns\n- Adds Change HP button on sheet tokens for quick damage dealing/healing on battlemaps\n- Fixes issue selecting connected sheets on battlemap active card",
+      "created_at": "June 2, 2020"
+    },
+    {
       "title": "Changelog for 5.4.1",
       "body": "- Adds new Change HP button on monster tokens for quick damage dealing/healing on battlemaps\n- Fixes issue connecting dice tab to campaigns on character sheets\n- Fixes issue creating new tools using the new Observables pattern",
-      "created_at": "June 1, 2020"
+      "created_at": "June 2, 2020"
     },
     {
       "title": "Changelog for 5.4.0",

@@ -2319,6 +2319,31 @@ $bg-opacity: 0.075;
     border-radius: 4px;
     box-shadow: 0 2px 5px 0 rgba($black, 0.1), 0 2px 10px 0 rgba($black, 0.07);
     padding: 10px;
+    overflow: hidden;
+    .mini-sheet-card {
+      display: none;
+      position: relative;
+      top: -4px;
+    }
+    &.minimized {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      bottom: -4px;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $border-color;
+
+      & > * {
+        display: none;
+      }
+      & > .mini-sheet-card {
+        display: block;
+      }
+    }
     .profile-image-col {
       margin-left: -10px;
       display: none;
@@ -2397,6 +2422,23 @@ $bg-opacity: 0.075;
     }
     .button-block {
       width: 100%;
+    }
+    .damage-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(white, .9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+    .corner-button {
+      position: absolute;
+      top: 4px;
+      right: 8px;
     }
   }
   .micro-field {
@@ -3086,6 +3128,13 @@ $map-size: 8000;
       left: 0;
       width: 100%;
       z-index: 10;
+    }
+  }
+  @include above-width($tablet) {
+    &:not(.chat-minimized) {
+      .sheet-card {
+        width: calc(90% - 220px);
+      }
     }
   }
 }

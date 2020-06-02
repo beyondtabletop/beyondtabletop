@@ -1,10 +1,19 @@
-<div class="sheet-card" *ngIf="combatant">
+<div class="sheet-card" *ngIf="combatant" [class.minimized]="minimized">
   <div *ngIf="self.methods.combatantConnected(combatant) else disconnected">
     <div [ngSwitch]="combatant.type">
       <bt-battlemap-active-card-dnd5e      [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'dnd5e'"></bt-battlemap-active-card-dnd5e>
       <bt-battlemap-active-card-pathfinder [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'pathfinder'"></bt-battlemap-active-card-pathfinder>
       <bt-battlemap-active-card-custom     [self]="self" [token]="token" [combatant]="combatant" *ngSwitchDefault></bt-battlemap-active-card-custom>
     </div>
+  </div>
+
+  <button class="unstyled-button base-color minimize-button h24" (click)="toggleMinimized()">
+    <i class="material-icons">keyboard_arrow_down</i>
+  </button>
+  <div class="mini-sheet-card">
+    <button class="unstyled-button base-color h36" (click)="toggleMinimized()">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </button>
   </div>
 </div>
 
@@ -16,10 +25,10 @@
       </div>
     </div>
     <div class="flex-col flex-dynamic">
-      <h2 class="h18 bm-10">Setup {{ combatant.name }}</h2>
       <div *ngIf="combatant.type else no_type">
         <div *ngIf="combatant.sheet_id else no_sheet">
-          <button *ngIf="combatant.sheet_id" class="button button-cyan" (click)="self.methods.connectCombatantToSheet(combatant)">Connect</button>
+          <h2 class="h18 bm-10">{{ combatant.name }}</h2>
+          <button *ngIf="combatant.sheet_id" class="button button-cyan" (click)="self.methods.connectCombatantToSheet(combatant)">Load sheet details</button>
         </div>
       </div>
     </div>
@@ -27,6 +36,7 @@
 </ng-template>
 
 <ng-template #no_type>
+  <h2 class="h18 bm-10">Setup {{ combatant.name }} :: Connect or enter data manually</h2>
   <div class="flex-row-all flex-gutters-5">
     <ng-container *ngIf="token else no_token">
       <div class="flex-col-4" *ngIf="token">
@@ -58,6 +68,7 @@
 </ng-template>
 
 <ng-template #no_sheet>
+  <h2 class="h18 bm-10">Choose sheet for {{ combatant.name }}</h2>
   <div class="select-wrap bm-5" *ngIf="self.locals.ready">
     <i class="material-icons">arrow_drop_down</i>
     <label>{{ combatant.sheet_id ? combatant.name : 'Connect to Sheet' }}</label>

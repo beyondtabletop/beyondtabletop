@@ -41,6 +41,9 @@
         <button class="inc-button g-neutral h36" (click)="sheet.methods.incrementDamage(-1)"><i class="material-icons">add</i></button>
       </div>
     </div>
+    <div class="tm-5">
+      <button class="micro-button button-block" (click)="toggleDamagePanel()">Change HP</button>
+    </div>
   </div>
   <div class="flex-col ability-scores">
     <div class="flex-row-all flex-gutters-5 flex-config-align-center score" *ngFor="let ability of sheet.locals.selection.abilities">
@@ -66,6 +69,30 @@
         <div class="flex-col">
           <button class="mini-button" (click)="sheet.methods.rollDamageDice(attack)">Damage</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="damage-overlay" *ngIf="damageOverlay">
+  <button class="unstyled-button base-color corner-button h24" (click)="toggleDamagePanel()">
+    <i class="material-icons">close</i>
+  </button>
+  <div class="flex-row-all flex-gutters-15">
+    <div class="flex-col flex-static">
+      <div class="bm-5">
+        <input type="number" min="0" class="form-control w-110" [(ngModel)]="damage">
+      </div>
+      <div>
+        <button class="mini-button" (click)="applyDamage()">Apply Damage</button>
+      </div>
+    </div>
+    <div class="flex-col flex-static">
+      <div class="bm-5">
+        <input type="number" min="0" class="form-control w-110" [(ngModel)]="health">
+      </div>
+      <div>
+        <button class="mini-button" (click)="applyHealing()">Apply Healing</button>
       </div>
     </div>
   </div>

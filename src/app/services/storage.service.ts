@@ -785,8 +785,8 @@ export class StorageService {
 
       const player$ = of(null).pipe(mergeMap(() => iif(
         () => playerPipe instanceof Array && playerPipe.length > 0,
+        this.player$.pipe(pipeFromArray(playerPipe)),
         of(null),
-        this.player$.pipe(pipeFromArray(playerPipe))
       )))
 
       const permissions$ = this.documentPermissions$(self.locals.document_id).pipe(

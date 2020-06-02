@@ -80,7 +80,7 @@
   <div class="flex-row-all flex-gutters-15">
     <div class="flex-col flex-static">
       <div class="bm-5">
-        <input type="number" class="form-control w-110" [(ngModel)]="damage">
+        <input type="number" min="0" class="form-control w-110" [(ngModel)]="damage">
       </div>
       <div>
         <button class="mini-button" (click)="applyDamage()">Apply Damage</button>
@@ -88,7 +88,7 @@
     </div>
     <div class="flex-col flex-static">
       <div class="bm-5">
-        <input type="number" class="form-control w-110" [(ngModel)]="health">
+        <input type="number" min="0" class="form-control w-110" [(ngModel)]="health">
       </div>
       <div>
         <button class="mini-button" (click)="applyHealing()">Apply Healing</button>

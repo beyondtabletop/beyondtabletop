@@ -76,7 +76,6 @@ export class CampaignService {
       showing_chat: false,
       chat_minimized: false,
       mute_audio: false,
-      audio_mult: 10,
       tool_owner: false,
       rolls: [],
       permissions: [],
@@ -337,17 +336,18 @@ export class CampaignService {
 
     self.methods.setLocalVolume = async () => {
       await Promise.resolve()
+      self.touch()
       self.methods.listLoadedActiveAudioCues().forEach((cue: CampaignAudioCue) => self.methods.setCueVolume(cue))
     }
 
     self.methods.setCueVolume = (cue: CampaignAudioCue) => {
       const volumePropertyName = cue.$volume === undefined ? 'volume' : '$volume'
       if (cue.$player && cue.audio_type === 'youtube') {
-        cue.$player.setVolume((cue[volumePropertyName] - 1) * self.locals.audio_mult)
+        cue.$player.setVolume((cue[volumePropertyName] - 1) * self.locals.player.audio_mult)
       }
 
       if (cue.$player && cue.audio_type !== 'youtube') {
-        cue.$player.volume = ((cue[volumePropertyName] - 1) * self.locals.audio_mult) / 100
+        cue.$player.volume = ((cue[volumePropertyName] - 1) * self.locals.player.audio_mult) / 100
       }
     }
 

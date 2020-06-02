@@ -92,12 +92,14 @@ export class BattlemapActiveCardCustomComponent {
   }
 
   public applyDamage(): void {
+    this.damage = Math.max(this.damage, 0)
     this.combatant.stats.damage += this.damage
     this.damage = 0
     this.self.touch()
   }
 
   public applyHealing(): void {
+    this.health = Math.max(this.health, 0)
     this.combatant.stats.damage -= this.health
     this.combatant.stats.damage = Math.max(this.combatant.stats.damage, 0)
     this.health = 0

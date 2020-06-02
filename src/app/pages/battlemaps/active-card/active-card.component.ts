@@ -13,6 +13,8 @@ export class BattlemapActiveCardComponent {
   @Input() public token: BattlemapToken
   @Input() public combatant: BattlemapCombatant
 
+  minimized = false
+
   constructor(
     public store: StorageService
   ) { }
@@ -20,5 +22,9 @@ export class BattlemapActiveCardComponent {
   setCombatantType(type: string) {
     this.combatant.type = type
     this.self.touch()
+  }
+
+  toggleMinimized() {
+    this.minimized = !this.minimized
   }
 }
