@@ -495,6 +495,10 @@ export class StorageService {
     const debounceDelay = 500
     const maxUndefined = 20
     const paths = this.toolPathsForSlug(toolType)
+    self.meta.toolType = toolType
+    self.meta.localSubject = new Subject()
+    self.meta.combinedSubject = new Subject()
+    self.meta.collectionSubject = new Subject()
 
     const clearChanges = (slug: string): void => {
       self.meta[slug] = {
@@ -900,10 +904,6 @@ export class StorageService {
       } else if (self.locals.document_id) {
         this.tools[self.locals.document_id] = self
         self.locals.user = this.user
-        self.meta.toolType = toolType
-        self.meta.localSubject = new Subject()
-        self.meta.combinedSubject = new Subject()
-        self.meta.collectionSubject = new Subject()
         self.touch = () => {
           self.meta.localSubject.next()
           self.meta.combinedSubject.next()
