@@ -11,7 +11,7 @@ export class CampaignAudioTypeOggComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.cue.$player = document.getElementById(this.cue.id)
-    this.cue.$player.volume = ((this.cue.volume - 1) * this.self.locals.audio_mult) / 100
+    this.cue.$player.volume = ((this.cue.volume - 1) * this.self.locals.player.audio_mult) / 100
     this.cue.$player.currentTime = this.cue.start_at
   }
 }

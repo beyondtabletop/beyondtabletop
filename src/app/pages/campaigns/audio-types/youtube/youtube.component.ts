@@ -16,7 +16,7 @@ export class CampaignAudioTypeYoutubeComponent {
   savePlayer(player: any) {
     this.player = player
     this.cue.$player = player
-    this.player.setVolume((this.cue.volume - 1) * this.self.locals.audio_mult)
+    this.player.setVolume((this.cue.volume - 1) * this.self.locals.player.audio_mult)
     if (this.cue.start_at && this.cue.start_at > 0) {
       this.player.seekTo(this.cue.start_at, true)
     }
