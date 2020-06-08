@@ -36,7 +36,7 @@
         </button>
         <div class="chat-output" id="chat-output">
           <div class="inner">
-            <div class="chat" [ngSwitch]="chat.type" *ngFor="let chat of self.methods.listChats()">
+            <div class="chat" [ngStyle]="self.methods.chatStyles()" [ngSwitch]="chat.type" *ngFor="let chat of self.methods.listChats()">
               <bt-campaign-chat-type-diceroll         [self]="self" [chat]="chat" *ngSwitchCase="'diceroll'"></bt-campaign-chat-type-diceroll>
               <bt-campaign-chat-type-secret-diceroll  [self]="self" [chat]="chat" *ngSwitchCase="'secret_diceroll'"></bt-campaign-chat-type-secret-diceroll>
               <bt-campaign-chat-type-text             [self]="self" [chat]="chat" *ngSwitchCase="'text'"></bt-campaign-chat-type-text>
@@ -48,7 +48,25 @@
           <textarea class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.chatbox" (keydown)="self.methods.interpretKeypress($event)"></textarea>
           <div class="flex-row-all flex-config-spaced flex-config-align-center">
             <button class="button send-button" (click)="self.methods.sendChat()">Send</button>
-            <button class="button-unstyled button-link" (click)="self.methods.clearChat()" *ngIf="self.locals.tool_owner">Clear</button>
+            <button class="button-unstyled base-color h24" (click)="self.methods.toggleChatSettings()">
+              <i class="material-icons">settings</i>
+            </button>
+          </div>
+        </div>
+        <div class="chat-settings" *ngIf="self.locals.chatSettings">
+          <div class="bm-10">
+            <label class="g-label">Chat Nickname</label>
+            <input type="text" placeholder="Nickname" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.player.nickname">
+          </div>
+          <div class="bm-10">
+            <label class="g-label">Font Size</label>
+            <input type="number" placeholder="Font size" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.player.font_size">
+          </div>
+          <div class="bm-10">
+            <button class="button button-red" (click)="self.methods.clearChat()" *ngIf="self.locals.tool_owner">Clear Chat</button>
+          </div>
+          <div>
+            <button class="button button-gray" (click)="self.methods.toggleChatSettings()">Done</button>
           </div>
         </div>
       </div>

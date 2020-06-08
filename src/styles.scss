@@ -3225,9 +3225,7 @@ $map-size: 8000;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding-right: 15px;
-    padding-top: 20px;
-    padding-left: 20px;
+    padding: 16px 8px 0;
     textarea {
       margin-bottom: 10px;
     }
@@ -3237,6 +3235,15 @@ $map-size: 8000;
       @include font-size(14, 1);
       padding: 10px 15px;
     }
+  }
+  .chat-settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(white, .95);
+    padding: 16px 8px;
   }
   .chat {
     margin: 0 0 10px;
@@ -3289,6 +3296,9 @@ $map-size: 8000;
     }
   }
   @include above-tablet {
+    .chat-settings {
+      display: none;
+    }
     .table-chats {
       height: 32px;
       width: 32px;

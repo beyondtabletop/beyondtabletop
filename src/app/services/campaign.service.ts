@@ -75,6 +75,7 @@ export class CampaignService {
       available_space: 'area-below-desktop',
       showing_chat: false,
       chat_minimized: false,
+      chatSettings: false,
       mute_audio: false,
       tool_owner: false,
       rolls: [],
@@ -275,6 +276,18 @@ export class CampaignService {
       self.locals.chat_minimized = !self.locals.chat_minimized
       self.locals.player.chat_minimized = self.locals.chat_minimized
       self.touch()
+    }
+
+    self.methods.toggleChatSettings = (): void => {
+      self.locals.chatSettings = !self.locals.chatSettings
+    }
+
+    self.methods.chatStyles = (): any => {
+      const styles: any = {}
+      if (typeof self.locals.player.font_size === 'number') {
+        styles['font-size'] = `${self.locals.player.font_size}px`
+      }
+      return styles
     }
 
     // Players
