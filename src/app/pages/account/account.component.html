@@ -21,7 +21,20 @@
           Enable alpha tools still in development
         </label>
       </div>
-      <button class="button button-cyan" (click)="save()">Save</button>
+      <div class="bm-120">
+        <button class="button button-cyan" (click)="save()">Save</button>
+      </div>
+      <div *ngIf="!confirming else confirmingPanel">
+        <p>Beyond Tabletop stores minimal amount of data to maintain your account. If you'd like to completely destroy this data, you'll need to delete your account using the button below. Please keep in mind that any Beyond Tabletop tools that you have created, including character sheets, maps, and campaigns, will be instantly and permanently deleted along with your account data. You can always sign up for a new account in the future, but your tools will not be restored.</p>
+        <button class="button button-red" (click)="toggleConfirmDelete()">Completely Erase All My Data</button>
+      </div>
+      <ng-template #confirmingPanel>
+        <h2 class="h24 bm-15 weight-bold">ARE YOU ABSOLUTELY SURE YOU WANT TO DELETE ALL YOUR BEYOND TABLETOP DATA FOREVER?</h2>
+        <div class="bm-15">
+          <button class="button button-red" (click)="deleteAccount()">YES PERMANENTLY DELETE EVERYTHING</button>
+        </div>
+        <button class="button button-gray" (click)="toggleConfirmDelete()">Actually I changed my mind, belay that order</button>
+      </ng-template>
     </div>
   </div>
   <bt-interface></bt-interface>

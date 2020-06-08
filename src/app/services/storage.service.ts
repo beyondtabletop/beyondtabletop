@@ -206,7 +206,11 @@ export class StorageService {
 
   // Deletes all permissions for a tool
   public deleteFirebaseToolPermissions = (docId: string): Promise<any> => {
-    return this.db.object(`permissions/${docId}`).remove()
+    try {
+      return this.db.object(`permissions/${docId}`).remove()
+    } catch {
+      return Promise.resolve()
+    }
   }
 
   // Deletes single permission for one user for a tool
