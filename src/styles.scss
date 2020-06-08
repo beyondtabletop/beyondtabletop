@@ -3179,6 +3179,7 @@ $map-size: 8000;
     right: 20px;
     height: 450px;
     width: 220px;
+    transition: 300ms;
   }
   &.show-on-mobile {
     @include below-width($tablet) {
@@ -3212,6 +3213,9 @@ $map-size: 8000;
     height: calc(100% - 130px);
     .inner {
       padding: 15px 15px 0 20px;
+      @include above-tablet {
+        padding: 16px 8px 0 8px;
+      }
     }
   }
   .chat-input {
@@ -3253,22 +3257,14 @@ $map-size: 8000;
 
 .chat-toggle {
   display: none;
-  background: transparent;
-  border: 1px solid #CCC;
-  border-radius: 3px;
-  padding: 2px;
+  background: white;
   color: #BBB;
-  @include font-size(16, 1);
+  @include font-size(32, 1);
   position: absolute;
-  top: -25px;
-  right: 0;
+  top: 4px;
+  right: 4px;
   z-index: 4;
   @include above-tablet {
-    display: block;
-  }
-  i {
-    width: 16px;
-    height: 16px;
     display: block;
   }
   .bt-caret-down {
@@ -3281,7 +3277,9 @@ $map-size: 8000;
 
 .chat-minimized {
   .chat-toggle {
-    right: 5px;
+    background: transparent;
+    right: auto;
+    top: auto;
     .bt-caret-down {
       display: none;
     }
@@ -3291,8 +3289,9 @@ $map-size: 8000;
   }
   @include above-tablet {
     .table-chats {
-      height: 0;
-      border: 0;
+      height: 32px;
+      width: 32px;
+      border: 1px solid $border-color;
       .chat-output, .chat-input {
         display: none;
       }
