@@ -22,7 +22,7 @@
             </div>
           </div>
           <div *ngIf="self.methods.isSpontaneousCaster(klass)">
-            <table class="table bm-20" *ngIf="self.methods.isListedCaster(klass)">
+            <table class="table bm-20" *ngIf="!self.methods.showCustomSpellsKnown(klass)">
               <thead>
                 <tr>
                   <th>Level</th>
@@ -36,8 +36,7 @@
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!self.methods.isListedCaster(klass)">
-
+            <div *ngIf="self.methods.showCustomSpellsKnown(klass)">
               <h4 class="gh4">Spells Known</h4>
               <div class="flex-row-all flex-gutters-5 bm-5" *ngFor="let slot of self.methods.listSpellsKnown(klass); index as i">
                 <div class="flex-col-2">

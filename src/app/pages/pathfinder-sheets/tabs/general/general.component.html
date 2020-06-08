@@ -64,7 +64,8 @@
             <div class="flex-col-6">
               <div class="level-col">
                 <div class="form-group">
-                  <div class="select-wrap">
+                  <input type="number" class="form-control" (ngModelChange)="self.methods.onLevelChange()" [(ngModel)]="klass.level" *ngIf="self.model.prefs.homebrew">
+                  <div class="select-wrap" *ngIf="!self.model.prefs.homebrew">
                     <i class="material-icons">arrow_drop_down</i>
                     <label>{{ klass.level }}</label>
                     <select class="form-control" (ngModelChange)="self.methods.onLevelChange()" [(ngModel)]="klass.level">

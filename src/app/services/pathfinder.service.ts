@@ -1955,8 +1955,14 @@ export class PathfinderService {
 
     self.methods.isSpontaneousCaster = (klass) => {
       if (!self.locals.ready) { return true }
-      let klass_data = self.methods.getKlassData(klass.name)
-      return !klass_data || klass_data.levels[klass.level - 1].spells_known.length > 0
+      const klassData = self.methods.getKlassData(klass.name)
+      const levelData = klassData && klassData.levels[klass.level - 1] || {}
+
+      if (!klassData || !klassData.levels[klass.level - 1]) {
+        return true
+      }
+
+      return levelData.spells_known && levelData.spells_known.length > 0
     }
 
     self.methods.listSpontaneousCasters = () => {
@@ -1969,6 +1975,16 @@ export class PathfinderService {
         listed = !!self.methods.getKlassData(klass.name)
       }
       return listed
+    }
+
+    self.methods.showCustomSpellsKnown = (klass) => {
+      let custom = true
+      if (self.locals.ready) {
+        const klassData = self.methods.getKlassData(klass.name)
+        const levelData = klassData && klassData.levels[klass.level - 1]
+        custom = !klassData || !levelData
+      }
+      return custom
     }
 
     self.methods.reduceSTRForCapacity = (str) => {
@@ -2307,7 +2323,9 @@ export class PathfinderService {
       self.methods.updateSpells(false)
 
       if (!should_skip_reset) {
-        self.methods.enforceLevelCap()
+        if (!self.model.prefs.homebrew) {
+          self.methods.enforceLevelCap()
+        }
         self.methods.updateBABAndSaves()
         self.methods.updateSkills()
       }
@@ -2327,8 +2345,10 @@ export class PathfinderService {
 
     self.methods.enforceLevelCap = () => {
       self.methods.listKlasses().forEach(klass => {
-        let data = self.methods.getKlassData(klass.name)
-        klass.level = Math.min((!data ? 20 : data.levels.length), klass.level)
+        const data = self.methods.getKlassData(klass.name)
+        if (data) {
+          klass.level = Math.min(data.levels.length, klass.level)
+        }
       })
     }
 
@@ -2336,34 +2356,51 @@ export class PathfinderService {
       array.forEach(x => x.value = reset)
     }
 
-    self.methods.updateBABAndSaves = () => {
-      let fort_value = 0,
-        ref_value = 0,
-        will_value = 0,
-        bab_value = 0
+    const updateChunkyStat = (acc, name, data, levelPosition) => {
+      acc[name].value += self.locals.data[`${name === 'bab' ? 'bab' : 'save'}_types`][data[name]][levelPosition]
+      acc[name].update = true
+    }
 
-      self.methods.listKlasses().forEach(klass => {
+    self.methods.updateBABAndSaves = () => {
+      const reductionData = self.methods.listKlasses().reduce((acc, klass) => {
         const data = self.methods.getKlassData(klass.name)
-        if (!data) { return }
-        const level_position = klass.level - 1
-        bab_value = bab_value + self.locals.data.bab_types[data.bab][level_position]
-        fort_value = fort_value + self.locals.data.save_types[data.fort][level_position]
-        ref_value  = ref_value + self.locals.data.save_types[data.ref][level_position]
-        will_value = will_value + self.locals.data.save_types[data.will][level_position]
+        const levelPosition = klass.level - 1
+        const outOfRange = data && (levelPosition >= data.levels.length || levelPosition < 0)
+        if (!data || outOfRange) { return acc }
+
+        ['bab', 'fort', 'ref', 'will'].forEach(name => updateChunkyStat(acc, name, data, levelPosition))
+        return acc
+      }, {
+        bab:  { value: 0, update: false },
+        ref:  { value: 0, update: false },
+        will: { value: 0, update: false },
+        fort: { value: 0, update: false },
       })
 
-      self.model.combat.bab.value = bab_value
-      self.methods.getSave(0).base = fort_value
-      self.methods.getSave(1).base = ref_value
-      self.methods.getSave(2).base = will_value
+      if (reductionData.bab.update) {
+        self.model.combat.bab.value = reductionData.bab.value
+      }
+
+      self.methods.listSaves().forEach(save => {
+        const name = save.name.toLowerCase()
+        if (reductionData[name].update) {
+          save.base = reductionData[name].value
+        }
+      })
     }
 
     self.methods.updateSkills = () => {
       const skillsArray = self.methods.listSkills()
       skillsArray.forEach(skill => skill.class_skill = false)
-      self.methods.listKlasses().map(klass => self.methods.getKlassData(klass.name)).filter(data => !!data).forEach(data => {
-        data.skills.map(name => skillsArray.find(skill => skill.name === name)).filter(skill => !!skill).forEach(skill => skill.class_skill = true)
-      })
+      self.methods.listKlasses()
+        .map(klass => self.methods.getKlassData(klass.name))
+        .filter(data => !!data)
+        .forEach(data => {
+          data.skills
+          .map(name => skillsArray.find(skill => skill.name === name))
+          .filter(skill => !!skill)
+          .forEach(skill => skill.class_skill = true)
+        })
     }
 
     /*
@@ -2375,16 +2412,18 @@ export class PathfinderService {
       let load_spells_class = null
 
       self.methods.listKlasses().forEach(klass => {
-        let data = self.methods.getKlassData(klass.name)
-        if (!data) { return }
+        const data = self.methods.getKlassData(klass.name)
+        const levelData = data && data.levels[klass.level - 1]
+        if (!data || !levelData) { return }
 
         let ability_mod = self.methods.getAbilityMod(self.model.abilities[klass.spell_ability])
         load_spells_class = self.methods.isClassSpellcaster(klass.name) ? klass.name : null
 
         klass.spell_ability = data.spell_ability || 'INT'
 
-        let spd = data.levels[klass.level - 1].spells_per_day
-        let knwn = data.levels[klass.level - 1].spells_known
+
+        const spd = levelData.spells_per_day || 0
+        const knwn = levelData.spells_known || 0
 
         self.methods.listSpellsPerDay(klass).forEach((slot: any, index: number) => {
           let bonus = Math.floor((ability_mod - index) / 4) + 1
