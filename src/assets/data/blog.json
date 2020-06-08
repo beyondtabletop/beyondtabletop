@@ -2,7 +2,7 @@
   "posts": [
     {
       "title": "Changelog for 5.4.3",
-      "body": "- Allows homebrew Pathfinder sheets to be set to any level, achieving true homebrew mode\n- Adds minimizing animations for battlemaps active card and campaign chat\n- Refreshed UI for campaign chat\n- Adds new setting panel in chat for adjusting font size and nickname\n- ",
+      "body": "- Allows homebrew Pathfinder sheets to be set to any level, achieving true homebrew mode\n- Adds minimizing animations for battlemaps active card and campaign chat\n- Refreshed UI for campaign chat\n- Adds new setting panel in chat for adjusting font size and nickname\n- Adds button on Account page to fully delete all stored data\n- Fixes dice button attacks for higher-level monsters added to battlemaps",
       "created_at": "June 2, 2020"
     },
     {

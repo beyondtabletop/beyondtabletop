@@ -17,7 +17,7 @@
       "ac": 9,
       "ac_type": "",
       "hp": 10,
-      "hp_makeup": "(3d6 + 0)",
+      "hp_makeup": "(3d6)",
       "base_speed": "20 ft.",
       "other_speed": "",
       "infos": [
@@ -80,7 +80,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 3,
-      "hp_makeup": "(1d6 + 0)",
+      "hp_makeup": "(1d6)",
       "base_speed": "30 ft.",
       "other_speed": "(climb 30 ft.)",
       "infos": [
@@ -224,7 +224,7 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20",
           "damage": "1 piercing damage."
         }
       ]
@@ -246,7 +246,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "40 ft.",
       "other_speed": "(climb 30 ft.)",
       "infos": [
@@ -285,7 +285,7 @@
       "attacks": [
         {
           "name": "Claws",
-          "attack": "d20 + 0",
+          "attack": "d20",
           "damage": "1 slashing damage."
         }
       ]
@@ -307,7 +307,7 @@
       "ac": 10,
       "ac_type": "",
       "hp": 4,
-      "hp_makeup": "(1d8 + 0)",
+      "hp_makeup": "(1d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -360,7 +360,7 @@
       "ac": 11,
       "ac_type": "(Natural Armor)",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "20 ft.",
       "other_speed": "(swim 20 ft.)",
       "infos": [
@@ -396,7 +396,7 @@
       "attacks": [
         {
           "name": "Claw",
-          "attack": "d20 + 0",
+          "attack": "d20",
           "damage": "1 bludgeoning damage."
         }
       ]
@@ -418,7 +418,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 4,
-      "hp_makeup": "(1d8 + 0)",
+      "hp_makeup": "(1d8)",
       "base_speed": "50 ft.",
       "other_speed": "",
       "infos": [
@@ -471,7 +471,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 3,
-      "hp_makeup": "(1d6 + 0)",
+      "hp_makeup": "(1d6)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 60 ft.)",
       "infos": [
@@ -642,7 +642,7 @@
       "ac": 10,
       "ac_type": "",
       "hp": 4,
-      "hp_makeup": "(1d8 + 0)",
+      "hp_makeup": "(1d8)",
       "base_speed": "40 ft.",
       "other_speed": "",
       "infos": [
@@ -758,7 +758,7 @@
       "ac": 13,
       "ac_type": "(Natural Armor)",
       "hp": 5,
-      "hp_makeup": "(2d4 + 0)",
+      "hp_makeup": "(2d4)",
       "base_speed": "20 ft.",
       "other_speed": "(fly 40 ft.)",
       "infos": [
@@ -881,7 +881,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 3,
-      "hp_makeup": "(1d6 + 0)",
+      "hp_makeup": "(1d6)",
       "base_speed": "40 ft.",
       "other_speed": "",
       "infos": [
@@ -942,7 +942,7 @@
       "ac": 7,
       "ac_type": "",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "15 ft.",
       "other_speed": "",
       "infos": [
@@ -1008,7 +1008,7 @@
       "ac": 10,
       "ac_type": "",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "20 ft.",
       "other_speed": "(climb 20 ft.)",
       "infos": [
@@ -1036,7 +1036,7 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20",
           "damage": "1 piercing damage."
         }
       ]
@@ -1058,7 +1058,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 3,
-      "hp_makeup": "(1d6 + 0)",
+      "hp_makeup": "(1d6)",
       "base_speed": "5 ft.",
       "other_speed": "(swim 30 ft.)",
       "infos": [
@@ -1276,7 +1276,7 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20",
           "damage": "1 piercing damage."
         }
       ]
@@ -1454,7 +1454,7 @@
       "ac": 5,
       "ac_type": "",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "0 ft.",
       "other_speed": "",
       "infos": [
@@ -1741,7 +1741,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 7,
-      "hp_makeup": "(2d6 + 0)",
+      "hp_makeup": "(2d6)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 60 ft.)",
       "infos": [
@@ -1860,7 +1860,7 @@
       "ac": 12,
       "ac_type": "(Leather Armor)",
       "hp": 9,
-      "hp_makeup": "(2d8 + 0)",
+      "hp_makeup": "(2d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -1921,7 +1921,7 @@
       "ac": 14,
       "ac_type": "",
       "hp": 5,
-      "hp_makeup": "(2d4 + 0)",
+      "hp_makeup": "(2d4)",
       "base_speed": "30 ft.",
       "other_speed": "(fly 60 ft., swim 30 ft.)",
       "infos": [
@@ -1983,7 +1983,7 @@
       "ac": 15,
       "ac_type": "(Natural Armor)",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "30 ft.",
       "other_speed": "(swim 30 ft.)",
       "infos": [
@@ -2041,7 +2041,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 7,
-      "hp_makeup": "(2d6 + 0)",
+      "hp_makeup": "(2d6)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -2105,7 +2105,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 9,
-      "hp_makeup": "(2d8 + 0)",
+      "hp_makeup": "(2d8)",
       "base_speed": "40 ft.",
       "other_speed": "",
       "infos": [
@@ -2473,7 +2473,7 @@
       "ac": 15,
       "ac_type": "(Breastplate)",
       "hp": 9,
-      "hp_makeup": "(2d8 + 0)",
+      "hp_makeup": "(2d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -2534,7 +2534,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "30 ft.",
       "other_speed": "(swim 30 ft.)",
       "infos": [
@@ -2644,7 +2644,7 @@
       "ac": 14,
       "ac_type": "(Natural Armor)",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 40 ft.)",
       "infos": [
@@ -2758,7 +2758,7 @@
       "ac": 10,
       "ac_type": "",
       "hp": 9,
-      "hp_makeup": "(2d8 + 0)",
+      "hp_makeup": "(2d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -3177,7 +3177,7 @@
       "ac": 15,
       "ac_type": "(Chain Shirt)",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -3302,7 +3302,7 @@
       "ac": 17,
       "ac_type": "(Natural Armor)",
       "hp": 17,
-      "hp_makeup": "(5d6 + 0)",
+      "hp_makeup": "(5d6)",
       "base_speed": "0 ft.",
       "other_speed": "(fly 50 ft. (hover))",
       "infos": [
@@ -3430,7 +3430,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 22,
-      "hp_makeup": "(4d10 + 0)",
+      "hp_makeup": "(4d10)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 60 ft.)",
       "infos": [
@@ -3538,7 +3538,7 @@
       "ac": 11,
       "ac_type": "",
       "hp": 18,
-      "hp_makeup": "(4d8 + 0)",
+      "hp_makeup": "(4d8)",
       "base_speed": "30 ft.",
       "other_speed": "(swim 30 ft.)",
       "infos": [
@@ -3855,7 +3855,7 @@
       "ac": 15,
       "ac_type": "(Leather Armor, Shield)",
       "hp": 7,
-      "hp_makeup": "(2d6 + 0)",
+      "hp_makeup": "(2d6)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -3987,7 +3987,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "50 ft.",
       "other_speed": "(climb 40 ft.)",
       "infos": [
@@ -4250,7 +4250,7 @@
       "ac": 15,
       "ac_type": "(Leather Armor)",
       "hp": 2,
-      "hp_makeup": "(1d4 + 0)",
+      "hp_makeup": "(1d4)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 40 ft.)",
       "infos": [
@@ -4314,7 +4314,7 @@
       "ac": 10,
       "ac_type": "",
       "hp": 21,
-      "hp_makeup": "(6d6 + 0)",
+      "hp_makeup": "(6d6)",
       "base_speed": "30 ft.",
       "other_speed": "(fly 30 ft.)",
       "infos": [
@@ -4377,7 +4377,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "0 ft.",
       "other_speed": "(fly 30 ft.)",
       "infos": [
@@ -4571,7 +4571,7 @@
       "ac": 5,
       "ac_type": "",
       "hp": 18,
-      "hp_makeup": "(4d8 + 0)",
+      "hp_makeup": "(4d8)",
       "base_speed": "5 ft.",
       "other_speed": "",
       "infos": [
@@ -5059,7 +5059,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 17,
-      "hp_makeup": "(5d6 + 0)",
+      "hp_makeup": "(5d6)",
       "base_speed": "30 ft.",
       "other_speed": "(fly 30 ft.)",
       "infos": [
@@ -5187,7 +5187,7 @@
       "ac": 13,
       "ac_type": "(Natural Armor)",
       "hp": 16,
-      "hp_makeup": "(3d10 + 0)",
+      "hp_makeup": "(3d10)",
       "base_speed": "0 ft.",
       "other_speed": "(swim 40 ft.)",
       "infos": [
@@ -5245,7 +5245,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 13,
-      "hp_makeup": "(3d8 + 0)",
+      "hp_makeup": "(3d8)",
       "base_speed": "10 ft.",
       "other_speed": "(fly 50 ft.)",
       "infos": [
@@ -5300,7 +5300,7 @@
       "ac": 15,
       "ac_type": "(Hide Armor, Shield)",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -5562,7 +5562,7 @@
       "ac": 11,
       "ac_type": "",
       "hp": 21,
-      "hp_makeup": "(6d6 + 0)",
+      "hp_makeup": "(6d6)",
       "base_speed": "30 ft.",
       "other_speed": "(fly 30 ft.)",
       "infos": [
@@ -6110,7 +6110,7 @@
       "ac": 14,
       "ac_type": "(Leather Armor)",
       "hp": 31,
-      "hp_makeup": "(7d8 + 0)",
+      "hp_makeup": "(7d8)",
       "base_speed": "40 ft.",
       "other_speed": "",
       "infos": [
@@ -6318,7 +6318,7 @@
       "ac": 12,
       "ac_type": "(Natural Armor)",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "20 ft.",
       "other_speed": "(climb 20 ft.)",
       "infos": [
@@ -7086,7 +7086,7 @@
       "ac": 11,
       "ac_type": "(16 With Barkskin)",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -7214,7 +7214,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -7957,7 +7957,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 7,
-      "hp_makeup": "(3d4 + 0)",
+      "hp_makeup": "(3d4)",
       "base_speed": "40 ft.",
       "other_speed": "",
       "infos": [
@@ -8031,7 +8031,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 22,
-      "hp_makeup": "(5d8 + 0)",
+      "hp_makeup": "(5d8)",
       "base_speed": "0 ft.",
       "other_speed": "(fly 50 ft. (hover))",
       "infos": [
@@ -8098,7 +8098,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 27,
-      "hp_makeup": "(6d8 + 0)",
+      "hp_makeup": "(6d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -9143,7 +9143,7 @@
       "ac": 13,
       "ac_type": "",
       "hp": 36,
-      "hp_makeup": "(8d8 + 0)",
+      "hp_makeup": "(8d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -9541,7 +9541,7 @@
       "ac": 14,
       "ac_type": "(Natural Armor)",
       "hp": 27,
-      "hp_makeup": "(6d8 + 0)",
+      "hp_makeup": "(6d8)",
       "base_speed": "30 ft.",
       "other_speed": "(climb 30 ft.)",
       "infos": [
@@ -10459,7 +10459,7 @@
       "ac": 12,
       "ac_type": "",
       "hp": 33,
-      "hp_makeup": "(6d10 + 0)",
+      "hp_makeup": "(6d10)",
       "base_speed": "10 ft.",
       "other_speed": "",
       "infos": [
@@ -10709,7 +10709,7 @@
       "ac": 14,
       "ac_type": "",
       "hp": 36,
-      "hp_makeup": "(8d8 + 0)",
+      "hp_makeup": "(8d8)",
       "base_speed": "30 ft.",
       "other_speed": "(swim 30 ft.)",
       "infos": [
@@ -10914,7 +10914,7 @@
       "ac": 19,
       "ac_type": "",
       "hp": 22,
-      "hp_makeup": "(9d4 + 0)",
+      "hp_makeup": "(9d4)",
       "base_speed": "0 ft.",
       "other_speed": "(fly 50 ft. (hover))",
       "infos": [
@@ -12611,7 +12611,7 @@
       "ac": 11,
       "ac_type": "",
       "hp": 45,
-      "hp_makeup": "(10d8 + 0)",
+      "hp_makeup": "(10d8)",
       "base_speed": "0 ft.",
       "other_speed": "(fly 40 ft. (hover))",
       "infos": [
@@ -14934,7 +14934,7 @@
       "ac": 12,
       "ac_type": "(15 With Mage Armor)",
       "hp": 40,
-      "hp_makeup": "(9d8 + 0)",
+      "hp_makeup": "(9d8)",
       "base_speed": "30 ft.",
       "other_speed": "",
       "infos": [
@@ -15033,12 +15033,12 @@
       "attacks": [
         {
           "name": "Gore",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "4d8 + 7"
         },
         {
           "name": "Stomp",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "4d10 + 7"
         }
       ]
@@ -16393,12 +16393,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "4d12 + 7"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "3d8 + 7"
         }
       ]
@@ -16765,12 +16765,12 @@
       "attacks": [
         {
           "name": "Morningstar",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "3d8 + 8"
         },
         {
           "name": "Rock",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "4d10 + 8"
         }
       ]
@@ -16837,12 +16837,12 @@
       "attacks": [
         {
           "name": "Greatsword",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "6d6 + 7"
         },
         {
           "name": "Rock",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "4d10 + 7"
         }
       ]
@@ -16986,12 +16986,12 @@
       "attacks": [
         {
           "name": "Slam",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "3d6 + 6"
         },
         {
           "name": "Rock",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "4d10 + 6"
         }
       ]
@@ -17134,12 +17134,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 6"
         }
       ]
@@ -17430,7 +17430,7 @@
       "attacks": [
         {
           "name": "Slam",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "3d8 + 6"
         }
       ]
@@ -17502,12 +17502,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 6"
         }
       ]
@@ -17575,12 +17575,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 6"
         }
       ]
@@ -17644,12 +17644,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "3d10 + 6"
         },
         {
           "name": "Constrict",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d10 + 6"
         }
       ]
@@ -17779,12 +17779,12 @@
       "attacks": [
         {
           "name": "Scimitar",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 6"
         },
         {
-          "name": "Hurl Flame Ranged Spell Attack: +7 to hit, range 120 ft., one target.",
-          "attack": "d20 + Hit",
+          "name": "Hurl Flame",
+          "attack": "d20 + 7",
           "damage": "5d6"
         }
       ]
@@ -17937,12 +17937,12 @@
       "attacks": [
         {
           "name": "Fork",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d8 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "1d8 + 6"
         },
         {
@@ -18006,7 +18006,7 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "6d10 + 7"
         }
       ]
@@ -18074,12 +18074,12 @@
       "attacks": [
         {
           "name": "Beak",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "4d8 + 9"
         },
         {
           "name": "Talons",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "4d6 + 9"
         }
       ]
@@ -18305,17 +18305,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d6 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d8 + 6"
         }
       ]
@@ -18393,17 +18393,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d6 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d8 + 6"
         }
       ]
@@ -18477,12 +18477,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "5d10 + 5"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "3d6 + 5"
         }
       ]
@@ -18624,12 +18624,12 @@
       "attacks": [
         {
           "name": "Greatsword",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "6d6 + 9"
         },
         {
           "name": "Rock",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "4d12 + 9"
         }
       ]
@@ -18795,17 +18795,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d6 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d8 + 6"
         }
       ]
@@ -18884,17 +18884,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d6 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d8 + 6"
         }
       ]
@@ -18969,17 +18969,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 5"
         },
         {
           "name": "Claws",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d4 + 5"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 0",
+          "attack": "d20 + 10",
           "damage": "2d6 + 5"
         }
       ]
@@ -19060,17 +19060,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d10 + 7"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d6 + 7"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d8 + 7"
         }
       ]
@@ -19152,17 +19152,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d10 + 6"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d6 + 6"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 1",
+          "attack": "d20 + 11",
           "damage": "2d8 + 6"
         }
       ]
@@ -19321,7 +19321,7 @@
       "attacks": [
         {
           "name": "Greatsword",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "4d6 + 7"
         }
       ]
@@ -19465,17 +19465,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d10 + 7"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d6 + 7"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d8 + 7"
         }
       ]
@@ -19556,17 +19556,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "2d8 + 8"
         }
       ]
@@ -19632,12 +19632,12 @@
       "attacks": [
         {
           "name": "Slam",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "3d8 + 7"
         },
         {
           "name": "Sword",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "3d10 + 7"
         }
       ]
@@ -19802,17 +19802,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d8 + 8"
         }
       ]
@@ -19890,17 +19890,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d8 + 8"
         }
       ]
@@ -19983,7 +19983,7 @@
       "attacks": [
         {
           "name": "Claw",
-          "attack": "d20 + 2",
+          "attack": "d20 + 12",
           "damage": "2d10 + 6"
         }
       ]
@@ -20050,17 +20050,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "3d12 + 7"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "2d8 + 7"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "3d12 + 7"
         }
       ]
@@ -20136,12 +20136,12 @@
       "attacks": [
         {
           "name": "Longsword",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "3d8 + 8"
         },
         {
           "name": "Whip",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         }
       ]
@@ -20221,17 +20221,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d8 + 8"
         }
       ]
@@ -20309,17 +20309,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d8 + 8"
         }
       ]
@@ -20396,22 +20396,22 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "4d6 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d8 + 8"
         },
         {
           "name": "Mace",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 4",
+          "attack": "d20 + 14",
           "damage": "3d10 + 8"
         }
       ]
@@ -20489,17 +20489,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d8 + 8"
         }
       ]
@@ -20579,17 +20579,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d8 + 8"
         }
       ]
@@ -20758,12 +20758,12 @@
       "attacks": [
         {
           "name": "Greatsword",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "4d6 + 8"
         },
         {
           "name": "Slaying Longbow",
-          "attack": "d20 + 3",
+          "attack": "d20 + 13",
           "damage": "2d8 + 6"
         }
       ]
@@ -20844,17 +20844,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d10 + 9"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d6 + 9"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d8 + 9"
         }
       ]
@@ -20936,17 +20936,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d10 + 8"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "4d6 + 8"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 5",
+          "attack": "d20 + 15",
           "damage": "2d8 + 8"
         }
       ]
@@ -21024,17 +21024,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d10 + 9"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d6 + 9"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 6",
+          "attack": "d20 + 16",
           "damage": "2d8 + 9"
         }
       ]
@@ -21115,17 +21115,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d10 + 10"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d6 + 10"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d8 + 10"
         }
       ]
@@ -21205,12 +21205,12 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "3d8 + 10"
         },
         {
           "name": "Tentacle",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "3d6 + 10"
         }
       ]
@@ -21292,17 +21292,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d10 + 10"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d6 + 10"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d8 + 10"
         }
       ]
@@ -21380,17 +21380,17 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d10 + 10"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d6 + 10"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 7",
+          "attack": "d20 + 17",
           "damage": "2d8 + 10"
         }
       ]
@@ -21473,22 +21473,22 @@
       "attacks": [
         {
           "name": "Bite",
-          "attack": "d20 + 9",
+          "attack": "d20 + 19",
           "damage": "4d12 + 10"
         },
         {
           "name": "Claw",
-          "attack": "d20 + 9",
+          "attack": "d20 + 19",
           "damage": "4d8 + 10"
         },
         {
           "name": "Horns",
-          "attack": "d20 + 9",
+          "attack": "d20 + 19",
           "damage": "4d10 + 10"
         },
         {
           "name": "Tail",
-          "attack": "d20 + 9",
+          "attack": "d20 + 19",
           "damage": "4d6 + 10"
         }
       ]
