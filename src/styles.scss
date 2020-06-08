@@ -3132,7 +3132,7 @@ $map-size: 8000;
   }
   @include above-width($tablet) {
     &:not(.chat-minimized) {
-      .sheet-card {
+      .sheet-card:not(.minimized) {
         width: calc(90% - 220px);
       }
     }
@@ -3257,7 +3257,8 @@ $map-size: 8000;
 
 .chat-toggle {
   display: none;
-  background: white;
+  background: rgba(white, .9);
+  border-radius: 4px;
   color: #BBB;
   @include font-size(32, 1);
   position: absolute;
