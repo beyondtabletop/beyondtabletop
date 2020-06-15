@@ -274,6 +274,7 @@ export class StorageService {
         // If it finds the permission already, we aren't
         // creating a new tool so it rerolls the newDocId
         if (permissions.length !== 0) {
+          console.log(permissions)
           return this.createFirebaseTool$(toolType, userId)
         } else {
           return of({
@@ -309,11 +310,6 @@ export class StorageService {
     const targetDocId = this.sheetSvc.randomSecureString(this.sheetSvc.randomNumber(28, 35))
     const paths = this.toolPathsForSlug(toolType)
 
-    // This checks to see if any permissions for this tool already exist
-    // If it finds the permission already, we aren't
-    // creating a new tool so it rerolls the id
-    const recursive$ = this.copyFirebaseTool$(sourceDocId, toolType, userId, toolTitle)
-
     const associations$ = this.setupToolAssociations$(
       toolType,
       targetDocId,
@@ -324,17 +320,27 @@ export class StorageService {
         name: this.user.name,
       },
       `Copy of ${toolTitle}`,
-    )
+    ).pipe(map(x => true))
 
     return this.documentPermissions$(targetDocId).pipe(
-      mergeMap((list) => iif(() => list.length === 0, associations$, recursive$)),
       take(1),
+      switchMap((list) => {
+        // This checks to see if any permissions for this tool already exist
+        // If it finds the permission already, we aren't
+        // creating a new tool so it rerolls the id
+        if (list.length !== 0) {
+          return this.copyFirebaseTool$(sourceDocId, toolType, userId, toolTitle)
+        }
+        return associations$
+      }),
+      filter(x => x),
       switchMap(() => this.snapshotOfDocument$(paths.db_path, sourceDocId)),
       tap(async (source) => {
         const targetRef = this.db.object(`${paths.db_path}/${targetDocId}`)
         source.name = `Copy of ${source.name}`
         await targetRef.set(source)
       }),
+      map(x => false)
     )
   }
 
