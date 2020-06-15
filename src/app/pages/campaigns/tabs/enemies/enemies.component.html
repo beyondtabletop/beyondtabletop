@@ -167,7 +167,10 @@
           </div>
         </div>
         <button title="Add Enemy Detail" class="g-add" (click)="self.methods.addNPCDetail(foe, 'custom')"><i class="material-icons">add</i></button>
-        <div class="tm-20"><button title="Move to NPCs" class="button button-cyan" (click)="self.methods.moveNPC(foe, 'npcs')">Move <span>{{ foe.name }}</span> to NPCs</button></div>
+        <div class="flex-row-all flex-config-spaced tm-20">
+          <button title="Move to NPCs" class="button button-cyan" (click)="self.methods.moveNPC(foe, 'npcs')">Move {{ foe.name }} to NPCs</button>
+          <button *ngIf="self.methods.hasOpenCampaignMap()" title="Add to Battlemap" class="button button-cyan" (click)="store.addEnemyAsToken(foe)">Add to Battlemap</button>
+        </div>
       </div>
 
     </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'bt-campaign-tab-enemies',
@@ -7,5 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CampaignTabEnemiesComponent {
   @Input() public self: any
-  constructor() { }
+  constructor(
+    public store: StorageService,
+  ) { }
 }

@@ -1,14 +1,19 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.4.4",
+      "body": "- Adds a new button to Campaign enemies to add them directly to an open battlemap",
+      "created_at": "June 16, 2020"
+    },
+    {
       "title": "Changelog for 5.4.3",
       "body": "- Allows homebrew Pathfinder sheets to be set to any level, achieving true homebrew mode\n- Adds minimizing animations for battlemaps active card and campaign chat\n- Refreshed UI for campaign chat\n- Adds new setting panel in chat for adjusting font size and nickname\n- Adds button on Account page to fully delete all stored data\n- Fixes dice button attacks for higher-level monsters added to battlemaps",
-      "created_at": "June 2, 2020"
+      "created_at": "June 10, 2020"
     },
     {
       "title": "Changelog for 5.4.2",
       "body": "- Expeditious Retreat now included in Sorcerer and Warlock spell lists on D&D5e sheets\n- Active card on battlemaps can now be minimized\n- Campaign chat now changes the width of active card when open while on a battlemap\n- Local audio volume settings now saved per player on campaigns\n- Adds Change HP button on sheet tokens for quick damage dealing/healing on battlemaps\n- Fixes issue selecting connected sheets on battlemap active card\n- Fixes issue creating new campaign tools",
-      "created_at": "June 2, 2020"
+      "created_at": "June 8, 2020"
     },
     {
       "title": "Changelog for 5.4.1",

@@ -23,6 +23,8 @@ import { BattlemapToken } from '../models/battlemap/token';
 import { BtPlayerTool } from '../models/common/player-tool.model';
 import { BattlemapCombatant } from '../models/battlemap/combatant';
 import { BtError } from '../models/common/error'
+import { CampaignFoe } from '../models/campaign/foe'
+import { BattlemapCombatantAttack } from '../models/battlemap/combatant-attack'
 
 @Injectable({
   providedIn: 'root'
@@ -444,6 +446,51 @@ export class StorageService {
       battlemap.methods.addSceneToken(scene, token)
       battlemap.methods.addCombatant(null, combatant)
       this.interfaceSvc.showNotice(`${monster.name} added to ${battlemap.model.name}.`)
+    }
+  }
+
+  public addEnemyAsToken = (foe: CampaignFoe): void => {
+    const battlemap = this.firstOpenToolOfType('battlemap')
+    if (!battlemap) { return }
+
+    const scene = battlemap.methods.getCurrentScene()
+
+    const details = foe.details || []
+    const abilitiesArray = details.filter(x => x.group === 'abilities')
+    const abilities: any = {}
+
+    abilitiesArray.forEach(x => abilities[x.name] = x)
+
+    const combatant = new BattlemapCombatant({
+      type: 'custom',
+      name: foe.name,
+      stats: {
+        ac: (details.find(x => x.name === 'AC') || { value: 0 }).value,
+        hp: (details.find(x => x.name === 'HP') || { value: 0 }).value,
+        STR: abilities.STR.value,
+        DEX: abilities.DEX.value,
+        CON: abilities.CON.value,
+        INT: abilities.INT.value,
+        WIS: abilities.WIS.value,
+        CHA: abilities.CHA.value,
+        attacks: details.filter(x => x.group === 'attack').map(x => new BattlemapCombatantAttack({ name: x.name, attack: x.value, damage: x.misc })) || [],
+      }
+    })
+
+    const token = new BattlemapToken({
+      combatant_id: combatant.id,
+      label: foe.name,
+    })
+
+    if (foe.image) {
+      token.image = foe.image
+      token.color = 'white'
+    }
+
+    if (scene) {
+      battlemap.methods.addSceneToken(scene, token)
+      battlemap.methods.addCombatant(null, combatant)
+      this.interfaceSvc.showNotice(`${foe.name} added to ${battlemap.model.name}.`)
     }
   }
 
