@@ -762,8 +762,20 @@ export class StorageService {
       )
     }
 
+    const zeroPad = (num) => {
+      if (num < 10) {
+        return `0${num}`
+      }
+      return num
+    }
+
+    const timestamp = () => {
+      const date = new Date()
+      return `${date.getHours()}:${zeroPad(date.getMinutes())}:${zeroPad(date.getSeconds())}`
+    }
+
     const onRemoteUpdate = (val: any): void => {
-      console.log(`%cremote update for ${self.locals.document_id}`, 'color: #aaa')
+      console.log(`%cremote update for ${self.locals.document_id} at ${timestamp()}`, 'color: #aaa')
       self.meta.combinedSubject.next()
       self.meta.collectionSubject.next(Object.keys(self.meta.remoteChanges.lookup).filter(x => !['id', 'changes'].includes(x)))
       // self.meta.remoteChanges.id = this.sheetSvc.randomSecureString(6)

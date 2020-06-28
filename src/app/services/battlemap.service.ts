@@ -230,6 +230,7 @@ export class BattlemapService {
       defaultScene()
       self.methods.doIOwnThisMap()
       self.methods.loadSelectTiles()
+      self.methods.loadSavedCenter()
       self.methods.goToCenter()
       self.locals.ready = true
     }
@@ -1205,8 +1206,8 @@ export class BattlemapService {
     }
 
     self.methods.getCurrentPosition = (): BattlemapPosition => {
-      const top = Math.abs(self.methods.roundToNearest(self.locals.map.pos.top, self.locals.map.zoomed_tile)) / self.locals.map.zoom
-      const left = Math.abs(self.methods.roundToNearest(self.locals.map.pos.left, self.locals.map.zoomed_tile)) / self.locals.map.zoom
+      const top = Math.abs(self.methods.roundToNearest(self.locals.map.pos.top + self.locals.map.offset.y, self.locals.map.zoomed_tile)) / self.locals.map.zoom
+      const left = Math.abs(self.methods.roundToNearest(self.locals.map.pos.left + self.locals.map.offset.x, self.locals.map.zoomed_tile)) / self.locals.map.zoom
 
       const position = {
         top: (Math.floor(top / self.locals.map.base_tile) + (2  / self.locals.map.zoom)) * self.locals.map.base_tile,
@@ -1337,6 +1338,11 @@ export class BattlemapService {
       }
     }
 
+    self.methods.loadSavedCenter = (): void => {
+      self.locals.map.pos.top = self.model.details.position.top
+      self.locals.map.pos.left = self.model.details.position.left
+    }
+
     self.methods.goToCenter = (): void => {
       resetMapRef()
     }
@@ -1344,6 +1350,9 @@ export class BattlemapService {
     self.methods.setCenter = (): void => {
       self.model.details.position.top = (self.locals.map.pos.top + self.locals.map.offset.y) / self.locals.map.zoom
       self.model.details.position.left = (self.locals.map.pos.left + self.locals.map.offset.x) / self.locals.map.zoom
+      self.locals.map.pos.top += self.locals.map.offset.y
+      self.locals.map.pos.left += self.locals.map.offset.x
+      self.touch()
       resetMapRef()
     }
 
