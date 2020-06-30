@@ -1349,7 +1349,155 @@
     }
   }
   , "klass": {
-    "Barbarian": {
+    {
+    "Barbarian2": {
+      "name":"Barbarian"
+      , "description":"For some, there is only rage. In the ways of their people, in the fury of their passion, in the howl of battle, conflict is all these brutal souls know. Savages, hired muscle, masters of vicious martial techniques, they are not soldiers or professional warriors—they are the battle possessed, creatures of slaughter and spirits of war. Known as barbarians, these warmongers know little of training, preparation, or the rules of warfare; for them, only the moment exists, with the foes that stand before them and the knowledge that the next moment might hold their death. They possess a sixth sense in regard to danger and the endurance to weather all that might entail. These brutal warriors might rise from all walks of life, both civilized and savage, though whole societies embracing such philosophies roam the wild places of the world. Within barbarians storms the primal spirit of battle, and woe to those who face their rage."
+      , "hit_die":"d12"
+      , "saves": ["STR","CON"]
+      , "spell_ability": "INT"
+      , "skills_number": 2
+      , "available_skills": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]
+      , "proficiencies": {
+        "armor": ["Light armor", "Medium armor", "Shields"]
+        , "weapons": ["Simple weapons", "Martial weapons"]
+      }
+      , "equipment": { "weapons": ["Greataxe", "Handaxe", "Handaxe", "Javelin", "Javelin", "Javelin", "Javelin"] }
+      , "equipment_list": ["A greataxe or any martial melee weapon","Two handaxes or any simple weapon","Four javelins","An explorer's pack"]
+      , "lists": {
+        "Equipment": ["Explorers's pack"]
+      }
+      , "consumables": [{"name": "Javelin", "amount": 4}]
+      , "key_abilities": "STR, CON"
+      , "levels": [
+        {
+          "level": "1st"
+          , "features": "Rage, Unarmored Defense"
+          , "guide": false
+          , "rages": 2
+          , "rage_damage": 2
+        },
+        {
+          "level": "2nd"
+          , "features": "Reckless Attack, Danger Sense"
+          , "guide": true
+          , "rages": 2
+          , "rage_damage": 2
+        },
+        {
+          "level": "3rd"
+          , "features": "Primal Path"
+          , "guide": true
+          , "rages": 3
+          , "rage_damage": 2
+        },
+        {
+          "level": "4th"
+          , "features": "Ability Score Improvement"
+          , "guide": false
+          , "rages": 3
+          , "rage_damage": 2
+        },
+        {
+          "level": "5th"
+          , "features": "Extra Attack, Fast Movement"
+          , "guide": true
+          , "rages": 3
+          , "rage_damage": 2
+        },
+        {
+          "level": "6th"
+          , "features": "Path feature"
+          , "rages": 4
+          , "rage_damage": 2
+        },
+        {
+          "level": "7th"
+          , "features": "Feral Instinct"
+          , "rages": 4
+          , "rage_damage": 2
+        },
+        {
+          "level": "8th"
+          , "features": "Ability Score Improvement"
+          , "rages": 4
+          , "rage_damage": 2
+        },
+        {
+          "level": "9th"
+          , "features": "Brutal Critical (1 die)"
+          , "rages": 4
+          , "rage_damage": 3
+        },
+        {
+          "level": "10th"
+          , "features": "Path feature"
+          , "rages": 4
+          , "rage_damage": 3
+        },
+        {
+          "level": "11th"
+          , "features": "Relentless Rage"
+          , "rages": 4
+          , "rage_damage": 3
+        },
+        {
+          "level": "12th"
+          , "features": "Ability Score Improvement"
+          , "rages": 5
+          , "rage_damage": 3
+        },
+        {
+          "level": "13th"
+          , "features": "Brutal Critical (2 dice)"
+          , "rages": 5
+          , "rage_damage": 3
+        },
+        {
+          "level": "14th"
+          , "features": "Path feature"
+          , "rages": 5
+          , "rage_damage": 3
+        },
+        {
+          "level": "15th"
+          , "features": "Persistent Rage"
+          , "rages": 5
+          , "rage_damage": 3
+        },
+        {
+          "level": "16th"
+          , "features": "Ability Score Improvement"
+          , "rages": 5
+          , "rage_damage": 4
+        },
+        {
+          "level": "17th"
+          , "features": "Brutal Critical (3 dice)"
+          , "rages": 6
+          , "rage_damage": 4
+        },
+        {
+          "level": "18th"
+          , "features": "Indomitable Might"
+          , "rages": 6
+          , "rage_damage": 4
+        },
+        {
+          "level": "19th"
+          , "features": "Ability Score Improvement"
+          , "rages": 6
+          , "rage_damage": 4
+        },
+        {
+          "level": "20th"
+          , "features": "Primal Champion"
+          , "rages": 100
+          , "rage_damage": 4
+        }
+      ]
+    }
+    , "Barbarian": {
       "name":"Barbarian"
       , "description":"For some, there is only rage. In the ways of their people, in the fury of their passion, in the howl of battle, conflict is all these brutal souls know. Savages, hired muscle, masters of vicious martial techniques, they are not soldiers or professional warriors—they are the battle possessed, creatures of slaughter and spirits of war. Known as barbarians, these warmongers know little of training, preparation, or the rules of warfare; for them, only the moment exists, with the foes that stand before them and the knowledge that the next moment might hold their death. They possess a sixth sense in regard to danger and the endurance to weather all that might entail. These brutal warriors might rise from all walks of life, both civilized and savage, though whole societies embracing such philosophies roam the wild places of the world. Within barbarians storms the primal spirit of battle, and woe to those who face their rage."
       , "hit_die":"d12"
