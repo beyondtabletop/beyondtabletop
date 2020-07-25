@@ -641,7 +641,6 @@ export class RpgService {
       const packs = dice_array.map(dice => this.diceSvc.getDicePackage(dice))
       packs.forEach((dice, index) => v.formula = v.formula.replace(dice_array[index], dice.result))
       const recordList = packs.map(pack => pack.record.list.join(', '))
-      console.log(packs)
       v.roll_result = ` rolled %ACTION% and got: %RESULT% (${recordList.join(', ')})`
     }
 
@@ -886,6 +885,16 @@ export class RpgService {
       return v
     }
 
+    self.methods.convertVariables = (v) => {
+      if (v.valid) {
+        /* Replace each aspect name in the formula with the number value we determined above */
+        v.aspect_names.forEach((name, index) => {
+          v.formula = v.formula.replace(name, v.aspect_values[index])
+        })
+      }
+      return v
+    }
+
     self.methods.validateDiceRolls = (v, diceHandler = defaultDiceHandler) => {
       const expression = /(\d{0,4})d\d{1,4}/gi
       const rolls = (v.formula || '').match(expression)
@@ -897,11 +906,6 @@ export class RpgService {
 
     self.methods.validateStringChars = (v) => {
       if (v.valid) {
-        /* Replace each aspect name in the formula with the number value we determined above */
-        v.aspect_names.forEach((name, index) => {
-          v.formula = v.formula.replace(name, v.aspect_values[index])
-        })
-
         /* Check each character of the remaining formula individually looking for bad chars */
         v.formula.split('').reduce((acc, char) =>  acc && !!char.match(/[-+\s\d.%\/*()]/gi), v.valid)
 
@@ -944,8 +948,9 @@ export class RpgService {
       // Make sure oyu can use the same variable twice!!!!!!!!
       v = self.methods.validateConditionals(v, nameSearch)
       v = validateReductions(v)
-      v = self.methods.validateDiceRolls(v, diceHandler)
       v = self.methods.validateVariables(v, nameSearch)
+      v = self.methods.convertVariables(v)
+      v = self.methods.validateDiceRolls(v, diceHandler)
       v = self.methods.validateStringChars(v)
 
       return v.valid ? { value: v.result, rolls: v.rolls, roll_result: v.roll_result } : { error: v.error, rolls: v.rolls }
