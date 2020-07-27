@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.4.6",
+      "body": "- Removes old references to premium products\n- Adds support for dynamic dice formulas in RPG sheets",
+      "created_at": "July 27, 2020"
+    },
+    {
       "title": "Changelog for 5.4.5",
       "body": "- Fixes Set Center button battlemaps\n- Correctly adds shapes and tokens in the viewport instead of at map center",
       "created_at": "June 28, 2020"
