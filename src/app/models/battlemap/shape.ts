@@ -19,6 +19,7 @@ export class BattlemapShape extends BtBase {
   layer_id: string
   size: BattlemapSize
   position: BattlemapPosition
+  window: boolean
   lines: any[]
 
   getProto() {
@@ -31,6 +32,7 @@ export class BattlemapShape extends BtBase {
       drawable: false,
       moving: false,
       fog: false,
+      window: false,
       pinned: false,
       snapped: true,
       tiled: false,

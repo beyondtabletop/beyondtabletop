@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.5.0",
+      "body": "- Adds new fog of war overlay to battlemaps! Specify shapes as windows to selectively reveal areas of the map to players.",
+      "created_at": "August 20, 2020"
+    },
+    {
       "title": "Changelog for 5.4.6",
       "body": "- Removes old references to premium products\n- Adds support for dynamic dice formulas in RPG sheets",
       "created_at": "July 27, 2020"

@@ -45,4 +45,21 @@
       </div>
     </div>
   </div>
+  <svg class="fog-of-war" [class.see-thru]="self.locals.map.map_owner" *ngIf="scene.mask">
+    <defs>
+      <mask [id]="'mask-' + scene.id">
+        <rect fill="white" x="0" y="0" width="100%" height="100%" />
+        <rect *ngFor="let shape of self.methods.listFogOfWarShapes()"
+          fill="black"
+          class="hole"
+          [class.round]="shape.round"
+          [attr.x]="shape.position.left * self.locals.map.zoom"
+          [attr.y]="shape.position.top * self.locals.map.zoom"
+          [attr.width]="shape.size.width * self.locals.map.zoom"
+          [attr.height]="shape.size.height * self.locals.map.zoom"
+        />
+      </mask>
+    </defs>
+    <rect class="bg" x="0" y="0" width="100%" height="100%" [attr.mask]="'url(#mask-' + scene.id + ')'"/>
+  </svg>
 </div>

@@ -191,6 +191,7 @@ import { BattlemapSceneTypeHexagonComponent } from './pages/battlemaps/scene-typ
 import { BattlemapDetailColorComponent } from './pages/battlemaps/detail/color/color.component';
 import { BattlemapDetailDamageComponent } from './pages/battlemaps/detail/damage/damage.component';
 import { BattlemapDetailFogComponent } from './pages/battlemaps/detail/fog/fog.component';
+import { BattlemapDetailWindowComponent } from './pages/battlemaps/detail/window/window.component';
 import { BattlemapDetailImageComponent } from './pages/battlemaps/detail/image/image.component';
 import { BattlemapDetailLabelComponent } from './pages/battlemaps/detail/label/label.component';
 import { BattlemapDetailSnappedComponent } from './pages/battlemaps/detail/snapped/snapped.component';
@@ -443,6 +444,7 @@ export function markedOptionsFactory(): MarkedOptions {
     BattlemapDetailColorComponent,
     BattlemapDetailDamageComponent,
     BattlemapDetailFogComponent,
+    BattlemapDetailWindowComponent,
     BattlemapDetailImageComponent,
     BattlemapDetailLabelComponent,
     BattlemapDetailSnappedComponent,
