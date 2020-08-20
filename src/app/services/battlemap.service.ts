@@ -690,6 +690,10 @@ export class BattlemapService {
       shape.lines = []
     }
 
+    self.methods.listFogOfWarShapes = () => {
+      return self.methods.listSceneShapes().filter(x => x.window)
+    }
+
     // Tiles
     // ---------------------------------------------------
     self.methods.listSceneTiles = (scene: BattlemapScene = self.methods.getCurrentScene()): BattlemapTile[] => scene.tiles || []
@@ -912,6 +916,7 @@ export class BattlemapService {
       // }
 
       if (self.locals.map.map_owner) {
+        details.push('window')
         details.push('fog')
       }
 

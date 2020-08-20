@@ -55,6 +55,12 @@
               </div>
 
               <div *ngFor="let scene of self.methods.currentSceneInArray()">
+                <h4 class="gh4 bm-10">Fog of War Overlay</h4>
+                <p>Creates an opaque layer over the battlemap for players, allowing you to create shapes to reveal windows one at a time.</p>
+                <div class="form-group checkbox-group bm-20">
+                  <input type="checkbox" title="Fog of War" [(ngModel)]="scene.mask">
+                  <label>Enable Fog of War?</label>
+                </div>
                 <h4 class="gh4 bm-10">Scene Background Tile</h4>
                 <p>
                   Swap the background image of the map.

@@ -16,6 +16,7 @@ export class BattlemapScene extends BtBase {
   layers: BattlemapLayer[]
   combat: BattlemapCombat
   $deleting?: boolean
+  mask: boolean
 
   getProto() {
     return {
@@ -23,6 +24,7 @@ export class BattlemapScene extends BtBase {
       scene_type: 'battle',
       background_image: '',
       disable_grid: false,
+      mask: false,
       combat: new BattlemapCombat(),
       tokens: [
         new BattlemapToken({ active: true })
