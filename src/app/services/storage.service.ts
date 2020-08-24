@@ -279,8 +279,8 @@ export class StorageService {
         } else {
           return of({
             role: 'owner',
-            email: this.user.email,
-            name: this.user.name,
+            email: this.user.email || '',
+            name: this.user.name || '',
           })
         }
       }),
@@ -316,8 +316,8 @@ export class StorageService {
       userId,
       {
         role: 'owner',
-        email: this.user.email,
-        name: this.user.name,
+        email: this.user.email || '',
+        name: this.user.name || '',
       },
       `Copy of ${toolTitle}`,
     ).pipe(map(x => true))
