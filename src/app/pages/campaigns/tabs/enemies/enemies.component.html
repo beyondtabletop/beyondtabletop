@@ -19,6 +19,9 @@
           <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="foe.name" placeholder="Name">
         </div>
         <div class="flex-col flex-static">
+          <button title="Clone Enemy" class="g-icon" (click)="self.methods.cloneNPC(foe, 'foes')"><fa-icon [icon]="['fas', 'copy']"></fa-icon></button>
+        </div>
+        <div class="flex-col flex-static">
           <button title="Edit Enemy" class="g-icon" (click)="self.methods.toggleActiveNPC(foe)"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
         </div>
         <div class="flex-col flex-static">
