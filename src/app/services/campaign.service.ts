@@ -482,9 +482,9 @@ export class CampaignService {
     self.methods.anyKnownNPCs = (): boolean => self.methods.listKnownNPCs().length > 0
     self.methods.isActiveNPC = (npc: CampaignNpc): boolean => npc.id === self.locals.active_npc
 
-    self.methods.addNPC = (npc: CampaignNpc = new CampaignNpc): void => {
+    self.methods.addNPC = (npc: CampaignNpc = new CampaignNpc, name: string): void => {
       npc.pos = self.methods.listNPCs().length
-      npc.name = `${this.sheetSvc.randomName()} ${this.sheetSvc.randomName()}`
+      npc.name = name ? name : `${this.sheetSvc.randomName()} ${this.sheetSvc.randomName()}`
       self.methods.$add(self.model, 'npcs', CampaignNpc, npc)
       self.locals.active_npc = self.model.npcs[self.model.npcs.length - 1].id
     }
@@ -526,20 +526,28 @@ export class CampaignService {
     self.methods.listKnownFoes = (): CampaignFoe[] => self.methods.listFoes().filter(x => x.known === true)
     self.methods.anyKnownFoes = (): boolean => self.methods.listKnownFoes().length > 0
 
-    self.methods.addFoe = (foe: CampaignFoe = new CampaignFoe): void => {
+    self.methods.addFoe = (foe: CampaignFoe = new CampaignFoe, name: string): void => {
       foe.pos = self.methods.listFoes().length
-      foe.name = `${this.sheetSvc.randomName()} ${this.sheetSvc.randomName()}`
+      foe.name = name ? name : `${this.sheetSvc.randomName()} ${this.sheetSvc.randomName()}`
       self.methods.$add(self.model, 'foes', CampaignFoe, foe)
       self.locals.active_npc = self.model.foes[self.model.foes.length - 1].id
     }
 
-    self.methods.moveNPC = (npc: CampaignNpc, name: string): void => {
-      if (name === 'foes') {
-        self.methods.addFoe(npc)
+    self.methods.moveNPC = (npc: CampaignNpc, type: string): void => {
+      if (type === 'foes') {
+        self.methods.addFoe(npc, npc.name)
         self.methods.removeByObject(self.model.npcs, npc)
       } else {
-        self.methods.addNPC(npc)
+        self.methods.addNPC(npc, npc.name)
         self.methods.removeByObject(self.model.foes, npc)
+      }
+    }
+
+    self.methods.cloneNPC = (npc: CampaignNpc, type: string): void => {
+      if (type === 'foes') {
+        self.methods.addFoe(npc, npc.name)
+      } else {
+        self.methods.addNPC(npc, npc.name)
       }
     }
 
