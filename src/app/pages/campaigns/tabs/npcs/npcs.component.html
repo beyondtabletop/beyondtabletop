@@ -19,7 +19,7 @@
           <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="npc.name" placeholder="Name">
         </div>
         <div class="flex-col flex-static">
-          <button title="Clone NPC" class="g-icon" (click)="self.methods.cloneNPC(npc, 'npc')"><fa-icon [icon]="['fas', 'copy']"></fa-icon></button>
+          <button title="Clone NPC" class="g-icon" (click)="self.methods.cloneNPC(npc)"><fa-icon [icon]="['fas', 'copy']"></fa-icon></button>
         </div>
         <div class="flex-col flex-static">
           <button title="Edit NPC" class="g-icon" (click)="self.methods.toggleActiveNPC(npc)"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
@@ -113,7 +113,7 @@
           </div>
         </div>
         <button title="Add NPC Detail" class="g-add" (click)="self.methods.addNPCDetail(npc, 'custom')"><i class="material-icons">add</i></button>
-        <div class="tm-20"><button title="Move to Enemies" class="button button-cyan" (click)="self.methods.moveNPC(npc, 'foes')">Move <span>{{ npc.name }}</span> to Enemies</button></div>
+        <div class="tm-20"><button title="Move to Enemies" class="button button-cyan" (click)="self.methods.moveNPC(npc)">Move <span>{{ npc.name }}</span> to Enemies</button></div>
       </div>
 
     </div>

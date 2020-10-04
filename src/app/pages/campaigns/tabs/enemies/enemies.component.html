@@ -19,7 +19,7 @@
           <input type="text" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="foe.name" placeholder="Name">
         </div>
         <div class="flex-col flex-static">
-          <button title="Clone Enemy" class="g-icon" (click)="self.methods.cloneNPC(foe, 'foes')"><fa-icon [icon]="['fas', 'copy']"></fa-icon></button>
+          <button title="Clone Enemy" class="g-icon" (click)="self.methods.cloneNPC(foe)"><fa-icon [icon]="['fas', 'copy']"></fa-icon></button>
         </div>
         <div class="flex-col flex-static">
           <button title="Edit Enemy" class="g-icon" (click)="self.methods.toggleActiveNPC(foe)"><fa-icon [icon]="['fas', 'edit']"></fa-icon></button>
@@ -171,7 +171,7 @@
         </div>
         <button title="Add Enemy Detail" class="g-add" (click)="self.methods.addNPCDetail(foe, 'custom')"><i class="material-icons">add</i></button>
         <div class="flex-row-all flex-config-spaced tm-20">
-          <button title="Move to NPCs" class="button button-cyan" (click)="self.methods.moveNPC(foe, 'npcs')">Move {{ foe.name }} to NPCs</button>
+          <button title="Move to NPCs" class="button button-cyan" (click)="self.methods.moveNPC(foe)">Move {{ foe.name }} to NPCs</button>
           <button *ngIf="self.methods.hasOpenCampaignMap()" title="Add to Battlemap" class="button button-cyan" (click)="store.addEnemyAsToken(foe)">Add to Battlemap</button>
         </div>
       </div>
