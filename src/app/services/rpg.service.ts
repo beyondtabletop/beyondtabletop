@@ -912,7 +912,8 @@ export class RpgService {
         /* If we're good we eval, if there's a problem with the eval, we're invalid */
         if (v.valid) {
           try {
-            v.result = Math.floor(eval(v.formula))
+            let value = eval(v.formula)
+            v.result = !isNaN(parseInt(value)) ? Math.floor(eval(v.formula)) : value
           } catch(err) {
             if (err) {
               v.valid = false
