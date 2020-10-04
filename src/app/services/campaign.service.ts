@@ -544,12 +544,12 @@ export class CampaignService {
     }
 
     self.methods.cloneNPC = (npc: CampaignNpc | CampaignFoe): void => {
-      const cloneNPC = { ...npc };
-      cloneNPC.name = `Copy of ${npc.name}`
+      const npcCopy = { ...npc };
+      npcCopy.name = `Copy of ${npc.name}`
       if (npc instanceof CampaignFoe) {
-        self.methods.addFoe(cloneNPC)
+        self.methods.addFoe(npcCopy)
       } else {
-        self.methods.addNPC(cloneNPC)
+        self.methods.addNPC(npcCopy)
       }
     }
 
