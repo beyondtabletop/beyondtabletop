@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.5.2",
+      "body": "- Fixes spells per day listing for Pathfinder sheets\n- Adds enemy and NPC clone buttons to Campaigns",
+      "created_at": "October 16, 2020"
+    },
+    {
       "title": "Changelog for 5.5.1",
       "body": "- Fixes a bug where users without a user name in the system could not create tools",
       "created_at": "August 24, 2020"
