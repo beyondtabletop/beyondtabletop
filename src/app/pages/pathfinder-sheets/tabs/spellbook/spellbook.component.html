@@ -65,10 +65,10 @@
                 <label class="control-label">Remaining</label>
               </div>
             </div><!--/label row-->
-            <div class="bm-20" *ngFor="let slot of self.methods.listSpellsPerDay(klass); index as i">
+            <div class="bm-20" *ngFor="let slot of self.methods.nonZerothSpellsPerDay(klass); index as i">
               <div class="flex-row-all flex-gutters-5 bm-5">
                 <div class="flex-col name-col">
-                  <label class="control-label">{{ self.methods.levelize(i) }}</label>
+                  <label class="control-label">{{ self.methods.levelize(i + 1) }}</label>
                 </div>
                 <div class="flex-col base-col">
                   <input type="number" class="form-control" (ngModelChange)="self.touch()" [(ngModel)]="slot.value" *ngIf="self.model.prefs.homebrew">

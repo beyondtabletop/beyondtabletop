@@ -7,7 +7,7 @@
         <div class="spell-slot-row flex-row-all flex-gutters-5 bm-5 flex-static flex-col" *ngFor="let slot of self.methods.nonZerothSpellsPerDay(klass); index as i">
           <div class="flex-col level-col flex-static">
             <div class="form-group">
-              <label class="control-label">{{ self.methods.levelize(i) }}</label>
+              <label class="control-label">{{ self.methods.levelize(i + 1) }}</label>
             </div>
           </div>
           <div class="flex-col remaining-col flex-static">
