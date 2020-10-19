@@ -7,8 +7,6 @@ export class RpgStat extends BtBase {
   auto: number
   input_type: string
   source: string
-  tab: string
-  section: string
 
   getProto() {
     return {
@@ -18,8 +16,6 @@ export class RpgStat extends BtBase {
       auto: null,
       input_type: 'number',
       source: null,
-      tab: null,
-      section: null,
     }
   }
 }
