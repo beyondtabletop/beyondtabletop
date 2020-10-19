@@ -35,9 +35,7 @@ OVERVIEW TAB
 
       <div class="tab overview-tab" [class.active]="self.methods.isTabActive('overview')">
         <div class="overview-display-tab" *ngFor="let tab of self.methods.listTabs()">
-          <div class="flex-row-tablet flex-gutters-15 flex-config-wrap">
-            <bt-rpg-overview-tab [self]="self" [tab]="tab"></bt-rpg-overview-tab>
-          </div>
+          <bt-rpg-overview-tab [self]="self" [tab]="tab"></bt-rpg-overview-tab>
         </div>
       </div>
 
@@ -107,11 +105,11 @@ STRUCTURE TAB
                   <h2 class="gh2">Fields for section <span>{{ section.pos + 1 }}</span> of <span>{{ tab.name }}</span></h2>
                   <div class="structure-section-fields"
                     cdkDropList
-                    [cdkDropListData]="self.methods.listEntitiesByGrouping(tab.id, section.id)"
+                    [cdkDropListData]="self.methods.listEntitiesBySection(section)"
                     (cdkDropListDropped)="self.methods.onMoveList(tab.id, section.id, $event)"
                   >
-                    <p *ngIf="!self.methods.anyEntitiesByGrouping(tab.id, section.id)" class="p3">There are no fields assigned to this section. Drag fields into here!</p>
-                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesByGrouping(tab.id, section.id)" cdkDrag [cdkDragData]="entity">
+                    <p *ngIf="!self.methods.anyEntitiesBySection(section)" class="p3">There are no fields assigned to this section. Drag fields into here!</p>
+                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesBySection(section)" cdkDrag [cdkDragData]="entity">
                       <!-- todo:  [data-id]="entity.id" [data-entity-type]="self.methods.getEntityType(entity)" -->
                       <span class="name">{{ entity.name }}</span>
                       <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
@@ -123,10 +121,10 @@ STRUCTURE TAB
                   <div class="structure-section-fields"
                     cdkDropList
                     (cdkDropListDropped)="self.methods.onMoveList(null, null, $event)"
-                    [cdkDropListData]="self.methods.listEntitiesByGrouping(null, null)"
+                    [cdkDropListData]="self.methods.listEntitiesBySection()"
                   >
-                    <p *ngIf="!self.methods.anyEntitiesByGrouping(null, null)" class="p3">There are no unassigned fields. Create more on the Content tab or reassign from a different section.</p>
-                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesByGrouping(null, null)" cdkDrag [cdkDragData]="entity">
+                    <p *ngIf="!self.methods.anyEntitiesBySection()" class="p3">There are no unassigned fields. Create more on the Content tab or reassign from a different section.</p>
+                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesBySection(null)" cdkDrag [cdkDragData]="entity">
                       <!-- todo:  [data-id]="entity.id" [data-entity-type]="self.methods.getEntityType(entity)" -->
                       <span class="name">{{ entity.name }}</span>
                       <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
@@ -387,7 +385,7 @@ USER MODEL TAB
         <h2 class="group-header">{{ tab.name }}</h2>
         <div class="flex-row-tablet flex-gutters-15 flex-config-wrap">
           <div class="section" *ngFor="let section of self.methods.listTabSections(tab)" [ngClass]="self.methods.getTabSectionClass(section)">
-            <div [ngSwitch]="self.methods.getEntityType(entity)" *ngFor="let entity of self.methods.listEntitiesByGrouping(tab.id, section.id)">
+            <div [ngSwitch]="self.methods.getEntityType(entity)" *ngFor="let entity of self.methods.listEntitiesBySection(section)">
               <bt-rpg-entity-calculation  [self]="self" [entity]="entity" *ngSwitchCase="'RpgCalculation'"></bt-rpg-entity-calculation>
               <bt-rpg-entity-collection   [self]="self" [entity]="entity" *ngSwitchCase="'RpgCollection'"></bt-rpg-entity-collection>
               <bt-rpg-entity-condition    [self]="self" [entity]="entity" *ngSwitchCase="'RpgCondition'"></bt-rpg-entity-condition>

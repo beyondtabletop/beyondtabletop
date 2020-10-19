@@ -27,7 +27,7 @@ export class RpgCharacter extends BtBase {
 
   getProto() {
     return {
-      version: 0,
+      version: 1,
       name: 'New RPG Sheet',
       change_id: '0',
       oversized: false,

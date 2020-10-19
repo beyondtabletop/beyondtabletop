@@ -270,11 +270,6 @@ export class RpgService {
     self.methods.removeTab = (tab: RpgTab, e: MouseEvent): void => {
       e.stopPropagation()
 
-      self.methods.listEntitiesByTab(tab.id).forEach((entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat) => {
-        entity.tab = null
-        entity.section = null
-      })
-
       if (self.methods.anyActiveTab() && self.locals.data.structure_tab.id === tab.id) {
         self.methods.setStructureTab(null)
       }
@@ -309,11 +304,6 @@ export class RpgService {
 
     self.methods.removeTabSection = (tab: RpgTab, section: RpgTabSection, e: MouseEvent): void => {
       e.stopPropagation()
-
-      self.methods.listEntitiesBySection(section.id).forEach(entity => {
-        entity.tab = null
-        entity.section = null
-      })
 
       if (self.methods.anyActiveSection() && self.locals.data.structure_section.id === tab.id) {
         self.methods.setStructureSection(null)
@@ -428,14 +418,26 @@ export class RpgService {
     }
 
     self.methods.listEntitiesByObject = (object: any): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
-      let items = [...self.methods.listStats(), ...self.methods.listCalculations(), ...self.methods.listCollections(), ...self.methods.listConditions()].filter(item => byObjectPredicate(item, object))
+      const items = [
+        ...self.methods.listStats(),
+        ...self.methods.listCalculations(),
+        ...self.methods.listCollections(),
+        ...self.methods.listConditions()
+      ].filter(item => byObjectPredicate(item, object))
       return items.sort((a, b) => a.pos - b.pos)
     }
 
-    self.methods.listEntitiesByTab = (tabId: string): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => self.methods.listEntitiesByObject({ tab: tabId })
-    self.methods.listEntitiesBySection = (sectionId: string): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => self.methods.listEntitiesByObject({ section: sectionId })
-    self.methods.listEntitiesByGrouping = (tabId: string, sectionId: RpgTabSection): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => self.methods.listEntitiesByObject({ tab: tabId, section: sectionId })
-    self.methods.anyEntitiesByGrouping = (tabId: string, sectionId: RpgTabSection): boolean => self.methods.listEntitiesByGrouping(tabId, sectionId).length > 0
+    self.methods.listEntitiesBySection = (section: RpgTabSection): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
+      if (!section || !section.entity_ids) { return [] }
+      const items = [
+        ...self.methods.listStats(),
+        ...self.methods.listCalculations(),
+        ...self.methods.listCollections(),
+        ...self.methods.listConditions()
+      ]
+      return items.filter(item => section.entity_ids.includes(item.id)).sort((a, b) => a.pos - b.pos)
+    }
+    self.methods.anyEntitiesBySection = (section: RpgTabSection): boolean => self.methods.listEntitiesBySection(section).length > 0
 
     self.methods.listEntitiesForConditionEffect = (): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
       const stats = self.methods.listStats().filter(x => x.input_type === 'number')
