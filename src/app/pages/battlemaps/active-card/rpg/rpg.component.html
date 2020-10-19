@@ -1,0 +1,6 @@
+<div [class.bt-hide]="sheet.locals.ready">
+  <h2 class="h18 bm-10">Loading details, please wait...</h2>
+</div>
+<ng-container *ngIf="sheet.locals.ready">
+  <bt-rpg-overview-tab [self]="sheet" [tab]="sheet.methods.battlemapTab()"></bt-rpg-overview-tab>
+</ng-container>

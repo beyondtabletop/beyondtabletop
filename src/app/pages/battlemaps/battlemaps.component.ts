@@ -29,7 +29,7 @@ export class BattlemapsComponent implements OnInit, OnDestroy {
       switchMap(() => {
         return this.store.setupToolController(this.self, 'battlemap', [
           map((tools: BtPlayerTool[]) => tools.filter(tool => {
-            return ['pathfinder', 'dnd5e'].includes(tool.tool_type) && ['owner', 'writer'].includes(tool.role)
+            return ['pathfinder', 'dnd5e', 'rpg'].includes(tool.tool_type) && ['owner', 'writer'].includes(tool.role)
           })),
           tap((tools: BtPlayerTool[]) => {
             tools.forEach(x => x.updated_at = x.updated_at || 0)

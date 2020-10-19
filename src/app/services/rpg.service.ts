@@ -291,6 +291,10 @@ export class RpgService {
       self.locals.data.structure_section = null
     }
 
+    self.methods.battlemapTab = () => {
+      return self.methods.listTabs().find(x => x.name === 'Battlemap')
+    }
+
     // Tab Sections
     // ---------------------------------------------------
     self.methods.listTabSections = (tab: RpgTab): RpgTabSection[] => tab.sections || []

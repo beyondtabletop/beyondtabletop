@@ -3,6 +3,7 @@
     <div [ngSwitch]="combatant.type">
       <bt-battlemap-active-card-dnd5e      [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'dnd5e'"></bt-battlemap-active-card-dnd5e>
       <bt-battlemap-active-card-pathfinder [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'pathfinder'"></bt-battlemap-active-card-pathfinder>
+      <bt-battlemap-active-card-rpg        [self]="self" [sheet]="self.methods.connectedCombatantSheet(combatant)" *ngSwitchCase="'rpg'"></bt-battlemap-active-card-rpg>
       <bt-battlemap-active-card-custom     [self]="self" [token]="token" [combatant]="combatant" *ngSwitchDefault></bt-battlemap-active-card-custom>
     </div>
   </div>
@@ -39,11 +40,14 @@
   <h2 class="h18 bm-10">Setup {{ combatant.name }} :: Connect or enter data manually</h2>
   <div class="flex-row-all flex-gutters-5">
     <ng-container *ngIf="token else no_token">
-      <div class="flex-col-4" *ngIf="token">
+      <div class="flex-col-4">
         <button class="button button-cyan button-block" (click)="setCombatantType('dnd5e')">Connect to D&D 5e Sheet</button>
       </div>
-      <div class="flex-col-4" *ngIf="token">
+      <div class="flex-col-4">
         <button class="button button-cyan button-block" (click)="setCombatantType('pathfinder')">Connect to Pathfinder Sheet</button>
+      </div>
+      <div class="flex-col-4">
+        <button class="button button-cyan button-block" (click)="setCombatantType('rpg')">Connect to RPG Sheet</button>
       </div>
     </ng-container>
     <div class="flex-col-4">

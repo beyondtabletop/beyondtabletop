@@ -262,6 +262,7 @@ import { DonateComponent } from './pages/donate/donate.component';
 import { SharingModalComponent } from './components/common/sharing-modal/sharing-modal.component';
 import { BattlemapActiveCardDnd5eComponent } from './pages/battlemaps/active-card/dnd5e/dnd5e.component';
 import { BattlemapActiveCardPathfinderComponent } from './pages/battlemaps/active-card/pathfinder/pathfinder.component';
+import { BattlemapActiveCardRpgComponent } from './pages/battlemaps/active-card/rpg/rpg.component';
 import { HomebrewKitsComponent } from './pages/homebrew-kits/homebrew-kits.component';
 import { AccountComponent } from './pages/account/account.component';
 import { HomebrewKitCollectionComponent } from './pages/homebrew-kits/collection/collection.component';
@@ -300,6 +301,7 @@ import { BattlemapDetailLayerComponent } from './pages/battlemaps/detail/layer/l
 import { Dnd5eEditAttackComponent } from './pages/dnd5e-sheets/components/attack/attack.component';
 import { BattlemapDetailCombatantComponent } from './pages/battlemaps/detail/combatant/combatant.component';
 import { BattlemapDetailOwnerComponent } from './pages/battlemaps/detail/owner/owner.component';
+import { RpgOverviewTabComponent } from './pages/rpg-sheets/overview/tab/tab.component';
 
 export function markedOptionsFactory(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -514,6 +516,7 @@ export function markedOptionsFactory(): MarkedOptions {
     SharingModalComponent,
     BattlemapActiveCardDnd5eComponent,
     BattlemapActiveCardPathfinderComponent,
+    BattlemapActiveCardRpgComponent,
     HomebrewKitsComponent,
     AccountComponent,
     HomebrewKitCollectionComponent,
@@ -551,6 +554,7 @@ export function markedOptionsFactory(): MarkedOptions {
     Dnd5eEditAttackComponent,
     BattlemapDetailCombatantComponent,
     BattlemapDetailOwnerComponent,
+    RpgOverviewTabComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ import { BattlemapLayer } from '../models/battlemap/layer'
 import { DiceService } from './dice.service'
 import { Observable, of, merge } from 'rxjs'
 import { BtPermission } from '../models/common/permission.model'
+import { RpgService } from './rpg.service'
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class BattlemapService {
     public store: StorageService,
     public dnd5eSvc: Dnd5eService,
     public pathfinderSvc: PathfinderService,
+    public rpgSvc: RpgService,
     public campaignSvc: CampaignService,
     public diceSvc: DiceService,
   ) { }
@@ -331,6 +333,7 @@ export class BattlemapService {
     }
 
     self.methods.avaialbleSheetsByType = (type: string) => {
+      console.log(self.locals.available_tools)
       return self.locals.available_tools.filter(x => x.tool_type === type)
     }
 
@@ -365,10 +368,21 @@ export class BattlemapService {
         !!this.store.tools[combatant.sheet_id].meta.watching
     }
 
+    const serviceForType = (type: string) => {
+      switch (type) {
+        case 'dnd5e': return this.dnd5eSvc
+        case 'pathfinder': return this.pathfinderSvc
+        case 'rpg': return this.rpgSvc
+        default: return null
+      }
+    }
+
     self.methods.connectCombatantToSheet = (combatant: BattlemapCombatant): void => {
       if (!combatant.sheet_id || !combatant.type) { return }
 
-      const svc = combatant.type === 'dnd5e' ? this.dnd5eSvc : this.pathfinderSvc // eventually make this into a lookup/struc
+      const svc = serviceForType(combatant.type)
+      if (!svc) { return }
+
       const sheet = this.store.tools[combatant.sheet_id] || svc.payload(combatant.sheet_id)
       self.meta.subscriptions[combatant.sheet_id] = merge(
         this.store.setupToolController(sheet, combatant.type),

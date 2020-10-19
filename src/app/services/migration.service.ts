@@ -353,7 +353,9 @@ export class MigrationService {
           }
         },
       },
-      rpg: {},
+      rpg: {
+        0: async () => {}
+      },
       'homebrew-kit': {},
       battlemap: {
         15: async (model: any) => {
