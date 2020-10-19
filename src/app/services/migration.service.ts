@@ -354,7 +354,22 @@ export class MigrationService {
         },
       },
       rpg: {
-        0: async () => {}
+        1: async (model: any) => {
+          // Move relational ids to containers
+          const tabs = (model.tabs || [])
+          const sections = tabs.reduce((acc, tab) => [...acc, ...tab.sections], [])
+          sections.forEach(section => section.entity_ids = [])
+          const entities = [
+            ...(model.stats || []),
+            ...(model.calculations || []),
+            ...(model.collections || []),
+            ...(model.conditions || []),
+          ]
+          entities.forEach(entity => {
+            const section = sections.find(x => x.id === entity.section)
+            section.entity_ids.push(entity.id)
+          })
+        },
       },
       'homebrew-kit': {},
       battlemap: {

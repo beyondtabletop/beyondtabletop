@@ -1,6 +1,6 @@
 <div class="flex-row-tablet flex-gutters-15 flex-config-wrap" *ngIf="tab">
   <div class="overview-display-section section" *ngFor="let section of self.methods.listTabSectionsForOverview(tab)" [ngClass]="self.methods.getTabSectionClass(section)">
-    <div *ngFor="let entity of self.methods.listEntitiesByGrouping(tab.id, section.id)">
+    <div *ngFor="let entity of self.methods.listEntitiesBySection(section)">
       <div [ngSwitch]="self.methods.getEntityType(entity)">
         <bt-rpg-overview-entity-calculation  [self]="self" [entity]="entity" *ngSwitchCase="'RpgCalculation'"></bt-rpg-overview-entity-calculation>
         <bt-rpg-overview-entity-collection   [self]="self" [entity]="entity" *ngSwitchCase="'RpgCollection'"></bt-rpg-overview-entity-collection>
