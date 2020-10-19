@@ -1712,16 +1712,17 @@ input[type=checkbox].match-text-field {
   position: relative;
   .structure-field {
     background: white;
-    padding: 10px 20px;
+    padding: 10px 8px 10px 15px;
     border-radius: 20px;
     margin-bottom: 10px;
-    box-shadow: 0 rem(1) rem(3) rgba(0,0,0,.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
     .name {
       font-family: $title;
       @include header-size(16, 16, 15, 14, 1.2);
     }
     .info {
       color: #888;
+      text-align: right;
     }
     // border: 1px solid $border-color;
   }
