@@ -357,7 +357,7 @@ export class MigrationService {
         1: async (model: any) => {
           // Move relational ids to containers
           const tabs = (model.tabs || [])
-          const sections = tabs.reduce((acc, tab) => [...acc, ...tab.sections], [])
+          const sections = tabs.reduce((acc, tab) => [...acc, ...(tab.sections || [])], [])
           sections.forEach(section => section.entity_ids = [])
           const entities = [
             ...(model.stats || []),

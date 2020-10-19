@@ -1742,6 +1742,32 @@ input[type=checkbox].match-text-field {
   }
 }
 
+.sheet-rpg {
+  .rpg-collection {
+    margin-bottom: 20px;
+    .above-labels {
+      margin-bottom: 5px;
+    }
+    .collection-item {
+      margin-bottom: 10px;
+    }
+    @each $space in (5, 10, 15, 20) {
+      .spacer-#{$space} {
+        margin-bottom: #{$space}px;
+      }
+    }
+  }
+  .rpg-collection-edit {
+    margin-bottom: 40px;
+  }
+}
+
+.rpg-calculation, .rpg-stat, .rpg-condition {
+  .sheet-rpg & {
+    margin-bottom: 10px;
+  }
+}
+
 .block-value {
   padding: 7px 0;
 }
@@ -2462,6 +2488,33 @@ $bg-opacity: 0.075;
   }
   
 }
+
+.sheet-card .overview-display-section {
+  .block-label, .block-value {
+    padding: 0;
+    margin: 0;
+  }
+  .button {
+    background: $cyan-color;
+    padding: 2px 0;
+    border: 0;
+    color: white;
+    border-radius: 4px;
+    line-height: 1.2;
+    width: 50px;
+    display: block;
+    text-align: center;
+    &:hover {
+      background: lighten($cyan-color, 5%)
+    }
+  }
+  .rpg-collection {
+   .gh4 {
+     margin-bottom: 0;
+   }
+  }
+}
+
 .viewport {
   background: #DDD;
   position: absolute;

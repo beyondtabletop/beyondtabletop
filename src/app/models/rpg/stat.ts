@@ -10,7 +10,6 @@ export class RpgStat extends BtBase {
 
   getProto() {
     return {
-      pos: 0,
       name: null,
       value: 0,
       auto: null,

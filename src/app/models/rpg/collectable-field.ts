@@ -7,6 +7,7 @@ export class RpgCollectableField extends BtBase {
   input_type: string
   width: string
   space: string
+  overview: boolean
   formula: string
   error: any
   valid: boolean
@@ -20,6 +21,7 @@ export class RpgCollectableField extends BtBase {
       input_type: 'text',
       width: 'dynamic',
       space: 'none',
+      overview: true,
       formula: null,
       error: null,
       valid: true,

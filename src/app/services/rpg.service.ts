@@ -207,7 +207,7 @@ export class RpgService {
     }
 
     self.methods.listAllTabs = () => {
-      return [...self.locals.tabs.list, ...self.methods.listTabs()]
+      return [...self.locals.tabs.list, ...self.methods.listIncludedTabs()]
     }
 
     const finishedLoading = (): void => {
@@ -261,6 +261,7 @@ export class RpgService {
     // Tabs
     // ---------------------------------------------------
     self.methods.listTabs = (): RpgTab[] => self.model.tabs || []
+    self.methods.listIncludedTabs = (): RpgTab[] => self.methods.listTabs().filter(x => x.name !== 'Battlemap')
 
     self.methods.addTab = (): void => {
       self.methods.$add(self.model, 'tabs', RpgTab, {
@@ -378,6 +379,7 @@ export class RpgService {
     // Collectable Field
     // ---------------------------------------------------
     self.methods.listCollectableFields = (collectable: RpgCollectable): RpgCollectableField[] => collectable.fields || []
+    self.methods.listCollectableFieldsForOverview = (collectable: RpgCollectable): RpgCollectableField[] => self.methods.listCollectableFields(collectable).filter(x => x.overview)
 
     self.methods.addCollectableField = (collectable: RpgCollectable): void => {
       self.methods.$add(collectable, 'fields', RpgCollectableField, {
@@ -422,7 +424,7 @@ export class RpgService {
         ...self.methods.listCalculations(),
         ...self.methods.listCollections(),
         ...self.methods.listConditions()
-      ].sort((a, b) => a.pos - b.pos)
+      ]
     }
 
     self.methods.listEntitiesByObject = (object: any): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
@@ -560,7 +562,7 @@ export class RpgService {
       active: (self.locals.data.structure_tab !== null) && tab.id === self.locals.data.structure_tab.id
     })
 
-    self.methods.getCollectableFieldClasses = (field: RpgCollectableField): string => `flex-${field.width} bm-${field.space}`
+    self.methods.getCollectableFieldClasses = (field: RpgCollectableField): string => `flex-${field.width} spacer-${field.space}`
     self.methods.anyActiveTab = (): boolean => self.locals.data.structure_tab !== null
     self.methods.anyActiveSection = (): boolean => self.locals.data.structure_section !== null
 

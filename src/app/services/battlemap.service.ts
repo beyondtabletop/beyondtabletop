@@ -333,7 +333,6 @@ export class BattlemapService {
     }
 
     self.methods.avaialbleSheetsByType = (type: string) => {
-      console.log(self.locals.available_tools)
       return self.locals.available_tools.filter(x => x.tool_type === type)
     }
 
@@ -342,6 +341,7 @@ export class BattlemapService {
     }
 
     self.methods.updateConnectedCombatant = (combatant: BattlemapCombatant, sheet: any): void => {
+      // TODO, this stuff only works for D&D and pathfinder, make it work for RPG too
       const token = self.methods.tokenForCombatant(combatant)
       if (token) {
         token.label = sheet.model.name

@@ -34,7 +34,7 @@ OVERVIEW TAB
 -->
 
       <div class="tab overview-tab" [class.active]="self.methods.isTabActive('overview')">
-        <div class="overview-display-tab" *ngFor="let tab of self.methods.listTabs()">
+        <div class="overview-display-tab" *ngFor="let tab of self.methods.listIncludedTabs()">
           <bt-rpg-overview-tab [self]="self" [tab]="tab"></bt-rpg-overview-tab>
         </div>
       </div>
@@ -70,10 +70,11 @@ STRUCTURE TAB
 
           <div class="slide" [class.present]="self.methods.anyActiveTab()">
             <div *ngFor="let tab of self.methods.structureTabInArray()">
-              <div>
+              <div class="tm-20">
                 <h2 class="gh2"><span>{{ tab.name }}</span> Sections Layout</h2>
                 <div class="bm-20">
-                  <input type="text" placeholder="Tab name" (ngModelChange)="self.touch()" [(ngModel)]="tab.name" class="form-control">
+                  <p *ngIf="tab.name === 'Battlemap'" class="help-text">This is a special system-use tab that cannot be renamed. The data here is used to display on the Battlemap for tokens connected to this sheet.</p>
+                  <input *ngIf="tab.name !== 'Battlemap'" type="text" placeholder="Tab name" (ngModelChange)="self.touch()" [(ngModel)]="tab.name" class="form-control">
                 </div>
                 <div class="bm-20 flex-row-all flex-config-wrap flex-gutters-5" cdkDropList [cdkDropListData]="tab.sections" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
                   <div class="js-structure-section bm-10" *ngFor="let section of self.methods.listTabSections(tab)" cdkDrag [cdkDragData]="section" [ngClass]="self.methods.getTabSectionClass(section)" (click)="self.methods.setStructureSection(section)">
@@ -372,6 +373,13 @@ CONTENT TAB
                               <option [value]="option.value" *ngFor="let option of self.locals.selection.field_spacings">{{ option.label }}</option>
                             </select>
                           </div>
+                        </div>
+                        <div class="flex-col-12 bm-5">
+                          <label class="block-label">Overview</label>
+                          <label class="checkbox-inline">
+                            <input type="checkbox" title="Overview" (ngModelChange)="self.touch()" [(ngModel)]="field.overview">
+                            Show on overview?
+                          </label>
                         </div>
                         <div class="flex-col-12 bm-5" *ngIf="field.input_type === 'formula'">
                           <label class="control-label">Formula</label>
