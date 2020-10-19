@@ -341,17 +341,22 @@ export class BattlemapService {
     }
 
     self.methods.updateConnectedCombatant = (combatant: BattlemapCombatant, sheet: any): void => {
-      // TODO, this stuff only works for D&D and pathfinder, make it work for RPG too
       const token = self.methods.tokenForCombatant(combatant)
+      const sheetType = sheet.model.constructor.name
       if (token) {
         token.label = sheet.model.name
-        token.image = sheet.model.basic.image || token.image
       }
       combatant.name = sheet.model.name
-      combatant.stats.damage = sheet.model.combat.hp.damage
-      combatant.stats.hp = sheet.methods.getHPTotal()
-      combatant.stats.init = sheet.model.combat.init.value
-      // token.size = sheet.model.basic.size
+
+      if (sheetType === 'PathfinderCharacter' || sheetType === 'Dnd5eCharacter') {
+        if (token) {
+          token.image = sheet.model.basic.image || token.image
+        }
+        combatant.stats.damage = sheet.model.combat.hp.damage
+        combatant.stats.hp = sheet.methods.getHPTotal()
+        combatant.stats.init = sheet.model.combat.init.value
+        // token.size = sheet.model.basic.size
+      }
     }
 
     self.methods.combatantConnected = (combatant: BattlemapCombatant): boolean => {
