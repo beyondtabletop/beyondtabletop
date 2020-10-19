@@ -52,11 +52,12 @@ export class RpgService {
         { name: 'Overview', id: 'overview' },
         { name: 'Structure', id: 'structure' },
         { name: 'Content', id: 'content' },
-      ]}
+      ]},
+      only_unassigned: false,
 
       /*
         * This is the selection object. It contains arrays and objects that help power the select elements on the page.
-        */,
+        */
       selection: {
         section_sizes: [
           { label: '50%', value: 6 },
@@ -315,7 +316,9 @@ export class RpgService {
     self.methods.getStructureSection = (): RpgTabSection[] => self.locals.data.structure_section ? [self.locals.data.structure_section] : []
     self.methods.setStructureSection = (section: RpgTabSection): void => { self.locals.data.structure_section = section }
 
-
+    self.methods.listAllSections = (): RpgTabSection[] => self.methods.listTabs().reduce((acc, tab) => [...acc, ...self.methods.listTabSections(tab)], [])
+    self.methods.listAllSectionEntityIds = (): string[] => self.methods.listAllSections().reduce((acc, section) => [...acc, ...(section.entity_ids || [])], [])
+          
     // Stats
     // ---------------------------------------------------
     self.methods.listStats = (): RpgStat[] => self.model.stats || []
@@ -413,31 +416,42 @@ export class RpgService {
     // ---------------------------------------------------
     const byObjectPredicate = (item: any, object: any): boolean => Object.keys(object).every(key => item[key] === object[key])
 
-    self.methods.listEntities = (object: any): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
-      return [...self.methods.listStats(), ...self.methods.listCalculations(), ...self.methods.listCollections(), ...self.methods.listConditions()].sort((a, b) => a.pos - b.pos)
-    }
-
-    self.methods.listEntitiesByObject = (object: any): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
-      const items = [
+    self.methods.listEntities = (): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
+      return [
         ...self.methods.listStats(),
         ...self.methods.listCalculations(),
         ...self.methods.listCollections(),
         ...self.methods.listConditions()
-      ].filter(item => byObjectPredicate(item, object))
-      return items.sort((a, b) => a.pos - b.pos)
+      ].sort((a, b) => a.pos - b.pos)
+    }
+
+    self.methods.listEntitiesByObject = (object: any): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
+      return self.methods.listEntities().filter(item => byObjectPredicate(item, object))
     }
 
     self.methods.listEntitiesBySection = (section: RpgTabSection): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
       if (!section || !section.entity_ids) { return [] }
-      const items = [
-        ...self.methods.listStats(),
-        ...self.methods.listCalculations(),
-        ...self.methods.listCollections(),
-        ...self.methods.listConditions()
-      ]
-      return items.filter(item => section.entity_ids.includes(item.id)).sort((a, b) => a.pos - b.pos)
+      const entities = self.methods.listEntities()
+      return section.entity_ids
+        .map(entity_id => {
+          const entity = entities.find(entity => entity_id === entity.id)
+          return !!entity ? entity : new RpgStat({ name: 'an error has occurred with this item' })
+        })
     }
     self.methods.anyEntitiesBySection = (section: RpgTabSection): boolean => self.methods.listEntitiesBySection(section).length > 0
+
+    self.methods.listAvailableEntities = (): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
+      const structureSection = self.locals.data.structure_section || {}
+      const sectionIds = structureSection.entity_ids || []
+      let entities = self.methods.listEntities().filter(x => !sectionIds.includes(x.id))
+
+      if (self.locals.only_unassigned) {
+        const assignedIds = self.methods.listAllSectionEntityIds()
+        entities = entities.filter(x => !assignedIds.includes(x.id))
+      }
+      return entities
+    }
+    self.methods.anyAvailableEntities = (): boolean => self.methods.listAvailableEntities().length > 0
 
     self.methods.listEntitiesForConditionEffect = (): (RpgCalculation|RpgCondition|RpgCollection|RpgStat)[] => {
       const stats = self.methods.listStats().filter(x => x.input_type === 'number')
@@ -486,12 +500,17 @@ export class RpgService {
       }
     }
 
-    self.methods.unassignAllEntities = (): void => {
-      self.methods.listEntities().forEach(entity => {
-        entity.tab = null
-        entity.section = null
-      })
+    self.methods.removeEntity = (array, entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat): void => {
+      self.methods.listAllSections().forEach(section => self.methods.removeEntityFromSection(section, entity))
+      this.sheetSvc.removeByObject(array, entity)
       self.touch()
+    }
+
+    self.methods.removeEntityFromSection = (entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat, section: RpgTabSection): void => {
+      if (section.entity_ids) {
+        section.entity_ids = section.entity_ids.filter(id => id !== entity.id)
+        self.touch()
+      }
     }
 
     /******************************************************
@@ -499,44 +518,34 @@ export class RpgService {
      ******************************************************/
 
     self.methods.onSortableDrop = (e): void => {
-      const array = e.container.data
+      const array = e.container.data.entity_ids
       moveItemInArray(array, e.previousIndex, e.currentIndex)
-      array.forEach((item, index) => item.pos = index)
       self.touch()
     }
 
-    self.methods.onMoveList = (tabId: string, sectionId: string, e): void => {
+    self.methods.onMoveList = (e): void => {
+      const target: RpgTabSection = e.container.data
       const entity = e.item.data
-      entity.tab = tabId
-      entity.section = sectionId
-      self.methods.onSortableDrop(e)
-      // self.touch()
-    }
+      if (target) {
+        if (!target.entity_ids) {
+          target.entity_ids = []
+        }
+        if (!target.entity_ids.includes(entity.id)) {
+          target.entity_ids.push(entity.id)
+        }
+        self.methods.onSortableDrop(e)
+        return
+      }
 
-    // deprecated method, preserved for posterity
-    self.methods.getSortableOptions = (element, attrs, scope) => {
-      let behaviors = {
-        tabs: ($this, index) => {
-          let tab = self.methods.listTabs().filter(x => x.id === $this.data('id'))[0]
-          tab.pos = index
-        },
-        sections: ($this, index) => {
-          let section = self.methods.listTabSections(self.locals.data.structure_tab).filter(x => x.id === $this.data('id'))[0]
-          section.pos = index
-        },
-        collection_items: ($this, index) => {
-          let collection = self.methods.listCollections().find(x => x.id === attrs.collectionId)
-          let item = self.methods.listCollectionItems(collection).filter(x => x.id === $this.data('id'))[0]
-          item.pos = index
-        },
-        collectable_fields: ($this, index) => {
-          let collectable = self.methods.listCollectables().find(x => x.id === attrs.collectableId)
-          let item = self.methods.listCollectableFields(collectable).filter(x => x.id === $this.data('id'))[0]
-          item.pos = index
+      const origin = e.previousContainer.data as RpgTabSection
+      if (origin && origin.entity_ids) {
+        const index = origin.entity_ids.indexOf(entity.id)
+        if (index > -1) {
+          origin.entity_ids.splice(index, 1)
         }
       }
+      self.touch()
     }
-
 
     /******************************************************
      * Specific Methods (GOOD NAME)
@@ -573,10 +582,7 @@ export class RpgService {
     }
 
     self.methods.getEntityType = (entity: any): string => {
-      if (!!entity.input_type) { return 'RpgStat' }
-      if (entity.rolls !== undefined) { return 'RpgCalculation' }
-      if (entity.active !== undefined) { return 'RpgCondition' }
-      return 'RpgCollection'
+      return entity ? entity.constructor.name : 'unknown'
     }
 
     self.methods.getEntityInfo = (entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat): string => {

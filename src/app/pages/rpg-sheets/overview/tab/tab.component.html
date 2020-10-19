@@ -6,6 +6,7 @@
         <bt-rpg-overview-entity-collection   [self]="self" [entity]="entity" *ngSwitchCase="'RpgCollection'"></bt-rpg-overview-entity-collection>
         <bt-rpg-overview-entity-condition    [self]="self" [entity]="entity" *ngSwitchCase="'RpgCondition'"></bt-rpg-overview-entity-condition>
         <bt-rpg-overview-entity-stat         [self]="self" [entity]="entity" *ngSwitchCase="'RpgStat'"></bt-rpg-overview-entity-stat>
+        <ng-container *ngSwitchDefault>No known input for this type</ng-container>
       </div>
     </div>
   </div>

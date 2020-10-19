@@ -105,33 +105,52 @@ STRUCTURE TAB
                   <h2 class="gh2">Fields for section <span>{{ section.pos + 1 }}</span> of <span>{{ tab.name }}</span></h2>
                   <div class="structure-section-fields"
                     cdkDropList
-                    [cdkDropListData]="self.methods.listEntitiesBySection(section)"
-                    (cdkDropListDropped)="self.methods.onMoveList(tab.id, section.id, $event)"
+                    [cdkDropListData]="section"
+                    (cdkDropListDropped)="self.methods.onMoveList($event)"
                   >
                     <p *ngIf="!self.methods.anyEntitiesBySection(section)" class="p3">There are no fields assigned to this section. Drag fields into here!</p>
-                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesBySection(section)" cdkDrag [cdkDragData]="entity">
-                      <!-- todo:  [data-id]="entity.id" [data-entity-type]="self.methods.getEntityType(entity)" -->
-                      <span class="name">{{ entity.name }}</span>
-                      <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
+                    <div class="structure-field js-structure-field flex-row-all flex-gutters-5 flex-config-align-center"
+                      *ngFor="let entity of self.methods.listEntitiesBySection(section)"
+                      cdkDrag
+                      [cdkDragData]="entity"
+                    >
+                      <div class="flex-col flex-dynamic">
+                        <span class="name">{{ entity.name }}</span>
+                      </div>
+                      <div class="flex-col flex-dynamic text-right">
+                        <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
+                      </div>
+                      <div class="flex-col flex-static">
+                        <button class="g-remove" (click)="self.methods.removeEntityFromSection(entity, section)"><i class="material-icons">delete</i></button>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="flex-col-6">
-                  <h2 class="gh2">Unassigned Fields</h2>
+                  <h2 class="gh2">Available Fields</h2>
+
+                  <label class="checkbox-inline bm-15">
+                    <input type="checkbox" title="Show only unassigned" (ngModelChange)="self.touch()" [(ngModel)]="self.locals.only_unassigned">
+                    Show only unassigned
+                  </label>
+
                   <div class="structure-section-fields"
                     cdkDropList
-                    (cdkDropListDropped)="self.methods.onMoveList(null, null, $event)"
-                    [cdkDropListData]="self.methods.listEntitiesBySection()"
+                    (cdkDropListDropped)="self.methods.onMoveList($event)"
                   >
-                    <p *ngIf="!self.methods.anyEntitiesBySection()" class="p3">There are no unassigned fields. Create more on the Content tab or reassign from a different section.</p>
-                    <div class="structure-field js-structure-field flex-row-all flex-config-spaced flex-config-align-center" *ngFor="let entity of self.methods.listEntitiesBySection(null)" cdkDrag [cdkDragData]="entity">
-                      <!-- todo:  [data-id]="entity.id" [data-entity-type]="self.methods.getEntityType(entity)" -->
-                      <span class="name">{{ entity.name }}</span>
-                      <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
+                    <p *ngIf="!self.methods.anyAvailableEntities()" class="p3">There are no available fields. <ng-container *ngIf="self.locals.only_unassigned">Uncheck the above checkbox to see all available fields. </ng-container>Create more on the Content tab or reassign from a different section.</p>
+                    <div class="structure-field js-structure-field flex-row-all flex-gutters-5 flex-config-align-center"
+                      *ngFor="let entity of self.methods.listAvailableEntities()"
+                      cdkDrag
+                      [cdkDragData]="entity"
+                    >
+                      <div class="flex-col flex-dynamic">
+                        <span class="name">{{ entity.name }}</span>
+                      </div>
+                      <div class="flex-col flex-dynamic text-right">
+                        <span class="info">{{ self.methods.getEntityInfo(entity) }}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="tm-20 text-center">
-                    <button class="button button-red" (click)="self.methods.unassignAllEntities()">Unassign All Fields</button>
                   </div>
                 </div>
               </div>
@@ -179,7 +198,7 @@ CONTENT TAB
                 </div>
 
                 <div class="flex-col flex-static" *ngIf="self.model.stats.length > 1">
-                  <button class="g-remove" (click)="self.methods.removeByObject(self.model.stats, stat)"><i class="material-icons">delete</i></button>
+                  <button class="g-remove" (click)="self.methods.removeEntity(self.model.stats, stat)"><i class="material-icons">delete</i></button>
                 </div>
               </div>
               <button class="g-add" (click)="self.methods.addStat()"><i class="material-icons">add</i></button>
@@ -197,7 +216,7 @@ CONTENT TAB
                     <input type="text" placeholder="Formula" (ngModelChange)="self.methods.onCalculationChange(calc)" [(ngModel)]="calc.formula" class="form-control" [ngClass]="calc.valid ? 'valid-formula' : 'invalid-formula'">
                   </div>
                   <div class="flex-col flex-static">
-                    <button class="g-remove" (click)="self.methods.removeByObject(self.model.calculations, calc)"><i class="material-icons">delete</i></button>
+                    <button class="g-remove" (click)="self.methods.removeEntity(self.model.calculations, calc)"><i class="material-icons">delete</i></button>
                   </div>
                 </div>
                 <div class="g-error" *ngIf="!calc.valid">{{ calc.value }}</div>
@@ -229,7 +248,7 @@ CONTENT TAB
                     </div>
                   </div>
                   <div class="flex-col flex-static" *ngIf="self.model.collections.length > 1">
-                    <button class="g-remove" (click)="self.methods.removeByObject(self.model.collections, collection)"><i class="material-icons">delete</i></button>
+                    <button class="g-remove" (click)="self.methods.removeEntity(self.model.collections, collection)"><i class="material-icons">delete</i></button>
                   </div>
                 </div>
 
@@ -246,7 +265,7 @@ CONTENT TAB
                     <input type="text" placeholder="Condition name" (ngModelChange)="self.touch()" [(ngModel)]="condition.name" class="form-control" [disabled]="condition.active">
                   </div>
                   <div class="flex-col flex-static">
-                    <button class="g-remove" (click)="self.methods.removeByObject(self.model.conditions, condition)"><i class="material-icons">delete</i></button>
+                    <button class="g-remove" (click)="self.methods.removeEntity(self.model.conditions, condition)"><i class="material-icons">delete</i></button>
                   </div>
                 </div>
 
@@ -390,6 +409,7 @@ USER MODEL TAB
               <bt-rpg-entity-collection   [self]="self" [entity]="entity" *ngSwitchCase="'RpgCollection'"></bt-rpg-entity-collection>
               <bt-rpg-entity-condition    [self]="self" [entity]="entity" *ngSwitchCase="'RpgCondition'"></bt-rpg-entity-condition>
               <bt-rpg-entity-stat         [self]="self" [entity]="entity" *ngSwitchCase="'RpgStat'"></bt-rpg-entity-stat>
+              <ng-container *ngSwitchDefault>No known input for this type</ng-container>
             </div>
           </div>
         </div>
