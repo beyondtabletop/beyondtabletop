@@ -1,0 +1,12 @@
+<div class="flex-row-tablet flex-gutters-15 flex-config-wrap" *ngIf="tab">
+  <div class="overview-display-section section" *ngFor="let section of self.methods.listTabSectionsForOverview(tab)" [ngClass]="self.methods.getTabSectionClass(section)">
+    <div *ngFor="let entity of self.methods.listEntitiesByGrouping(tab.id, section.id)">
+      <div [ngSwitch]="self.methods.getEntityType(entity)">
+        <bt-rpg-overview-entity-calculation  [self]="self" [entity]="entity" *ngSwitchCase="'RpgCalculation'"></bt-rpg-overview-entity-calculation>
+        <bt-rpg-overview-entity-collection   [self]="self" [entity]="entity" *ngSwitchCase="'RpgCollection'"></bt-rpg-overview-entity-collection>
+        <bt-rpg-overview-entity-condition    [self]="self" [entity]="entity" *ngSwitchCase="'RpgCondition'"></bt-rpg-overview-entity-condition>
+        <bt-rpg-overview-entity-stat         [self]="self" [entity]="entity" *ngSwitchCase="'RpgStat'"></bt-rpg-overview-entity-stat>
+      </div>
+    </div>
+  </div>
+</div>
