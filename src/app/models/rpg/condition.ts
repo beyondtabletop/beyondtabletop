@@ -6,8 +6,6 @@ export class RpgCondition extends BtBase {
   name: string
   description: string
   active: boolean
-  tab: string
-  section: string
   effects: RpgConditionEffect[]
 
   getProto() {
@@ -16,8 +14,6 @@ export class RpgCondition extends BtBase {
       name: '',
       description: null,
       active: false,
-      tab: null,
-      section: null,
       effects: []
     }
   }

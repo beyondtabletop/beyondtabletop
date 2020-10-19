@@ -39,14 +39,13 @@ export class RpgCharacter extends BtBase {
       tabs: [
         new RpgTab({
           name: 'Example Tab',
-          id: 'TABIDIS12345',
           sections: [
             new RpgTabSection({
-              id: 'SECTIONIDIS0',
+              entity_ids: ['123456789012', '123456789013', '123456789014'],
               size: 6,
             }),
             new RpgTabSection({
-              id: 'SECTIONIDIS1',
+              entity_ids: ['COLLECTION01', 'CONDITION001'],
               size: 6,
             }),
           ]
@@ -62,33 +61,28 @@ export class RpgCharacter extends BtBase {
 
       stats: [
         new RpgStat({
-          name: 'Total HP',
           id: '123456789012',
-          tab: 'TABIDIS12345',
-          section: 'SECTIONIDIS0',
+          name: 'Total HP',
         }),
         new RpgStat({
+          id: '123456789013',
           name: 'Wounds',
-          tab: 'TABIDIS12345',
-          section: 'SECTIONIDIS0',
         }),
       ],
 
       calculations: [
         new RpgCalculation({
+          id: '123456789014',
           name: 'Current HP',
           formula: '{Total HP} - {Wounds}',
-          tab: 'TABIDIS12345',
-          section: 'SECTIONIDIS0',
         })
       ],
 
       collections: [
         new RpgCollection({
+          id: 'COLLECTION01',
           name: 'Spells',
           collectable: 'ZXCQWEEUIORT',
-          tab: 'TABIDIS12345',
-          section: 'SECTIONIDIS1',
           items: [
             new RpgCollectionItem({
               name: 'Magic Missile',
@@ -128,9 +122,8 @@ export class RpgCharacter extends BtBase {
 
       conditions: [
         new RpgCondition({
+          id: 'CONDITION001',
           name: 'Dead',
-          tab: 'TABIDIS12345',
-          section: 'SECTIONIDIS1',
           effects: [
             new RpgConditionEffect({
               stat: '123456789012',
