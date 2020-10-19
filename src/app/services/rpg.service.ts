@@ -63,7 +63,7 @@ export class RpgService {
           { label: '50%', value: 6 },
           { label: '100%', value: 12 },
           { label: '25%', value: 3 },
-          { label: '75%', value: 9 }
+          { label: '75%', value: 9 },
         ],
         input_types: [
           { label: 'Number', value: 'number', init: 0 },

@@ -1,6 +1,6 @@
 <div class="container display-sheet sheet-rpg use-tabs help-on">
 
-  <header class="left-tabs" [ngClass]="self.locals.tabs.showing_nav ? 'showing-nav' : ''">
+  <header class="left-tabs" [class.showing-nav]="self.locals.tabs.showing_nav">
     <div class="visible-bar flex-row-all flex-config-align-center flex-gutters-5" (click)="self.methods.toggleNav()">
       <div class="flex-col">
         <button class="toggle-nav">
@@ -47,7 +47,7 @@ STRUCTURE TAB
 
       <div class="tab" [class.active]="self.methods.isTabActive('structure')">
         <div class="nav-slider">
-          <div class="slide" [ngClass]="self.methods.anyActiveTab() ? 'past' : 'present'">
+          <div class="slide" [class.past]="self.methods.anyActiveTab()">
             <h2 class="gh2">Tabs</h2>
             <p class="help-text">Tabs separate data into different pages. Tabs are containers where sections live. When you add a new tab, you will see it show up in the navigation for this sheet.</p>
             <div class="bm-20" cdkDropList [cdkDropListData]="self.model.tabs" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
@@ -68,7 +68,7 @@ STRUCTURE TAB
             <button class="g-add" (click)="self.methods.addTab()"><i class="material-icons">add</i></button>
           </div>
 
-          <div class="slide" [ngClass]="self.methods.anyActiveTab() ? 'present' : 'future'">
+          <div class="slide" [class.present]="self.methods.anyActiveTab()">
             <div *ngFor="let tab of self.methods.structureTabInArray()">
               <div>
                 <h2 class="gh2"><span>{{ tab.name }}</span> Sections Layout</h2>
@@ -213,7 +213,7 @@ CONTENT TAB
                     <input type="text" placeholder="Name" (ngModelChange)="self.methods.sanitizeAspectName(calc)" [(ngModel)]="calc.name" class="form-control">
                   </div>
                   <div class="flex-col-8 flex-dynamic">
-                    <input type="text" placeholder="Formula" (ngModelChange)="self.methods.onCalculationChange(calc)" [(ngModel)]="calc.formula" class="form-control" [ngClass]="calc.valid ? 'valid-formula' : 'invalid-formula'">
+                    <input type="text" placeholder="Formula" (ngModelChange)="self.methods.onCalculationChange(calc)" [(ngModel)]="calc.formula" class="form-control" [class.invalid-formula]="!calc.valid">
                   </div>
                   <div class="flex-col flex-static">
                     <button class="g-remove" (click)="self.methods.removeEntity(self.model.calculations, calc)"><i class="material-icons">delete</i></button>
@@ -375,7 +375,7 @@ CONTENT TAB
                         </div>
                         <div class="flex-col-12 bm-5" *ngIf="field.input_type === 'formula'">
                           <label class="control-label">Formula</label>
-                          <input type="text" placeholder="Formula" (ngModelChange)="self.methods.validateCollectableFormula(field, collectable)" [(ngModel)]="field.formula" class="form-control" [ngClass]="field.valid ? 'valid-formula' : 'invalid-formula'">
+                          <input type="text" placeholder="Formula" (ngModelChange)="self.methods.validateCollectableFormula(field, collectable)" [(ngModel)]="field.formula" class="form-control" [class.invalid-formula]="!field.valid">
                           <div class="g-error tm-5" *ngIf="!field.valid">{{ field.error }}</div>
                         </div>
                       </div>

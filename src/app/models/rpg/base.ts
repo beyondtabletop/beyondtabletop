@@ -53,8 +53,8 @@ export class RpgCharacter extends BtBase {
         new RpgTab({
           name: 'Battlemap',
           sections: [
-            new RpgTabSection({ size: 6 }),
-            new RpgTabSection({ size: 6 }),
+            new RpgTabSection({ size: 6, overview: false }),
+            new RpgTabSection({ size: 6, overview: false }),
           ]
         })
       ],
