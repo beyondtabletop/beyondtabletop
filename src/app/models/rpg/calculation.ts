@@ -9,7 +9,6 @@ export class RpgCalculation extends BtBase {
 
   getProto() {
     return {
-      pos: 0,
       name: null,
       formula: null,
       rolls: false,

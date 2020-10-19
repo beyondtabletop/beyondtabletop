@@ -10,7 +10,6 @@ export class RpgCondition extends BtBase {
 
   getProto() {
     return {
-      pos: 0,
       name: '',
       description: null,
       active: false,

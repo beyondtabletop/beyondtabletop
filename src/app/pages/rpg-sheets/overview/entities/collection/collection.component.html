@@ -1,15 +1,15 @@
-<div class="bm-20" *ngFor="let collectable of self.methods.$list(self.methods.getCollectableById(entity.collectable))">
+<div class="rpg-collection" *ngFor="let collectable of self.methods.$list(self.methods.getCollectableById(entity.collectable))">
   <h2 class="gh4">{{ entity.name }}</h2>
-  <div class="bm-5" *ngIf="collectable.label_type === 'above'">
+  <div class="above-labels" *ngIf="collectable.label_type === 'above'">
     <div class="flex-row-all flex-gutters-5 flex-config-align-center flex-config-spaced">
-      <div class="flex-col" *ngFor="let field of self.methods.listCollectableFields(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
+      <div class="flex-col" *ngFor="let field of self.methods.listCollectableFieldsForOverview(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
         <label class="control-label">{{ field.name }}</label>
       </div>
     </div>
   </div>
-  <div class="bm-10 js-collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)">
+  <div class="collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)">
     <div class="flex-row-all flex-gutters-5 flex-config-wrap flex-config-align-center flex-config-spaced">
-      <div class="flex-col" [ngSwitch]="field.input_type" *ngFor="let field of self.methods.listCollectableFields(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
+      <div class="flex-col" [ngSwitch]="field.input_type" *ngFor="let field of self.methods.listCollectableFieldsForOverview(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
         <bt-rpg-overview-collectable-type-boolean    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'boolean'"></bt-rpg-overview-collectable-type-boolean>
         <bt-rpg-overview-collectable-type-formula    [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'formula'"></bt-rpg-overview-collectable-type-formula>
         <bt-rpg-overview-collectable-type-reference  [self]="self" [field]="field" [item]="item" [collectable]="collectable" *ngSwitchCase="'reference'"></bt-rpg-overview-collectable-type-reference>

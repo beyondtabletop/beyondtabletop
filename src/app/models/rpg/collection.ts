@@ -9,7 +9,6 @@ export class RpgCollection extends BtBase {
 
   getProto() {
     return {
-      pos: 0,
       name: null,
       collectable: null,
       items: []

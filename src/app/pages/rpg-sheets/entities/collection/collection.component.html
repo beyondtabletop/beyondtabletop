@@ -1,14 +1,14 @@
-<div class="bm-40" *ngFor="let collectable of self.methods.$list(self.methods.getCollectableById(entity.collectable))">
+<div class="rpg-collection rpg-collection-edit" *ngFor="let collectable of self.methods.$list(self.methods.getCollectableById(entity.collectable))">
   <h2 class="gh3">{{ entity.name }}</h2>
-  <div class="collection-label-row bm-5" *ngIf="collectable.label_type === 'above'">
+  <div class="collection-label-row above-labels" *ngIf="collectable.label_type === 'above'">
     <div class="flex-row-all flex-gutters-5 flex-config-align-center flex-config-spaced">
       <div class="flex-col" *ngFor="let field of self.methods.listCollectableFields(collectable)" [ngClass]="self.methods.getCollectableFieldClasses(field)">
         <label class="control-label">{{ field.name }}</label>
       </div>
     </div>
   </div>
-  <div cdkDropList [cdkDropListData]="self.model.collection_items" (cdkDropListDropped)="self.methods.onSortableDrop($event)"> <!--todo sortable: [data-collection-id]="entity.id"-->
-    <div class="flex-row-all flex-gutters-5 bm-10 js-collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)" cdkDrag [cdkDragData]="item">
+  <div cdkDropList [cdkDropListData]="self.model.collection_items" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+    <div class="flex-row-all flex-gutters-5 collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)" cdkDrag [cdkDragData]="item">
       <div class="flex-col flex-static">
         <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
       </div>
