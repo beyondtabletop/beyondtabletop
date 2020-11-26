@@ -1,2 +1,9 @@
-<label class="block-label">{{ self.methods.calculateCollectableFormula(field, item, collectable) }}</label>
-<button class="button button-orange" *ngIf="field.rolls">Roll</button>
+<label class="block-label" [class.invisible]="field.rolls">{{ self.methods.calculateCollectableFormula(field, item, collectable) }}</label>
+<div class="flex-row-all flex-gutters-5" *ngIf="field.rolls">
+  <div class="flex-col">
+    <button class="button button-orange" (click)="self.methods.rollFormula(field)">Roll</button>
+  </div>
+  <div class="flex-col">
+    <label class="block-label">{{ field.last_result }}</label>
+  </div>
+</div>
