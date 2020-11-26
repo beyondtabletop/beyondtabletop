@@ -584,7 +584,11 @@ export class RpgService {
     }
 
     self.methods.getEntityType = (entity: any): string => {
-      return entity ? entity.constructor.name : 'unknown'
+      if (entity instanceof RpgStat) { return 'RpgStat'}
+      if (entity instanceof RpgCalculation) { return 'RpgCalculation' }
+      if (entity instanceof RpgCondition) { return 'RpgCondition' }
+      if (entity instanceof RpgCollection) { return 'RpgCollection' }
+      return 'unknown'
     }
 
     self.methods.getEntityInfo = (entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat): string => {
