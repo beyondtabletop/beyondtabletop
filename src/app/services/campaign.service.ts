@@ -551,6 +551,7 @@ export class CampaignService {
       } else {
         self.methods.addNPC(npcCopy)
       }
+      self.locals.active_npc = null
     }
 
     self.methods.filteredMonsters = (): any[] => {
