@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.5.4",
+      "body": "- Fixes bug with deleting entities on the Content tab of RPG Sheets",
+      "created_at": "December 11, 2020"
+    },
+    {
       "title": "Changelog for 5.5.3",
       "body": "- Allows RPG sheets to be connected to battlemap tokens\n- Allows RPG fields to be included in more than one section at a time\n- Includes new special Tab on RPG Sheets called 'Battlemap' which is where you determine what will display on the Battlemap active card for connected tokens\n- Adds new checkbox on RPG sheets collectable fields which can include or exclude certain fields from showing on the overview page\n- Fix for rollable collectable calculations displaying results on RPG Sheets\n- RPG Sheet UI updates",
       "created_at": "November 26, 2020"

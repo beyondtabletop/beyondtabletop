@@ -503,12 +503,12 @@ export class RpgService {
     }
 
     self.methods.removeEntity = (array, entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat): void => {
-      self.methods.listAllSections().forEach(section => self.methods.removeEntityFromSection(section, entity))
+      self.methods.listAllSections().forEach((section: RpgTabSection) => self.methods.removeEntityFromSection(section, entity))
       this.sheetSvc.removeByObject(array, entity)
       self.touch()
     }
 
-    self.methods.removeEntityFromSection = (entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat, section: RpgTabSection): void => {
+    self.methods.removeEntityFromSection = (section: RpgTabSection, entity: RpgCalculation|RpgCondition|RpgCollection|RpgStat): void => {
       if (section.entity_ids) {
         section.entity_ids = section.entity_ids.filter(id => id !== entity.id)
         self.touch()
@@ -670,8 +670,8 @@ export class RpgService {
     }
 
     self.methods.rollFormula = (entity) => {
-      let result = self.methods.validateFormula(entity.formula, undefined, handleRolls)
-      let roll = result.roll_result.replace('%RESULT%', result.value).replace('%ACTION%', entity.name)
+      const result = self.methods.validateFormula(entity.formula, undefined, handleRolls)
+      const roll = result.roll_result.replace('%RESULT%', result.value).replace('%ACTION%', entity.name)
       this.store.addCustomRollToChat(roll)
       entity.last_result = result.value
     }
@@ -683,7 +683,7 @@ export class RpgService {
     }
 
     self.methods.calculateFormula = (entity) => {
-      let result = self.methods.validateFormula(entity.formula)
+      const result = self.methods.validateFormula(entity.formula)
 
       if (result.value !== undefined) {
         entity.value = result.value
@@ -914,7 +914,7 @@ export class RpgService {
     }
 
     self.methods.validateDiceRolls = (v, diceHandler = defaultDiceHandler) => {
-      const expression = /(\d{0,4})d\d{1,4}/gi
+      const expression = /\d{0,4}d\d{1,4}/gi
       const rolls = (v.formula || '').match(expression)
       v.rolls = !!rolls
 
@@ -931,7 +931,7 @@ export class RpgService {
         if (v.valid) {
           try {
             v.result = Math.floor(eval(v.formula))
-          } catch(err) {
+          } catch (err) {
             if (err) {
               v.valid = false
               v.error = 'Formula cannot be evaluated'
