@@ -367,7 +367,9 @@ export class MigrationService {
           ]
           entities.forEach(entity => {
             const section = sections.find(x => x.id === entity.section)
-            section.entity_ids.push(entity.id)
+            if (section) {
+              section.entity_ids.push(entity.id)
+            }
           })
         },
       },
