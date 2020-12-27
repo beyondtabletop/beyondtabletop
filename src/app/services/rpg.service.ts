@@ -707,10 +707,14 @@ export class RpgService {
         let named_field = self.methods.listCollectableFields(collectable).find(x => x.name === names[0])
 
         if (named_field !== undefined) {
-          if (names.length > 1 && named_field.input_type === 'reference') {
+          if (named_field.input_type === 'reference') {
             // Grabs the source the reference is pointing to, which is either a listed Stat, Calculation or Collection Item
             let source = self.methods.listEntitiesForReferences().find(x => x.id === item[named_field.field_id])
-            return self.methods.getReferenceValue(source, names[1])
+            if (names.length > 1) {
+              return self.methods.getReferenceValue(source, names[1])
+            } else {
+              return source && source.item.value
+            }
           } else {
             return item[named_field.field_id]
           }
@@ -891,12 +895,13 @@ export class RpgService {
           make sure the aspect has a value, and make sure that value is not NaN after parseInt */
       v.aspect_names.forEach(key => {
         let name = key.replace(expression, '$1')
-        let value = self.methods.validateIntValue(nameSearch(name))
+        let search = nameSearch(name)
+        let value = self.methods.validateIntValue(search)
         if (value !== undefined) {
           v.aspect_values.push(value)
         } else {
           v.valid = false
-          v.error = `${key} is not a valid stat or calculation`
+          v.error = `${key} is not a VALID stat or calculation`
         }
       })
 
