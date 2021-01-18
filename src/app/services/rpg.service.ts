@@ -525,6 +525,12 @@ export class RpgService {
       self.touch()
     }
 
+    self.methods.onCollectionDrop = (e): void => {
+      const array = e.container.data
+      moveItemInArray(array, e.previousIndex, e.currentIndex)
+      self.touch()
+    }
+
     self.methods.onMoveList = (e): void => {
       const target: RpgTabSection = e.container.data
       const entity = e.item.data

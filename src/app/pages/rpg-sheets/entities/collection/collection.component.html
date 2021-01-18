@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div cdkDropList [cdkDropListData]="self.model.collection_items" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+  <div cdkDropList [cdkDropListData]="entity.items" (cdkDropListDropped)="self.methods.onCollectionDrop($event)">
     <div class="flex-row-all flex-gutters-5 collection-item" *ngFor="let item of self.methods.listCollectionItems(entity)" cdkDrag [cdkDragData]="item">
       <div class="flex-col flex-static">
         <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>

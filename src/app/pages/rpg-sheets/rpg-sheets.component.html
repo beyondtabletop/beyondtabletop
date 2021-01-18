@@ -329,7 +329,7 @@ CONTENT TAB
                 </div>
               </div>
               <label class="control-label"><span>{{ collectable.name }}</span> Fields</label>
-              <div cdkDropList [cdkDropListData]="self.model.collectable_fields" (cdkDropListDropped)="self.methods.onSortableDrop($event)"><!-- TODO: SORTABLE  [data-collectable-id]="collectable.id" -->
+              <div cdkDropList [cdkDropListData]="collectable.fields" (cdkDropListDropped)="self.methods.onCollectionDrop($event)">
                 <div class="js-collectable-field collectable-field flex-row-all flex-gutters-5 flex-config-align-center bm-10" *ngFor="let field of self.methods.listCollectableFields(collectable)" cdkDrag [cdkDragData]="field">
                   <div class="flex-col flex-static">
                     <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
