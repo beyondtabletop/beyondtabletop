@@ -34,7 +34,8 @@ export class HoldDeleteComponent implements OnInit{
     this.time === this.LIMIT ? 'inactive' : 'active'
   }
 
-  mouseDown() {
+  mouseDown(e = null) {
+    if (e && e.which === 3) { return }
     this.unsubscribe()
     this.subscription = this.holdCounter.subscribe(() => {
       this.time -= this.INTERVAL_PERIOD

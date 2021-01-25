@@ -50,8 +50,14 @@ STRUCTURE TAB
           <div class="slide" [class.past]="self.methods.anyActiveTab()">
             <h2 class="gh2">Tabs</h2>
             <p class="help-text">Tabs separate data into different pages. Tabs are containers where sections live. When you add a new tab, you will see it show up in the navigation for this sheet.</p>
-            <div class="bm-20" cdkDropList [cdkDropListData]="self.model.tabs" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
-              <div class="js-structure-tab structure-tab flex-row-all flex-gutters-5 flex-config-align-center bm-10" *ngFor="let tab of self.methods.listTabs()" cdkDrag [cdkDragData]="tab" (click)="self.methods.setStructureTab(tab)" [ngClass]="self.methods.getStructureTabClass(tab)">
+            <div class="bm-20" cdkDropList [cdkDropListData]="self.model.tabs" (cdkDropListDropped)="self.methods.onCollectionDrop($event)">
+              <div class="js-structure-tab structure-tab flex-row-all flex-gutters-5 flex-config-align-center bm-10"
+                *ngFor="let tab of self.methods.listTabs()"
+                cdkDrag
+                [cdkDragData]="tab"
+                (click)="self.methods.setStructureTab(tab)"
+                [ngClass]="self.methods.getStructureTabClass(tab)"
+              >
                 <div class="flex-col flex-static">
                   <span class="drag-handle g-neutral" cdkDragHandle><i class="material-icons">menu</i></span>
                 </div>
@@ -76,7 +82,7 @@ STRUCTURE TAB
                   <p *ngIf="tab.name === 'Battlemap'" class="help-text">This is a special system-use tab that cannot be renamed. The data here is used to display on the Battlemap for tokens connected to this sheet.</p>
                   <input *ngIf="tab.name !== 'Battlemap'" type="text" placeholder="Tab name" (ngModelChange)="self.touch()" [(ngModel)]="tab.name" class="form-control">
                 </div>
-                <div class="bm-20 flex-row-all flex-config-wrap flex-gutters-5" cdkDropList [cdkDropListData]="tab.sections" (cdkDropListDropped)="self.methods.onSortableDrop($event)">
+                <div class="bm-20 flex-row-all flex-config-wrap flex-gutters-5" cdkDropList [cdkDropListData]="tab.sections" (cdkDropListDropped)="self.methods.onCollectionDrop($event)">
                   <div class="js-structure-section bm-10" *ngFor="let section of self.methods.listTabSections(tab)" cdkDrag [cdkDragData]="section" [ngClass]="self.methods.getTabSectionClass(section)" (click)="self.methods.setStructureSection(section)">
                     <div class="structure-section flex-row-all flex-config-align-center flex-config-justify-center">
                       <div>

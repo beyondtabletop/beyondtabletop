@@ -1,7 +1,7 @@
 <button class="hold-delete"
   [title]="title"
   [ngClass]="ringClass()"
-  (mousedown)="mouseDown()"
+  (mousedown)="mouseDown($event)"
   (mouseup)="mouseUp()"
   (touchstart)="mouseDown()"
   (touchend)="mouseUp()"

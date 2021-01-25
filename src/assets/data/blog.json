@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "title": "Changelog for 5.5.5",
+      "body": "- Fixes multiple issues with resorting lists on RPG sheets\n- Fixes bug where right clicking a hold-to-delete button would delete",
+      "created_at": "January 25, 2020"
+    },
+    {
       "title": "Changelog for 5.5.4",
       "body": "- Fixes bug with deleting entities on the Content tab of RPG Sheets",
       "created_at": "December 11, 2020"
