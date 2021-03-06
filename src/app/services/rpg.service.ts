@@ -936,7 +936,8 @@ export class RpgService {
     self.methods.validateStringChars = (v) => {
       if (v.valid) {
         /* Check each character of the remaining formula individually looking for bad chars */
-        v.valid = v.formula.split('').reduce((acc, char) =>  acc && !!char.match(/[-+\s\d.%\/*()]/gi), v.valid)
+        console.log(v.formula)
+        v.valid = v.formula.split('').reduce((acc, char) =>  acc && !!char.match(/[-+\s\d.%\/*():?><]/gi), v.valid)
         /* If we're good we eval, if there's a problem with the eval, we're invalid */
         if (v.valid) {
           try {
