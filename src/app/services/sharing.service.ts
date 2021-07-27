@@ -119,7 +119,7 @@ export class SharingService {
 
   private requestUserDetails = (email: string): Promise<BtUser> => {
     return new Promise(async (resolve, reject) => {
-      const already_has_access = Object.keys(this.permissions[this.session.doc_id]).map(key => this.permissions[this.session.doc_id][key]).some(permission => permission.email === email)
+      const already_has_access = Object.keys(this.permissions[this.session.doc_id]).map(key => this.permissions[this.session.doc_id][key]).some(permission => permission.email.toLowerCase() === email.toLowerCase())
       const no_user_msg = "Looks like this user either doesn't exist or hasn't logged in in a while. In order to share this document, they will need to sign in once and authenticate with the new Firebase database."
 
       if (already_has_access) {

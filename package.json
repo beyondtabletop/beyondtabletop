@@ -3,7 +3,7 @@
   "version": "5.5.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4202",
     "build": "ng build --prod",
     "deploy": "firebase deploy --only hosting:staging",
     "test": "ng test",
