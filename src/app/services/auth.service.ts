@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BtUser } from '../models/common/user.model'
-
-import { auth } from 'firebase/app'
+import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database'
 
@@ -34,8 +33,8 @@ export class AuthService {
   }
 
   async googleSignin(): Promise<void> {
-    const provider = new auth.GoogleAuthProvider()
-    const credential = await this.afAuth.auth.signInWithPopup(provider)
+    const provider = new firebase.auth.GoogleAuthProvider()
+    const credential = await this.afAuth.signInWithPopup(provider)
     return this.updateUserData(credential.user)
   }
 
@@ -62,7 +61,7 @@ export class AuthService {
   }
 
   async signOut(): Promise<void> {
-    await this.afAuth.auth.signOut()
+    await this.afAuth.signOut()
     this.router.navigate(['/'])
   }
 }

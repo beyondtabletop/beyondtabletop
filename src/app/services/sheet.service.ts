@@ -39,7 +39,7 @@ export class SheetService {
     window.confirm(message) ? confirm() : deny()
   };
 
-  isTouchDevice = (): boolean => !!document.createTouch;
+  isTouchDevice = (): boolean => !!document.ontouchstart;
 
   randomSecureString = (length: number): string => {
     let text = '';
