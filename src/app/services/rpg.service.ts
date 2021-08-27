@@ -679,7 +679,7 @@ export class RpgService {
       const result = self.methods.validateFormula(entity.formula, undefined, handleRolls)
       const roll = result.roll_result.replace('%RESULT%', result.value).replace('%ACTION%', entity.name)
       this.store.addCustomRollToChat(roll)
-      entity.last_result = result.value
+      entity.last_result = roll.split(':')[1].trim()
     }
 
     self.methods.onCalculationChange = async (entity) => {
