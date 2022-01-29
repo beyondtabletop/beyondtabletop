@@ -28,7 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "core-js": "^2.6.9",
     "date-fns": "^2.4.1",
-    "firebase": "^9.6.5",
+    "firebase": "^8.8.0",
     "ngx-color-picker": "^7.5.0",
     "ngx-markdown": "^10.1.1",
     "ngx-order-pipe": "^2.0.4",
