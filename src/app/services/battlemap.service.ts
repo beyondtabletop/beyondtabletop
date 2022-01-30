@@ -597,7 +597,7 @@ export class BattlemapService {
           self.methods.setCombatantInit(combatant, pack.result)
           return pack
         })
-      this.store.addRollsToChat(packs, name)
+      this.store.addRollsToChat(packs, '')
     }
 
     // Layers

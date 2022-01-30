@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BtUser } from '../models/common/user.model'
-import firebase from 'firebase/app';
-import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database'
+import firebase from 'firebase/compat/app'
+import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database'
 
 import { Observable, of } from 'rxjs'
 import { switchMap, take } from 'rxjs/operators'
