@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SheetService } from './sheet.service';
 import { HttpService } from './http.service';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { BtBool } from '../models/common/bool';
 import { BattlemapCombat } from '../models/battlemap/combat';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { AngularFireDatabase } from '@angular/fire/database'
+import { AngularFireDatabase } from '@angular/fire/compat/database'
 import { BtUser } from '../models/common/user.model'
 import { AuthService } from './auth.service'
 import { Observable, Subject, of, throwError, merge, iif, Subscription, from } from 'rxjs'

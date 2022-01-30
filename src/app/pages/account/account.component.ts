@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InterfaceService } from 'src/app/services/interface.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { of } from 'rxjs';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Component({
   selector: 'bt-account',

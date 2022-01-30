@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { BtUser } from 'src/app/models/common/user.model';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { take } from 'rxjs/operators';
 
 @Component({

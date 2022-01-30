@@ -6,9 +6,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -566,14 +566,14 @@ export function markedOptionsFactory(): MarkedOptions {
     BrowserModule,
     ColorPickerModule,
     NgxYoutubePlayerModule.forRoot(),
-    AngularFireModule.initializeApp({
+    provideFirebaseApp(() => initializeApp({
       apiKey: 'AIzaSyAtkNdM9IxuU3xOgTUOjllvisPJYREJjvE',
       authDomain: 'btt-firestore.firebaseapp.com',
       databaseURL: 'https://btt-firestore.firebaseio.com',
       projectId: 'btt-firestore',
       storageBucket: 'btt-firestore.appspot.com',
       messagingSenderId: '375298002497'
-    }),
+    })),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MarkdownModule.forRoot({
